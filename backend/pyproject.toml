@@ -1,0 +1,15 @@
+[project]
+name = "sbd"
+version = "0.1.0"
+description = "API Backend pour l'analyse de Deadlift avec Gemini"
+requires-python = "==3.11.*"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "google-genai",
+    "pydantic"
+]
+
+[tool.uv]
+package = false
