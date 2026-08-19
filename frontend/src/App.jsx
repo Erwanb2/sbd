@@ -1,86 +1,96 @@
 import { useState } from 'react';
-import { Activity } from 'lucide-react';
-import Header from './components/Headers';
-import Tabs from './components/Tabs';
-import UploadZone from './components/UploadZone';
-import ResultCard from './components/ResultCard';
+import Header from './components/Header.jsx';
+import Tabs from './components/Tabs.jsx';
+import UploadZone from './components/UploadZone.jsx';
+import ResultCard from './components/ResultCard.jsx';
+import LoadingProgress from './components/LoadingProgress.jsx'; // NOUVEAU
 
 export default function App() {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  
+  // NOUVEAU: 0 = Repo, 1 = Détection, 2 = Analyse
+  const [loadingStep, setLoadingStep] = useState(0); 
   
   const [activeTab, setActiveTab] = useState('squat');
   const [expandedCard, setExpandedCard] = useState(null);
 
-  // Configuration des URLs de démo
   const demoAnimations = {
     hauteur_stabilite_hanches: "https://media.giphy.com/media/v1/giphy.gif",
-    // etc...
   };
 
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) return;
 
-    setLoading(true);
+    setLoadingStep(1); // Démarrage: Étape Détection
     setResult(null);
     setExpandedCard(null);
 
-    const formData = new FormData();
-    formData.append('video', file);
-
     try {
-      const response = await fetch('http://localhost:8000/analyze', {
+      // ----------------------------------------------------
+      // ÉTAPE 1 : DÉTECTION (Upload + Triage)
+      // ----------------------------------------------------
+      const formData = new FormData();
+      formData.append('video', file);
+
+      const detectResponse = await fetch('http://localhost:8000/detect', {
         method: 'POST',
         body: formData,
       });
-      const data = await response.json();
+      const detectData = await detectResponse.json();
 
-      if (!response.ok) throw new Error(data.detail || "Erreur lors de l'analyse");
+      if (!detectResponse.ok) throw new Error(detectData.detail || "Erreur de détection");
 
-      setActiveTab(data.mouvement_detecte);
-      setResult(data);
+      // Super effet UX : l'onglet change tout seul sous les yeux de l'utilisateur !
+      setActiveTab(detectData.mouvement_detecte);
+      setLoadingStep(2); // Passage à l'étape Analyse
+
+      // ----------------------------------------------------
+      // ÉTAPE 2 : ANALYSE (Avec le fichier déjà uploadé)
+      // ----------------------------------------------------
+      const analyzeResponse = await fetch('http://localhost:8000/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          file_name: detectData.file_name,
+          movement: detectData.mouvement_detecte
+        }),
+      });
+      
+      const analyzeData = await analyzeResponse.json();
+      if (!analyzeResponse.ok) throw new Error(analyzeData.detail || "Erreur lors de l'analyse");
+
+      setResult(analyzeData);
 
     } catch (error) {
       alert(`Erreur ❌ : ${error.message}`);
     } finally {
-      setLoading(false);
+      setLoadingStep(0); // Fin du chargement
     }
   };
 
-  const noteSur20 = result ? Math.round((result.note_globale_brute / 18) * 20) : 0;
+  const noteSur20 = result ? Math.round((result.note_globale_brute / result.score_max_brut) * 20) : 0;
 
   return (
     <div className="max-w-4xl mx-auto p-6 pt-12 pb-24 text-white">
-      
       <Header />
       
-      <Tabs 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        disabled={!!result} 
-      />
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} disabled={!!result || loadingStep > 0} />
 
-      {/* ETAT 1 : UPLOAD */}
-      {!loading && !result && (
+      {/* ZONE D'UPLOAD */}
+      {loadingStep === 0 && !result && (
         <UploadZone file={file} setFile={setFile} handleUpload={handleUpload} />
       )}
 
-      {/* ETAT 2 : CHARGEMENT */}
-      {loading && (
-        <div className="flex flex-col items-center justify-center py-32 animate-in fade-in">
-          <Activity className="w-20 h-20 text-blue-500 animate-pulse mb-6" />
-          <h3 className="text-2xl font-bold mb-2 text-white">L'IA travaille...</h3>
-          <p className="text-gray-400 text-center">Détection et analyse biomécanique en cours.</p>
-        </div>
+      {/* BARRE DE CHARGEMENT ANIMÉE EN 2 ÉTAPES */}
+      {loadingStep > 0 && (
+        <LoadingProgress step={loadingStep} />
       )}
 
-      {/* ETAT 3 : RÉSULTATS */}
-      {result && (
+      {/* RÉSULTATS */}
+      {result && loadingStep === 0 && (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          
-          {/* Grosse Note Globale */}
           <div className="flex flex-col items-center justify-center p-10 bg-gray-900 border border-gray-800 rounded-3xl shadow-lg">
             <span className="text-gray-400 font-semibold mb-2 uppercase tracking-widest text-sm">
               Score Technique {result.mouvement_detecte}
@@ -93,17 +103,13 @@ export default function App() {
             </div>
           </div>
 
-          {/* Grille des critères avec les composants importés */}
           <div className="grid grid-cols-1 gap-4">
             {Object.entries(result).map(([key, data]) => {
-              if (key === 'note_globale_brute' || key === 'mouvement_detecte') return null;
-              
+              if (key === 'note_globale_brute' || key === 'score_max_brut' || key === 'mouvement_detecte') return null;
               return (
                 <ResultCard 
-                  key={key}
-                  criterionKey={key}
-                  data={data}
-                  isExpanded={expandedCard === key}
+                  key={key} criterionKey={key} data={data} 
+                  isExpanded={expandedCard === key} 
                   onToggle={() => setExpandedCard(expandedCard === key ? null : key)}
                   demoUrl={demoAnimations[key]}
                 />
