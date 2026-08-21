@@ -51,7 +51,7 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         video_file = client.files.get(name=file_name)
         
         chosen_schema = schema_mapping[mouvement_detecte]
-        prompt_analyse = f"Tu es un juge d'élite en Powerlifting. L'athlète exécute un {mouvement_detecte.upper()}. Donne une note stricte de 1 à 3 pour tous les critères de la grille et UNE SEULE phrase de conseil pour chacun."
+        prompt_analyse = f"You are a powerlifting judge. The athlete execute a {mouvement_detecte.upper()}. Give a note between 1 and 3 and comment"
         
         reponse_analyse = client.models.generate_content(
             model="gemini-3.5-flash",
