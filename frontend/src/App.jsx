@@ -63,7 +63,8 @@ export default function App() {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await fetch('http://localhost:8000/auth/google', {
+      // MODIFIÉ ICI : Utilisation de /api au lieu de http://localhost:8000
+      const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential })
@@ -101,7 +102,8 @@ export default function App() {
       const formData = new FormData();
       formData.append('video', file);
 
-      const detectResponse = await fetch('http://localhost:8000/detect', {
+      // MODIFIÉ ICI : Utilisation de /api au lieu de http://localhost:8000
+      const detectResponse = await fetch('/api/detect', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${ tokenAPI }`
@@ -121,7 +123,8 @@ export default function App() {
       setActiveTab(detectedMovement);
       setLoadingStep(2);
 
-      const analyzeResponse = await fetch('http://localhost:8000/analyze', {
+      // MODIFIÉ ICI : Utilisation de /api au lieu de http://localhost:8000
+      const analyzeResponse = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
