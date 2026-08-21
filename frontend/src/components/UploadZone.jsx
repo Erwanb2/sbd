@@ -7,9 +7,10 @@ export default function UploadZone({ file, setFile, handleUpload }) {
         <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-700 hover:border-gray-500 rounded-2xl p-16 bg-gray-950/50 transition-colors cursor-pointer relative group">
           <UploadCloud className="w-16 h-16 text-gray-600 mb-4 group-hover:text-white transition-colors" />
           <p className="text-gray-300 font-medium mb-1 text-center">
-            Glissez votre vidéo de Squat, Bench ou Deadlift.<br/>
+            Drag and drop your Squat, Bench or Deadlift video<br/>
           </p>
           <p className="text-gray-500 text-sm mt-4">MP4, MOV (Max 50MB)</p>
+
           
           <input 
             type="file" 
@@ -29,7 +30,7 @@ export default function UploadZone({ file, setFile, handleUpload }) {
           disabled={!file}
           className="w-full mt-6 bg-white text-black hover:bg-gray-200 font-bold py-4 px-8 rounded-xl disabled:opacity-50 transition-all uppercase tracking-wide"
         >
-          Lancer l'analyse IA
+          Start AI analysis
         </button>
       </div>
     </form>

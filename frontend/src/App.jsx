@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import Header from './components/Header.jsx';
-import Tabs from './components/Tabs.jsx';
 import UploadZone from './components/UploadZone.jsx';
 import ResultCard from './components/ResultCard.jsx';
 import LoadingProgress from './components/LoadingProgress.jsx';
@@ -32,7 +31,6 @@ export default function App() {
   const [file, setFile] = useState(null);
   const [result, setResult] = useState(null);
   const [loadingStep, setLoadingStep] = useState(0);
-  const [activeTab, setActiveTab] = useState('squat');
   const [expandedCard, setExpandedCard] = useState(null);
 
   const [tokenAPI, setTokenAPI] = useState(null); 
@@ -120,7 +118,6 @@ export default function App() {
 
       // Handle both French and English keys from your backend just in case
       const detectedMovement = detectData.movement_detected || detectData.mouvement_detecte;
-      setActiveTab(detectedMovement);
       setLoadingStep(2);
 
       // MODIFIÉ ICI : Utilisation de /api au lieu de http://localhost:8000
@@ -184,7 +181,6 @@ export default function App() {
         />
       ) }
       
-      <Tabs activeTab={ activeTab } setActiveTab={ setActiveTab } disabled={ !!result || loadingStep > 0 } />
 
       { loadingStep === 0 && !result && (
         <UploadZone file={ file } setFile={ setFile } handleUpload={ handleUpload } />

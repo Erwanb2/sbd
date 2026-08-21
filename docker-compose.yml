@@ -21,6 +21,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:            
+      - DOMAIN=${DOMAIN}  
+      - TLS_EMAIL=${TLS_EMAIL}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data

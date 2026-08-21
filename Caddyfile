@@ -1,16 +1,13 @@
-# Remplacez par votre vrai domaine
-sbdreviews.com, www.sbdreviews.com {
-    
-    # Remplacer par votre email pour le certificat HTTPS
-    tls erwanb432@gmail.com
+{$DOMAIN} {
+   
+  # Utilise un email en prod, ou le mot "internal" en local
+  tls {$TLS_EMAIL}
 
-    # On envoie tout ce qui commence par /api vers le conteneur backend
-    handle_path /api/* {
-        reverse_proxy backend:8000
-    }
+  handle_path /api/* {
+    reverse_proxy backend:8000
+  }
 
-    # Le reste est envoyé vers le frontend
-    handle {
-        reverse_proxy frontend:80
-    }
+  handle {
+    reverse_proxy frontend:80
+  }
 }
