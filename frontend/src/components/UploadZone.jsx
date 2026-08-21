@@ -8,7 +8,6 @@ export default function UploadZone({ file, setFile, handleUpload }) {
           <UploadCloud className="w-16 h-16 text-gray-600 mb-4 group-hover:text-white transition-colors" />
           <p className="text-gray-300 font-medium mb-1 text-center">
             Glissez votre vidéo de Squat, Bench ou Deadlift.<br/>
-            <span className="text-emerald-400 font-bold">L'IA détectera le mouvement toute seule.</span>
           </p>
           <p className="text-gray-500 text-sm mt-4">MP4, MOV (Max 50MB)</p>
           

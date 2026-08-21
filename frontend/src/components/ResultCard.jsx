@@ -1,8 +1,12 @@
-import { PlayCircle, ChevronDown } from 'lucide-react';
+import { PlayCircle, ChevronDown, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { formatKey, getScoreColor } from '../utils/helpers';
 
-export default function ResultCard({ criterionKey, data, isExpanded, onToggle, demoUrl }) {
+export default function ResultCard({ criterionKey, data, isExpanded, onToggle, demo }) {
   const score = data.note;
+
+  // On détermine si la démo est un guide complet (objet avec bad/good) ou un lien simple
+  const isDetailedGuide = demo && typeof demo === 'object' && demo.bad && demo.good;
+  const isSimpleUrl = demo && typeof demo === 'string';
 
   return (
     <div 
@@ -31,18 +35,87 @@ export default function ResultCard({ criterionKey, data, isExpanded, onToggle, d
         </p>
       </div>
 
-      {/* ZONE VIDÉO DÉMO (Cachée par défaut) */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-96 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="bg-gray-950 rounded-xl p-4 flex flex-col items-center justify-center border border-gray-800">
-          {demoUrl ? (
-            <img src={demoUrl} alt="Demo" className="rounded-lg max-h-64 object-cover" />
-          ) : (
-            <div className="flex flex-col items-center text-gray-500 py-10">
-              <PlayCircle className="w-12 h-12 mb-3 opacity-30" />
-              <span className="text-sm font-medium uppercase tracking-wider">Vidéo démo à venir</span>
+      {/* ZONE GUIDE & DEMO DÉPLIABLE */}
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-[1200px] mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+        
+        {/* CAS 1 : Guide comparatif complet (comme le Leg Drive) */}
+        {isDetailedGuide ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            
+            {/* CARTE ERREUR */}
+            <div className="bg-red-950/20 border border-red-900/40 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-3 text-red-400 font-bold text-sm uppercase tracking-wide">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>Image 1 : {demo.bad.title}</span>
+                </div>
+
+                <div className="rounded-lg overflow-hidden bg-black/60 mb-4 border border-red-900/30">
+                  <img 
+                    src={demo.bad.image} 
+                    alt="Mauvaise exécution" 
+                    className="w-full h-48 object-contain"
+                  />
+                </div>
+
+                <div className="space-y-2 text-xs md:text-sm text-gray-300">
+                  <p>
+                    <span className="font-semibold text-red-400">❌ Ce qu'il ne faut pas faire : </span>
+                    {demo.bad.description}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-red-400">Le problème : </span>
+                    {demo.bad.problem}
+                  </p>
+                </div>
+              </div>
             </div>
-          )}
-        </div>
+
+            {/* CARTE BONNE POSTURE */}
+            <div className="bg-emerald-950/20 border border-emerald-900/40 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-3 text-emerald-400 font-bold text-sm uppercase tracking-wide">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Image 2 : {demo.good.title}</span>
+                </div>
+
+                <div className="rounded-lg overflow-hidden bg-black/60 mb-4 border border-emerald-900/30">
+                  <img 
+                    src={demo.good.image} 
+                    alt="Bonne posture" 
+                    className="w-full h-48 object-contain"
+                  />
+                </div>
+
+                <div className="space-y-2 text-xs md:text-sm text-gray-300">
+                  <p>
+                    <span className="font-semibold text-emerald-400">✅ Ce qu'il faut faire : </span>
+                    {demo.good.description}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-emerald-400">L'astuce : </span>
+                    {demo.good.tip}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        ) : isSimpleUrl ? (
+          /* CAS 2 : Démo simple (GIF/Vidéo) */
+          <div className="bg-gray-950 rounded-xl p-4 flex flex-col items-center justify-center border border-gray-800">
+            <img src={demo} alt="Demo" className="rounded-lg max-h-64 object-cover" />
+          </div>
+        ) : (
+          /* CAS 3 : Pas de démo */
+          <div className="bg-gray-950 rounded-xl p-4 flex flex-col items-center justify-center border border-gray-800">
+            <div className="flex flex-col items-center text-gray-500 py-6">
+              <PlayCircle className="w-10 h-10 mb-2 opacity-30" />
+              <span className="text-xs font-medium uppercase tracking-wider">Guide à venir</span>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

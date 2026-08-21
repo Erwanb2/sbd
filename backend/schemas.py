@@ -14,7 +14,7 @@ class VideoClassification(BaseModel):
 # --- 2. SCHÉMAS D'ANALYSE (LE "COACH") ---
 class EvaluationCritere(BaseModel):
     note: int = Field(description="Note stricte de 1 à 3.", ge=1, le=3)
-    commentaire: str = Field(description="Une seule phrase courte et percutante donnant un conseil ciblé.")
+    commentaire: str = Field(description="Une seule phrase courte et percutante donnant un conseil ciblé si la note 1/3 ou 2/3. Fait l'éloge de l'utilisateur de manière extrême en cas de 3/3.")
 
 class AnalyseSquat(BaseModel):
     profondeur: EvaluationCritere = Field(description="1=Mauvais (demi-squat). 2=Moyen. 3=Bon (creux hanche sous le genou).")

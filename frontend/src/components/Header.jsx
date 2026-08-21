@@ -7,7 +7,6 @@ export default function Header() {
         <span className="text-emerald-500">D</span>
         <span className="text-white ml-3">Reviews</span>
       </h1>
-      <p className="text-gray-400 text-lg">L'analyse biomécanique IA pour les Powerlifters.</p>
     </div>
   );
 }

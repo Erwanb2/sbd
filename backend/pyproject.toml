@@ -8,7 +8,9 @@ dependencies = [
     "uvicorn",
     "python-multipart",
     "google-genai",
-    "pydantic"
+    "pydantic",
+    "google-auth>=2.56.3",
+    "pyjwt>=2.13.0",
 ]
 
 [tool.uv]

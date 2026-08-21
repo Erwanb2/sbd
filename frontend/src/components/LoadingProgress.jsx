@@ -29,10 +29,6 @@ export default function LoadingProgress({ step }) {
           <div className="absolute inset-0 bg-white/20 w-full h-full animate-[shimmer_2s_infinite]"></div>
         </div>
       </div>
-      
-      <p className="text-gray-500 text-sm font-medium">
-        {isDetecting ? "L'IA visionne la vidéo pour comprendre l'exercice" : "Décomposition des angles et de la posture"}
-      </p>
     </div>
   );
 }
