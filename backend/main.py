@@ -20,9 +20,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ==========================================
-# ⚙️ CONFIGURATION AUTHENTIFICATION & QUOTAS
-# ==========================================
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID") 
 SECRET_KEY = os.getenv("SECRET_KEY")
 

@@ -5,7 +5,6 @@ services:
       - backend/.env
     volumes:
       - ./backend:/app
-    # On a retiré "ports", Caddy communiquera en réseau interne
 
   frontend:
     build: ./frontend
@@ -13,7 +12,6 @@ services:
       - frontend/.env
     depends_on:
       - backend
-    # On a retiré "ports" ici aussi
 
   caddy:
     image: caddy:2-alpine

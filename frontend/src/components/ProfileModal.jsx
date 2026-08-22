@@ -36,7 +36,7 @@ export default function ProfileModal({ user, tokenAPI, onClose, onUpdateUser }) 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-gray-950 border border-gray-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
+      <div className="bg-gray-950 border border-gray-800 rounded-3xl w-full max-w-4xl shadow-2xl overflow-y-auto max-h-[95vh] relative flex flex-col md:flex-row">
         
         <button 
           onClick={ onClose }
