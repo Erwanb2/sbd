@@ -2,7 +2,7 @@ import { PlayCircle, ChevronDown, AlertTriangle, CheckCircle2 } from 'lucide-rea
 import { formatKey, getScoreColor } from '../utils/helpers';
 
 export default function ResultCard({ criterionKey, data, isExpanded, onToggle, demo }) {
-  const score = data.note;
+  const score = data.score;
 
   // On détermine si la démo est un guide complet (objet avec bad/good) ou un lien simple
   const isDetailedGuide = demo && typeof demo === 'object' && demo.bad && demo.good;
@@ -31,7 +31,7 @@ export default function ResultCard({ criterionKey, data, isExpanded, onToggle, d
       {/* Le commentaire du coach */}
       <div className="bg-black/30 p-4 rounded-xl border border-current/10">
         <p className="text-[15px] opacity-90 leading-relaxed italic text-white/90">
-          "{data.commentaire}"
+          "{data.feedback}"
         </p>
       </div>
 

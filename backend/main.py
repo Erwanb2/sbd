@@ -8,7 +8,8 @@ from google.auth.transport import requests as google_requests
 import jwt
 from datetime import date
 
-from ai_service import detect_movement, analyze_movement
+# NOUVEL IMPORT : On importe notre fonction optimisée
+from ai_service import upload_and_detect_concurrent, analyze_movement
 
 app = FastAPI(title="SBD Reviews API")
 
@@ -39,17 +40,13 @@ class AnalyzeRequest(BaseModel):
     file_name: str
     movement: str
 
-# ==========================================
-# 🗄️ BASE DE DONNÉES (SQLite)
-# ==========================================
+
 def get_db_connection():
-    """Ouvre une connexion à la base de données."""
     conn = sqlite3.connect("utilisateurs.db")
-    conn.row_factory = sqlite3.Row # Permet d'utiliser les résultats comme des dictionnaires
+    conn.row_factory = sqlite3.Row
     return conn
 
 def init_db():
-    """Crée la table des utilisateurs au démarrage de l'API s'il elle n'existe pas."""
     conn = get_db_connection()
     conn.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -62,18 +59,15 @@ def init_db():
     conn.commit()
     conn.close()
 
-# On initialise la DB tout de suite
 init_db()
 
 def get_user(email: str):
-    """Récupère un utilisateur dans la base."""
     conn = get_db_connection()
     user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
     conn.close()
     return dict(user) if user else None
 
 def save_user(user: dict):
-    """Insère un nouvel utilisateur ou met à jour s'il existe déjà."""
     conn = get_db_connection()
     conn.execute('''
         INSERT INTO users (email, plan, uploads_today, last_upload_date)
@@ -87,21 +81,15 @@ def save_user(user: dict):
     conn.close()
 
 
-# ==========================================
-# 🔐 ROUTES D'AUTHENTIFICATION
-# ==========================================
 @app.post("/auth/google")
 async def auth_google(body: GoogleToken):
     try:
-        # 1. Vérification auprès de Google
         idinfo = id_token.verify_oauth2_token(body.token, google_requests.Request(), GOOGLE_CLIENT_ID)
         email = idinfo['email']
 
-        # 2. Création/Récupération de l'utilisateur dans SQLite
         user = get_user(email)
         
         if not user:
-            # Nouvel utilisateur !
             user = {
                 "email": email,
                 "plan": "free",
@@ -109,15 +97,12 @@ async def auth_google(body: GoogleToken):
                 "last_upload_date": str(date.today())
             }
         
-        # 3. Réinitialisation journalière du quota
         if user["last_upload_date"] != str(date.today()):
             user["uploads_today"] = 0
             user["last_upload_date"] = str(date.today())
 
-        # On sauvegarde les changements (nouveau user ou reset de date)
         save_user(user)
 
-        # 4. Génération d'un token propre à TON application
         access_token = jwt.encode({"sub": email}, SECRET_KEY, algorithm="HS256")
         quota_left = QUOTAS[user["plan"]] - user["uploads_today"]
 
@@ -129,9 +114,6 @@ async def auth_google(body: GoogleToken):
         raise HTTPException(status_code=401, detail="Token Google invalide")
 
 
-# ==========================================
-# 🛡️ DÉPENDANCE DE SÉCURITÉ (Middleware)
-# ==========================================
 def get_current_user(authorization: str = Header(None)):
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Non autorisé. Connectez-vous.")
@@ -141,40 +123,30 @@ def get_current_user(authorization: str = Header(None)):
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
         email = payload.get("sub")
         
-        # On va chercher le user dans la vraie DB
         user = get_user(email)
-        
-        # Si la base de données est vide ou l'utilisateur supprimé
         if not user:
-            raise HTTPException(status_code=401, detail="Utilisateur introuvable. Veuillez vous reconnecter.")
+            raise HTTPException(status_code=401, detail="Utilisateur introuvable.")
             
-        # Mise à jour du jour
         today_str = str(date.today())
         if user["last_upload_date"] != today_str:
             user["uploads_today"] = 0
             user["last_upload_date"] = today_str
-            save_user(user) # On n'oublie pas de sauvegarder en base
+            save_user(user)
             
         return user
     except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Session expirée, veuillez vous reconnecter")
+        raise HTTPException(status_code=401, detail="Session expirée, reconnectez-vous")
 
 
-# ==========================================
-# 🚀 ROUTES EXISTANTES
-# ==========================================
 @app.put("/users/me/plan")
 async def update_user_plan(request: PlanUpdateRequest, user: dict = Depends(get_current_user)):
-    """Permet à l'utilisateur de changer d'abonnement"""
     if request.plan not in QUOTAS:
         raise HTTPException(status_code=400, detail="Plan invalide")
     
-    # Mise à jour en base de données
     user["plan"] = request.plan
     save_user(user)
     
     quota_left = max(0, QUOTAS[user["plan"]] - user["uploads_today"])
-    
     return {
         "message": "Plan mis à jour avec succès",
         "plan": user["plan"],
@@ -182,12 +154,12 @@ async def update_user_plan(request: PlanUpdateRequest, user: dict = Depends(get_
     }
 
 
-@app.post("/detect")
+# LA ROUTE RENOMMÉE POUR MATCHER TON REACT :
+@app.post("/upload_and_detect")
 async def detect_video(video: UploadFile = File(...), user: dict = Depends(get_current_user)):
     if user["uploads_today"] >= QUOTAS[user["plan"]]:
         raise HTTPException(status_code=403, detail="Quota journalier atteint ! Revenez demain ou passez Premium.")
         
-    # On retire un crédit et on SAUVEGARDE en base de données !
     user["uploads_today"] += 1
     save_user(user)
     
@@ -196,12 +168,12 @@ async def detect_video(video: UploadFile = File(...), user: dict = Depends(get_c
         buffer.write(await video.read())
 
     try:
-        result = detect_movement(temp_file_path)
+        # On appelle la nouvelle fonction qui tourne en parallèle !
+        result = upload_and_detect_concurrent(temp_file_path)
         result["quota_restant"] = QUOTAS[user["plan"]] - user["uploads_today"]
         return result
         
     except HTTPException:
-        # En cas d'erreur IA, on rembourse le crédit en base de données
         user["uploads_today"] -= 1
         save_user(user)
         raise
