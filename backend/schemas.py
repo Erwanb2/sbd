@@ -49,15 +49,62 @@ class AnalyzeBench(BaseModel):
 
 # --- CONVENTIONAL DEADLIFT ---
 class AnalyzeConventionalDeadlift(BaseModel):
-    starting_position: EvaluationCriteria = Field(description="Evaluates setup before pull. 1-2=Poor (Bar far from mid-foot, hips too low). 4=Optimal (bar over mid-foot, scapula over bar).")
-    slack_pull_and_lat_engagement: EvaluationCriteria = Field(description="Evaluates pre-tension. 1-2=Poor (grip and rip, loose lats). 4=Optimal (bending the bar, audible slack pull, tight lats).")
-    leg_drive_activation: EvaluationCriteria = Field(description="Evaluates quad recruitment. 1-2=Poor (hips shoot up early, stiff-leg pull). 4=Optimal (torso angle remains constant off the floor).")
-    hip_hinge_mechanics: EvaluationCriteria = Field(description="Evaluates posterior chain. 1-2=Poor (squatting the weight up). 4=Optimal (excellent hamstring/glute tension).")
-    core_bracing_and_spine_neutrality: EvaluationCriteria = Field(description="Evaluates spine integrity. 1-2=Poor (severe lumbar/thoracic rounding). 4=Optimal (massive brace, neutral spine).")
-    bar_path_and_proximity: EvaluationCriteria = Field(description="Evaluates bar trajectory. 1-2=Poor (bar drifts away from shins). 4=Optimal (straight vertical path, continuous light leg contact).")
-    lockout_execution: EvaluationCriteria = Field(description="Evaluates completion. 1-2=Poor (soft knees, hitching, hyperextension). 4=Optimal (crisp glute squeeze, tall posture).")
-    eccentric_control_and_descent: EvaluationCriteria = Field(description="Evaluates lowering. 1-2=Poor (crashing, dropping, bouncing on knees). 4=Optimal (controlled hinge lowering).")
-    
+    starting_position: EvaluationCriteria = Field(
+        description="Evaluates setup before pull. "
+                    "1=Poor (Bar far from mid-foot, hips extremely high/low, shoulders completely misaligned). "
+                    "2=Subpar (Bar slightly off mid-foot, hips too low like a squat, or shoulders slightly behind bar). "
+                    "3=Good (Bar over mid-foot, hips at acceptable height, minor deviation in scapula position). "
+                    "4=Optimal (Bar exactly over mid-foot, shins touching bar, hips at optimal height, scapula directly over bar)."
+    )
+    slack_pull_and_lat_engagement: EvaluationCriteria = Field(
+        description="Evaluates pre-tension. "
+                    "1=Poor (Complete 'grip and rip', zero tension before lift, loose lats, rounded shoulders). "
+                    "2=Subpar (Attempted tension but lost before liftoff, soft elbows, lats barely engaged). "
+                    "3=Good (Noticeable tension and slack pull, but slight loss of upper back tightness during initial pull). "
+                    "4=Optimal ('Bending the bar', audible slack pull, lats aggressively engaged and locked throughout)."
+    )
+    leg_drive_activation: EvaluationCriteria = Field(
+        description="Evaluates quad recruitment off the floor. "
+                    "1=Poor (Hips shoot up immediately, lifting entirely with the back/stiff-leg pull). "
+                    "2=Subpar (Noticeable early hip rise, minimal quad recruitment, back takes over early). "
+                    "3=Good (Solid leg drive, torso angle remains mostly constant with only very slight early hip movement). "
+                    "4=Optimal (Perfect leg drive, torso angle remains absolutely constant off the floor, pushing the floor away)."
+    )
+    hip_hinge_mechanics: EvaluationCriteria = Field(
+        description="Evaluates posterior chain utilization. "
+                    "1=Poor (Squatting the weight up, zero tension in hamstrings/glutes). "
+                    "2=Subpar (Poor hinge, knees translate too far forward, relying too much on quads or lower back). "
+                    "3=Good (Solid posterior chain tension, but slight mistiming between knee and hip extension). "
+                    "4=Optimal (Excellent hamstring/glute tension, perfectly synchronized knee and hip extension)."
+    )
+    core_bracing_and_spine_neutrality: EvaluationCriteria = Field(
+        description="Evaluates spine integrity. "
+                    "1=Poor (Complete loss of bracing, severe lumbar and thoracic rounding). "
+                    "2=Subpar (Weak brace, noticeable lumbar flexion/rounding during the pull). "
+                    "3=Good (Solid brace, neutral lumbar spine, slight but safe and acceptable thoracic rounding). "
+                    "4=Optimal (Massive 360-degree brace, perfectly rigid and neutral spine from cervical to lumbar throughout)."
+    )
+    bar_path_and_proximity: EvaluationCriteria = Field(
+        description="Evaluates bar trajectory. "
+                    "1=Poor (Bar drifts significantly away from shins/thighs, causing forward balance loss). "
+                    "2=Subpar (Bar loses contact with legs off the floor or loops forward around the knees). "
+                    "3=Good (Mostly straight vertical path, but intermittent or very light contact with legs). "
+                    "4=Optimal (Perfectly straight vertical path, continuous light contact dragging up the shins and thighs)."
+    )
+    lockout_execution: EvaluationCriteria = Field(
+        description="Evaluates completion of the lift. "
+                    "1=Poor (Fails to lockout, hitched rep, soft knees, or extreme dangerous lumbar hyperextension). "
+                    "2=Subpar (Slow/stuttering lockout, slight hyperextension, or slightly soft hips/knees at the top). "
+                    "3=Good (Solid lockout, but slightly lacking an aggressive glute squeeze or perfectly tall posture). "
+                    "4=Optimal (Crisp forceful glute squeeze, perfectly tall posture, knees/hips locked simultaneously without leaning back)."
+    )
+    eccentric_control_and_descent: EvaluationCriteria = Field(
+        description="Evaluates lowering of the bar. "
+                    "1=Poor (Completely dropping the bar, crashing, or bouncing heavily on knees). "
+                    "2=Subpar (Uncontrolled descent, bending knees too early causing the bar to travel forward). "
+                    "3=Good (Controlled descent but slight knee interference or slightly rapid drop). "
+                    "4=Optimal (Perfectly controlled hinge lowering, hips travel back first, knees bend only after bar passes them)."
+    )
     # Personas spécifiques au Deadlift
     lifter_persona: DeadliftPersona = Field(description="Classify the lifter into one of the specific archetypes based on their dominant trait or flaw.")
     persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")

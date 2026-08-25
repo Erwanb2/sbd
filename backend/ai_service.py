@@ -116,26 +116,64 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
         The athlete executes a {mouvement_detecte.upper()}.
         
-        IMPORTANT GRADING RULE: 
-        - Assume the default score is 1 (Poor) or 2 (Average). 
-        - You MUST NOT give a 4 (Optimal) unless the form is absolutely perfect according to a textbook IPF world champion standard. 
-        - Look actively for flaws. If you see ANY flaws, the score cannot be 4.
+
+        GRADING RULE: 
+          1.  Assume the default score is 1 (Poor)
+          2. A Score: An integer from 1 to 4, based strictly on the provided rubrics.
+          3. A Brief Explanation: A concise 1-2 sentence justification explaining EXACTLY what visual evidence led to this score.
+
+        CRITICAL VISIBILITY RULE (The "NA" Rule): 
+        If the camera angle, framing, lighting, or video quality makes it impossible to accurately assess a specific body part or phase of the lift (e.g., the lifter's feet are out of frame, making 'Starting Position' impossible to judge), you MUST output "NA" for the score. Do not guess. In the explanation, state exactly why it cannot be scored (e.g., "NA - Lower legs and feet are out of frame, cannot evaluate bar proximity").
+
+        At the end of your analysis, calculate the AVERAGE SCORE of the lift based only on the criteria that received a numerical score (exclude "NA" from the math).
+
+        Output your analysis in the following structured format:
+
+        1. Starting Position
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on mid-foot placement, hip height, and scapula position]
+
+        2. Slack Pull and Lat Engagement
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on upper back tension and pre-lift tightness]
+
+        3. Leg Drive Activation
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on hip rise and quad usage off the floor]
+
+        4. Hip Hinge Mechanics
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on posterior chain tension and joint synchronization]
+
+        5. Core Bracing and Spine Neutrality
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on lumbar/thoracic rounding and brace]
+
+        6. Bar Path and Proximity
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on how close the bar stays to the shins/thighs]
+
+        7. Lockout Execution
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on hip/knee extension and posture at the top]
+
+        8. Eccentric Control and Descent
+        - Score: [1, 2, 3, 4, or NA]
+        - Explanation: [Briefly explain the score based on how the weight is lowered]
         """
         
         if "deadlift" in mouvement_detecte.lower():
             prompt_analyse += """
-            LIFTER PERSONA CLASSIFICATION & MANDATORY PENALTIES:
-            Based on your analysis, assign exactly ONE 'lifter_persona'. 
-            
-            CRITICAL RULE: The persona represents the lifter's WORST flaw. If you assign a negative persona, you MUST heavily penalize the related biomechanical criteria with a strict score of 1 (Poor) or 2. 
+            LIFTER PERSONA CLASSIFICATION
+            Based on your analysis, assign exactly ONE fun 'lifter_persona'. 
             
             - 'The Technician': Form is perfect.
-            - 'The Crane': Hips shoot up early. MUST SCORE poorly on 'leg_drive_activation'.
-            - 'The Squatter': Hips are way too low. MUST SCORE poorly on 'starting_position'.
-            - 'The Fishing Rod': Visible back rounding. MUST SCORE poorly on 'core_bracing_and_spine_neutrality'.
-            - 'The Hitcher': Bar rests on thighs. MUST SCORE poorly on 'lockout_execution'.
-            - 'The Over-Extender': Leans backward at lockout. MUST SCORE poorly on 'lockout_execution'.
-            - 'The Grip & Rip': Rushes setup. MUST SCORE poorly on 'slack_pull_and_lat_engagement'.
+            - 'The Crane': Hips shoot up early.
+            - 'The Squatter': Hips are way too low. 
+            - 'The Fishing Rod': Visible back rounding. 
+            - 'The Hitcher': Bar rests on thighs. 
+            - 'The Over-Extender': Leans backward at lockout. 
+            - 'The Grip & Rip': Rushes setup.
             
             Provide a fun, engaging 'persona_justification'.
             """
