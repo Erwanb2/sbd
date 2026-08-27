@@ -35,7 +35,7 @@ jobs:
             echo "⚙️ Mise à jour des fichiers d'environnement..."
             echo "$BACKEND_ENV" > backend/.env
             echo "$FRONTEND_ENV" > frontend/.env
-            echo "$GLOBAL_ENV" > frontend/.env
+            echo "$GLOBAL_ENV" > .env
 
             echo "🚀 Démarrage et reconstruction des conteneurs..."
             docker compose up -d --build --remove-orphans
