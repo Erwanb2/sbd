@@ -26,23 +26,4 @@ jobs:
             echo "📥 Mise à jour du code source..."
             git fetch origin main
             git reset --hard origin/main
-
-            echo "📦 Build du Frontend React..."
-            cd frontend  # ou la racine si votre package.json est à la racine
-            npm install
-            npm run build
-
-            echo "🐍 Mise à jour du Backend Python..."
-            cd ../backend # ajustez selon votre arborescence
-            source venv/bin/activate
-            pip install -r requirements.txt
-
-            echo "🔄 Redémarrage des services..."
-            # Si vous utilisez systemd :
-            sudo systemctl restart fastapi-app
-            sudo systemctl reload nginx
-            
-            # OU si vous utilisez PM2 :
-            # pm2 restart all
-
-            echo "✅ Déploiement terminé avec succès !"
+            docker compose up --build
