@@ -1,15 +1,16 @@
 import os
 import sqlite3
-from fastapi import FastAPI, UploadFile, File, HTTPException, Depends, Header
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from google.oauth2 import id_token
-from google.auth.transport import requests as google_requests
-import jwt
 from datetime import date
 
+import jwt
+
 # NOUVEL IMPORT : On importe notre fonction optimisée
-from ai_service import upload_and_detect_concurrent, analyze_movement
+from ai_service import analyze_movement, upload_and_detect_concurrent
+from fastapi import Depends, FastAPI, File, Header, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from google.auth.transport import requests as google_requests
+from google.oauth2 import id_token
+from pydantic import BaseModel
 
 app = FastAPI(title="SBD Reviews API")
 

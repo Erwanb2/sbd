@@ -1,3 +1,4 @@
+import os
 import time
 import json
 import cv2
@@ -179,7 +180,7 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
             """
 
         chat = client.chats.create(
-            model="gemini-3.5-flash",
+            model=os.environ["MODEL_GEMINI"],
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=chosen_schema,
