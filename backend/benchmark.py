@@ -41,19 +41,19 @@ def upload_video(file_path: str):
     return video_file
 
 
-def analyze_movement_with_model(file_name: str, model_name: str, max_retries: int = 20) -> dict:
-    """Analyse un Deadlift Conventionnel avec le modèle spécifié avec 5 retries."""
+def analyze_movement_with_model(file_name: str, model_name: str, max_retries: int = 10) -> dict:
+    """Analyse un Deadlift Conventionnel avec le modèle spécifié avec 10 retries max."""
     mouvement_detecte = "Conventional deadlift"
 
     chosen_schema = schema_mapping.get(mouvement_detecte)
     if not chosen_schema:
         raise ValueError(
-            f"Type de mouvement '{ mouvement_detecte }' non reconnu dans schema_mapping."
+            f"Type de mouvement '{mouvement_detecte}' non reconnu dans schema_mapping."
         )
 
     prompt_analyse = f"""
     You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
-    The athlete executes a CONVENTIONAL { mouvement_detecte.upper() }.
+    The athlete executes a CONVENTIONAL {mouvement_detecte.upper()}.
     
     GRADING RULE: 
       1. Assume the default score is 1 (Poor)
@@ -163,14 +163,22 @@ def analyze_movement_with_model(file_name: str, model_name: str, max_retries: in
 
         except Exception as e:
             logger.warning(
-                f"[Tentative { attempt }/{ max_retries }] Échec avec le modèle { model_name } : { e }"
+                f"[Tentative {attempt}/{max_retries}] Échec avec le modèle {model_name} : {e}"
             )
             if attempt == max_retries:
                 logger.error(
-                    f"Échec définitif pour le modèle { model_name } après { max_retries } tentatives : { e }"
+                    f"Échec définitif pour le modèle {model_name} après {max_retries} tentatives : {e}"
                 )
                 return None
-            time.sleep(2 * attempt)
+            
+            # --- NOUVELLE LOGIQUE D'ATTENTE ---
+            if attempt == 1:
+                wait_time = 1
+            else:
+                wait_time = 60
+                
+            print(f"   -> Attente de {wait_time} seconde(s) avant la prochaine tentative...")
+            time.sleep(wait_time)
 
 
 # ==============================================================================
@@ -197,11 +205,11 @@ def run_benchmark():
 
     for i, path in enumerate(videos_paths):
         if not os.path.exists(path):
-            print(f"⚠️ Fichier introuvable, ignoré : { path }")
+            print(f"⚠️ Fichier introuvable, ignoré : {path}")
             continue
 
         nom_fichier_local = os.path.basename(path)
-        print(f"\n--- Traitement de la vidéo { i + 1 }/{ len(videos_paths) } : { nom_fichier_local } ---")
+        print(f"\n--- Traitement de la vidéo {i + 1}/{len(videos_paths)} : {nom_fichier_local} ---")
 
         google_file_name = None
         try:
@@ -212,9 +220,11 @@ def run_benchmark():
 
             for modele in modeles:
                 for essai in range(1, nombre_essais + 1):
-                    print(f"  -> Analyse avec { modele } (Essai { essai }/{ nombre_essais })...")
+                    print(f"  -> Analyse avec {modele} (Essai {essai}/{nombre_essais})...")
+                    
+                    # Mise à jour du paramètre max_retries
                     analyse_result = analyze_movement_with_model(
-                        google_file_name, modele, max_retries=5
+                        google_file_name, modele, max_retries=10
                     )
 
                     if analyse_result:
@@ -240,28 +250,28 @@ def run_benchmark():
                         for critere_key in CRITERES_DEADLIFT:
                             data = analyse_result.get(critere_key, {})
                             if isinstance(data, dict):
-                                row_data[f"{ critere_key }_note_4"] = data.get("raw_score_4", "NA")
-                                row_data[f"{ critere_key }_note_3"] = data.get("score_3", "NA")
-                                row_data[f"{ critere_key }_explanation"] = data.get("explanation", "")
+                                row_data[f"{critere_key}_note_4"] = data.get("raw_score_4", "NA")
+                                row_data[f"{critere_key}_note_3"] = data.get("score_3", "NA")
+                                row_data[f"{critere_key}_explanation"] = data.get("explanation", "")
                             else:
-                                row_data[f"{ critere_key }_note_4"] = "NA"
-                                row_data[f"{ critere_key }_note_3"] = "NA"
-                                row_data[f"{ critere_key }_explanation"] = ""
+                                row_data[f"{critere_key}_note_4"] = "NA"
+                                row_data[f"{critere_key}_note_3"] = "NA"
+                                row_data[f"{critere_key}_explanation"] = ""
 
                         resultats_totaux.append(row_data)
                     else:
-                        print(f"  ❌ Échec de l'analyse avec { modele } pour l'essai { essai }.")
+                        print(f"  ❌ Échec de l'analyse avec {modele} pour l'essai {essai}.")
 
         except Exception as e:
-            print(f"Erreur globale sur la vidéo { path } : { str(e) }")
+            print(f"Erreur globale sur la vidéo {path} : {str(e)}")
 
         finally:
             try:
                 if google_file_name:
                     client.files.delete(name=google_file_name)
-                    print(f"🗑️ Fichier { google_file_name } supprimé des serveurs Google.")
+                    print(f"🗑️ Fichier {google_file_name} supprimé des serveurs Google.")
             except Exception as e:
-                print(f"Attention: Impossible de supprimer le fichier { google_file_name } - { str(e) }")
+                print(f"Attention: Impossible de supprimer le fichier {google_file_name} - {str(e)}")
 
     # ==============================================================================
     # 3. AFFICHAGE DES RÉSULTATS ET EXPORT CSV
@@ -273,11 +283,11 @@ def run_benchmark():
         df.to_csv(nom_csv, index=False, encoding="utf-8")
 
         print("\n" + "=" * 80)
-        print(f"✅ EXPORT RÉUSSI : Les données ont été sauvegardées dans '{ nom_csv }'.")
+        print(f"✅ EXPORT RÉUSSI : Les données ont été sauvegardées dans '{nom_csv}'.")
         print("=" * 80)
 
         # Aperçu avec les notes brutes sur 4 de chaque critère
-        colonnes_notes = [f"{ c }_note_4" for c in CRITERES_DEADLIFT]
+        colonnes_notes = [f"{c}_note_4" for c in CRITERES_DEADLIFT]
         colonnes_a_afficher = ["Fichier", "Modèle", "Essai", "Score_Global_3", "Persona"] + colonnes_notes[:4]
 
         print("\nAPERÇU DES RÉSULTATS :")

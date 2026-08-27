@@ -26,4 +26,4 @@ jobs:
             echo "📥 Mise à jour du code source..."
             git fetch origin main
             git reset --hard origin/main
-            docker compose up --build
+            docker compose up -d --build
