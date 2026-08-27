@@ -12,8 +12,8 @@ const bodyStroke = {
   strokeLinejoin: 'round',
 };
 
-// Sous-composant Barbell
-const Barbell = ({ span = 22, plate = 7, values, begin }) => (
+// Sous-composant Barbell avec option "Vue de coupe" (isSideView)
+const Barbell = ({ span = 22, plate = 7, values, begin, isSideView = false }) => (
   <g filter="url(#sbdGlow)">
     <animateTransform
       attributeName="transform" 
@@ -27,13 +27,31 @@ const Barbell = ({ span = 22, plate = 7, values, begin }) => (
       begin={ begin } 
       repeatCount="indefinite"
     />
-    <line x1={ -span } y1="0" x2={ span } y2="0" stroke="#a5b4fc" strokeWidth="3" strokeLinecap="round" />
-    <circle cx={ -span } cy="0" r={ plate } fill="#4f46e5" />
-    <circle cx={ span } cy="0" r={ plate } fill="#4f46e5" />
-    <circle cx={ -span } cy="0" r={ plate * 0.42 } fill="#c7d2fe" />
-    <circle cx={ span } cy="0" r={ plate * 0.42 } fill="#c7d2fe" />
-    <circle cx={ -span + 6 } cy="0" r="2.4" fill="#6366f1" />
-    <circle cx={ span - 6 } cy="0" r="2.4" fill="#6366f1" />
+    
+    { isSideView ? (
+      // --- VUE DE COUPE (Profil pour le Bench) ---
+      <>
+        { /* Grand disque extérieur */ }
+        <circle cx="0" cy="0" r={ plate * 1.35 } fill="#4f46e5" />
+        { /* Détail intérieur du disque */ }
+        <circle cx="0" cy="0" r={ plate * 0.7 } fill="#c7d2fe" opacity="0.8" />
+        { /* Extrémité de la barre (Sleeve) */ }
+        <circle cx="0" cy="0" r="2.5" fill="#a5b4fc" />
+        { /* Centre creux de la barre */ }
+        <circle cx="0" cy="0" r="1" fill="#312e81" />
+      </>
+    ) : (
+      // --- VUE DE FACE (Squat et Deadlift) ---
+      <>
+        <line x1={ -span } y1="0" x2={ span } y2="0" stroke="#a5b4fc" strokeWidth="3" strokeLinecap="round" />
+        <circle cx={ -span } cy="0" r={ plate } fill="#4f46e5" />
+        <circle cx={ span } cy="0" r={ plate } fill="#4f46e5" />
+        <circle cx={ -span } cy="0" r={ plate * 0.42 } fill="#c7d2fe" />
+        <circle cx={ span } cy="0" r={ plate * 0.42 } fill="#c7d2fe" />
+        <circle cx={ -span + 6 } cy="0" r="2.4" fill="#6366f1" />
+        <circle cx={ span - 6 } cy="0" r="2.4" fill="#6366f1" />
+      </>
+    ) }
   </g>
 );
 
@@ -54,11 +72,11 @@ const Flex = ({ attr = 'd', values, begin, type }) => (
 
 export default function GeometricSBDLoader() {
   const statusMessages = [
-    'Detecting body joints',
-    'Measuring joint angles',
+    'Detecting persona',
+    'Evaluating form',
     'Tracking the bar path',
     'Scoring depth & lockout',
-    'Compiling biomechanics',
+    'Compiling results',
   ];
   
   const [ statusIndex, setStatusIndex ] = useState(0);
@@ -133,13 +151,16 @@ export default function GeometricSBDLoader() {
             <path style={ bodyStroke }>
               <Flex values="M 0 95 L 0 66;M 0 112 L 0 83;M 0 95 L 0 66" begin="0s" />
             </path>
+            
+            { /* NOUVEAUX BRAS DU SQUAT : Coudes pliés vers le bas, mains sur la barre */ }
             <path style={ { ...bodyStroke, strokeWidth: 3, stroke: '#a5b4fc' } }>
-              <Flex values="M 0 68 L -16 63 M 0 68 L 16 63;M 0 85 L -16 80 M 0 85 L 16 80;M 0 68 L -16 63 M 0 68 L 16 63" begin="0s" />
+              <Flex values="M 0 68 L -12 80 L -18 64 M 0 68 L 12 80 L 18 64;M 0 85 L -12 97 L -18 81 M 0 85 L 12 97 L 18 81;M 0 68 L -12 80 L -18 64 M 0 68 L 12 80 L 18 64" begin="0s" />
             </path>
+
             <circle cx="0" r="7.5" fill="#a5b4fc">
               <Flex attr="cy" values="56;73;56" begin="0s" />
             </circle>
-            <Barbell span="24" plate="7" values="0 64;0 81;0 64" begin="0s" />
+            <Barbell span="36" plate="7" values="0 64;0 81;0 64" begin="0s" />
           </g>
 
           { /* ============================= BENCH ============================= */ }
@@ -156,11 +177,12 @@ export default function GeometricSBDLoader() {
             <path style={ bodyStroke } d="M 20 104 L -12 104" />
             <circle cx="-22" cy="104" r="6.5" fill="#a5b4fc" />
             
-            { /* Pressing arms -> CORRIGÉ ICI (L -8 116 au lieu de L -21 98 pour faire plonger le coude sous la barre) */ }
+            { /* Pressing arms */ }
             <path style={ { ...bodyStroke, strokeWidth: 3, stroke: '#a5b4fc' } }>
               <Flex values="M -12 104 L -8 88 L -4 76;M -12 104 L -8 116 L -4 100;M -12 104 L -8 88 L -4 76" begin="-0.6s" />
             </path>
-            <Barbell span="18" plate="6" values="-4 76;-4 100;-4 76" begin="-0.6s" />
+            { /* isSideView={true} active la vue de coupe pour le disque */ }
+            <Barbell plate="8.5" values="-4 76;-4 100;-4 76" begin="-0.6s" isSideView={ true } />
           </g>
 
           { /* ============================ DEADLIFT ============================ */ }
@@ -181,7 +203,7 @@ export default function GeometricSBDLoader() {
             <path style={ { ...bodyStroke, strokeWidth: 3, stroke: '#a5b4fc' } }>
               <Flex values="M -12 92 L -13 131 M 12 92 L 13 131;M -12 70 L -12 110 M 12 70 L 12 110;M -12 92 L -13 131 M 12 92 L 13 131" begin="-1.2s" />
             </path>
-            <Barbell span="26" plate="7.5" values="0 131;0 110;0 131" begin="-1.2s" />
+            <Barbell span="34" plate="7.5" values="0 131;0 110;0 131" begin="-1.2s" />
           </g>
 
           { /* Discipline labels */ }
@@ -243,13 +265,3 @@ export default function GeometricSBDLoader() {
     </div>
   );
 }
-
-// import GeometricSBDLoader from './components/GeometricSBDLoader';
-
-// export default function App() {
-//   return (
-//     <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-//       <GeometricSBDLoader />
-//     </div>
-//   );
-// }
