@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production # <--- Enables access to secrets from this environment
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,32 +15,30 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         env:
-          # Pass your individual secrets here
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          BACKEND_ENV: ${{ secrets.BACKEND_ENV }}
+          FRONTEND_ENV: ${{ secrets.FRONTEND_ENV }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_SSH_PORT }}
-          envs: SECRET_KEY,DATABASE_URL,VITE_API_URL
+          envs: BACKEND_ENV,FRONTEND_ENV
           script: |
             set -e
             cd /home/ubuntu/sbd
             
+            echo "📥 Mise à jour du code source..."
             git fetch origin main
             git reset --hard origin/main
 
-            # Write backend .env
-            cat <<EOF > backend/.env
-            SECRET_KEY=$SECRET_KEY
-            DATABASE_URL=$DATABASE_URL
-            EOF
+            echo "⚙️ Mise à jour des fichiers d'environnement..."
+            echo "$BACKEND_ENV" > backend/.env
+            echo "$FRONTEND_ENV" > frontend/.env
 
-            # Write frontend .env
-            cat <<EOF > frontend/.env
-            VITE_API_URL=$VITE_API_URL
-            EOF
-
+            echo "🚀 Démarrage et reconstruction des conteneurs..."
             docker compose up -d --build --remove-orphans
+
+            echo "🧹 Nettoyage des images inutilisées..."
+            docker image prune -f
+
+            echo "✅ Déploiement terminé avec succès !"
