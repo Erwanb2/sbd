@@ -1,6 +1,6 @@
 // Tu peux importer tes images ici !
-import badLegDrive from '../images/bad-leg-drive.png';
-import goodLegDrive from '../images/good-leg-drive.png';
+import badLegDrive from '../images/leg-drive/bad-leg-drive.png';
+import goodLegDrive from '../images/leg-drive/good-leg-drive.png';
 // Importe tes autres images pour le squat, bench, etc.
 
 export const criteriaGuides = {

@@ -1,19 +1,20 @@
+import concurrent.futures
+import json
+import logging
 import os
 import time
-import json
+
 import cv2
-import concurrent.futures
-from PIL import Image
 from fastapi import HTTPException
 from google import genai
 from google.genai import types
+from PIL import Image
 from schemas import VideoClassification, schema_mapping
-import logging
 
 client = genai.Client()
 logger = logging.getLogger(__name__)
 
-def extraire_images(file_path: str, num_images: int = 3) -> list:
+def extraire_images(file_path: str, num_images: int = 15) -> list:
     """Extrait rapidement des frames de la vidéo pour le triage rapide."""
     cap = cv2.VideoCapture(file_path)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -112,72 +113,18 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         if not chosen_schema:
             raise HTTPException(status_code=400, detail="Type de mouvement non reconnu pour l'analyse.")
 
-        # --- LE BON PROMPT (Avec échelle sur 4 et consignes Persona) ---
+        # LOOK HOW SMALL THE PROMPT IS NOW!
         prompt_analyse = f"""
         You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
         The athlete executes a {mouvement_detecte.upper()}.
         
-
         GRADING RULE: 
-          1.  Assume the default score is 1 (Poor)
-          2. A Score: An integer from 1 to 4, based strictly on the provided rubrics.
-          3. A Brief Explanation: A concise 1-2 sentence justification explaining EXACTLY what visual evidence led to this score.
-
+          1. Assume the default score is 1 (Poor)
+          2. A Score: An integer from 1 to 4, based strictly on the provided rubrics in the schema.
+          
         CRITICAL VISIBILITY RULE (The "NA" Rule): 
-        If the camera angle, framing, lighting, or video quality makes it impossible to accurately assess a specific body part or phase of the lift (e.g., the lifter's feet are out of frame, making 'Starting Position' impossible to judge), you MUST output "NA" for the score. Do not guess. In the explanation, state exactly why it cannot be scored (e.g., "NA - Lower legs and feet are out of frame, cannot evaluate bar proximity").
-
-        At the end of your analysis, calculate the AVERAGE SCORE of the lift based only on the criteria that received a numerical score (exclude "NA" from the math).
-
-        Output your analysis in the following structured format:
-
-        1. Starting Position
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on mid-foot placement, hip height, and scapula position]
-
-        2. Slack Pull and Lat Engagement
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on upper back tension and pre-lift tightness]
-
-        3. Leg Drive Activation
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on hip rise and quad usage off the floor]
-
-        4. Hip Hinge Mechanics
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on posterior chain tension and joint synchronization]
-
-        5. Core Bracing and Spine Neutrality
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on lumbar/thoracic rounding and brace]
-
-        6. Bar Path and Proximity
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on how close the bar stays to the shins/thighs]
-
-        7. Lockout Execution
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on hip/knee extension and posture at the top]
-
-        8. Eccentric Control and Descent
-        - Score: [1, 2, 3, 4, or NA]
-        - Explanation: [Briefly explain the score based on how the weight is lowered]
+        If the camera angle makes it impossible to accurately assess a specific body part, score it based on the best visible evidence or penalize for poor framing if highly ambiguous. Do not guess blindly.
         """
-        
-        if "deadlift" in mouvement_detecte.lower():
-            prompt_analyse += """
-            LIFTER PERSONA CLASSIFICATION
-            Based on your analysis, assign exactly ONE fun 'lifter_persona'. 
-            
-            - 'The Technician': Form is perfect.
-            - 'The Crane': Hips shoot up early.
-            - 'The Squatter': Hips are way too low. 
-            - 'The Fishing Rod': Visible back rounding. 
-            - 'The Hitcher': Bar rests on thighs. 
-            - 'The Over-Extender': Leans backward at lockout. 
-            - 'The Grip & Rip': Rushes setup.
-            
-            Provide a fun, engaging 'persona_justification'.
-            """
 
         chat = client.chats.create(
             model=os.environ["MODEL_GEMINI"],
@@ -195,7 +142,6 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         for key, critere in resultat.items():
             if isinstance(critere, dict) and "score" in critere:
                 raw_score = critere["score"]
-                # Conversion 1-4 vers 1-3 pour le Frontend
                 if raw_score <= 2:
                     critere["score"] = 1
                 elif raw_score == 3:
@@ -203,11 +149,16 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
                 elif raw_score == 4:
                     critere["score"] = 3
         
-        # --- CALCUL DU SCORE ET DU MAX EXACT ---
+        # --- CALCUL DU SCORE ---
         score_total = sum(critere.get("score", 0) for critere in resultat.values() if isinstance(critere, dict) and "score" in critere)
         nb_criteres_notes = sum(1 for critere in resultat.values() if isinstance(critere, dict) and "score" in critere)
         
         resultat["total_raw_score"] = score_total
+    # Override for perfect score
+        if resultat["total_raw_score"] >= 22 and "deadlift" in mouvement_detecte.lower():
+            resultat["lifter_persona"] = "The Technician"
+            resultat["persona_justification"] = "You are the GOAT. Form is flawless."
+            
         resultat["raw_max_score"] = nb_criteres_notes * 3
         resultat["movement_detected"] = mouvement_detecte
         

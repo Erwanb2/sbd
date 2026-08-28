@@ -469,7 +469,6 @@ export default function App() {
                   <span>🎯</span> { detectedMovement } DETECTED
                 </span>
                 <span className="opacity-70 hidden sm:inline">•</span>
-                <span className="opacity-70 mt-2 sm:mt-0">PRO TIP WHILE YOU WAIT</span>
               </div>
 
               <p className="italic text-lg font-medium leading-relaxed max-w-lg mx-auto">
