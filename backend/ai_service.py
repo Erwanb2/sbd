@@ -173,7 +173,6 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         nb_criteres_notes = sum(1 for critere in resultat.values() if isinstance(critere, dict) and "score" in critere)
         
         resultat["total_raw_score"] = score_total
-    # Override for perfect score
         if resultat["total_raw_score"] >= 22 and "deadlift" in mouvement_detecte.lower():
             resultat["lifter_persona"] = "The Technician"
             resultat["persona_justification"] = "You are the GOAT. Form is flawless."

@@ -12,7 +12,7 @@ export default function ProfileModal({ user, tokenAPI, onClose, onUpdateUser }) 
     
     setIsProcessing(true);
     try {
-      const res = await fetch('http://localhost:8000/users/me/plan', {
+      const res = await fetch('/api/users/me/plan', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

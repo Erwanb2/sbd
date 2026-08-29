@@ -43,9 +43,9 @@ const getPersonaAssets = (persona) => {
 
 const loadingTips = {
   "squat": "Focus on bracing your core before descending to maintain a neutral spine under heavy load.",
-  "bench": "Keep your shoulder blades retracted and depressed into the bench to protect your shoulders.",
-  "Conventional deadlift": "Ensure the bar is exactly over your mid-foot before you pull the slack out.",
-  "Sumo deadlift": "Think about 'spreading the floor' apart with your feet to engage your adductors and glutes."
+  "bench press": "Keep your shoulder blades retracted and depressed into the bench to protect your shoulders.",
+  "conventional deadlift": "Ensure the bar is exactly over your mid-foot before you pull the slack out.",
+  "sumo deadlift": "Think about 'spreading the floor' apart with your feet to engage your adductors and glutes."
 };
 
 // Constantes d'animation partagées pour synchroniser les 3 lifters
@@ -444,7 +444,7 @@ export default function App() {
           <div className="mt-6 bg-emerald-900/20 border border-emerald-500/30 text-emerald-400 py-3 px-6 rounded-xl flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-center shadow-lg max-w-lg w-full transition-all hover:bg-emerald-900/30">
             <span className="text-xl">🔒</span>
             <p className="leading-tight">
-              <strong>Privacy First:</strong> The video uploaded won't be saved. Our servers delete it instantly after analysis.
+              <strong>Privacy First:</strong> The video uploaded won't be saved.
             </p>
           </div>
         </div>
@@ -465,7 +465,6 @@ export default function App() {
                 <span className="bg-indigo-500/30 text-indigo-100 py-1.5 px-4 rounded-full border border-indigo-500/40 shadow-sm flex items-center gap-2">
                   <span>🎯</span> { detectedMovement } DETECTED
                 </span>
-                <span className="opacity-70 hidden sm:inline">•</span>
               </div>
 
               <p className="italic text-lg font-medium leading-relaxed max-w-lg mx-auto">
