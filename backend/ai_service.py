@@ -34,26 +34,45 @@ def extraire_images(file_path: str, num_images: int = 15) -> list:
 
 def _task_detect_movement(file_path: str) -> str:
     """TÂCHE A : Extraction et Détection par l'IA (Tourne en arrière-plan)"""
-    images = extraire_images(file_path, num_images=3)
+    images = extraire_images(file_path, num_images=10)
     if not images:
         raise ValueError("Impossible de lire la vidéo. Fichier potentiellement corrompu.")
 
-    prompt_classif = "Regarde ces 3 images extraites d'une vidéo. Est-ce un squat, un bench press, ou un deadlift ? Si c'est autre chose ou si c'est inexploitable, choisis video_inexploitable."
-    
-    reponse_classif = client.models.generate_content(
+    prompt_classif = """
+    Based on these images, classify the exercise into one of the following categories:
+        - squat
+        - bench press
+        - sumo deadlift
+        - conventional deadlift
+        - unworkable_video (if none of the above or unclear)
+    Deadlift classification rules:
+        Classify as sumo deadlift if at least one condition is met:
+            - Feet are wide apart
+            - Arms are inside the knees
+        Otherwise, classify as conventional deadlift.
+    """
+    # 1. Création de la session de chat avec la configuration voulue
+    chat = client.chats.create(
         model="gemini-3.5-flash-lite",
-        contents=[*images, prompt_classif],
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
             response_schema=VideoClassification,
             temperature=0.0,
-        )
+        ),
     )
-    mouvement = json.loads(reponse_classif.text)["mouvement_detecte"]
-    
-    if mouvement == "video_inexploitable":
+
+    # 2. Envoi des images et du prompt
+    reponse_classif = chat.send_message(
+        message=[*images, prompt_classif]
+    )
+
+    # 3. Récupération directe de l'objet Pydantic parsé
+    mouvement = reponse_classif.parsed.mouvement_detecte
+
+    # 4. Condition d'échec
+    if mouvement == "unworkable_video":
         raise ValueError("Vidéo inexploitable. Merci d'envoyer un Squat, Bench ou Deadlift clair.")
-        
+
     return mouvement
 
 def _task_upload_video(file_path: str):

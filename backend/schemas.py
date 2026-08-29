@@ -3,14 +3,14 @@ from pydantic import BaseModel, Field
 
 class MovementType(str, Enum):
     squat = "squat"
-    bench = "bench"
-    sumo_deadlift = "Sumo deadlift"
-    conventional_deadlift = "Conventional deadlift"
-    video_inexploitable = "video_inexploitable"
+    bench = "bench press"
+    sumo_deadlift = "sumo deadlift"
+    conventional_deadlift = "conventional deadlift"
+    unworkable_video = "unworkable_video"
 
-# --- ÉTAPE 1 : CLASSIFICATION DE LA VIDÉO ---
+
 class VideoClassification(BaseModel):
-    mouvement_detecte: MovementType = Field(description="The powerlifting movement detected in the video.")
+    mouvement_detecte: str = Field(description="Must be 'squat', 'bench press', 'sumo deadlift', 'conventional deadlift', or 'unworkable_video")
 
 class ConventionnalDeadliftPersona(str, Enum):
     THE_GRIP_AND_RIP = "The Grip & Rip"
@@ -215,7 +215,7 @@ class AnalyzeSumoDeadlift(BaseModel):
 
 schema_mapping = {
     "squat": AnalyzeSquat,
-    "bench": AnalyzeBench,
-    "Conventional deadlift": AnalyzeConventionalDeadlift,
-    "Sumo deadlift": AnalyzeSumoDeadlift
+    "bench press": AnalyzeBench,
+    "conventional deadlift": AnalyzeConventionalDeadlift,
+    "sumo deadlift": AnalyzeSumoDeadlift
 }

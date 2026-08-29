@@ -410,9 +410,6 @@ export default function App() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white gap-6">
         <h1 className="text-4xl font-black uppercase tracking-wider mb-2">SBD Reviews</h1>
-        <p className="text-gray-400 mb-6 text-center max-w-md">
-          Sign in with Google to have your form analyzed by our AI.
-        </p>
         <GoogleLogin
           onSuccess={ handleGoogleSuccess }
           onError={ () => alert('Login failed') }
@@ -491,7 +488,7 @@ export default function App() {
           
           <div className="flex flex-col items-center justify-center p-10 bg-gray-900 border border-gray-800 rounded-3xl shadow-lg">
             <span className="text-gray-400 font-semibold mb-2 uppercase tracking-widest text-sm">
-              Technical Score: { result.movement_detected || detectedMovement }
+              { result.movement_detected || detectedMovement }
             </span>
             <div className="flex items-baseline gap-2">
               <span className={ `text-7xl font-black ${ scorePercentage >= 80 ? 'text-emerald-400' : scorePercentage >= 50 ? 'text-amber-400' : 'text-red-400' }` }>
@@ -523,7 +520,7 @@ export default function App() {
 
                 <div className="flex-1">
                   <span className="text-indigo-300 font-black uppercase tracking-widest text-xs mb-2 block">
-                    AI Assessment • Your Deadlift Persona
+                    Your Deadlift Persona
                   </span>
                   <h3 className="text-3xl sm:text-4xl font-black text-white mb-4 drop-shadow-md">
                     { result.lifter_persona }
