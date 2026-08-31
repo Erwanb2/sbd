@@ -14,6 +14,24 @@ from schemas import VideoClassification, schema_mapping
 client = genai.Client()
 logger = logging.getLogger(__name__)
 
+# Délais de garde (en secondes) pour ne JAMAIS rester bloqué indéfiniment.
+GOOGLE_PROCESSING_TIMEOUT = int(os.getenv("GEMINI_PROCESSING_TIMEOUT", "180"))
+GOOGLE_UPLOAD_FUTURE_TIMEOUT = GOOGLE_PROCESSING_TIMEOUT + 30
+GOOGLE_DETECT_FUTURE_TIMEOUT = int(os.getenv("GEMINI_DETECT_TIMEOUT", "120"))
+
+
+def probe_video_duration_seconds(file_path: str):
+    """Durée de la vidéo en secondes via OpenCV, ou None si illisible."""
+    cap = cv2.VideoCapture(file_path)
+    try:
+        fps = cap.get(cv2.CAP_PROP_FPS) or 0.0
+        frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0.0
+    finally:
+        cap.release()
+    if fps <= 0 or frame_count <= 0:
+        return None
+    return frame_count / fps
+
 def extraire_images(file_path: str, num_images: int = 15) -> list:
     """Extrait rapidement des frames de la vidéo pour le triage rapide."""
     cap = cv2.VideoCapture(file_path)
@@ -78,16 +96,26 @@ def _task_detect_movement(file_path: str) -> str:
 def _task_upload_video(file_path: str):
     """TÂCHE B : Upload du fichier chez Google (Tourne en arrière-plan)"""
     video_file = client.files.upload(file=file_path)
-    
-    # On attend que Google finisse le processing
+
+    # On attend que Google finisse le processing, MAIS avec un timeout dur :
+    # un job Google coincé en "PROCESSING" ne doit plus bloquer la requête.
+    deadline = time.monotonic() + GOOGLE_PROCESSING_TIMEOUT
     while video_file.state.name == "PROCESSING":
+        if time.monotonic() > deadline:
+            try:
+                client.files.delete(name=video_file.name)
+            except Exception:
+                pass
+            raise ValueError(
+                "La préparation de la vidéo par Google a expiré (timeout). Réessaie."
+            )
         time.sleep(2)
         video_file = client.files.get(name=video_file.name)
-        
+
     if video_file.state.name == "FAILED":
         client.files.delete(name=video_file.name)
         raise ValueError("L'analyse de la vidéo a échoué côté Google.")
-        
+
     return video_file
 
 def upload_and_detect_concurrent(file_path: str) -> dict:
@@ -100,7 +128,17 @@ def upload_and_detect_concurrent(file_path: str) -> dict:
         
         # 1. On attend d'abord le résultat de la détection (c'est souvent le plus rapide)
         try:
-            mouvement_detecte = future_detect.result()
+            mouvement_detecte = future_detect.result(timeout=GOOGLE_DETECT_FUTURE_TIMEOUT)
+        except concurrent.futures.TimeoutError:
+            future_detect.cancel()
+            try:
+                uploaded_file = future_upload.result(timeout=5)
+                client.files.delete(name=uploaded_file.name)
+            except Exception:
+                pass
+            raise HTTPException(
+                status_code=504, detail="La détection du mouvement a expiré. Réessaie."
+            )
         except Exception as e:
             # SI LA DÉTECTION ÉCHOUE (ex: vidéo de chat)
             # L'upload est peut-être déjà fini ou en cours. On le récupère pour le supprimer !
@@ -115,7 +153,11 @@ def upload_and_detect_concurrent(file_path: str) -> dict:
             
         # 2. Si la détection est bonne, on s'assure que l'upload est bien terminé
         try:
-            uploaded_file = future_upload.result()
+            uploaded_file = future_upload.result(timeout=GOOGLE_UPLOAD_FUTURE_TIMEOUT)
+        except concurrent.futures.TimeoutError:
+            raise HTTPException(
+                status_code=504, detail="L'upload de la vidéo a expiré. Réessaie."
+            )
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
             
@@ -182,6 +224,10 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         
         return resultat
 
+    except HTTPException:
+        # Erreurs métier déjà formatées (ex: mouvement non reconnu) : on ne les
+        # transforme surtout pas en 500.
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de l'analyse: {str(e)}")
 

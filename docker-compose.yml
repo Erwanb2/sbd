@@ -1,10 +1,12 @@
 services:
   backend:
     build: ./backend
+    restart: unless-stopped
     env_file:
       - backend/.env
     volumes:
-      - ./backend:/app
+      # Seule la base SQLite persiste (le code vit dans l'image, plus de bind-mount).
+      - backend_data:/app/data
 
   frontend:
     build: ./frontend
@@ -33,3 +35,4 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  backend_data:

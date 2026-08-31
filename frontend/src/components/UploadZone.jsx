@@ -1,6 +1,8 @@
 import { UploadCloud } from 'lucide-react';
 
-export default function UploadZone({ file, setFile, handleUpload }) {
+export default function UploadZone({ file, setFile, handleUpload, limits }) {
+  const maxMb = limits?.maxUploadMb ?? 50;
+  const maxSeconds = limits?.maxVideoSeconds ?? 60;
   return (
     <form onSubmit={handleUpload} className="animate-in fade-in zoom-in-95 duration-500">
       <div className="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl transition-all hover:border-gray-700">
@@ -9,12 +11,14 @@ export default function UploadZone({ file, setFile, handleUpload }) {
           <p className="text-gray-300 font-medium mb-1 text-center">
             Drag and drop your Squat, Bench or Deadlift video<br/>
           </p>
-          <p className="text-gray-500 text-sm mt-4">MP4, MOV (Max 50MB)</p>
+          <p className="text-gray-500 text-sm mt-4">
+            MP4, MOV — max { maxMb } MB, { maxSeconds }s (one set only)
+          </p>
 
-          
-          <input 
-            type="file" 
-            accept="video/mp4,video/mov" 
+
+          <input
+            type="file"
+            accept="video/mp4,video/quicktime,video/mov"
             onChange={(e) => setFile(e.target.files[0])}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />

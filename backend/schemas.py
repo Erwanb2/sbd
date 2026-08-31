@@ -1,15 +1,10 @@
 from enum import Enum
-from pydantic import BaseModel, Field
 
-class MovementType(str, Enum):
-    squat = "squat"
-    bench = "bench press"
-    sumo_deadlift = "sumo deadlift"
-    conventional_deadlift = "conventional deadlift"
-    unworkable_video = "unworkable_video"
+from pydantic import BaseModel, Field
 
 
 class VideoClassification(BaseModel):
+    # We use a str and not Enum purposely because it works better
     mouvement_detecte: str = Field(description="Must be 'squat', 'bench press', 'sumo deadlift', 'conventional deadlift', or 'unworkable_video")
 
 class ConventionnalDeadliftPersona(str, Enum):

@@ -1,3 +1,8 @@
 .env
 backend/*.csv
 data/*.mp4
+backend/utilisateurs.db
+backend/data/
+backend/temp_*
+__pycache__/
+*.pyc

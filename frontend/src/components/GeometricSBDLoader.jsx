@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 // Constantes d'animation partagées pour synchroniser les 3 lifters
 const REP = '1.8s';
 const EASE = '0.45 0 0.55 1;0.45 0 0.55 1';
@@ -71,24 +69,6 @@ const Flex = ({ attr = 'd', values, begin, type }) => (
 );
 
 export default function GeometricSBDLoader() {
-  const statusMessages = [
-    'Detecting persona',
-    'Evaluating form',
-    'Tracking the bar path',
-    'Scoring depth & lockout',
-    'Compiling results',
-  ];
-  
-  const [ statusIndex, setStatusIndex ] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(
-      () => setStatusIndex((i) => (i + 1) % statusMessages.length),
-      1500
-    );
-    return () => clearInterval(id);
-  }, [ statusMessages.length ]);
-
   return (
     <div className="flex flex-col items-center justify-center p-6 sm:p-8 w-full">
       <style>{ `
@@ -237,29 +217,11 @@ export default function GeometricSBDLoader() {
           Computing Biomechanics
         </div>
 
-        <div className="h-5 relative w-56 text-center">
-          { statusMessages.map((msg, i) => (
-            <span
-              key={ i }
-              className="absolute inset-0 text-xs text-indigo-300/80 font-mono tracking-wide"
-              style={ { opacity: i === statusIndex ? 1 : 0, transition: 'opacity 0.4s ease' } }
-            >
-              { msg } <span className="animate-pulse">…</span>
-            </span>
-          )) }
-        </div>
-
         <div className="w-full h-1.5 rounded-full bg-indigo-950/80 overflow-hidden border border-indigo-500/20">
           <div
             className="h-full w-1/3 rounded-full bg-gradient-to-r from-transparent via-indigo-400 to-transparent"
             style={ { animation: 'sbdSweep 1.4s ease-in-out infinite' } }
           />
-        </div>
-
-        <div className="flex justify-center gap-1.5">
-          <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={ { animationDelay: '0s' } } />
-          <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={ { animationDelay: '0.15s' } } />
-          <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce" style={ { animationDelay: '0.3s' } } />
         </div>
       </div>
     </div>
