@@ -256,12 +256,10 @@ export default function App() {
 
           <div className="grid grid-cols-1 gap-4">
             { Object.entries(result).map(([ key, data ]) => {
-              const ignoredKeys = [
-                'note_globale_brute', 'score_max_brut', 'mouvement_detecte', 'quota_restant',
-                'raw_overall_score', 'raw_max_score', 'movement_detected', 'quota_left',
-                'lifter_persona', 'persona_justification', 'total_raw_score'
-              ];
-              if (ignoredKeys.includes(key)) return null;
+              // Un critère est le seul objet de la réponse à porter une clé "score"
+              // (éventuellement null quand il n'est pas visible à l'image). Tout le
+              // reste — totaux, quota, persona — est ignoré sans liste à maintenir.
+              if (!data || typeof data !== 'object' || !( 'score' in data )) return null;
 
               return (
                 <ResultCard

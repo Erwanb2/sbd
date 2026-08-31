@@ -9,7 +9,7 @@ from fastapi import HTTPException
 from google import genai
 from google.genai import types
 from PIL import Image
-from schemas import VideoClassification, schema_mapping
+from schemas import VideoClassification, numeric_score, schema_mapping
 
 client = genai.Client()
 logger = logging.getLogger(__name__)
@@ -179,12 +179,17 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
         The athlete executes a {mouvement_detecte.upper()}.
         
-        GRADING RULE: 
+        GRADING RULE:
           1. Assume the default score is 1 (Poor)
-          2. A Score: An integer from 1 to 4, based strictly on the provided rubrics in the schema.
-          
-        CRITICAL VISIBILITY RULE (The "NA" Rule): 
-        If the camera angle makes it impossible to accurately assess a specific body part, score it based on the best visible evidence or penalize for poor framing if highly ambiguous. Do not guess blindly.
+          2. A Score: "1" to "4", based strictly on the provided rubrics in the schema.
+
+        CRITICAL VISIBILITY RULE (The "NA" Rule):
+        If the camera angle, framing, lighting or video quality makes a specific
+        criterion impossible to assess, output "NA" for that criterion and say in
+        the feedback exactly what is not visible. Do not guess.
+        "NA" means you could not SEE it, never that you saw it and disliked it:
+        a flaw you can see is a low score, not "NA".
+        Judge every other criterion normally; one "NA" must not drag the others down.
         """
 
         chat = client.chats.create(
@@ -200,28 +205,45 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         resultat = json.loads(reponse_analyse.text)
         
         # --- LE SCALE STRETCHING SÉCURISÉ ---
-        for key, critere in resultat.items():
-            if isinstance(critere, dict) and "score" in critere:
-                raw_score = critere["score"]
-                if raw_score <= 2:
-                    critere["score"] = 1
-                elif raw_score == 3:
-                    critere["score"] = 2
-                elif raw_score == 4:
-                    critere["score"] = 3
-        
+        # Les critères "NA" (non visibles à l'image) sortent du score : ils
+        # passent à None et ne comptent NI au numérateur NI au dénominateur.
+        score_total = 0
+        nb_criteres_notes = 0
+        for critere in resultat.values():
+            if not (isinstance(critere, dict) and "score" in critere):
+                continue
+
+            raw_score = numeric_score(critere["score"])
+            if raw_score is None:
+                critere["score"] = None
+                critere["not_assessable"] = True
+                continue
+
+            compressed = 1 if raw_score <= 2 else (2 if raw_score == 3 else 3)
+            critere["score"] = compressed
+            score_total += compressed
+            nb_criteres_notes += 1
+
         # --- CALCUL DU SCORE ---
-        score_total = sum(critere.get("score", 0) for critere in resultat.values() if isinstance(critere, dict) and "score" in critere)
-        nb_criteres_notes = sum(1 for critere in resultat.values() if isinstance(critere, dict) and "score" in critere)
-        
+        score_max = nb_criteres_notes * 3
         resultat["total_raw_score"] = score_total
-        if resultat["total_raw_score"] >= 22 and "deadlift" in mouvement_detecte.lower():
+        resultat["raw_max_score"] = score_max
+        resultat["not_assessable_count"] = sum(
+            1 for c in resultat.values() if isinstance(c, dict) and c.get("not_assessable")
+        )
+
+        # Seuil proportionnel : avec des critères "NA" le maximum n'est plus
+        # forcément 24, donc un seuil en dur passerait à côté.
+        if (
+            score_max > 0
+            and score_total >= 0.9 * score_max
+            and "deadlift" in mouvement_detecte.lower()
+        ):
             resultat["lifter_persona"] = "The Technician"
             resultat["persona_justification"] = "You are the GOAT. Form is flawless."
-            
-        resultat["raw_max_score"] = nb_criteres_notes * 3
+
         resultat["movement_detected"] = mouvement_detecte
-        
+
         return resultat
 
     except HTTPException:

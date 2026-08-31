@@ -5,7 +5,7 @@ import time
 import pandas as pd
 from google import genai
 from google.genai import types
-from schemas import schema_mapping
+from schemas import numeric_score, schema_mapping
 
 client = genai.Client()
 logger = logging.getLogger(__name__)
@@ -43,7 +43,9 @@ def upload_video(file_path: str):
 
 def analyze_movement_with_model(file_name: str, model_name: str, max_retries: int = 10) -> dict:
     """Analyse un Deadlift Conventionnel avec le modèle spécifié avec 10 retries max."""
-    mouvement_detecte = "Conventional deadlift"
+    # Les clés de schema_mapping sont en minuscules : "Conventional deadlift"
+    # ne matchait pas et le benchmark levait avant même d'appeler le modèle.
+    mouvement_detecte = "conventional deadlift"
 
     chosen_schema = schema_mapping.get(mouvement_detecte)
     if not chosen_schema:
@@ -133,18 +135,17 @@ def analyze_movement_with_model(file_name: str, model_name: str, max_retries: in
             for critere_key in CRITERES_DEADLIFT:
                 critere = resultat.get(critere_key)
                 if isinstance(critere, dict) and "score" in critere:
-                    raw_score = critere["score"]
-                    critere["raw_score_4"] = raw_score
+                    raw_score = numeric_score(critere["score"])
+                    critere["raw_score_4"] = raw_score if raw_score is not None else "NA"
 
-                    if isinstance(raw_score, (int, float)):
-                        if raw_score <= 2:
-                            critere["score_3"] = 1
-                        elif raw_score == 3:
-                            critere["score_3"] = 2
-                        elif raw_score >= 4:
-                            critere["score_3"] = 3
-                    else:
+                    if raw_score is None:
                         critere["score_3"] = "NA"
+                    elif raw_score <= 2:
+                        critere["score_3"] = 1
+                    elif raw_score == 3:
+                        critere["score_3"] = 2
+                    else:
+                        critere["score_3"] = 3
 
             # --- CALCUL DU SCORE GLOBAL SUR 3 (en ignorant les "NA") ---
             scores_numeriques = [

@@ -39,10 +39,39 @@ class SumoDeadliftPersona(str, Enum):
     THE_HEEL_TIPPER = "The Heel Tipper"
 
 
+class CriteriaScore(str, Enum):
+    """Score values the model may emit.
+
+    A str Enum rather than an int with ge/le: the enum is enforced by
+    constrained decoding, so "NA" is a value the model can actually reach and
+    3.5 / 0 / 7 are values it cannot.
+    """
+
+    NA = "NA"
+    ONE = "1"
+    TWO = "2"
+    THREE = "3"
+    FOUR = "4"
+
+
+def numeric_score(value) -> int | None:
+    """Score as an int, or None when the criterion was not assessable."""
+    if isinstance(value, CriteriaScore):
+        value = value.value
+    if isinstance(value, bool):  # bool is an int subclass, reject it explicitly
+        return None
+    if isinstance(value, int):
+        return value if 1 <= value <= 4 else None
+    if isinstance(value, str) and value.isdigit():
+        n = int(value)
+        return n if 1 <= n <= 4 else None
+    return None
+
+
 class EvaluationCriteria(BaseModel):
     visual_analysis: str = Field(description="Describe strictly what you see physically in the video for this specific criteria (e.g., 'the lower back is visibly rounding', 'the bar drifts away from shins'). Do not give a score yet.")
-    score: int = Field(description="Score from 1 to 4. 1=Danger/Terrible, 2=Poor/Flawed, 3=Average/Acceptable, 4=Optimal/Perfect.", ge=1, le=4)
-    feedback: str = Field(description="Detailed advice if the score is 1, 2, or 3. A single short, punchy sentence providing extreme praise if the score is 4.")
+    score: CriteriaScore = Field(description="'1' to '4' (1=Danger/Terrible, 2=Poor/Flawed, 3=Average/Acceptable, 4=Optimal/Perfect), or 'NA' when the camera angle, framing, lighting or video quality makes this specific criterion impossible to assess (e.g. the feet are out of frame, so bar-over-midfoot cannot be judged). 'NA' is for what you cannot SEE, never for what you saw and disliked: a flaw you can see is a low score, not 'NA'.")
+    feedback: str = Field(description="Detailed advice if the score is 1, 2, or 3. A single short, punchy sentence providing extreme praise if the score is 4. If the score is 'NA', state exactly what is not visible and how to reframe the next video.")
 
 class AnalyzeSquat(BaseModel):
     depth: EvaluationCriteria = Field(description="1-2=Poor (quarter/half squat). 3=Average (parallel). 4=Optimal (hip crease clearly below the top of the knee).")

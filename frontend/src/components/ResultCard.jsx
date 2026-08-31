@@ -3,6 +3,8 @@ import { formatKey, getScoreColor } from '../utils/helpers';
 
 export default function ResultCard({ criterionKey, data, isExpanded, onToggle, demo }) {
   const score = data.score;
+  // Le backend renvoie score: null quand le critère n'est pas visible à l'image.
+  const notAssessable = score === null || score === undefined;
 
   // On détermine si la démo est un guide complet (objet avec bad/good) ou un lien simple
   const isDetailedGuide = demo && typeof demo === 'object' && demo.bad && demo.good;
@@ -16,17 +18,26 @@ export default function ResultCard({ criterionKey, data, isExpanded, onToggle, d
       <div className="flex justify-between items-center">
         <span className="font-bold text-white text-lg">{formatKey(criterionKey)}</span>
         <div className="flex items-center gap-4">
-          <span className="text-xl font-bold">{score}/3</span>
+          {notAssessable ? (
+            <span className="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-gray-500/15 border border-gray-500/30">
+              Not visible
+            </span>
+          ) : (
+            <span className="text-xl font-bold">{score}/3</span>
+          )}
           <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white' : 'text-gray-500'}`} />
         </div>
       </div>
-      
-      {/* Barres de score */}
-      <div className="flex gap-1 w-full mt-3 mb-4">
-        {[1, 2, 3].map((star) => (
-          <div key={star} className={`flex-1 h-1.5 rounded-full ${star <= score ? 'bg-current' : 'bg-gray-800/50'}`} />
-        ))}
-      </div>
+
+      {/* Barres de score — masquées si le critère n'a pas pu être noté */}
+      {!notAssessable && (
+        <div className="flex gap-1 w-full mt-3 mb-4">
+          {[1, 2, 3].map((star) => (
+            <div key={star} className={`flex-1 h-1.5 rounded-full ${star <= score ? 'bg-current' : 'bg-gray-800/50'}`} />
+          ))}
+        </div>
+      )}
+      {notAssessable && <div className="mt-3 mb-4" />}
 
       {/* Le commentaire du coach */}
       <div className="bg-black/30 p-4 rounded-xl border border-current/10">

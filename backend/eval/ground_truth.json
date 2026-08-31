@@ -1,0 +1,516 @@
+{
+  "_about": {
+    "purpose": "Reference labels for the 22 clips in data/. Built by reviewing extracted frames (whole-clip contact sheets, then dense per-rep sheets, then large lower-body crops for stance calls). Scores are on the RAW 1-4 scale of schemas.EvaluationCriteria, BEFORE the 4->3 compression applied in ai_service.analyze_movement.",
+    "scale": {
+      "1": "Danger / terrible",
+      "2": "Poor / flawed",
+      "3": "Average / acceptable",
+      "4": "Optimal"
+    },
+    "confidence": {
+      "high": "clearly visible across several frames; trust this label",
+      "medium": "visible but angle, occlusion or resolution leaves room for doubt",
+      "low": "inferred; VERIFY before using as ground truth"
+    },
+    "known_gaps": [
+      "No squat clips at all: AnalyzeSquat is entirely untested by this set.",
+      "Only one bench clip.",
+      "Temporal criteria (slack_pull, leg_drive, eccentric_control) are the least reliable labels here because they were judged from sampled frames rather than continuous motion. They are marked with lower confidence throughout.",
+      "AnalyzeBench has no lifter_persona field, so the frontend persona card cannot render for bench videos."
+    ]
+  },
+
+  "videos": [
+    {
+      "file": "jeff_nippard.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 4, "confidence": "high"},
+        "slack_pull_and_lat_engagement": {"score": 4, "confidence": "medium"},
+        "leg_drive_activation": {"score": 4, "confidence": "high"},
+        "hip_hinge_mechanics": {"score": 4, "confidence": "high"},
+        "core_bracing_and_spine_neutrality": {"score": 4, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 4, "confidence": "high"},
+        "lockout_execution": {"score": 4, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 4, "confidence": "medium"}
+      },
+      "persona": "The Technician",
+      "persona_confidence": "high",
+      "persona_problem": "NOT IN ConventionnalDeadliftPersona enum - the model is structurally unable to return the correct answer here.",
+      "notes": "Studio instructional demo with an on-screen bar-path overlay confirming a vertical path. Should be at or near the top of the set. Use as the 'good conventional' anchor.",
+      "use_as": ["classifier", "scoring", "top_anchor"]
+    },
+    {
+      "file": "p_deadlift.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 4, "confidence": "high"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "medium"},
+        "leg_drive_activation": {"score": 4, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 4, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 4, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 4, "confidence": "medium"},
+        "lockout_execution": {"score": 4, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Technician",
+      "persona_confidence": "high",
+      "persona_problem": "NOT IN enum.",
+      "notes": "Instructional clip, caption 'Conventional Deadlift' burned in. Clean neutral spine, clean lockout with no hyperextension. Clip cuts during the hold, so the descent is barely visible - eccentric label is weak.",
+      "use_as": ["classifier", "scoring"]
+    },
+    {
+      "file": "thepanash_deadlift.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 4, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 4, "confidence": "medium"},
+        "leg_drive_activation": {"score": 4, "confidence": "low"},
+        "hip_hinge_mechanics": {"score": 4, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 4, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 4, "confidence": "low"},
+        "lockout_execution": {"score": 4, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Technician",
+      "persona_confidence": "high",
+      "persona_problem": "NOT IN enum.",
+      "notes": "IPF World Classic competition lift, elite lifter, filmed off a screen. FRONT view: hands are clearly outside the knees and the stance is near hip-width, so this is conventional despite looking wide at a glance. The sagittal criteria (bar path, hip hinge, leg drive) genuinely cannot be judged well from the front - a good test of whether the model admits that or invents a score.",
+      "use_as": ["classifier", "view_angle_test"]
+    },
+    {
+      "file": "poitrine_relevee.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "high"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "medium"},
+        "leg_drive_activation": {"score": 3, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "persona_problem": "No dominant flaw. Every enum option would be wrong. Another argument for a neutral/Technician option.",
+      "notes": "The GOOD half of the deliberate chest-up / chest-down pair. Torso noticeably more upright at setup, chest up, back visibly flatter than its twin.",
+      "use_as": ["classifier", "scoring", "pair:chest"]
+    },
+    {
+      "file": "pas_poitrine_relevee.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 2, "confidence": "high"},
+        "slack_pull_and_lat_engagement": {"score": 2, "confidence": "medium"},
+        "leg_drive_activation": {"score": 2, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Fishing Rod",
+      "persona_confidence": "medium",
+      "notes": "The BAD half of the pair. Torso near horizontal throughout the bottom position, head down, chest collapsed, clear thoracic rounding. Same lifter, same gym, same load as poitrine_relevee - the ONLY intended difference is chest/spine position.",
+      "use_as": ["classifier", "scoring", "pair:chest"]
+    },
+    {
+      "file": "erwan_bon_slack.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 4, "confidence": "medium"},
+        "leg_drive_activation": {"score": 3, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "The GOOD half of the deliberate slack-pull pair: deliberate setup with a visible pause and tension build before the bar moves. Rear-three-quarter camera limits bar-path and spine reading, hence the low confidences.",
+      "use_as": ["classifier", "scoring", "pair:slack"]
+    },
+    {
+      "file": "erwan_mauvais_slack.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 2, "confidence": "medium"},
+        "leg_drive_activation": {"score": 3, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "medium"}
+      },
+      "persona": "The Grip & Rip",
+      "persona_confidence": "medium",
+      "notes": "The BAD half of the slack pair: fast touch-and-go reps with essentially no pause or pre-tension between reps. Note the current benchmark CSV scored this criterion 2-3, i.e. the same as everything else - this pair is the cleanest evidence of the discrimination failure.",
+      "use_as": ["classifier", "scoring", "pair:slack"]
+    },
+    {
+      "file": "pr_160.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "high"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "medium"},
+        "leg_drive_activation": {"score": 2, "confidence": "high"},
+        "hip_hinge_mechanics": {"score": 2, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "medium"}
+      },
+      "persona": "The Crane",
+      "persona_confidence": "high",
+      "notes": "Max-effort single. Hips clearly rise ahead of the shoulders off the floor, torso goes horizontal, visible rounding by knee height, then a grindy but completed lockout. Both benchmark runs already scored this lowest of the five original clips, which agrees with this read.",
+      "use_as": ["classifier", "scoring"]
+    },
+    {
+      "file": "erwan_last.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "low"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "low"},
+        "leg_drive_activation": {"score": 3, "confidence": "low"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "low"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "Partially occluded by a rack upright and shot from behind at an angle. Deliberately labelled all-medium with low confidence: use it to check the model does NOT produce confident extreme scores from a bad angle, not to check score accuracy.",
+      "use_as": ["classifier", "framing_test"]
+    },
+    {
+      "file": "arthur_froler_fesse.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "low"},
+        "leg_drive_activation": {"score": 3, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "Side view, multi-rep set, competent but unremarkable. Sits in the middle of the set.",
+      "use_as": ["classifier", "scoring"]
+    },
+    {
+      "file": "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 2, "confidence": "low"},
+        "leg_drive_activation": {"score": 2, "confidence": "medium"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "medium"}
+      },
+      "persona": "The Crane",
+      "persona_confidence": "medium",
+      "notes": "Heavy set of five at a three-quarter front angle. Hips rise early and the back rounds under load; reps are dropped rather than lowered.",
+      "use_as": ["classifier", "scoring"]
+    },
+    {
+      "file": "Arthur Garrec Profil de coureur Strava.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "filename_is_misleading": true,
+      "criteria": {
+        "starting_position": {"score": null, "confidence": "high", "note": "NOT ASSESSABLE - camera is at floor level right beside the plate; feet, shins and the bar-over-midfoot relationship are completely occluded."},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "low"},
+        "leg_drive_activation": {"score": 3, "confidence": "low"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": null, "confidence": "high", "note": "NOT ASSESSABLE - shins are not visible, so bar-to-leg proximity cannot be judged."},
+        "lockout_execution": {"score": 3, "confidence": "low"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Fishing Rod",
+      "persona_confidence": "medium",
+      "notes": "FILENAME IS WRONG: this is not a Strava screen recording, it is a conventional deadlift set. The best occlusion test case in the set - two criteria are genuinely unscoreable. Note that EvaluationCriteria.score is currently ge=1, le=4 with no NA path, even though the benchmark prompt asks for NA, so the model cannot express this.",
+      "use_as": ["classifier", "occlusion_test"]
+    },
+    {
+      "file": "oscar_sumo.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "movement_confirmed_by": "erwan",
+      "criteria": {
+        "starting_position": {"score": 2, "confidence": "low"},
+        "slack_pull_and_wedge": {"score": 2, "confidence": "low"},
+        "leg_drive_and_floor_spread": {"score": 3, "confidence": "low"},
+        "hip_opening_and_knee_tracking": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Fishing Rod",
+      "persona_confidence": "low",
+      "notes": "THE HARDEST CLASSIFICATION CASE IN THE SET, and the most valuable one. The filename is correct: this IS sumo. Gemini misclassifies it, and so did a frame-by-frame human review - the camera is dead side-on with the near plate filling the lower frame, so the wide stance and the inside grip are both hidden and only a narrow-looking near foot is visible. If a change to the classifier prompt is worth anything, this is the clip it has to fix. Every criterion score here was assigned while believing the lift was conventional, so treat them all as provisional and re-grade against the sumo rubric before trusting them.",
+      "use_as": ["classifier", "hard_classification"]
+    },
+    {
+      "file": "oscar_sumo_short.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "movement_confirmed_by": "erwan",
+      "criteria": {
+        "starting_position": {"score": 2, "confidence": "low"},
+        "slack_pull_and_wedge": {"score": 2, "confidence": "low"},
+        "leg_drive_and_floor_spread": {"score": 3, "confidence": "low"},
+        "hip_opening_and_knee_tracking": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": "The Fishing Rod",
+      "persona_confidence": "low",
+      "notes": "Same lifter, same angle and same hard case as oscar_sumo.mp4, trimmed to 6.5s. Useful as a pair with it: if a classifier gets one right and the other wrong, the difference is frame sampling, not reasoning. Criterion scores are provisional for the same reason - they were assigned under the wrong movement type.",
+      "use_as": ["classifier", "hard_classification"]
+    },
+    {
+      "file": "long_deadlift.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "low"},
+        "slack_pull_and_lat_engagement": {"score": 3, "confidence": "low"},
+        "leg_drive_activation": {"score": 3, "confidence": "low"},
+        "hip_hinge_mechanics": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "low"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 2, "confidence": "low"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "low"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "PRIMARY USE IS VALIDATION, NOT SCORING: 65.9s long, which is over the 60s MAX_VIDEO_SECONDS cap, so the app must reject it before it ever reaches Gemini. Also a long touch-and-go set where the lifter barely stands between reps, so 'which rep are we grading?' is genuinely ambiguous - a good stress test for frame sampling.",
+      "use_as": ["duration_rejection_test"]
+    },
+    {
+      "file": "worst_deadlift.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 2, "confidence": "medium"},
+        "slack_pull_and_lat_engagement": {"score": 2, "confidence": "medium"},
+        "leg_drive_activation": {"score": 1, "confidence": "high"},
+        "hip_hinge_mechanics": {"score": 2, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 1, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 2, "confidence": "medium"},
+        "lockout_execution": {"score": 1, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 1, "confidence": "medium"}
+      },
+      "persona": "The Over-Extender",
+      "persona_confidence": "high",
+      "notes": "Should be the LOWEST total in the whole set - use it as the bottom anchor. Severe rounding, a very slow back-dominant grind with the hips shooting up immediately, and a theatrical backward lean at the top that is literally the rubric's own description of a 1 for lockout ('extreme dangerous lumbar hyperextension').",
+      "use_as": ["classifier", "scoring", "bottom_anchor"]
+    },
+
+    {
+      "file": "jeff_nippard_sumo.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 4, "confidence": "high"},
+        "slack_pull_and_wedge": {"score": 4, "confidence": "medium"},
+        "leg_drive_and_floor_spread": {"score": 4, "confidence": "medium"},
+        "hip_opening_and_knee_tracking": {"score": 4, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 4, "confidence": "high"},
+        "bar_path_and_proximity": {"score": 4, "confidence": "high"},
+        "lockout_execution": {"score": 4, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 3, "confidence": "medium"}
+      },
+      "persona": "The Technician",
+      "persona_confidence": "high",
+      "persona_problem": "NOT IN SumoDeadliftPersona enum.",
+      "notes": "Studio instructional demo, wide stance with hands inside the knees, upright torso, on-screen bar-path overlay. Top anchor for sumo. Clip ends on a talking head, which is a small distractor for the classifier.",
+      "use_as": ["classifier", "scoring", "top_anchor"]
+    },
+    {
+      "file": "engueran_sumo.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "high"},
+        "slack_pull_and_wedge": {"score": 3, "confidence": "medium"},
+        "leg_drive_and_floor_spread": {"score": 3, "confidence": "medium"},
+        "hip_opening_and_knee_tracking": {"score": 3, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 3, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "medium"},
+        "lockout_execution": {"score": 3, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "medium"}
+      },
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "FRAME-SAMPLING TEST CASE: the clip is 35.5s and the actual lift happens at roughly 29.5-33.5s. Uniform sampling over the whole clip spends about 85% of its frames on the lifter pacing around before the bar. Competent successful pull; the bar is dropped rather than lowered.",
+      "use_as": ["classifier", "scoring", "frame_sampling_test"]
+    },
+    {
+      "file": "engueran_fail_deadlift.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "movement_confirmed_by": "erwan",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_wedge": {"score": 2, "confidence": "medium"},
+        "leg_drive_and_floor_spread": {"score": 2, "confidence": "medium"},
+        "hip_opening_and_knee_tracking": {"score": 2, "confidence": "medium"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 2, "confidence": "medium"},
+        "lockout_execution": {"score": 1, "confidence": "high"},
+        "eccentric_control_and_descent": {"score": 1, "confidence": "medium"}
+      },
+      "persona": "The Soft-Lock",
+      "persona_confidence": "high",
+      "notes": "THE ONLY FAILED REP IN THE SET, and the clearest persona match anywhere here. The bar reaches roughly knee height around 33-34.5s and never locks out; it goes back to the floor. lockout_execution MUST be 1 - the rubric's own text for 1 is 'Fails to lockout'. The filename is accurate about the outcome, it simply does not state the stance: this is unambiguously sumo (wide feet, hands inside the knees). Lift is at 29-36s of a 37s clip.",
+      "use_as": ["classifier", "scoring", "hard_assertion", "frame_sampling_test"]
+    },
+    {
+      "file": "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_wedge": {"score": 3, "confidence": "low"},
+        "leg_drive_and_floor_spread": {"score": 3, "confidence": "low"},
+        "hip_opening_and_knee_tracking": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "medium"}
+      },
+      "persona": "The Crane",
+      "persona_confidence": "low",
+      "notes": "HEAVY-LOAD CONFOUND TEST: roughly 318kg at 67kg bodyweight, so this is a very high-skill lifter whose form degrades only because the weight is near-maximal. The existing benchmark suggests the models conflate 'near-limit grind' with 'bad technique' - a strong lifter at 700lb should not score like a novice. Rear-three-quarter angle limits most sagittal reads.",
+      "use_as": ["classifier", "load_confound_test"]
+    },
+    {
+      "file": "sumo_deadlift.mp4",
+      "movement": "sumo deadlift",
+      "movement_confidence": "high",
+      "criteria": {
+        "starting_position": {"score": 3, "confidence": "medium"},
+        "slack_pull_and_wedge": {"score": 2, "confidence": "low"},
+        "leg_drive_and_floor_spread": {"score": 3, "confidence": "low"},
+        "hip_opening_and_knee_tracking": {"score": 3, "confidence": "low"},
+        "core_bracing_and_spine_neutrality": {"score": 2, "confidence": "medium"},
+        "bar_path_and_proximity": {"score": 3, "confidence": "low"},
+        "lockout_execution": {"score": 3, "confidence": "medium"},
+        "eccentric_control_and_descent": {"score": 2, "confidence": "low"}
+      },
+      "persona": "The Fishing Rod",
+      "persona_confidence": "low",
+      "notes": "PR attempt during which the lifter's belt visibly breaks mid-lift; the lift is still completed. Burned-in caption explains it. Interesting anomaly case: the model almost certainly will not notice the equipment failure. Rear-three-quarter angle.",
+      "use_as": ["classifier", "anomaly_test"]
+    },
+
+    {
+      "file": "thepanash_bench.mp4",
+      "movement": "bench press",
+      "movement_confidence": "high",
+      "criteria": {
+        "setup_arch": {"score": 4, "confidence": "high"},
+        "leg_drive": {"score": 4, "confidence": "medium"},
+        "bar_path": {"score": 3, "confidence": "low"},
+        "touch_point": {"score": 4, "confidence": "medium"},
+        "elbow_stability": {"score": 4, "confidence": "medium"},
+        "chest_pause": {"score": 4, "confidence": "high"}
+      },
+      "persona": null,
+      "persona_confidence": "n/a",
+      "persona_problem": "AnalyzeBench declares no lifter_persona field at all, so App.jsx's persona card silently does not render for bench videos.",
+      "notes": "IPF competition bench at 173.5kg, filmed off a screen (visible moire). Strong competition arch, scapulae retracted, feet planted, long visible dead-stop pause on the chest waiting for the press command. THE ONLY BENCH CLIP IN THE SET.",
+      "use_as": ["classifier", "scoring"]
+    }
+  ],
+
+  "assertions": [
+    {
+      "id": "pair_chest",
+      "type": "pairwise",
+      "criterion": "core_bracing_and_spine_neutrality",
+      "better": "poitrine_relevee.mp4",
+      "worse": "pas_poitrine_relevee.mp4",
+      "also_expect_lower_total": true,
+      "why": "Same lifter, gym and load; the only deliberate difference is chest and spine position. If the grader cannot separate these two it is not measuring technique. The existing benchmark CSV scored them 15 vs 15 and 14 vs 16, i.e. it failed this."
+    },
+    {
+      "id": "pair_slack",
+      "type": "pairwise",
+      "criterion": "slack_pull_and_lat_engagement",
+      "better": "erwan_bon_slack.mp4",
+      "worse": "erwan_mauvais_slack.mp4",
+      "why": "Same lifter and setup, deliberate contrast in pre-tension. The current benchmark gave the bad one a 2-3, indistinguishable from everything else."
+    },
+    {
+      "id": "hard_failed_lockout",
+      "type": "exact",
+      "file": "engueran_fail_deadlift.mp4",
+      "criterion": "lockout_execution",
+      "expect": 1,
+      "why": "The rep is never locked out. This is the least arguable label in the set - if the grader scores this 3 or 4, nothing else it says is trustworthy."
+    },
+    {
+      "id": "anchors_ordering",
+      "type": "ordering",
+      "expect_total_order": [
+        "jeff_nippard.mp4",
+        "pr_160.mp4",
+        "worst_deadlift.mp4"
+      ],
+      "why": "Strictly decreasing total. A grader that cannot rank a studio demo above a grindy max single above a hyperextended mess has no usable signal."
+    },
+    {
+      "id": "hard_classification",
+      "type": "classification",
+      "expect": {
+        "oscar_sumo.mp4": "sumo deadlift",
+        "oscar_sumo_short.mp4": "sumo deadlift",
+        "engueran_fail_deadlift.mp4": "sumo deadlift"
+      },
+      "why": "Sumo shot from a side-on angle where the plate hides the stance. Gemini currently gets the two oscar clips WRONG, which makes them the single most useful regression test for any change to the classification prompt or to frame sampling. The discriminating cue that survives this angle is the grip position relative to the knees, not stance width."
+    },
+    {
+      "id": "filename_independence",
+      "type": "classification",
+      "expect": {
+        "Arthur Garrec Profil de coureur Strava.mp4": "conventional deadlift"
+      },
+      "why": "The filename describes a Strava running profile; the clip is a conventional deadlift set. The only genuinely misleading filename in the set - the others are merely imprecise (e.g. engueran_fail_deadlift is accurately a failed deadlift, it just does not say sumo). Kept as a reminder never to derive labels from filenames."
+    },
+    {
+      "id": "duration_rejection",
+      "type": "validation",
+      "file": "long_deadlift.mp4",
+      "expect": "rejected before any Gemini call",
+      "why": "65.9s exceeds MAX_VIDEO_SECONDS=60. Confirms probe_video_duration_seconds and the quota ordering in /upload_and_detect."
+    }
+  ]
+}
