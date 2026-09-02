@@ -6,3 +6,4 @@ backend/data/
 backend/temp_*
 __pycache__/
 *.pyc
+backend/extracted_frames/
