@@ -23,6 +23,41 @@ GOOGLE_DETECT_FUTURE_TIMEOUT = int(os.getenv("GEMINI_DETECT_TIMEOUT", "120"))
 # Modèle du triage rapide (images seules), distinct du modèle d'analyse vidéo.
 MODEL_CLASSIFICATION = os.getenv("MODEL_GEMINI_CLASSIFICATION", "gemini-3.5-flash-lite")
 
+# Modèle de repli quand le modèle principal est saturé (503 UNAVAILABLE).
+# Moins fin, mais une analyse dégradée vaut mieux qu'une erreur 500.
+MODEL_ANALYSIS_FALLBACK = os.getenv("MODEL_GEMINI_FALLBACK", "gemini-3.5-flash-lite")
+
+
+def _is_model_overloaded(exc: Exception) -> bool:
+    """Vrai si l'échec vient de la saturation du modèle, pas de notre requête.
+
+    `google.genai` lève une APIError qui porte `.code` (int) et `.status`
+    ("UNAVAILABLE"). On retombe sur le texte du message en dernier recours, au
+    cas où l'erreur remonterait enveloppée dans autre chose.
+    """
+    if getattr(exc, "code", None) == 503:
+        return True
+    status = getattr(exc, "status", None)
+    if isinstance(status, str) and status.upper() == "UNAVAILABLE":
+        return True
+    message = str(exc).upper()
+    return "503" in message and "UNAVAILABLE" in message
+
+
+def _run_analysis(model: str, video_file, prompt: str, schema, mouvement: str) -> dict:
+    """Un passage d'analyse vidéo avec un modèle donné."""
+    chat = client.chats.create(
+        model=model,
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=schema,
+            temperature=0.0,
+        ),
+    )
+    reponse = chat.send_message([video_file, prompt])
+    log_usage(model=model, response=reponse, label="analyse", extra=mouvement)
+    return json.loads(reponse.text)
+
 
 def probe_video_duration_seconds(file_path: str):
     """Durée de la vidéo en secondes via OpenCV, ou None si illisible."""
@@ -203,23 +238,26 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         """
 
         model_analyse = os.environ["MODEL_GEMINI"]
-        chat = client.chats.create(
-            model=model_analyse,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=chosen_schema,
-                temperature=0.0, 
-            )
-        )           
+        modele_de_repli = None
 
-        reponse_analyse = chat.send_message([video_file, prompt_analyse])
-        log_usage(
-            model=model_analyse,
-            response=reponse_analyse,
-            label="analyse",
-            extra=mouvement_detecte,
-        )
-        resultat = json.loads(reponse_analyse.text)
+        try:
+            resultat = _run_analysis(
+                model_analyse, video_file, prompt_analyse, chosen_schema, mouvement_detecte
+            )
+        except Exception as exc:
+            # Saturation du modèle principal : on retente une seule fois sur le
+            # modèle de repli. Toute autre erreur remonte telle quelle.
+            if not _is_model_overloaded(exc) or MODEL_ANALYSIS_FALLBACK == model_analyse:
+                raise
+            logger.warning(
+                "Modèle %s saturé (503 UNAVAILABLE), repli sur %s",
+                model_analyse,
+                MODEL_ANALYSIS_FALLBACK,
+            )
+            modele_de_repli = MODEL_ANALYSIS_FALLBACK
+            resultat = _run_analysis(
+                modele_de_repli, video_file, prompt_analyse, chosen_schema, mouvement_detecte
+            )
         
         # --- LE SCALE STRETCHING SÉCURISÉ ---
         # Les critères "NA" (non visibles à l'image) sortent du score : ils
@@ -260,6 +298,15 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
             resultat["persona_justification"] = "You are the GOAT. Form is flawless."
 
         resultat["movement_detected"] = mouvement_detecte
+
+        # Ajouté APRÈS la boucle de scoring : ce dict n'a pas de clé "score",
+        # il ne sera donc jamais pris pour un critère, ni ici ni côté front.
+        if modele_de_repli:
+            resultat["model_fallback"] = {
+                "used": True,
+                "primary": model_analyse,
+                "model": modele_de_repli,
+            }
 
         return resultat
 

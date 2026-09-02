@@ -1,9 +1,10 @@
+import json
 import os
 import uuid
 from datetime import date, datetime, timedelta, timezone
 
 import jwt
-from fastapi import Depends, FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token
@@ -16,11 +17,16 @@ from ai_service import (
     upload_and_detect_concurrent,
 )
 from database import (
+    create_pending_analysis,
     get_or_create_user,
+    get_pending_analysis,
     get_session,
     get_user_fresh,
     init_db,
+    mark_pending_claimed,
+    purge_expired_pending,
     refund_quota,
+    save_pending_result,
     try_consume_quota,
     update_plan,
 )
@@ -62,6 +68,9 @@ MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "50"))
 MAX_UPLOAD_BYTES = MAX_UPLOAD_MB * 1024 * 1024
 MAX_DURATION_SECONDS = int(os.getenv("MAX_VIDEO_SECONDS", "60"))
 
+# Durée de vie d'une analyse calculée mais pas encore réclamée.
+PENDING_TTL_HOURS = int(os.getenv("PENDING_ANALYSIS_TTL_HOURS", "6"))
+
 
 class PlanUpdateRequest(BaseModel):
     plan: str
@@ -74,6 +83,10 @@ class GoogleToken(BaseModel):
 class AnalyzeRequest(BaseModel):
     file_name: str
     movement: str
+
+
+class ClaimRequest(BaseModel):
+    claim_token: str
 
 
 @app.on_event("startup")
@@ -230,3 +243,124 @@ async def detect_video(
 @app.post("/analyze")
 async def analyze_video(request: AnalyzeRequest, user=Depends(get_current_user)):
     return analyze_movement(request.file_name, request.movement)
+
+
+# --- Parcours anonyme --------------------------------------------------------
+# Le visiteur lance l'analyse SANS être connecté : on calcule le résultat, on le
+# garde côté serveur, et on ne le lui rend qu'une fois qu'il s'est authentifié
+# (/analysis/claim). Il voit donc sa propre analyse tourner avant de créer un
+# compte, ce qui est bien plus convaincant qu'un mur de connexion à l'entrée.
+#
+# Aucune limite par IP pour l'instant : choix assumé tant que l'app est gratuite
+# sur les premiers essais. `PendingAnalysis.client_ip` est renseigné pour qu'on
+# puisse en poser une plus tard sans migration.
+
+
+def _client_ip(request: Request) -> str | None:
+    """IP réelle du client, en tenant compte du reverse proxy Caddy."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else None
+
+
+@app.post("/anonymous/upload_and_detect")
+async def anonymous_upload_and_detect(
+    request: Request,
+    video: UploadFile = File(...),
+    session: Session = Depends(get_session),
+):
+    temp_file_path = await _save_upload_to_temp(video)
+
+    try:
+        duration = probe_video_duration_seconds(temp_file_path)
+        if duration is None:
+            raise HTTPException(
+                status_code=400,
+                detail="Impossible de lire la vidéo (fichier corrompu ou format non supporté).",
+            )
+        if duration > MAX_DURATION_SECONDS:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Vidéo trop longue ({duration:.0f}s). "
+                    f"Maximum {MAX_DURATION_SECONDS}s : filme une seule série."
+                ),
+            )
+
+        detection = upload_and_detect_concurrent(temp_file_path)
+
+        purge_expired_pending(session, PENDING_TTL_HOURS)
+        token = uuid.uuid4().hex
+        create_pending_analysis(
+            session,
+            token=token,
+            gemini_file_name=detection["file_name"],
+            movement=detection["mouvement_detecte"],
+            client_ip=_client_ip(request),
+        )
+
+        # On ne renvoie que le mouvement détecté : de quoi animer l'écran de
+        # chargement, sans rien dévoiler de la note.
+        return {
+            "claim_token": token,
+            "mouvement_detecte": detection["mouvement_detecte"],
+        }
+
+    finally:
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
+
+@app.post("/anonymous/analyze")
+async def anonymous_analyze(body: ClaimRequest, session: Session = Depends(get_session)):
+    pending = get_pending_analysis(session, body.claim_token)
+    if pending is None:
+        raise HTTPException(
+            status_code=404, detail="Analyse introuvable ou expirée. Relance l'upload."
+        )
+
+    # Le nom du fichier Gemini vient de la base, jamais du client : impossible
+    # de faire analyser une vidéo arbitraire déjà uploadée par quelqu'un d'autre.
+    if pending.result_json is None:
+        resultat = analyze_movement(pending.gemini_file_name, pending.movement)
+        save_pending_result(session, pending.token, json.dumps(resultat))
+
+    return {"ready": True}
+
+
+@app.post("/analysis/claim")
+async def claim_analysis(
+    body: ClaimRequest,
+    user=Depends(get_current_user),
+    session: Session = Depends(get_session),
+):
+    pending = get_pending_analysis(session, body.claim_token)
+    if pending is None or pending.result_json is None:
+        raise HTTPException(
+            status_code=404, detail="Analyse introuvable ou expirée. Relance l'upload."
+        )
+
+    resultat = json.loads(pending.result_json)
+
+    def _with_quota() -> dict:
+        fresh = get_user_fresh(session, user.email)
+        resultat["quota_restant"] = max(0, QUOTAS[fresh.plan] - fresh.uploads_today)
+        return resultat
+
+    # Déjà réclamée par ce même utilisateur (refresh, double-clic) : on rend le
+    # résultat sans reprélever de crédit.
+    if pending.claimed_by == user.email:
+        return _with_quota()
+
+    if pending.claimed_by is not None:
+        raise HTTPException(status_code=409, detail="Cette analyse a déjà été réclamée.")
+
+    if not try_consume_quota(session, user.email, QUOTAS[user.plan]):
+        raise HTTPException(
+            status_code=403,
+            detail="Quota journalier atteint ! Revenez demain ou passez Premium.",
+        )
+
+    mark_pending_claimed(session, pending.token, user.email)
+    return _with_quota()

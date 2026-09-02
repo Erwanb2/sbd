@@ -1,12 +1,9 @@
+import Wordmark from './Wordmark.jsx';
+
 export default function Header({ user, onOpenProfile }) {
   return (
     <header className="flex justify-between items-center mb-8 pb-6 border-b border-gray-800">
-      <div>
-        <h1 className="text-3xl font-black uppercase tracking-widest bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-          SBD Reviews
-        </h1>
-        <p className="text-gray-400 text-sm mt-1">Strength built on perfect technique</p>
-      </div>
+      <Wordmark size="sm" />
 
       { user && (
         <button 
