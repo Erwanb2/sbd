@@ -5,6 +5,7 @@ import time
 import pandas as pd
 from google import genai
 from google.genai import types
+from pricing import log_usage, session_totals
 from schemas import numeric_score, schema_mapping
 
 client = genai.Client()
@@ -129,7 +130,14 @@ def analyze_movement_with_model(file_name: str, model_name: str, max_retries: in
             )
 
             reponse_analyse = chat.send_message([video_file, prompt_analyse])
+            cout = log_usage(
+                model=model_name,
+                response=reponse_analyse,
+                label="benchmark",
+                extra=f"essai {attempt}",
+            )
             resultat = json.loads(reponse_analyse.text)
+            resultat["_cout"] = cout or {}
 
             # --- GESTION DES NOTES (Brute sur 4 + Scalée sur 3) ---
             for critere_key in CRITERES_DEADLIFT:
@@ -238,6 +246,15 @@ def run_benchmark():
                             "Max_Global_3": analyse_result.get("max_score_3"),
                         }
 
+                        # Coût de l'appel : indispensable pour arbitrer entre modèles.
+                        cout = analyse_result.get("_cout") or {}
+                        row_data["Tokens_Entree"] = cout.get("prompt_tokens")
+                        row_data["Tokens_Sortie"] = cout.get("billed_output_tokens")
+                        row_data["Tokens_Raisonnement"] = cout.get("thoughts_tokens")
+                        row_data["Tokens_Total"] = cout.get("total_tokens")
+                        row_data["Cout_USD"] = cout.get("total_usd")
+                        row_data["Cout_EUR"] = cout.get("total_eur")
+
                         # Extraction du Persona
                         persona = analyse_result.get("lifter_persona", "Non défini")
                         if isinstance(persona, dict):
@@ -295,6 +312,21 @@ def run_benchmark():
         pd.set_option("display.max_rows", None)
         pd.set_option("display.width", 1000)
         print(df[colonnes_a_afficher].head(15))
+
+        # --- COÛT PAR MODÈLE ---
+        if "Cout_EUR" in df.columns and df["Cout_EUR"].notna().any():
+            print("\nCOÛT MOYEN PAR APPEL ET PAR MODÈLE :")
+            print(
+                df.groupby("Modèle")[
+                    ["Tokens_Entree", "Tokens_Sortie", "Tokens_Total", "Cout_USD", "Cout_EUR"]
+                ].mean().round(6)
+            )
+
+        totaux = session_totals()
+        print(
+            f"\nTOTAL BENCHMARK : {totaux['calls']} appels · {totaux['total']:,} tokens · "
+            f"${totaux['usd']:.4f} = {totaux['eur']:.4f} EUR".replace(",", " ")
+        )
     else:
         print("\nAucun résultat n'a pu être généré.")
 

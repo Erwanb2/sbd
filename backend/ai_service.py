@@ -9,6 +9,7 @@ from fastapi import HTTPException
 from google import genai
 from google.genai import types
 from PIL import Image
+from pricing import log_usage
 from schemas import VideoClassification, numeric_score, schema_mapping
 
 client = genai.Client()
@@ -18,6 +19,9 @@ logger = logging.getLogger(__name__)
 GOOGLE_PROCESSING_TIMEOUT = int(os.getenv("GEMINI_PROCESSING_TIMEOUT", "180"))
 GOOGLE_UPLOAD_FUTURE_TIMEOUT = GOOGLE_PROCESSING_TIMEOUT + 30
 GOOGLE_DETECT_FUTURE_TIMEOUT = int(os.getenv("GEMINI_DETECT_TIMEOUT", "120"))
+
+# Modèle du triage rapide (images seules), distinct du modèle d'analyse vidéo.
+MODEL_CLASSIFICATION = os.getenv("MODEL_GEMINI_CLASSIFICATION", "gemini-3.5-flash-lite")
 
 
 def probe_video_duration_seconds(file_path: str):
@@ -71,7 +75,7 @@ def _task_detect_movement(file_path: str) -> str:
     """
     # 1. Création de la session de chat avec la configuration voulue
     chat = client.chats.create(
-        model="gemini-3.5-flash-lite",
+        model=MODEL_CLASSIFICATION,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
             response_schema=VideoClassification,
@@ -82,6 +86,12 @@ def _task_detect_movement(file_path: str) -> str:
     # 2. Envoi des images et du prompt
     reponse_classif = chat.send_message(
         message=[*images, prompt_classif]
+    )
+    log_usage(
+        model=MODEL_CLASSIFICATION,
+        response=reponse_classif,
+        label="classification",
+        extra=f"{len(images)} images",
     )
 
     # 3. Récupération directe de l'objet Pydantic parsé
@@ -192,8 +202,9 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         Judge every other criterion normally; one "NA" must not drag the others down.
         """
 
+        model_analyse = os.environ["MODEL_GEMINI"]
         chat = client.chats.create(
-            model=os.environ["MODEL_GEMINI"],
+            model=model_analyse,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=chosen_schema,
@@ -202,6 +213,12 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         )           
 
         reponse_analyse = chat.send_message([video_file, prompt_analyse])
+        log_usage(
+            model=model_analyse,
+            response=reponse_analyse,
+            label="analyse",
+            extra=mouvement_detecte,
+        )
         resultat = json.loads(reponse_analyse.text)
         
         # --- LE SCALE STRETCHING SÉCURISÉ ---
