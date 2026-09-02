@@ -1,8 +1,10 @@
 // Association persona (texte renvoyé par l'IA) -> image + emoji de secours.
+// default.png == l'artwork du Technician (le lifter "parfait" sert de fallback).
 export const getPersonaAssets = (persona) => {
-  if (!persona) return { emoji: '🏋️', filename: 'default.png' };
+  if (!persona) return { emoji: '🥇', filename: 'default.png' };
   const p = persona.toLowerCase();
 
+  if (p.includes('technician')) return { emoji: '🥇', filename: 'default.png' };
   if (p.includes('grip')) return { emoji: '🚀', filename: 'grip-and-rip.png' };
   if (p.includes('crane')) return { emoji: '🏗️', filename: 'crane.png' };
   if (p.includes('squatter')) return { emoji: '📉', filename: 'squatter.png' };
@@ -10,6 +12,7 @@ export const getPersonaAssets = (persona) => {
   if (p.includes('fishing')) return { emoji: '🎣', filename: 'fishing-rod.png' };
   if (p.includes('pendulum')) return { emoji: '🔄', filename: 'pendulum.png' };
   if (p.includes('kneecapper')) return { emoji: '🦵', filename: 'kneecapper.png' };
+  if (p.includes('heel')) return { emoji: '🦶', filename: 'heel-tipper.png' };
   if (p.includes('rex')) return { emoji: '🦖', filename: 't-rex.png' };
   if (p.includes('soft')) return { emoji: '🫠', filename: 'soft-lock.png' };
   if (p.includes('x-wing')) return { emoji: '🚀', filename: 'x-wing.png' };
