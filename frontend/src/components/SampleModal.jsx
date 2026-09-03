@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, Upload } from 'lucide-react';
+import { X, Upload, Sparkles } from 'lucide-react';
 import ResultView from './ResultView.jsx';
 import AnalysisLoader from './AnalysisLoader.jsx';
 import { sampleResult } from '../data/sampleResult.js';
@@ -9,20 +9,28 @@ import { sampleResult } from '../data/sampleResult.js';
 const DETECT_DELAY_MS = 3000;
 const TOTAL_DELAY_MS = 7000;
 
+// step 0 = la vidéo est là, rien n'est lancé ; 1 = détection ; 2 = analyse ;
+// 3 = résultat.
+const STEP_IDLE = 0;
+
 // Aperçu "sample" : la vidéo de démo + l'analyse figée, rendue avec les mêmes
-// composants que le résultat réel. `onUploadOwn` referme l'aperçu et renvoie
-// l'utilisateur vers la dropzone.
+// composants que le résultat réel. Le visiteur déclenche lui-même l'analyse,
+// comme il le ferait avec sa propre vidéo. `onUploadOwn` referme l'aperçu et
+// renvoie l'utilisateur vers la dropzone.
 export default function SampleModal({ onClose, onUploadOwn }) {
-  const [ step, setStep ] = useState(1);
+  const [ step, setStep ] = useState(STEP_IDLE);
 
   useEffect(() => {
+    if (step !== 1) return;
+
     const detect = setTimeout(() => setStep(2), DETECT_DELAY_MS);
     const done = setTimeout(() => setStep(3), TOTAL_DELAY_MS);
     return () => { clearTimeout(detect); clearTimeout(done); };
-  }, []);
+  }, [ step ]);
 
   const movement = sampleResult.movement_detected;
-  const isLoading = step < 3;
+  const isIdle = step === STEP_IDLE;
+  const isLoading = step > STEP_IDLE && step < 3;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm overflow-y-auto animate-fade-in">
@@ -46,9 +54,9 @@ export default function SampleModal({ onClose, onUploadOwn }) {
               This is what you get back
             </h2>
             <p className="text-gray-400 text-sm mt-1">
-              { isLoading
-                ? 'Analyzing the clip below — exactly how it runs on your own video.'
-                : 'A full breakdown of the clip below — your own analysis looks just like this.' }
+              { isIdle && 'Run the analysis on this clip — it works exactly like it would on yours.' }
+              { isLoading && 'Analyzing the clip below — exactly how it runs on your own video.' }
+              { step === 3 && 'A full breakdown of the clip below — your own analysis looks just like this.' }
             </p>
           </div>
 
@@ -64,9 +72,21 @@ export default function SampleModal({ onClose, onUploadOwn }) {
             />
           </div>
 
-          { isLoading ? (
+          { isIdle && (
+            <button
+              onClick={ () => setStep(1) }
+              className="animate-fade-in-up flex w-full items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold uppercase tracking-wide text-black transition-all hover:bg-gray-200 active:scale-[0.99]"
+            >
+              <Sparkles className="h-5 w-5" />
+              Analyze this video
+            </button>
+          ) }
+
+          { isLoading && (
             <AnalysisLoader step={ step } movement={ movement } />
-          ) : (
+          ) }
+
+          { step === 3 && (
             <div className="animate-fade-in-up">
               <ResultView result={ sampleResult } />
 

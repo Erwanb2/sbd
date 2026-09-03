@@ -4,10 +4,33 @@ import UploadZone from './UploadZone.jsx';
 import Wordmark from './Wordmark.jsx';
 
 const PHOTO_MASK = 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 14%, #000 40%)';
+// Sur mobile la photo passe derrière le texte : masque vertical + voile sombre
+// pour qu'elle reste une texture et jamais un fond qui gêne la lecture.
+const PHOTO_MASK_MOBILE = 'linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.6) 52%, transparent 88%)';
 
-// Page d'accueil (visiteur non connecté). Une seule vue, sans scroll.
-// Le sign-in Google n'apparaît qu'après le choix d'une vraie vidéo (AuthModal,
-// déclenché dans App.jsx).
+// Le parcours en trois temps. Le texte reste volontairement court : chaque
+// étape porte un bénéfice ET ce qui nous distingue d'un coach IA générique —
+// deux moteurs (IA générative + ML classique), spécialisés sur les trois
+// mouvements de force athlétique et rien d'autre.
+const STEPS = [
+  {
+    title: 'Film one set',
+    text: '15 seconds from the side, filmed on your phone.',
+  },
+  {
+    title: 'Engineered, not prompted',
+    text: 'Anyone can prompt a chatbot. We fuse generative AI with battle-tested ML, tuned for the big three and nothing else.',
+  },
+  {
+    title: 'Get your score',
+    text: 'One rating, and the fixes that actually add kilos. No generic advice.',
+  },
+];
+
+// Page d'accueil (visiteur non connecté). Tout tient au-dessus de la ligne de
+// flottaison sur grand écran ; sur mobile les trois repères passent sous le CTA.
+// Le sign-in Google est déclenché depuis App.jsx (AuthModal), 5 s après le
+// lancement de l'analyse.
 export default function LandingScreen({
   file,
   setFile,
@@ -29,6 +52,20 @@ export default function LandingScreen({
         className="absolute inset-0"
         style={{ background: 'radial-gradient(110% 75% at 68% 12%, rgba(150,158,170,0.10), transparent 62%)' }}
       />
+
+      { photoOk && (
+        <div className="pointer-events-none absolute inset-0 lg:hidden">
+          <img
+            src="/images/hero-bg.jpg"
+            alt=""
+            aria-hidden="true"
+            onError={ () => setPhotoOk(false) }
+            className="h-full w-full object-cover object-[62%_18%] opacity-[0.32]"
+            style={{ maskImage: PHOTO_MASK_MOBILE, WebkitMaskImage: PHOTO_MASK_MOBILE }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/45 via-gray-950/75 to-gray-950" />
+        </div>
+      ) }
 
       { photoOk && (
         <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block xl:w-[48%]">
@@ -93,8 +130,38 @@ export default function LandingScreen({
             See it on a sample video
           </button>
 
-          <p className="mt-10 text-xs text-gray-400">
-            Free · No account needed to try · Video never stored
+          <div className={ `mt-10 border-t border-white/10 pt-7 ${ photoOk ? '' : 'text-left' }` }>
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-emerald-400/90">
+              How it works
+            </p>
+
+            <div className="relative mt-5">
+              {/* Rail de liaison : vertical quand les étapes s'empilent, horizontal
+                  dès qu'elles passent en colonnes. Les pastilles, opaques, le
+                  découpent en segments. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-4 top-4 bottom-6 w-px bg-gradient-to-b from-emerald-500/60 via-white/15 to-transparent sm:bottom-auto sm:left-4 sm:right-4 sm:h-px sm:w-auto sm:bg-gradient-to-r sm:from-emerald-500/60 sm:via-white/15 sm:to-transparent"
+              />
+
+              <ol className="relative grid gap-5 sm:grid-cols-3 sm:gap-x-4">
+                { STEPS.map(({ title, text }, i) => (
+                  <li key={ title } className="flex gap-3.5 text-left sm:flex-col sm:gap-3">
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-emerald-500/40 bg-gray-950 text-xs font-black text-emerald-400">
+                      { i + 1 }
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold leading-tight text-white">{ title }</p>
+                      <p className="mt-1.5 text-xs leading-relaxed text-gray-400">{ text }</p>
+                    </div>
+                  </li>
+                )) }
+              </ol>
+            </div>
+          </div>
+
+          <p className="mt-7 text-xs text-gray-400">
+            Free · Video never stored
           </p>
         </div>
       </div>

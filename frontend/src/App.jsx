@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from './components/Header.jsx';
 import UploadZone from './components/UploadZone.jsx';
 import ProfileModal from './components/ProfileModal.jsx';
@@ -11,6 +11,9 @@ import AnalysisLoader from './components/AnalysisLoader.jsx';
 import AnalysisOverlay from './components/AnalysisOverlay.jsx';
 
 import { validateVideoFile, DEFAULT_LIMITS } from './utils/videoValidation.js';
+
+// Délai avant d'inviter le visiteur à se connecter, une fois l'analyse lancée.
+const AUTH_PROMPT_DELAY_MS = 5000;
 
 export default function App() {
   const [ file, setFile ] = useState(null);
@@ -26,6 +29,15 @@ export default function App() {
   const [ showAuthModal, setShowAuthModal ] = useState(false);
   const [ showSample, setShowSample ] = useState(false);
   const [ limits, setLimits ] = useState(DEFAULT_LIMITS);
+  // L'analyse tourne en coulisse pendant que le visiteur se connecte : la
+  // modale s'ouvre au bout de AUTH_PROMPT_DELAY_MS, bien avant la fin du calcul.
+  const [ analysisReady, setAnalysisReady ] = useState(false);
+
+  // Refs pour lire l'état courant depuis les callbacks asynchrones (le
+  // déverrouillage peut arriver avant ou après la connexion, dans les deux sens).
+  const authTokenRef = useRef(null);
+  const analysisReadyRef = useRef(false);
+  const authPromptTimerRef = useRef(null);
 
   const isFreeUser = user?.plan?.toLowerCase() !== 'premium' && user?.plan?.toLowerCase() !== 'pro';
 
@@ -43,6 +55,8 @@ export default function App() {
       })
       .catch(() => { /* on garde les valeurs par défaut */ });
   }, []);
+
+  useEffect(() => () => clearTimeout(authPromptTimerRef.current), []);
 
   // Déverrouille un résultat déjà calculé : c'est CE appel qui consomme un
   // crédit, et le seul qui renvoie réellement la note au client.
@@ -66,6 +80,8 @@ export default function App() {
       setResult(data);
       setClaimToken(null);
       setFile(null);
+      setAnalysisReady(false);
+      analysisReadyRef.current = false;
     } catch (error) {
       alert(`Error ❌ : ${ error.message }`);
     } finally {
@@ -83,6 +99,17 @@ export default function App() {
     setDetectedMovement(null);
     setClaimToken(null);
     setShowAuthModal(false);
+    setAnalysisReady(false);
+    analysisReadyRef.current = false;
+
+    // On demande la connexion pendant que le serveur travaille : le temps
+    // d'attente sert à quelque chose au lieu d'être du temps mort.
+    clearTimeout(authPromptTimerRef.current);
+    if (!authTokenRef.current) {
+      authPromptTimerRef.current = setTimeout(() => {
+        if (!authTokenRef.current) setShowAuthModal(true);
+      }, AUTH_PROMPT_DELAY_MS);
+    }
 
     let token = null;
 
@@ -113,14 +140,22 @@ export default function App() {
       if (!analyzeResponse.ok) throw new Error(analyzeData.detail || "Analysis error");
 
     } catch (error) {
+      clearTimeout(authPromptTimerRef.current);
       alert(`Error ❌ : ${ error.message }`);
       setClaimToken(null);
+      setShowAuthModal(false);
       setLoadingStep(0);
       return;
     }
 
-    if (tokenAPI) {
-      await claimResult(token, tokenAPI);
+    clearTimeout(authPromptTimerRef.current);
+    setAnalysisReady(true);
+    analysisReadyRef.current = true;
+
+    // Le visiteur a pu se connecter pendant le calcul : on lit le jeton via la
+    // ref, la valeur d'état capturée ici serait périmée.
+    if (authTokenRef.current) {
+      await claimResult(token, authTokenRef.current);
     } else {
       setLoadingStep(0);
       setShowAuthModal(true);
@@ -151,12 +186,15 @@ export default function App() {
 
       const data = await res.json();
       if (res.ok) {
+        authTokenRef.current = data.access_token;
         setTokenAPI(data.access_token);
         setUser(data.user);
         setShowAuthModal(false);
 
-        // Une analyse attendait d'être déverrouillée : on enchaîne directement.
-        if (claimToken) {
+        // Une analyse déjà terminée attendait d'être déverrouillée : on
+        // enchaîne. Si elle tourne encore, runAnalysis fera le claim lui-même
+        // à la fin en relisant authTokenRef.
+        if (claimToken && analysisReadyRef.current) {
           setLoadingStep(2);
           claimResult(claimToken, data.access_token);
         }
@@ -201,6 +239,7 @@ export default function App() {
           <AuthModal
             fileName={ file?.name }
             movement={ detectedMovement }
+            analysisReady={ analysisReady }
             onSuccess={ handleGoogleSuccess }
             onError={ () => alert('Login failed') }
             onClose={ () => setShowAuthModal(false) }

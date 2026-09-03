@@ -10,9 +10,9 @@ export default function AnalysisLoader({ step, movement }) {
       <GeometricSBDLoader />
 
       { step >= 2 && movement && (
-        <div className="bg-indigo-900/30 border border-indigo-500/30 text-indigo-300 p-6 rounded-2xl text-center shadow-inner animate-fade-in-up">
+        <div className="bg-white/[0.04] border border-white/10 text-gray-300 p-6 rounded-2xl text-center shadow-inner animate-fade-in-up">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs font-black uppercase tracking-widest mb-4">
-            <span className="bg-indigo-500/30 text-indigo-100 py-1.5 px-4 rounded-full border border-indigo-500/40 shadow-sm flex items-center gap-2">
+            <span className="bg-emerald-500/15 text-emerald-300 py-1.5 px-4 rounded-full border border-emerald-500/30 shadow-sm flex items-center gap-2">
               <span>🎯</span> { movement } DETECTED
             </span>
           </div>
