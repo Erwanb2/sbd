@@ -5,25 +5,33 @@ import Wordmark from './Wordmark.jsx';
 
 const PHOTO_MASK = 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 14%, #000 40%)';
 // Sur mobile la photo passe derrière le texte : masque vertical + voile sombre
-// pour qu'elle reste une texture et jamais un fond qui gêne la lecture.
-const PHOTO_MASK_MOBILE = 'linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.6) 52%, transparent 88%)';
+// pour qu'elle reste une texture et jamais un fond qui gêne la lecture. Elle est
+// calée en bas (pas d'object-cover pleine page, qui rognerait les disques sur un
+// viewport étroit), donc c'est le haut qui se fond dans le noir. Elle est
+// dimensionnée par la largeur ET bornée par la hauteur : sinon son cadrage suit
+// la largeur de la fenêtre — trop basse sur un écran étroit, tête coupée dès que
+// la fenêtre s'élargit. Sous 640 px, la photo remplit la hauteur du premier écran
+// (object-cover) : sa hauteur ne dépend plus de la largeur du téléphone, et le
+// recadrage à 62 % garde la barre et les disques dans le champ. Au-dessus, la
+// largeur suffit à la faire tenir en entier : object-contain, sans rognage.
+const PHOTO_MASK_MOBILE = 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 9%, #000 24%)';
 
 // Le parcours en trois temps. Le texte reste volontairement court : chaque
 // étape porte un bénéfice ET ce qui nous distingue d'un coach IA générique —
-// deux moteurs (IA générative + ML classique), spécialisés sur les trois
-// mouvements de force athlétique et rien d'autre.
+// on mesure le mouvement au lieu de le commenter, et on renvoie un archétype
+// de lifter (cf. personaAssets.js) plus un score par critère.
 const STEPS = [
   {
     title: 'Film one set',
-    text: '15 seconds from the side, filmed on your phone.',
+    text: '15 seconds of one working set, filmed on your phone.',
   },
   {
     title: 'Engineered, not prompted',
-    text: 'Anyone can prompt a chatbot. We fuse generative AI with battle-tested ML, tuned for the big three and nothing else.',
+    text: 'We engineered a system that measures your lift instead of describing it without understanding it.',
   },
   {
     title: 'Get your score',
-    text: 'One rating, and the fixes that actually add kilos. No generic advice.',
+    text: 'One rating, your lifter profile, and where you stand on every criterion that matters. Not generic advice.',
   },
 ];
 
@@ -53,17 +61,20 @@ export default function LandingScreen({
         style={{ background: 'radial-gradient(110% 75% at 68% 12%, rgba(150,158,170,0.10), transparent 62%)' }}
       />
 
+      {/* Hauteur bornée au premier écran (svh, pas vh : sur mobile vh compte la
+          barre d'URL). Sinon le conteneur ferait la hauteur de la page, qui
+          défile, et la photo se calerait sous la ligne de flottaison. */}
       { photoOk && (
-        <div className="pointer-events-none absolute inset-0 lg:hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[100svh] overflow-hidden lg:hidden">
           <img
             src="/images/hero-bg.jpg"
             alt=""
             aria-hidden="true"
             onError={ () => setPhotoOk(false) }
-            className="h-full w-full object-cover object-[62%_18%] opacity-[0.32]"
+            className="absolute inset-x-0 bottom-0 h-[92svh] w-full object-cover object-[62%_100%] opacity-[0.45] sm:h-auto sm:max-h-full sm:object-contain sm:object-bottom"
             style={{ maskImage: PHOTO_MASK_MOBILE, WebkitMaskImage: PHOTO_MASK_MOBILE }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/45 via-gray-950/75 to-gray-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-950/55 to-gray-950/25" />
         </div>
       ) }
 

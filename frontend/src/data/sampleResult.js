@@ -8,9 +8,9 @@ export const sampleResult = {
   raw_max_score: 24,
   not_assessable_count: 0,
 
-  lifter_persona: 'The Grip & Rip',
+  lifter_persona: 'The Crane',
   persona_justification:
-    "You walk up, grab the bar and yank it off the floor before your body knows what's happening. Fast hands, no wedge — the pull works, but the first inch costs you more than it should.",
+    "Your hips shoot up the moment the bar leaves the floor, so the knees straighten before the hips do and the rest of the pull turns into a stiff-legged hinge. Strong back, wasted leg drive — the lift is there, your quads just never get invited.",
 
   starting_position: {
     score: 2,

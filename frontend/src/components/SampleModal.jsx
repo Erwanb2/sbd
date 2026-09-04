@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { X, Upload, Sparkles } from 'lucide-react';
 import ResultView from './ResultView.jsx';
 import AnalysisLoader from './AnalysisLoader.jsx';
+import PoseShowcase from './PoseShowcase.jsx';
 import { sampleResult } from '../data/sampleResult.js';
 
 // Fausse attente : on rejoue le vrai loader pour que la démo se déroule
 // exactement comme une analyse réelle (détection du mouvement, puis résultat).
 const DETECT_DELAY_MS = 3000;
-const TOTAL_DELAY_MS = 7000;
+const ANALYZE_DELAY_MS = 4000;
 
 // step 0 = la vidéo est là, rien n'est lancé ; 1 = détection ; 2 = analyse ;
 // 3 = résultat.
@@ -20,12 +21,15 @@ const STEP_IDLE = 0;
 export default function SampleModal({ onClose, onUploadOwn }) {
   const [ step, setStep ] = useState(STEP_IDLE);
 
+  // Une étape à la fois : l'effet est rejoué à chaque changement de `step` et
+  // son cleanup annule le timer en cours, donc on ne peut pas armer les deux
+  // attentes d'un coup.
   useEffect(() => {
-    if (step !== 1) return;
+    if (step !== 1 && step !== 2) return;
 
-    const detect = setTimeout(() => setStep(2), DETECT_DELAY_MS);
-    const done = setTimeout(() => setStep(3), TOTAL_DELAY_MS);
-    return () => { clearTimeout(detect); clearTimeout(done); };
+    const delay = step === 1 ? DETECT_DELAY_MS : ANALYZE_DELAY_MS;
+    const timer = setTimeout(() => setStep(step + 1), delay);
+    return () => clearTimeout(timer);
   }, [ step ]);
 
   const movement = sampleResult.movement_detected;
@@ -50,9 +54,6 @@ export default function SampleModal({ onClose, onUploadOwn }) {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Sample analysis
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-3">
-              This is what you get back
-            </h2>
             <p className="text-gray-400 text-sm mt-1">
               { isIdle && 'Run the analysis on this clip — it works exactly like it would on yours.' }
               { isLoading && 'Analyzing the clip below — exactly how it runs on your own video.' }
@@ -60,17 +61,7 @@ export default function SampleModal({ onClose, onUploadOwn }) {
             </p>
           </div>
 
-          <div className="mx-auto mb-6 max-w-[240px] overflow-hidden rounded-2xl border border-gray-800 bg-black">
-            <video
-              src="/sample-deadlift.mp4"
-              className="block h-auto max-h-[45vh] w-full object-contain"
-              autoPlay
-              loop
-              muted
-              playsInline
-              controls
-            />
-          </div>
+          <PoseShowcase active={ !isIdle } />
 
           { isIdle && (
             <button
@@ -83,7 +74,7 @@ export default function SampleModal({ onClose, onUploadOwn }) {
           ) }
 
           { isLoading && (
-            <AnalysisLoader step={ step } movement={ movement } />
+            <AnalysisLoader step={ step } movement={ movement } showSpinner={ false } />
           ) }
 
           { step === 3 && (
