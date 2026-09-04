@@ -57,11 +57,14 @@ export default function SampleModal({ onClose, onUploadOwn }) {
             <p className="text-gray-400 text-sm mt-1">
               { isIdle && 'Run the analysis on this clip — it works exactly like it would on yours.' }
               { isLoading && 'Analyzing the clip below — exactly how it runs on your own video.' }
-              { step === 3 && 'A full breakdown of the clip below — your own analysis looks just like this.' }
+              { step === 3 && 'A full breakdown of that clip — your own analysis looks just like this.' }
             </p>
           </div>
 
-          <PoseShowcase active={ !isIdle } />
+          { /* La vitrine pose n'a plus lieu d'être une fois les scores là : à
+               partir de step 3 l'écran ne garde que le score, le persona et les
+               critères. */ }
+          { step < 3 && <PoseShowcase active={ !isIdle } /> }
 
           { isIdle && (
             <button
@@ -74,7 +77,7 @@ export default function SampleModal({ onClose, onUploadOwn }) {
           ) }
 
           { isLoading && (
-            <AnalysisLoader step={ step } movement={ movement } showSpinner={ false } />
+            <AnalysisLoader step={ step } movement={ movement } />
           ) }
 
           { step === 3 && (
