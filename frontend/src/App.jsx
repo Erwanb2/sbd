@@ -222,8 +222,8 @@ export default function App() {
         setModelKey(suivant);
         localStorage.setItem('sbd_model', suivant);
       } }
-      title="Modele d'analyse (debug)"
-      className="fixed bottom-2 right-2 z-40 text-[10px] font-mono text-gray-700 hover:text-gray-400 px-1.5 py-0.5 rounded transition-colors"
+      title="Modele d'analyse (debug) — cliquer pour basculer"
+      className="fixed bottom-3 right-3 z-40 text-[10px] font-mono text-gray-400 hover:text-white bg-black/60 border border-white/15 px-2 py-1 rounded-md backdrop-blur-sm transition-colors"
     >
       { modelKey }
     </button>
