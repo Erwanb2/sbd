@@ -11,6 +11,7 @@ from google.genai import types
 from PIL import Image
 from pricing import log_usage
 from schemas import VideoClassification, numeric_score, schema_mapping
+import pose_analysis
 
 client = genai.Client()
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 GOOGLE_PROCESSING_TIMEOUT = int(os.getenv("GEMINI_PROCESSING_TIMEOUT", "180"))
 GOOGLE_UPLOAD_FUTURE_TIMEOUT = GOOGLE_PROCESSING_TIMEOUT + 30
 GOOGLE_DETECT_FUTURE_TIMEOUT = int(os.getenv("GEMINI_DETECT_TIMEOUT", "120"))
+POSE_FUTURE_TIMEOUT = int(os.getenv("POSE_TIMEOUT", "45"))
 
 # Modèle du triage rapide (images seules), distinct du modèle d'analyse vidéo.
 MODEL_CLASSIFICATION = os.getenv("MODEL_GEMINI_CLASSIFICATION", "gemini-3.5-flash-lite")
@@ -26,6 +28,13 @@ MODEL_CLASSIFICATION = os.getenv("MODEL_GEMINI_CLASSIFICATION", "gemini-3.5-flas
 # Modèle de repli quand le modèle principal est saturé (503 UNAVAILABLE).
 # Moins fin, mais une analyse dégradée vaut mieux qu'une erreur 500.
 MODEL_ANALYSIS_FALLBACK = os.getenv("MODEL_GEMINI_FALLBACK", "gemini-3.5-flash-lite")
+
+# Modeles d'analyse que le client a le droit de demander. Le front envoie une cle, jamais
+# un nom de modele : sinon n'importe qui pourrait faire tourner le modele le plus cher.
+MODELES_ANALYSE = {
+    "3.5": "gemini-3.5-flash",
+    "3.7": "gemini-3.7-flash",
+}
 
 
 def _is_model_overloaded(exc: Exception) -> bool:
@@ -95,18 +104,15 @@ def _task_detect_movement(file_path: str) -> str:
     if not images:
         raise ValueError("Impossible de lire la vidéo. Fichier potentiellement corrompu.")
 
+    # La distinction sumo / conventionnel n'est plus demandee au modele : elle est
+    # mesuree sur la pose (pose_analysis), qui la tranche mieux que des images fixes.
     prompt_classif = """
     Based on these images, classify the exercise into one of the following categories:
         - squat
         - bench press
-        - sumo deadlift
-        - conventional deadlift
+        - deadlift
         - unworkable_video (if none of the above or unclear)
-    Deadlift classification rules:
-        Classify as sumo deadlift if at least one condition is met:
-            - Feet are wide apart
-            - Arms are inside the knees
-        Otherwise, classify as conventional deadlift.
+    Answer with the movement family only. Do not try to tell sumo from conventional.
     """
     # 1. Création de la session de chat avec la configuration voulue
     chat = client.chats.create(
@@ -130,13 +136,21 @@ def _task_detect_movement(file_path: str) -> str:
     )
 
     # 3. Récupération directe de l'objet Pydantic parsé
-    mouvement = reponse_classif.parsed.mouvement_detecte
+    mouvement = (reponse_classif.parsed.mouvement_detecte or "").strip().lower()
 
     # 4. Condition d'échec
-    if mouvement == "unworkable_video":
+    if "unworkable" in mouvement or not mouvement:
         raise ValueError("Vidéo inexploitable. Merci d'envoyer un Squat, Bench ou Deadlift clair.")
 
-    return mouvement
+    # Le modèle répond parfois "sumo deadlift" par habitude : on ne garde que la famille,
+    # la variante est décidée par la pose.
+    if "deadlift" in mouvement:
+        return "deadlift"
+    if "bench" in mouvement:
+        return "bench press"
+    if "squat" in mouvement:
+        return "squat"
+    raise ValueError("Vidéo inexploitable. Merci d'envoyer un Squat, Bench ou Deadlift clair.")
 
 def _task_upload_video(file_path: str):
     """TÂCHE B : Upload du fichier chez Google (Tourne en arrière-plan)"""
@@ -163,10 +177,92 @@ def _task_upload_video(file_path: str):
 
     return video_file
 
+# La cinématique est calculée au moment de la détection, mais consommée plus tard, à
+# l'analyse. On la garde en mémoire, indexée par le nom du fichier Gemini : pas de
+# changement de schéma en base, pas de contrat d'API élargi. En cas de perte (process
+# relancé, plusieurs workers), l'analyse tourne simplement sans, ce qui est bénin.
+_KINEMATICS_CACHE: dict[str, tuple[float, dict]] = {}
+_KINEMATICS_TTL = 3 * 3600
+_KINEMATICS_MAX = 200
+
+
+def _remember_kinematics(file_name: str, data: dict) -> None:
+    now = time.time()
+    for k, (t, _) in list(_KINEMATICS_CACHE.items()):
+        if now - t > _KINEMATICS_TTL:
+            _KINEMATICS_CACHE.pop(k, None)
+    if len(_KINEMATICS_CACHE) >= _KINEMATICS_MAX:
+        oldest = min(_KINEMATICS_CACHE, key=lambda k: _KINEMATICS_CACHE[k][0])
+        _KINEMATICS_CACHE.pop(oldest, None)
+    _KINEMATICS_CACHE[file_name] = (now, data)
+
+
+def _take_kinematics(file_name: str) -> dict | None:
+    entry = _KINEMATICS_CACHE.get(file_name)
+    if entry is None:
+        return None
+    ts, data = entry
+    if time.time() - ts > _KINEMATICS_TTL:
+        _KINEMATICS_CACHE.pop(file_name, None)
+        return None
+    return data
+
+
+# Executeur dedie a la pose : le bloc "with" ci-dessous attend la fin de toutes ses
+# taches en sortant. Pour un squat ou un bench, la variante n'a aucun interet et on ne
+# veut pas payer les quelques secondes de calcul : en le sortant du bloc, on peut
+# simplement ignorer le resultat.
+_POSE_EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=2, thread_name_prefix="pose")
+
+
+def _task_pose(file_path: str) -> dict:
+    """TÂCHE C : mesures de pose. Ne lève jamais, l'appelant se rabat sur le modèle."""
+    try:
+        return pose_analysis.analyse(file_path)
+    except Exception as exc:
+        logger.warning("pose_analysis a échoué : %s", exc)
+        return {"ok": False, "raison": str(exc)}
+
+
+def _variante_par_modele(file_path: str, mesures: dict | None) -> str:
+    """Repli quand la pose est inexploitable : on redemande la variante au modèle,
+    en lui joignant les mesures disponibles. Configuration mesurée à 19/21."""
+    images = extraire_images(file_path, num_images=10)
+    contexte = ""
+    if mesures:
+        contexte = (
+            "\nAutomatic pose measurements (noisy, weigh them with what you see):\n"
+            f"{json.dumps(mesures)}\n"
+            "`largeur` is heel spread divided by shoulder spread (above ~1.6 means a wide "
+            "stance); `confiance` near zero means the lifter is filmed edge-on and the "
+            "stance width cannot be trusted."
+        )
+    prompt = (
+        "The athlete performs a deadlift. Decide the variant.\n"
+        "Answer exactly 'sumo deadlift' or 'conventional deadlift'.\n"
+        "Sumo: feet clearly wider than shoulders AND hands gripping inside the knees.\n"
+        "Conventional: hands gripping outside the knees." + contexte
+    )
+    reponse = client.models.generate_content(
+        model=MODEL_CLASSIFICATION,
+        contents=[*images, prompt],
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=VideoClassification,
+            temperature=0.0,
+        ),
+    )
+    log_usage(model=MODEL_CLASSIFICATION, response=reponse, label="variante_repli",
+              extra=f"{len(images)} images")
+    reponse_txt = (reponse.parsed.mouvement_detecte or "").lower()
+    return "sumo deadlift" if "sumo" in reponse_txt else "conventional deadlift"
+
+
 def upload_and_detect_concurrent(file_path: str) -> dict:
     """
     Lance la Détection ET l'Upload en PARALLÈLE.
     """
+    future_pose = _POSE_EXECUTOR.submit(_task_pose, file_path)
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         future_detect = executor.submit(_task_detect_movement, file_path)
         future_upload = executor.submit(_task_upload_video, file_path)
@@ -206,12 +302,42 @@ def upload_and_detect_concurrent(file_path: str) -> dict:
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
             
+        # 3. La famille vient du modèle, la variante du deadlift vient de la pose.
+        pose = {"ok": False, "raison": "pose non calculée"}
+        if mouvement_detecte == "deadlift":
+            try:
+                pose = future_pose.result(timeout=POSE_FUTURE_TIMEOUT)
+            except Exception as exc:
+                logger.warning("pose indisponible : %s", exc)
+                pose = {"ok": False, "raison": str(exc)}
+
+    if mouvement_detecte == "deadlift":
+        if pose.get("ok"):
+            mouvement_detecte = f"{pose['variante']} deadlift"
+            logger.info("variante par la pose : %s (règle %s, largeur %s, confiance %s, "
+                        "profondeur %s)", mouvement_detecte, pose.get("regle"),
+                        pose.get("largeur"), pose.get("confiance"), pose.get("profondeur"))
+        else:
+            mesures = {k: pose[k] for k in ("largeur", "confiance", "profondeur") if k in pose}
+            try:
+                mouvement_detecte = _variante_par_modele(file_path, mesures or None)
+                logger.info("variante par repli modèle : %s (%s)", mouvement_detecte,
+                            pose.get("raison"))
+            except Exception as exc:
+                logger.warning("repli modèle impossible (%s), conventionnel par défaut", exc)
+                mouvement_detecte = "conventional deadlift"
+
+    if pose.get("kinematics"):
+        _remember_kinematics(uploaded_file.name, pose["kinematics"])
+
     return {
         "file_name": uploaded_file.name,
-        "mouvement_detecte": mouvement_detecte
+        "mouvement_detecte": mouvement_detecte,
+        "pose": {k: v for k, v in pose.items() if k != "kinematics"},
     }
 
-def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
+def analyze_movement(file_name: str, mouvement_detecte: str,
+                     modele_demande: str | None = None) -> dict:
     try:
         video_file = client.files.get(name=file_name)
         
@@ -219,11 +345,25 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         if not chosen_schema:
             raise HTTPException(status_code=400, detail="Type de mouvement non reconnu pour l'analyse.")
 
+        # Mesures de pose calculées à la détection : des chiffres que le modèle ne peut
+        # pas lire de façon fiable sur une vidéo, et qu'il n'a donc plus à estimer.
+        kinematics = _take_kinematics(file_name)
+        bloc_kinematics = ""
+        if kinematics:
+            lisible = {k: v for k, v in kinematics.items() if not k.startswith("_")}
+            bloc_kinematics = f"""
+        MEASURED KINEMATICS (computed from a pose skeleton, not by you):
+        {json.dumps(lisible, indent=2)}
+        These are measurements, not opinions. Angles are in degrees, distances in
+        centimetres estimated from a 40 cm femur. Use them instead of guessing those
+        quantities; if what you see clearly contradicts a value, say so in the feedback.
+        """
+
         # LOOK HOW SMALL THE PROMPT IS NOW!
         prompt_analyse = f"""
         You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
         The athlete executes a {mouvement_detecte.upper()}.
-        
+        {bloc_kinematics}
         GRADING RULE:
           1. Assume the default score is 1 (Poor)
           2. A Score: "1" to "4", based strictly on the provided rubrics in the schema.
@@ -237,7 +377,7 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
         Judge every other criterion normally; one "NA" must not drag the others down.
         """
 
-        model_analyse = os.environ["MODEL_GEMINI"]
+        model_analyse = MODELES_ANALYSE.get(modele_demande) or os.environ["MODEL_GEMINI"]
         modele_de_repli = None
 
         try:
@@ -298,6 +438,13 @@ def analyze_movement(file_name: str, mouvement_detecte: str) -> dict:
             resultat["persona_justification"] = "You are the GOAT. Form is flawless."
 
         resultat["movement_detected"] = mouvement_detecte
+
+        # Bloc de mesures rendu au client. Pas de clé "score" : il ne sera jamais pris
+        # pour un critère, ni par la boucle de scoring ci-dessus ni par le front.
+        if kinematics:
+            resultat["kinematics"] = {k: v for k, v in kinematics.items()
+                                      if not k.startswith("_")}
+            resultat["kinematics"]["phases"] = kinematics.get("_phases", {})
 
         # Ajouté APRÈS la boucle de scoring : ce dict n'a pas de clé "score",
         # il ne sera donc jamais pris pour un critère, ni ici ni côté front.

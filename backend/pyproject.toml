@@ -12,8 +12,9 @@ dependencies = [
     "sqlmodel>=0.0.22",
     "google-auth>=2.56.3",
     "pyjwt>=2.13.0",
-    "opencv-python-headless>=5.0.0.93",
+    "opencv-python-headless>=4.10,<5",
     "pillow>=12.3.0",
+    "mediapipe==0.10.21",
 ]
 
 [tool.uv]

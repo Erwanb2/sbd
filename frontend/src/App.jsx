@@ -16,6 +16,9 @@ import { validateVideoFile, DEFAULT_LIMITS } from './utils/videoValidation.js';
 const AUTH_PROMPT_DELAY_MS = 5000;
 
 export default function App() {
+  // Bascule de modele d'analyse, pour comparer 3.5 et 3.7 sur une meme video.
+  // Volontairement discrete : c'est un outil de debug, pas une fonctionnalite.
+  const [ modelKey, setModelKey ] = useState(() => localStorage.getItem('sbd_model') || '3.5');
   const [ file, setFile ] = useState(null);
   const [ result, setResult ] = useState(null);
   const [ loadingStep, setLoadingStep ] = useState(0);
@@ -68,7 +71,7 @@ export default function App() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${ authToken }`
         },
-        body: JSON.stringify({ claim_token: token }),
+        body: JSON.stringify({ claim_token: token, model: modelKey }),
       });
 
       const data = await res.json();
@@ -133,7 +136,7 @@ export default function App() {
       const analyzeResponse = await fetch('/api/anonymous/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ claim_token: token }),
+        body: JSON.stringify({ claim_token: token, model: modelKey }),
       });
       const analyzeData = await analyzeResponse.json();
 
@@ -252,6 +255,18 @@ export default function App() {
   return (
     <div className="max-w-4xl mx-auto p-6 pt-12 pb-24 text-white relative">
       <Header user={ user } onOpenProfile={ () => setShowProfile(true) } />
+
+      <button
+        onClick={ () => {
+          const suivant = modelKey === '3.5' ? '3.7' : '3.5';
+          setModelKey(suivant);
+          localStorage.setItem('sbd_model', suivant);
+        } }
+        title="Modele d'analyse (debug)"
+        className="fixed bottom-2 right-2 z-40 text-[10px] font-mono text-gray-700 hover:text-gray-400 px-1.5 py-0.5 rounded transition-colors"
+      >
+        { modelKey }
+      </button>
 
       { showProfile && (
         <ProfileModal

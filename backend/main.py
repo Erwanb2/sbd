@@ -83,10 +83,13 @@ class GoogleToken(BaseModel):
 class AnalyzeRequest(BaseModel):
     file_name: str
     movement: str
+    # Cle de modele ("3.5" / "3.7"), pas un nom de modele : voir ai_service.MODELES_ANALYSE
+    model: str | None = None
 
 
 class ClaimRequest(BaseModel):
     claim_token: str
+    model: str | None = None
 
 
 @app.on_event("startup")
@@ -242,7 +245,7 @@ async def detect_video(
 
 @app.post("/analyze")
 async def analyze_video(request: AnalyzeRequest, user=Depends(get_current_user)):
-    return analyze_movement(request.file_name, request.movement)
+    return analyze_movement(request.file_name, request.movement, request.model)
 
 
 # --- Parcours anonyme --------------------------------------------------------
@@ -323,7 +326,7 @@ async def anonymous_analyze(body: ClaimRequest, session: Session = Depends(get_s
     # Le nom du fichier Gemini vient de la base, jamais du client : impossible
     # de faire analyser une vidéo arbitraire déjà uploadée par quelqu'un d'autre.
     if pending.result_json is None:
-        resultat = analyze_movement(pending.gemini_file_name, pending.movement)
+        resultat = analyze_movement(pending.gemini_file_name, pending.movement, body.model)
         save_pending_result(session, pending.token, json.dumps(resultat))
 
     return {"ready": True}

@@ -1,0 +1,14 @@
+{
+  "mesure": "all_hee_an3d",
+  "seuil_mesure": 1.6045496410915088,
+  "confiance": "q10_wri_over_torso_2d",
+  "seuil_confiance": 0.005644646393489602,
+  "profondeur": "bot_idx_kn_near_zext",
+  "seuil_profondeur": -0.012938767130948601,
+  "config": {
+    "modele": "pose_landmarker_heavy",
+    "frames": 30,
+    "resolution": "pleine",
+    "decodage": "sequentiel"
+  }
+}

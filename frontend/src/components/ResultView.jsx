@@ -100,6 +100,26 @@ export default function ResultView({ result, movement, onReset }) {
         }) }
       </div>
 
+      { result.kinematics && (
+        <details className="mt-6 text-[11px] text-gray-500 border border-gray-800 rounded-lg bg-gray-900/40">
+          <summary className="cursor-pointer px-3 py-2 uppercase tracking-wider select-none hover:text-gray-300">
+            Mesures de pose (debug)
+          </summary>
+          <div className="px-3 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono">
+            { Object.entries(result.kinematics).map(([ k, v ]) => (
+              <div key={ k } className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
+                <span className="text-gray-600 truncate">{ k }</span>
+                <span className="text-gray-400 text-right whitespace-nowrap">
+                  { typeof v === 'object' && v !== null
+                    ? Object.entries(v).map(([ a, b ]) => `${a}=${b}`).join(' ')
+                    : String(v) }
+                </span>
+              </div>
+            )) }
+          </div>
+        </details>
+      ) }
+
       { onReset && (
         <button
           onClick={ onReset }
