@@ -213,10 +213,27 @@ export default function App() {
     setUser(prev => ( { ...prev, ...updatedData } ));
   };
 
+  // Rendu dans les deux sorties du composant : la page d'accueil du visiteur passe par
+  // un retour anticipe, et c'est justement de la que part l'upload.
+  const basculeModele = (
+    <button
+      onClick={ () => {
+        const suivant = modelKey === '3.5' ? '3.7' : '3.5';
+        setModelKey(suivant);
+        localStorage.setItem('sbd_model', suivant);
+      } }
+      title="Modele d'analyse (debug)"
+      className="fixed bottom-2 right-2 z-40 text-[10px] font-mono text-gray-700 hover:text-gray-400 px-1.5 py-0.5 rounded transition-colors"
+    >
+      { modelKey }
+    </button>
+  );
+
   // --- VISITEUR NON CONNECTÉ : page d'accueil ---
   if (!tokenAPI && !result) {
     return (
       <>
+        { basculeModele }
         <LandingScreen
           file={ file }
           setFile={ setFile }
@@ -256,17 +273,7 @@ export default function App() {
     <div className="max-w-4xl mx-auto p-6 pt-12 pb-24 text-white relative">
       <Header user={ user } onOpenProfile={ () => setShowProfile(true) } />
 
-      <button
-        onClick={ () => {
-          const suivant = modelKey === '3.5' ? '3.7' : '3.5';
-          setModelKey(suivant);
-          localStorage.setItem('sbd_model', suivant);
-        } }
-        title="Modele d'analyse (debug)"
-        className="fixed bottom-2 right-2 z-40 text-[10px] font-mono text-gray-700 hover:text-gray-400 px-1.5 py-0.5 rounded transition-colors"
-      >
-        { modelKey }
-      </button>
+      { basculeModele }
 
       { showProfile && (
         <ProfileModal
