@@ -17,6 +17,8 @@ export const getPersonaAssets = (persona) => {
   if (p.includes('soft')) return { emoji: '🫠', filename: 'soft-lock.png' };
   if (p.includes('x-wing')) return { emoji: '🚀', filename: 'x-wing.png' };
   if (p.includes('helicopter')) return { emoji: '🚁', filename: 'helicopter.png' };
+  // Pas encore d'artwork : l'image 404 et le onError de ResultView bascule sur l'emoji.
+  if (p.includes('shrug')) return { emoji: '🤷', filename: 'shrugger.png' };
 
   return { emoji: '💪', filename: 'default.png' };
 };

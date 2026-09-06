@@ -21,6 +21,7 @@ class ConventionnalDeadliftPersona(str, Enum):
     THE_BOUNCER = "The Bouncer"
     THE_PEZ_DISPENSER = "The Pez Dispenser"
     THE_SOFT_LOCK = "The Soft-Lock"
+    THE_SHRUGGER = "The Shrugger"
 
 
 class SumoDeadliftPersona(str, Enum):
@@ -37,6 +38,7 @@ class SumoDeadliftPersona(str, Enum):
     THE_X_WING = "The X-Wing"
     THE_HELICOPTER = "The Helicopter"
     THE_HEEL_TIPPER = "The Heel Tipper"
+    THE_SHRUGGER = "The Shrugger"
 
 
 class CriteriaScore(str, Enum):
@@ -102,6 +104,7 @@ class AnalyzeConventionalDeadlift(BaseModel):
     - The T-Rex: Introduces active elbow flexion. Elbows are slightly bent, transferring immense load directly into the distal biceps tendon.
     - The Kneecapper: Initiates descent with knee flexion instead of hip flexion. Patellae translate forward directly into the barbell's vertical path.
     - The Soft-Lock: Failure to achieve terminal extension of hip and knee joints. Glutes and quads do not reach peak concentric contraction.
+    - The Shrugger: Attempts to finish the lift by elevating the scapulae with the upper trapezius instead of completing hip extension. The shrug adds no height to the bar and abandons the depressed-lat position that keeps it close to the body.
     """)
     persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")
 
@@ -177,6 +180,7 @@ class AnalyzeSumoDeadlift(BaseModel):
     - The X-Wing: Severe dynamic knee valgus. Hips lack external rotation strength, causing knees to collapse inward instantly off the floor.
     - The Helicopter: Asymmetrical lockout or uneven tension causing the barbell to rotate horizontally (windmill effect) during the pull.
     - The Heel Tipper: Center of gravity shifts entirely behind the heels due to an overly vertical pull, causing backward balance loss at lockout.
+    - The Shrugger: Attempts to finish the lift by elevating the scapulae with the upper trapezius instead of completing hip extension. The shrug adds no height to the bar and abandons the depressed-lat position that keeps it close to the body.
     """)
     persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")
 
