@@ -23,6 +23,18 @@ GOOGLE_DETECT_FUTURE_TIMEOUT = int(os.getenv("GEMINI_DETECT_TIMEOUT", "120"))
 POSE_FUTURE_TIMEOUT = int(os.getenv("POSE_TIMEOUT", "45"))
 
 # Modèle du triage rapide (images seules), distinct du modèle d'analyse vidéo.
+# Correspondance score brut du schema (1-4) -> note affichee (1..3).
+#
+# Mesuree sur les 49 clips etiquetes : l'ancienne table (1-2 -> 1) rangeait "Poor"
+# dans le meme seau que "Danger" et produisait 217 notes plancher la ou l'humain en
+# met 66 — biais -0,73 et 35% d'accord, c'est-a-dire moins bien que repondre "2/3" a
+# tout. Avec cette table : biais -0,24 et 50%. Le barreme de `schemas.py` ecrit
+# encore "1-2=Poor" et devrait separer les deux bandes ; tant qu'il ne le fait pas,
+# le modele les distingue quand meme (59 contre 158 sur les 49 clips).
+#
+# Toute modification se rejoue avec eval/scorer/scale_lab.py, sans appel API.
+COMPRESSION = {1: 1, 2: 2, 3: 2, 4: 3}
+
 MODEL_CLASSIFICATION = os.getenv("MODEL_GEMINI_CLASSIFICATION", "gemini-3.5-flash-lite")
 
 # Modèle de repli quand le modèle principal est saturé (503 UNAVAILABLE).
@@ -359,14 +371,18 @@ def analyze_movement(file_name: str, mouvement_detecte: str,
         quantities; if what you see clearly contradicts a value, say so in the feedback.
         """
 
+        # Consigne mesuree, pas figee : elle plaque le modele au plancher (biais -0,78
+        # sur les 49 clips etiquetes). SBD_NO_FLOOR_RULE=1 la retire pour comparer.
+        regle_plancher = ("" if os.getenv("SBD_NO_FLOOR_RULE") == "1"
+                          else "  1. Assume the default score is 1 (Poor)\n          2. ")
+
         # LOOK HOW SMALL THE PROMPT IS NOW!
         prompt_analyse = f"""
         You are a brutally strict, elite IPF powerlifting judge and highly analytical biomechanics coach. 
         The athlete executes a {mouvement_detecte.upper()}.
         {bloc_kinematics}
         GRADING RULE:
-          1. Assume the default score is 1 (Poor)
-          2. A Score: "1" to "4", based strictly on the provided rubrics in the schema.
+        {regle_plancher}A Score: "1" to "4", based strictly on the provided rubrics in the schema.
 
         CRITICAL VISIBILITY RULE (The "NA" Rule):
         If the camera angle, framing, lighting or video quality makes a specific
@@ -409,12 +425,16 @@ def analyze_movement(file_name: str, mouvement_detecte: str,
                 continue
 
             raw_score = numeric_score(critere["score"])
+            # Le score brut 1-4 est conserve a cote du compresse : sans lui, toute
+            # question sur la correspondance de compression demande de rejouer les
+            # appels. Le front ignore la cle, il ne lit que "score".
+            critere["raw_score"] = raw_score
             if raw_score is None:
                 critere["score"] = None
                 critere["not_assessable"] = True
                 continue
 
-            compressed = 1 if raw_score <= 2 else (2 if raw_score == 3 else 3)
+            compressed = COMPRESSION[raw_score]
             critere["score"] = compressed
             score_total += compressed
             nb_criteres_notes += 1
