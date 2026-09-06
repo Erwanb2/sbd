@@ -93,6 +93,69 @@ class AnalyzeBench(BaseModel):
 
 
 class AnalyzeConventionalDeadlift(BaseModel):
+    starting_position: EvaluationCriteria = Field(
+        description="Evaluates setup before pull. "
+                    "1=Poor (Bar far from mid-foot, hips extremely high/low, shoulders completely misaligned). "
+                    "2=Subpar (Bar slightly off mid-foot, hips too low like a squat, or shoulders slightly behind bar). "
+                    "3=Good (Bar over mid-foot, hips clearly between knees and shoulders, back flat. One of the three slightly off.) "
+                    "4=Optimal (Bar over mid-foot with the shins close to or touching it, hips between knees and shoulders, shoulders at or just ahead of the bar, back flat and set before the bar moves)."
+    )
+    slack_pull_and_lat_engagement: EvaluationCriteria = Field(
+        description="Evaluates pre-tension. "
+                    "1=Poor (Complete 'grip and rip', zero tension before lift, loose lats, rounded shoulders). "
+                    "2=Subpar (Attempted tension but lost before liftoff, soft elbows, lats barely engaged). "
+                    "3=Good (Tension is visibly taken out before the bar moves, but the upper back softens during the pull.) "
+                    "4=Optimal (The arms pull taut and the bar visibly rises against the plates before it leaves the floor; the shoulders stay pulled down and hold that position through the pull)."
+    )
+    leg_drive_activation: EvaluationCriteria = Field(
+        description="Evaluates quad recruitment off the floor. "
+                    "1=Poor (Hips shoot up immediately, lifting entirely with the back/stiff-leg pull). "
+                    "2=Subpar (Noticeable early hip rise, minimal quad recruitment, back takes over early). "
+                    "3=Good (The hips rise slightly ahead of the shoulders in the first third, but the torso does not collapse forward.) "
+                    "4=Optimal (The torso angle is held through the first third of the pull, hips and shoulders rising together)."
+    )
+    hip_hinge_mechanics: EvaluationCriteria = Field(
+        description="Evaluates posterior chain utilization. "
+                    "1=Poor (Squatting the weight up, zero tension in hamstrings/glutes). "
+                    "2=Subpar (Poor hinge, knees translate too far forward, relying too much on quads or lower back). "
+                    "3=Good (Hips and knees extend together for most of the pull, with a brief mistiming around knee height.) "
+                    "4=Optimal (Hips and knees extend together with no separate phase; the bar rises in one continuous motion)."
+    )
+    core_bracing_and_spine_neutrality: EvaluationCriteria = Field(
+        description="Evaluates spine integrity. "
+                    "1=Poor (The lower back is visibly rounded under load, or rounds further during the pull.) "
+                    "2=Subpar (Noticeable lumbar flexion appears during the pull.) "
+                    "3=Good (The lower back stays flat; some upper-back rounding, stable and unchanging.) "
+                    "4=Optimal (The back holds the same shape at setup, at knee height and at lockout - no flexion added under load)."
+    )
+    bar_path_and_proximity: EvaluationCriteria = Field(
+        description="Evaluates bar trajectory. "
+                    "1=Poor (Bar drifts significantly away from shins/thighs, causing forward balance loss). "
+                    "2=Subpar (Bar loses contact with legs off the floor or loops forward around the knees). "
+                    "3=Good (The bar stays close to the legs but loses contact briefly around the knee.) "
+                    "4=Optimal (The bar stays against or within a few centimetres of the legs the whole way up, with no forward loop around the knees)."
+    )
+    lockout_execution: EvaluationCriteria = Field(
+        description="Evaluates completion of the lift. "
+                    "1=Poor (Fails to lockout, hitched rep, soft knees, or extreme dangerous lumbar hyperextension). "
+                    "2=Subpar (Slow/stuttering lockout, slight hyperextension, or slightly soft hips/knees at the top). "
+                    "3=Good (Full extension is reached, but with a brief stall at the top or a slight lean back.) "
+                    "4=Optimal (Hips and knees reach full extension together, the lifter stands tall with the bar against the thighs, no lean back and no pause)."
+    )
+    eccentric_control_and_descent: EvaluationCriteria = Field(
+        description="Evaluates lowering of the bar. If each rep is reset on the floor, only a dropped or uncontrolled bar is a fault: a deliberate fast but accompanied lowering is not. If the reps are touch-and-go, judge the transitions between reps. "
+                    "1=Poor (Completely dropping the bar, crashing, or bouncing heavily on knees). "
+                    "2=Subpar (Uncontrolled descent, bending knees too early causing the bar to travel forward). "
+                    "3=Good (Controlled descent, but the knees bend a little early or the last portion drops quickly.) "
+                    "4=Optimal (The bar is lowered under control with the hips travelling back first; the knees bend once the bar has passed them)."
+    )
+
+    # Le persona est une CONCLUSION, pas une premisse : la sortie structuree est
+    # generee dans l'ordre des champs, donc le declarer en tete revenait a choisir
+    # l'archetype avant d'avoir analyse le moindre critere, puis a noter en
+    # coherence avec l'etiquette deja posee. Mesure a 4/48 dans l'ensemble accepte
+    # par l'humain, avec "The Crane" 15 fois sur 48. Garder ce bloc en DERNIER.
+    # L'ordre d'affichage du front est independant de l'ordre de generation.
     lifter_persona: ConventionnalDeadliftPersona = Field(description="""Classify the lifter into one of the specific archetypes based on their dominant trait or flaw:
     - The Grip & Rip: Lacks isometric contraction of the latissimus dorsi and posterior chain prior to concentric initiation. Sudden jerk pulling lifter out of optimal leverage.
     - The Crane: Premature knee extension without concurrent hip extension. Upper body is forced to complete a stiff-legged hinge.
@@ -108,82 +171,8 @@ class AnalyzeConventionalDeadlift(BaseModel):
     """)
     persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")
 
-    starting_position: EvaluationCriteria = Field(
-        description="Evaluates setup before pull. "
-                    "1=Poor (Bar far from mid-foot, hips extremely high/low, shoulders completely misaligned). "
-                    "2=Subpar (Bar slightly off mid-foot, hips too low like a squat, or shoulders slightly behind bar). "
-                    "3=Good (Bar over mid-foot, hips at acceptable height, minor deviation in scapula position). "
-                    "4=Optimal (Bar exactly over mid-foot, shins touching bar, hips at optimal height, scapula directly over bar)."
-    )
-    slack_pull_and_lat_engagement: EvaluationCriteria = Field(
-        description="Evaluates pre-tension. "
-                    "1=Poor (Complete 'grip and rip', zero tension before lift, loose lats, rounded shoulders). "
-                    "2=Subpar (Attempted tension but lost before liftoff, soft elbows, lats barely engaged). "
-                    "3=Good (Noticeable tension and slack pull, but slight loss of upper back tightness during initial pull). "
-                    "4=Optimal ('Bending the bar', audible slack pull, lats aggressively engaged and locked throughout)."
-    )
-    leg_drive_activation: EvaluationCriteria = Field(
-        description="Evaluates quad recruitment off the floor. "
-                    "1=Poor (Hips shoot up immediately, lifting entirely with the back/stiff-leg pull). "
-                    "2=Subpar (Noticeable early hip rise, minimal quad recruitment, back takes over early). "
-                    "3=Good (Solid leg drive, torso angle remains mostly constant with only very slight early hip movement). "
-                    "4=Optimal (Perfect leg drive, torso angle remains absolutely constant off the floor, pushing the floor away)."
-    )
-    hip_hinge_mechanics: EvaluationCriteria = Field(
-        description="Evaluates posterior chain utilization. "
-                    "1=Poor (Squatting the weight up, zero tension in hamstrings/glutes). "
-                    "2=Subpar (Poor hinge, knees translate too far forward, relying too much on quads or lower back). "
-                    "3=Good (Solid posterior chain tension, but slight mistiming between knee and hip extension). "
-                    "4=Optimal (Excellent hamstring/glute tension, perfectly synchronized knee and hip extension)."
-    )
-    core_bracing_and_spine_neutrality: EvaluationCriteria = Field(
-        description="Evaluates spine integrity. "
-                    "1=Poor (Complete loss of bracing, severe lumbar and thoracic rounding). "
-                    "2=Subpar (Weak brace, noticeable lumbar flexion/rounding during the pull). "
-                    "3=Good (Solid brace, neutral lumbar spine, slight but safe and acceptable thoracic rounding). "
-                    "4=Optimal (Massive 360-degree brace, perfectly rigid and neutral spine from cervical to lumbar throughout)."
-    )
-    bar_path_and_proximity: EvaluationCriteria = Field(
-        description="Evaluates bar trajectory. "
-                    "1=Poor (Bar drifts significantly away from shins/thighs, causing forward balance loss). "
-                    "2=Subpar (Bar loses contact with legs off the floor or loops forward around the knees). "
-                    "3=Good (Mostly straight vertical path, but intermittent or very light contact with legs). "
-                    "4=Optimal (Perfectly straight vertical path, continuous light contact dragging up the shins and thighs)."
-    )
-    lockout_execution: EvaluationCriteria = Field(
-        description="Evaluates completion of the lift. "
-                    "1=Poor (Fails to lockout, hitched rep, soft knees, or extreme dangerous lumbar hyperextension). "
-                    "2=Subpar (Slow/stuttering lockout, slight hyperextension, or slightly soft hips/knees at the top). "
-                    "3=Good (Solid lockout, but slightly lacking an aggressive glute squeeze or perfectly tall posture). "
-                    "4=Optimal (Crisp forceful glute squeeze, perfectly tall posture, knees/hips locked simultaneously without leaning back)."
-    )
-    eccentric_control_and_descent: EvaluationCriteria = Field(
-        description="Evaluates lowering of the bar. "
-                    "1=Poor (Completely dropping the bar, crashing, or bouncing heavily on knees). "
-                    "2=Subpar (Uncontrolled descent, bending knees too early causing the bar to travel forward). "
-                    "3=Good (Controlled descent but slight knee interference or slightly rapid drop). "
-                    "4=Optimal (Perfectly controlled hinge lowering, hips travel back first, knees bend only after bar passes them)."
-    )
 
 class AnalyzeSumoDeadlift(BaseModel):
-    lifter_persona: SumoDeadliftPersona = Field(description="""Classify the lifter into one of the specific archetypes based on their dominant trait or flaw:
-    - The Grip & Rip: Lacks isometric contraction prior to concentric initiation. Sudden jerk pulling lifter out of optimal leverage.
-    - The Crane: Premature knee extension. Hips shoot up immediately, turning it into a stiff-legged pull.
-    - The Squatter: Pelvis too low, pushing tibia forward. Fails to build tension in the hips.
-    - The Fishing Rod: Failure to maintain intra-abdominal pressure. Spine is pulled into active flexion.
-    - The Over-Extender: Excessive lumbar hyperextension at lockout instead of finishing with glute contraction.
-    - The Hitcher: Lifter re-flexes knees and rests barbell on distal quadriceps to artificially finish the lift.
-    - The Pendulum: Bar drifts anteriorly away from the legs, increasing the moment arm and taxing the lower back.
-    - The T-Rex: Introduces active elbow flexion. Elbows are slightly bent, risking a bicep tear.
-    - The Kneecapper: Initiates descent with knee flexion instead of hip flexion. Barbell crashes into the knees.
-    - The Soft-Lock: Fails to achieve terminal extension. Knees or hips remain visibly soft at the top.
-    - The X-Wing: Severe dynamic knee valgus. Hips lack external rotation strength, causing knees to collapse inward instantly off the floor.
-    - The Helicopter: Asymmetrical lockout or uneven tension causing the barbell to rotate horizontally (windmill effect) during the pull.
-    - The Heel Tipper: Center of gravity shifts entirely behind the heels due to an overly vertical pull, causing backward balance loss at lockout.
-    - The Shrugger: Attempts to finish the lift by elevating the scapulae with the upper trapezius instead of completing hip extension. The shrug adds no height to the bar and abandons the depressed-lat position that keeps it close to the body.
-    """)
-    persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")
-
     starting_position: EvaluationCriteria = Field(
         description="Evaluates sumo setup. "
                     "1=Poor (Stance completely mismatched to mobility, toes pointing forward, hips way too high or low, shins not vertical). "
@@ -240,6 +229,31 @@ class AnalyzeSumoDeadlift(BaseModel):
                     "3=Good (Controlled descent but slight knee interference on the way down). "
                     "4=Optimal (Perfectly controlled lowering, hips stay open, knees bend only after the bar passes them)."
     )
+
+    # Le persona est une CONCLUSION, pas une premisse : la sortie structuree est
+    # generee dans l'ordre des champs, donc le declarer en tete revenait a choisir
+    # l'archetype avant d'avoir analyse le moindre critere, puis a noter en
+    # coherence avec l'etiquette deja posee. Mesure a 4/48 dans l'ensemble accepte
+    # par l'humain, avec "The Crane" 15 fois sur 48. Garder ce bloc en DERNIER.
+    # L'ordre d'affichage du front est independant de l'ordre de generation.
+    lifter_persona: SumoDeadliftPersona = Field(description="""Classify the lifter into one of the specific archetypes based on their dominant trait or flaw:
+    - The Grip & Rip: Lacks isometric contraction prior to concentric initiation. Sudden jerk pulling lifter out of optimal leverage.
+    - The Crane: Premature knee extension. Hips shoot up immediately, turning it into a stiff-legged pull.
+    - The Squatter: Pelvis too low, pushing tibia forward. Fails to build tension in the hips.
+    - The Fishing Rod: Failure to maintain intra-abdominal pressure. Spine is pulled into active flexion.
+    - The Over-Extender: Excessive lumbar hyperextension at lockout instead of finishing with glute contraction.
+    - The Hitcher: Lifter re-flexes knees and rests barbell on distal quadriceps to artificially finish the lift.
+    - The Pendulum: Bar drifts anteriorly away from the legs, increasing the moment arm and taxing the lower back.
+    - The T-Rex: Introduces active elbow flexion. Elbows are slightly bent, risking a bicep tear.
+    - The Kneecapper: Initiates descent with knee flexion instead of hip flexion. Barbell crashes into the knees.
+    - The Soft-Lock: Fails to achieve terminal extension. Knees or hips remain visibly soft at the top.
+    - The X-Wing: Severe dynamic knee valgus. Hips lack external rotation strength, causing knees to collapse inward instantly off the floor.
+    - The Helicopter: Asymmetrical lockout or uneven tension causing the barbell to rotate horizontally (windmill effect) during the pull.
+    - The Heel Tipper: Center of gravity shifts entirely behind the heels due to an overly vertical pull, causing backward balance loss at lockout.
+    - The Shrugger: Attempts to finish the lift by elevating the scapulae with the upper trapezius instead of completing hip extension. The shrug adds no height to the bar and abandons the depressed-lat position that keeps it close to the body.
+    """)
+    persona_justification: str = Field(description="A short, fun explanation of why this persona was assigned to the lifter.")
+
 
 schema_mapping = {
     "squat": AnalyzeSquat,
