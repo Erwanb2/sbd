@@ -773,7 +773,7 @@
     },
     {
       "file": "jeff_nippard_conventional.mp4",
-      "movement": "conventional deadlift",
+      "movement": "sumo deadlift",
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
@@ -818,7 +818,7 @@
         "scoring",
         "top_anchor"
       ],
-      "movement_note": "Fichier renomme le 2026-09-04 : il s'appelait jeff_nippard_sumo.mp4 alors que le lift est conventionnel (vue de profil, une seule colonne de jambe, avant-bras devant le tibia)."
+      "movement_note": "Corrige le 2026-09-05 sur confirmation d'Erwan : le nom de fichier dit 'conventional' mais le lift est un SUMO. L'entree portait deja les criteres du schema sumo et une note 'top anchor for sumo' ; seul le champ movement etait faux. ATTENTION : la cascade de pose classe ce clip 'conventional', c'est donc un second contre-exemple pour pose_analysis.REGLES, avec arthur_last.mp4."
     },
     {
       "file": "engueran_sumo.mp4",
@@ -1306,6 +1306,20 @@
       "criteria_note": "Mouvement seul, pas de scores de criteres.",
       "persona": null,
       "persona_confidence": "n/a"
+    },
+    {
+      "file": "arthur_last.mp4",
+      "movement": "conventional deadlift",
+      "movement_confidence": "high",
+      "movement_note": "Ajoute le 2026-09-05 : ce clip n'etait pas etiquete. Stance conventionnelle confirmee sur un recadrage du bas du corps a 9,0-11,0 s (pieds a une largeur de hanches, mains a l'exterieur des tibias). ATTENTION : la cascade de pose le classe sumo (regle largeur, 1.752 pour un seuil a 1.605, confiance 0.90). C'est donc un contre-exemple pour pose_analysis.REGLES, et check_pose_cascade.py le comptera desormais comme un echec.",
+      "criteria": null,
+      "persona": null,
+      "persona_confidence": "low",
+      "notes": "Vue de trois quarts avant sur plateforme surelevee. Hanches tres hautes au decollage (ratio 0.106). Les scores par critere de ce clip vivent dans eval/scorer/claude_review.json.",
+      "use_as": [
+        "classifier",
+        "hard_classification"
+      ]
     }
   ],
   "assertions": [

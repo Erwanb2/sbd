@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notation des deadlifts — data/</title>
+<style>
+  :root{
+    --fond:#0f1115; --panneau:#161a21; --bord:#272d38; --texte:#e7ebf2;
+    --doux:#8b95a7; --accent:#6ea8fe; --ok:#4ade80; --moyen:#fbbf24; --mauvais:#f87171;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fond);color:var(--texte);
+       font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+  .app{display:grid;grid-template-columns:230px minmax(420px,1fr) minmax(400px,520px);
+       height:100vh;overflow:hidden}
+
+  /* ---------------------------------------------------------------- colonne 1 */
+  .liste{border-right:1px solid var(--bord);overflow-y:auto;padding:10px 8px}
+  .liste h1{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+            color:var(--doux);margin:6px 8px 12px}
+  .clip{display:flex;gap:8px;align-items:center;width:100%;text-align:left;
+        padding:6px 8px;border-radius:6px;color:var(--doux);font-size:12.5px}
+  .clip:hover{background:#1b2029;color:var(--texte)}
+  .clip.actif{background:#1f2732;color:var(--texte)}
+  .clip .nom{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .pastille{width:7px;height:7px;border-radius:50%;background:#39404d;flex:none}
+  .pastille.partiel{background:var(--moyen)}
+  .pastille.fait{background:var(--ok)}
+
+  /* ---------------------------------------------------------------- colonne 2 */
+  .scene{display:flex;flex-direction:column;min-width:0;padding:16px 18px;gap:12px;overflow:hidden}
+  .entete{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .fichier{font-size:17px;font-weight:600;word-break:break-word}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--bord);
+         color:var(--doux);white-space:nowrap}
+  video{width:100%;flex:1;min-height:0;background:#000;border-radius:10px;object-fit:contain}
+  .barre{display:flex;align-items:center;gap:10px;color:var(--doux);font-size:12.5px}
+  .barre button{border:1px solid var(--bord);border-radius:6px;padding:5px 11px}
+  .barre button:hover{border-color:var(--accent);color:var(--texte)}
+  .progression{flex:1;height:4px;background:#232833;border-radius:2px;overflow:hidden}
+  .progression div{height:100%;background:var(--ok);width:0}
+  .notes{font-size:12.5px;color:var(--doux);border-left:2px solid var(--bord);padding-left:10px}
+
+  /* ---------------------------------------------------------------- colonne 3 */
+  .panneau{border-left:1px solid var(--bord);overflow-y:auto;padding:16px 16px 60px}
+  .critere{border-bottom:1px solid #1e232c;padding:9px 0}
+  .critere.focus{background:#151a22;box-shadow:inset 2px 0 0 var(--accent);
+                 margin:0 -8px;padding-left:8px;padding-right:8px}
+  .ligne{display:flex;align-items:center;gap:8px}
+  .titre{flex:1;font-size:13px;text-transform:capitalize}
+  .boutons{display:flex;gap:4px;flex:none}
+  .note{width:38px;height:28px;border:1px solid var(--bord);border-radius:6px;
+        font-size:12px;color:var(--doux)}
+  .note:hover{border-color:#525c6b;color:var(--texte)}
+  .note.on[data-v="1"]{background:var(--mauvais);border-color:var(--mauvais);color:#221;font-weight:600}
+  .note.on[data-v="2"]{background:var(--moyen);border-color:var(--moyen);color:#221;font-weight:600}
+  .note.on[data-v="3"]{background:var(--ok);border-color:var(--ok);color:#0b1a10;font-weight:600}
+  .note.na{width:30px;font-size:11px}
+  .note.on.na{background:#3b4250;border-color:#4d5666;color:var(--texte)}
+  .rubrique{font-size:12px;color:var(--doux);margin-top:6px}
+  .rubrique .intro{margin-bottom:5px}
+  .niveau{display:flex;gap:8px;padding:2px 0;align-items:flex-start}
+  .aide{background:none;border:none;color:var(--doux);font-size:11px;padding:0 4px}
+
+  .persona{padding:12px 0 4px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+  .chip{border:1px solid var(--bord);border-radius:999px;padding:4px 10px;font-size:12px;
+        color:var(--doux)}
+  .chip:hover{border-color:#525c6b;color:var(--texte)}
+  .chip.on{background:var(--accent);border-color:var(--accent);color:#0b1420;font-weight:600}
+  .chip.flou{opacity:.55}
+  .chip.aucun{font-style:italic}
+  .souffle{font-size:11px;color:var(--doux);font-weight:400;text-transform:none}
+  #compteurPersona{margin-top:6px}
+  .defs{font-size:12px;color:var(--doux)}
+  .defs div{padding:3px 0}
+  .defs b{color:var(--texte);font-weight:600}
+
+  details{margin-top:10px;border:1px solid var(--bord);border-radius:8px;background:var(--panneau)}
+  details summary{cursor:pointer;padding:9px 12px;font-size:12.5px;color:var(--doux);
+                  list-style:none;display:flex;gap:8px;align-items:center}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"▸";font-size:10px}
+  details[open] summary::before{content:"▾"}
+  details summary:hover{color:var(--texte)}
+  .avis{padding:2px 12px 12px}
+  .avis .l{display:flex;gap:8px;padding:5px 0;border-top:1px solid #1e232c;font-size:12.5px}
+  .avis .l:first-child{border-top:none}
+  .avis .n{flex:none;width:34px;text-align:center;border-radius:4px;font-weight:600;
+           font-size:11px;height:18px;line-height:18px}
+  .n1{background:rgba(248,113,113,.18);color:var(--mauvais)}
+  .n2{background:rgba(251,191,36,.18);color:var(--moyen)}
+  .n3{background:rgba(74,222,128,.18);color:var(--ok)}
+  .nna{background:#232833;color:var(--doux)}
+  .avis .c{flex:1;min-width:0}
+  .avis .k{color:var(--doux);text-transform:capitalize;font-size:11.5px}
+  .avis .synthese{font-size:12px;color:var(--doux);padding:8px 0 2px;font-style:italic}
+  .avis .chapeau{font-size:12.5px;padding:2px 0 9px;border-bottom:1px solid #1e232c;margin-bottom:2px}
+
+  textarea{width:100%;min-height:92px;margin-top:10px;background:var(--panneau);
+           border:1px solid var(--bord);border-radius:8px;color:var(--texte);
+           padding:10px;font:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  .etat{position:fixed;right:16px;bottom:12px;font-size:11.5px;color:var(--doux);
+        background:var(--panneau);border:1px solid var(--bord);border-radius:999px;
+        padding:5px 12px;opacity:0;transition:opacity .25s}
+  .etat.vu{opacity:1}
+  .raccourcis{font-size:11.5px;color:var(--doux);margin-top:14px;line-height:1.9}
+  kbd{background:#1d222b;border:1px solid var(--bord);border-radius:4px;padding:1px 5px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="liste" id="liste"><h1>Clips</h1></nav>
+
+  <main class="scene">
+    <div class="entete">
+      <div class="fichier" id="fichier">…</div>
+      <span class="badge" id="mouvement"></span>
+      <span class="badge" id="rang"></span>
+    </div>
+    <video id="video" controls autoplay muted loop playsinline></video>
+    <div class="barre">
+      <button id="prec">← précédent</button>
+      <button id="suiv">suivant →</button>
+      <div class="progression"><div id="jauge"></div></div>
+      <span id="compteur"></span>
+    </div>
+  </main>
+
+  <section class="panneau">
+    <div id="criteres"></div>
+
+    <div class="persona" id="blocPersona" hidden>
+      <div class="ligne">
+        <span class="titre">Persona <span class="souffle">plusieurs choix possibles</span></span>
+        <button class="aide" id="aidePersona" title="voir les définitions">?</button>
+      </div>
+      <div class="chips" id="chipsPersona"></div>
+      <div class="souffle" id="compteurPersona"></div>
+      <div class="rubrique" id="defsPersona" hidden></div>
+    </div>
+
+    <details id="detAvis">
+      <summary>Mon avis (Claude) sur tous les critères</summary>
+      <div class="avis" id="avisClaude"></div>
+    </details>
+
+    <details id="detLlm">
+      <summary>Note du LLM (pipeline Gemini)</summary>
+      <div class="avis" id="avisLlm"></div>
+    </details>
+
+    <textarea id="commentaire" placeholder="Commentaire humain sur ce clip…"></textarea>
+
+    <div class="raccourcis">
+      <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> noter le critère courant &nbsp;·&nbsp; <kbd>0</kbd> NA<br>
+      <kbd>↑</kbd> <kbd>↓</kbd> changer de critère &nbsp;·&nbsp; <kbd>←</kbd> <kbd>→</kbd> changer de clip<br>
+      <kbd>espace</kbd> lecture / pause &nbsp;·&nbsp; <kbd>Échap</kbd> quitter le commentaire
+    </div>
+  </section>
+</div>
+<div class="etat" id="etat"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+let clips = [], i = 0, focus = 0, minuteur = null;
+
+const clip = () => clips[i];
+const cle = v => v === null || v === undefined ? "" : String(v);
+
+// ---------------------------------------------------------------- chargement
+fetch("/api/catalogue").then(r => r.json()).then(d => {
+  clips = d.videos;
+  const dernier = localStorage.getItem("scorer:dernier");
+  const trouve = clips.findIndex(c => c.file === dernier);
+  i = trouve >= 0 ? trouve : 0;
+  dessineListe();
+  affiche();
+});
+
+function statut(c){
+  const n = Object.keys((c.human && c.human.scores) || {}).length;
+  if (!c.criteria.length) return "";
+  // un clip n'est fini que quand le persona est choisi aussi (sauf au bench, qui n'en a pas)
+  const personaFait = !(c.personas && c.personas.length) || personas(c).length > 0;
+  if (n >= c.criteria.length && personaFait) return "fait";
+  return (n > 0 || personas(c).length > 0) ? "partiel" : "";
+}
+
+function dessineListe(){
+  const nav = $("#liste");
+  nav.innerHTML = "<h1>Clips</h1>";
+  clips.forEach((c, k) => {
+    const b = document.createElement("button");
+    b.className = "clip" + (k === i ? " actif" : "");
+    b.innerHTML = `<span class="pastille ${statut(c)}"></span><span class="nom">${c.file}</span>`;
+    b.onclick = () => { i = k; affiche(); };
+    nav.appendChild(b);
+  });
+}
+
+function majListe(){
+  [...document.querySelectorAll(".clip")].forEach((b, k) => {
+    b.classList.toggle("actif", k === i);
+    b.querySelector(".pastille").className = "pastille " + statut(clips[k]);
+  });
+  const notes = clips.filter(c => statut(c) === "fait").length;
+  const total = clips.filter(c => c.criteria.length).length;
+  $("#jauge").style.width = (100 * notes / Math.max(1, total)) + "%";
+  $("#compteur").textContent = `${notes}/${total} clips notés`;
+}
+
+// ---------------------------------------------------------------- affichage
+function affiche(){
+  const c = clip();
+  focus = 0;
+  localStorage.setItem("scorer:dernier", c.file);
+  $("#fichier").textContent = c.file;
+  $("#mouvement").textContent = c.movement || "mouvement inconnu";
+  $("#rang").textContent = `${i + 1} / ${clips.length}`;
+  $("#video").src = "/media/" + encodeURIComponent(c.file);
+  $("#commentaire").value = (c.human && c.human.comment) || "";
+  $("#detAvis").open = false;
+  $("#detLlm").open = false;
+  dessineCriteres();
+  dessinePersonas();
+  dessineAvis();
+  majListe();
+  document.querySelector(".clip.actif")?.scrollIntoView({block:"nearest"});
+  $(".panneau").scrollTop = 0;
+}
+
+function dessineCriteres(){
+  const c = clip(), hote = $("#criteres");
+  hote.innerHTML = "";
+  if (!c.criteria.length){
+    hote.innerHTML = `<div class="rubrique">Pas de mouvement connu pour ce clip :
+      aucun critère à noter (il reste consultable).</div>`;
+    return;
+  }
+  const scores = (c.human && c.human.scores) || {};
+  c.criteria.forEach((cr, k) => {
+    const d = document.createElement("div");
+    d.className = "critere" + (k === focus ? " focus" : "");
+    d.dataset.k = k;
+    const boutons = ["1","2","3"].map(v =>
+      `<button class="note${cle(scores[cr.name]) === v ? " on" : ""}" data-v="${v}"
+        data-n="${cr.name}" title="${v}/3">${v}/3</button>`).join("");
+    d.innerHTML = `<div class="ligne">
+        <span class="titre">${cr.label}</span>
+        <button class="aide" title="voir la grille">?</button>
+        <span class="boutons">${boutons}
+          <button class="note na${cle(scores[cr.name]) === "NA" ? " on" : ""}"
+            data-v="NA" data-n="${cr.name}" title="non évaluable à l'image">NA</button>
+        </span>
+      </div>
+      <div class="rubrique" hidden>${grille(cr)}</div>`;
+    d.querySelector(".aide").onclick = e => {
+      const r = d.querySelector(".rubrique"); r.hidden = !r.hidden; e.stopPropagation();
+    };
+    d.querySelectorAll(".note").forEach(b => b.onclick = () => {
+      focus = k; note(cr.name, b.dataset.v); });
+    d.onclick = () => { focus = k; majFocus(); };
+    hote.appendChild(d);
+  });
+}
+
+function grille(cr){
+  if (!cr.levels) return cr.rubric;
+  const l = n => `<div class="niveau"><span class="n n${n}">${n}/3</span>
+      <span>${cr.levels[n] || "—"}</span></div>`;
+  return (cr.intro ? `<div class="intro">${cr.intro}</div>` : "") + l(1) + l(2) + l(3);
+}
+
+// Plusieurs archétypes décrivent parfois le même défaut : on coche tout ce qu'on accepte.
+function personas(c){
+  const p = c.human && c.human.persona;
+  return Array.isArray(p) ? p : (p ? [p] : []);
+}
+
+function dessinePersonas(){
+  const c = clip(), hote = $("#chipsPersona");
+  $("#blocPersona").hidden = !(c.personas && c.personas.length);
+  $("#defsPersona").hidden = true;
+  if ($("#blocPersona").hidden) return;
+  const choisis = personas(c);
+  hote.innerHTML = "";
+  const ajoute = (nom, libelle, classes) => {
+    const b = document.createElement("button");
+    b.className = "chip " + (classes || "") + (choisis.includes(nom) ? " on" : "");
+    b.textContent = libelle;
+    const def = (c.personas.find(p => p.name === nom) || {}).description;
+    if (def) b.title = def;
+    b.onclick = () => {
+      c.human = c.human || {scores:{}, comment:""};
+      let sel = personas(c);
+      if (sel.includes(nom)) sel = sel.filter(x => x !== nom);          // re-clic = retire
+      else if (nom === "NA") sel = ["NA"];                              // exclusif
+      else sel = sel.filter(x => x !== "NA").concat(nom);
+      c.human.persona = sel;
+      dessinePersonas(); enregistre();
+    };
+    hote.appendChild(b);
+  };
+  c.personas.forEach(p => ajoute(p.name, p.name, p.defined ? "" : "flou"));
+  ajoute("NA", "aucun / pas visible", "aucun");   // meme convention que les critères
+  const n = choisis.filter(x => x !== "NA").length;
+  $("#compteurPersona").textContent = n > 1 ? n + " archétypes acceptés" : "";
+  $("#defsPersona").innerHTML = c.personas.map(p =>
+    `<div><b>${p.name}</b> — ${p.description}</div>`).join("");
+}
+
+function majFocus(){
+  document.querySelectorAll(".critere").forEach(d =>
+    d.classList.toggle("focus", +d.dataset.k === focus));
+}
+
+function bloc(nom, e){
+  if (!e) return "";
+  const v = cle(e.score) || "NA";
+  const classe = v === "NA" ? "nna" : "n" + v;
+  const texte = e.why || e.feedback || e.visual_analysis || "";
+  const conf = e.confidence ? ` · confiance ${e.confidence}` : "";
+  return `<div class="l"><span class="n ${classe}">${v === "NA" ? "NA" : v + "/3"}</span>
+    <span class="c"><span class="k">${nom.replace(/_/g," ")}${conf}</span><br>${texte}</span></div>`;
+}
+
+function dessineAvis(){
+  const c = clip();
+  const rend = (source, cible, absent) => {
+    if (!source){ $(cible).innerHTML = `<div class="synthese">${absent}</div>`; return; }
+    let html = source.summary ? `<div class="chapeau">${source.summary}</div>` : "";
+    (c.criteria.length ? c.criteria.map(x => x.name)
+                       : Object.keys(source.criteria || {}))
+      .forEach(n => html += bloc(n, (source.criteria || {})[n]));
+    if (source.persona) {
+      const pj = source.persona_why || source.persona_justification || "";
+      html += `<div class="l"><span class="n nna">persona</span>
+        <span class="c"><span class="k">${source.persona}</span>${pj ? "<br>" + pj : ""}</span></div>`;
+    }
+    const bas = [];
+    if (source.model) bas.push("modèle : " + source.model);
+    if (source.method) bas.push("Méthode : " + source.method);
+    if (cible === "#avisClaude" && c.gt_notes) bas.push("ground_truth.json : " + c.gt_notes);
+    if (bas.length) html += `<div class="synthese">${bas.join(" — ")}</div>`;
+    $(cible).innerHTML = html;
+  };
+  rend(c.claude, "#avisClaude", "Avis pas encore écrit pour ce clip.");
+  rend(c.llm, "#avisLlm", "Pas encore de passage du pipeline sur ce clip.");
+}
+
+// ---------------------------------------------------------------- ecriture
+function note(nom, valeur){
+  const c = clip();
+  c.human = c.human || {scores:{}, comment:""};
+  c.human.scores = c.human.scores || {};
+  if (cle(c.human.scores[nom]) === cle(valeur)) delete c.human.scores[nom];   // re-clic = annule
+  else c.human.scores[nom] = valeur === "NA" ? "NA" : +valeur;
+  dessineCriteres();
+  majListe();
+  enregistre();
+  if (focus < c.criteria.length - 1){ focus++; majFocus(); }
+}
+
+function enregistre(){
+  const c = clip();
+  c.human = c.human || {scores:{}, comment:""};
+  c.human.comment = $("#commentaire").value;
+  clearTimeout(minuteur);
+  minuteur = setTimeout(() => {
+    fetch("/api/label", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({file:c.file, scores:c.human.scores, persona:personas(c),
+                            comment:c.human.comment, updated_at:new Date().toISOString()})})
+      .then(r => r.json()).then(() => signale("enregistré"))
+      .catch(() => signale("échec d'enregistrement"));
+  }, 250);
+}
+
+let effacer = null;
+function signale(t){
+  const e = $("#etat");
+  e.textContent = t; e.classList.add("vu");
+  clearTimeout(effacer);
+  effacer = setTimeout(() => e.classList.remove("vu"), 1200);
+}
+
+$("#aidePersona").onclick = () => {
+  const d = $("#defsPersona");
+  d.hidden = !d.hidden;
+  d.className = d.hidden ? "rubrique" : "rubrique defs";
+};
+$("#commentaire").addEventListener("input", enregistre);
+$("#prec").onclick = () => bouge(-1);
+$("#suiv").onclick = () => bouge(1);
+function bouge(d){ i = (i + d + clips.length) % clips.length; affiche(); }
+
+// ---------------------------------------------------------------- clavier
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA"){
+    if (e.key === "Escape") e.target.blur();
+    return;
+  }
+  const c = clip(); if (!c) return;
+  const n = c.criteria[focus]?.name;
+  if (["1","2","3"].includes(e.key) && n){ e.preventDefault(); note(n, e.key); }
+  else if (e.key === "0" && n){ e.preventDefault(); note(n, "NA"); }
+  else if (e.key === "ArrowDown"){ e.preventDefault();
+    focus = Math.min(focus + 1, c.criteria.length - 1); majFocus(); }
+  else if (e.key === "ArrowUp"){ e.preventDefault(); focus = Math.max(focus - 1, 0); majFocus(); }
+  else if (e.key === "ArrowRight"){ e.preventDefault(); bouge(1); }
+  else if (e.key === "ArrowLeft"){ e.preventDefault(); bouge(-1); }
+  else if (e.key === " "){ e.preventDefault();
+    const v = $("#video"); v.paused ? v.play() : v.pause(); }
+  else if (e.key === "Enter"){ e.preventDefault(); $("#commentaire").focus(); }
+});
+</script>
+</body>
+</html>

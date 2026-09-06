@@ -1,0 +1,1262 @@
+{
+  "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4": {
+    "duree_s": 15.0,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.99113,
+    "largeur": 0.842,
+    "profondeur": -0.1414,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.527,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 10.2,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 179.8,
+      "lockout_hip_angle": 178.8,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 3.0,
+      "descent_hip_delta_deg": 13.3,
+      "_phases": {
+        "liftoff_s": 4.95,
+        "lockout_s": 6.35,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4": {
+    "duree_s": 11.7,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.47821,
+    "largeur": 2.483,
+    "profondeur": 0.1884,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.478,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 11.8,
+      "wrist_horizontal_drift_cm": 22.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 178.0,
+      "lockout_hip_angle": 172.6,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 4.9,
+      "descent_hip_delta_deg": -4.1,
+      "_phases": {
+        "liftoff_s": 10.4,
+        "lockout_s": 11.3,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "Arthur Garrec Profil de coureur Strava.mp4": {
+    "duree_s": 29.9,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.01407,
+    "largeur": 1.485,
+    "profondeur": 0.0475,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 0.927,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 11.2,
+      "wrist_horizontal_drift_cm": 18.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 174.2,
+      "lockout_hip_angle": 176.6,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -4.1,
+      "descent_hip_delta_deg": 1.5,
+      "_phases": {
+        "liftoff_s": 26.53,
+        "lockout_s": 28.63,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "arthur_froler_fesse.mp4": {
+    "duree_s": 44.3,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.07308,
+    "largeur": 1.258,
+    "profondeur": -0.1772,
+    "kinematics": null,
+    "raison": null
+  },
+  "arthur_last.mp4": {
+    "duree_s": 23.2,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.90269,
+    "largeur": 1.752,
+    "profondeur": -0.2066,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.106,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 18.1,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 174.2,
+      "lockout_hip_angle": 170.4,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": -1.5,
+      "descent_hip_delta_deg": 6.2,
+      "_phases": {
+        "liftoff_s": 9.78,
+        "lockout_s": 12.75,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_1.mp4": {
+    "duree_s": 41.4,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.35283,
+    "largeur": 1.017,
+    "profondeur": -0.053,
+    "kinematics": null,
+    "raison": null
+  },
+  "conventionnal_deadlift_10.mp4": {
+    "duree_s": 10.6,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.43727,
+    "largeur": 1.391,
+    "profondeur": -0.0329,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.371,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 23.0,
+      "wrist_horizontal_drift_cm": 11.3,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 178.1,
+      "lockout_hip_angle": 176.3,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -0.3,
+      "descent_hip_delta_deg": 4.0,
+      "_phases": {
+        "liftoff_s": 2.5,
+        "lockout_s": 5.13,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_11.mp4": {
+    "duree_s": 17.2,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.58071,
+    "largeur": 1.021,
+    "profondeur": -0.231,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.245,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 12.9,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 169.3,
+      "lockout_hip_angle": 178.3,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": -3.8,
+      "descent_hip_delta_deg": 7.7,
+      "_phases": {
+        "liftoff_s": 7.77,
+        "lockout_s": 12.6,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_12.mp4": {
+    "duree_s": 29.3,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.05878,
+    "largeur": 0.462,
+    "profondeur": -0.1461,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.665,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -3.5,
+      "wrist_drift_note": "bar path not measurable: pose too unstable",
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 178.6,
+      "lockout_hip_angle": 179.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 0.9,
+      "descent_hip_delta_deg": 1.8,
+      "_phases": {
+        "liftoff_s": 13.3,
+        "lockout_s": 15.2,
+        "facing": "right",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_13.mp4": {
+    "duree_s": 37.8,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.17267,
+    "largeur": 0.71,
+    "profondeur": -0.3532,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.708,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -29.5,
+      "wrist_horizontal_drift_cm": 17.8,
+      "camera_view": "side",
+      "lockout_knee_angle": 161.3,
+      "lockout_hip_angle": 161.5,
+      "_phases": {
+        "liftoff_s": 36.2,
+        "lockout_s": 36.67,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_14.mp4": {
+    "duree_s": 17.2,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.01718,
+    "largeur": 0.536,
+    "profondeur": 0.0451,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.566,
+      "shoulder_to_bar_alignment_at_start": "Shoulders directly over bar",
+      "shoulder_bar_offset_cm": 0.8,
+      "wrist_drift_note": "bar path not measurable: pose too unstable",
+      "camera_view": "side",
+      "lockout_knee_angle": 177.9,
+      "lockout_hip_angle": 174.1,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 47.5,
+      "descent_hip_delta_deg": 43.9,
+      "_phases": {
+        "liftoff_s": 11.5,
+        "lockout_s": 16.73,
+        "facing": "left",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_2.mp4": {
+    "duree_s": 18.5,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.07015,
+    "largeur": 0.557,
+    "profondeur": -0.2526,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.529,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -4.2,
+      "wrist_horizontal_drift_cm": 12.1,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 169.6,
+      "lockout_hip_angle": 176.2,
+      "descent_initial_movement": "Knees flexed before hips",
+      "descent_knee_delta_deg": 7.3,
+      "descent_hip_delta_deg": -0.4,
+      "_phases": {
+        "liftoff_s": 17.63,
+        "lockout_s": 18.03,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_3.mp4": {
+    "duree_s": 36.5,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.01699,
+    "largeur": 0.426,
+    "profondeur": -0.1302,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.699,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 9.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 175.8,
+      "lockout_hip_angle": 178.5,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 26.9,
+      "descent_hip_delta_deg": 48.2,
+      "_phases": {
+        "liftoff_s": 8.6,
+        "lockout_s": 10.87,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_4.mp4": {
+    "duree_s": 18.8,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.6947,
+    "largeur": 0.909,
+    "profondeur": -0.1688,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.533,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 17.7,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 169.4,
+      "lockout_hip_angle": 179.0,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": -10.1,
+      "descent_hip_delta_deg": 6.6,
+      "_phases": {
+        "liftoff_s": 13.3,
+        "lockout_s": 14.9,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_5.mp4": {
+    "duree_s": 23.3,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.84514,
+    "largeur": 0.819,
+    "profondeur": -0.4476,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.08,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -3.9,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 178.8,
+      "lockout_hip_angle": 175.6,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 0.4,
+      "descent_hip_delta_deg": 3.9,
+      "_phases": {
+        "liftoff_s": 1.87,
+        "lockout_s": 4.77,
+        "facing": "left",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_6.mp4": {
+    "duree_s": 32.1,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.02661,
+    "largeur": 0.532,
+    "profondeur": 0.3134,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.293,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 4.8,
+      "wrist_horizontal_drift_cm": 19.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 173.6,
+      "lockout_hip_angle": 171.6,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 5.0,
+      "descent_hip_delta_deg": 11.2,
+      "_phases": {
+        "liftoff_s": 26.47,
+        "lockout_s": 29.57,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_7.mp4": {
+    "duree_s": 34.8,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.03434,
+    "largeur": 0.314,
+    "profondeur": 0.2457,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.545,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 17.0,
+      "wrist_horizontal_drift_cm": 16.9,
+      "camera_view": "side",
+      "lockout_knee_angle": 163.5,
+      "lockout_hip_angle": 173.1,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": 0.3,
+      "descent_hip_delta_deg": 6.3,
+      "_phases": {
+        "liftoff_s": 29.8,
+        "lockout_s": 33.13,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_8.mp4": {
+    "duree_s": 7.7,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.01791,
+    "largeur": 1.005,
+    "profondeur": -0.0146,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 1.345,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -22.2,
+      "wrist_horizontal_drift_cm": 19.0,
+      "camera_view": "side",
+      "lockout_knee_angle": 172.2,
+      "lockout_hip_angle": 177.7,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -5.5,
+      "descent_hip_delta_deg": 4.0,
+      "_phases": {
+        "liftoff_s": 5.6,
+        "lockout_s": 7.57,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "conventionnal_deadlift_9.mp4": {
+    "duree_s": 43.2,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.00648,
+    "largeur": 1.078,
+    "profondeur": -0.1617,
+    "kinematics": null,
+    "raison": null
+  },
+  "engueran_fail_deadlift.mp4": {
+    "duree_s": 37.3,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.43696,
+    "largeur": 3.047,
+    "profondeur": -0.2038,
+    "kinematics": null,
+    "raison": null
+  },
+  "engueran_sumo.mp4": {
+    "duree_s": 35.5,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.61968,
+    "largeur": 2.837,
+    "profondeur": -0.2589,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.119,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 18.3,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 169.7,
+      "lockout_hip_angle": 165.3,
+      "descent_initial_movement": "Knees flexed before hips",
+      "descent_knee_delta_deg": 8.6,
+      "descent_hip_delta_deg": 1.8,
+      "_phases": {
+        "liftoff_s": 34.67,
+        "lockout_s": 35.27,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "erwan_bon_slack.mp4": {
+    "duree_s": 17.6,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.027,
+    "largeur": 1.115,
+    "profondeur": -0.2105,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.383,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 12.6,
+      "wrist_horizontal_drift_cm": 6.4,
+      "camera_view": "side",
+      "lockout_knee_angle": 170.1,
+      "lockout_hip_angle": 179.7,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 26.0,
+      "descent_hip_delta_deg": 97.2,
+      "_phases": {
+        "liftoff_s": 5.77,
+        "lockout_s": 9.04,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "erwan_last.mp4": {
+    "duree_s": 22.5,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.32719,
+    "largeur": 1.104,
+    "profondeur": -0.1423,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.283,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 20.8,
+      "wrist_horizontal_drift_cm": 6.0,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 158.2,
+      "lockout_hip_angle": 177.4,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 35.5,
+      "descent_hip_delta_deg": 56.5,
+      "_phases": {
+        "liftoff_s": 15.08,
+        "lockout_s": 17.98,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "erwan_mauvais_slack.mp4": {
+    "duree_s": 11.7,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.03164,
+    "largeur": 1.857,
+    "profondeur": -0.0244,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 1.173,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -9.2,
+      "wrist_horizontal_drift_cm": 21.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 170.1,
+      "lockout_hip_angle": 135.4,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 95.7,
+      "descent_hip_delta_deg": 44.7,
+      "_phases": {
+        "liftoff_s": 9.29,
+        "lockout_s": 10.71,
+        "facing": "left",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "jeff_nippard.mp4": {
+    "duree_s": 12.9,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.03323,
+    "largeur": 0.342,
+    "profondeur": -0.0747,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.562,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -9.0,
+      "wrist_horizontal_drift_cm": 15.1,
+      "camera_view": "side",
+      "lockout_knee_angle": 171.0,
+      "lockout_hip_angle": 176.7,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 2.8,
+      "descent_hip_delta_deg": -1.9,
+      "_phases": {
+        "liftoff_s": 11.42,
+        "lockout_s": 12.23,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "jeff_nippard_conventional.mp4": {
+    "duree_s": 11.1,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.02155,
+    "largeur": 0.499,
+    "profondeur": 0.2501,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.759,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 17.2,
+      "wrist_horizontal_drift_cm": 29.1,
+      "camera_view": "side",
+      "lockout_knee_angle": 176.1,
+      "lockout_hip_angle": 179.6,
+      "descent_initial_movement": "Knees flexed before hips",
+      "descent_knee_delta_deg": 5.7,
+      "descent_hip_delta_deg": 0.5,
+      "_phases": {
+        "liftoff_s": 0.88,
+        "lockout_s": 5.01,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "long_deadlift.mp4": {
+    "duree_s": 65.9,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.03934,
+    "largeur": 0.953,
+    "profondeur": -0.1997,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.375,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 11.4,
+      "wrist_horizontal_drift_cm": 43.1,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 175.2,
+      "lockout_hip_angle": 169.9,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -1.6,
+      "descent_hip_delta_deg": -2.1,
+      "_phases": {
+        "liftoff_s": 48.23,
+        "lockout_s": 63.07,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "oscar_sumo.mp4": {
+    "duree_s": 45.4,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.01216,
+    "largeur": 2.071,
+    "profondeur": 0.0064,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.485,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 25.5,
+      "wrist_horizontal_drift_cm": 24.2,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 175.6,
+      "lockout_hip_angle": 179.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -2.6,
+      "descent_hip_delta_deg": 4.1,
+      "_phases": {
+        "liftoff_s": 38.9,
+        "lockout_s": 43.8,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "oscar_sumo_short.mp4": {
+    "duree_s": 6.5,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.05653,
+    "largeur": 1.828,
+    "profondeur": 0.2049,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.694,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -7.6,
+      "wrist_horizontal_drift_cm": 2.2,
+      "camera_view": "side",
+      "lockout_knee_angle": 147.5,
+      "lockout_hip_angle": 159.3,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": 0.5,
+      "descent_hip_delta_deg": 9.5,
+      "_phases": {
+        "liftoff_s": 5.23,
+        "lockout_s": 5.4,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "p_deadlift.mp4": {
+    "duree_s": 4.5,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.52493,
+    "largeur": 1.232,
+    "profondeur": -0.1921,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.699,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 9.2,
+      "wrist_horizontal_drift_cm": 3.3,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 173.9,
+      "lockout_hip_angle": 178.1,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 0.1,
+      "descent_hip_delta_deg": 3.7,
+      "_phases": {
+        "liftoff_s": 1.33,
+        "lockout_s": 3.09,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "pas_poitrine_relevee.mp4": {
+    "duree_s": 14.3,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.02363,
+    "largeur": 1.026,
+    "profondeur": -0.1685,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.653,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 6.6,
+      "wrist_horizontal_drift_cm": 15.8,
+      "camera_view": "side",
+      "lockout_knee_angle": 167.6,
+      "lockout_hip_angle": 167.1,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 20.1,
+      "descent_hip_delta_deg": 40.0,
+      "_phases": {
+        "liftoff_s": 3.81,
+        "lockout_s": 7.45,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "poitrine_relevee.mp4": {
+    "duree_s": 13.4,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.70656,
+    "largeur": 1.508,
+    "profondeur": -0.1375,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.303,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 16.3,
+      "wrist_horizontal_drift_cm": 1.3,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 177.4,
+      "lockout_hip_angle": 167.7,
+      "descent_initial_movement": "Knees flexed before hips",
+      "descent_knee_delta_deg": 14.3,
+      "descent_hip_delta_deg": -3.9,
+      "_phases": {
+        "liftoff_s": 1.07,
+        "lockout_s": 2.0,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "pr_160.mp4": {
+    "duree_s": 10.9,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.57525,
+    "largeur": 1.446,
+    "profondeur": -0.3554,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.381,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 13.4,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 179.8,
+      "lockout_hip_angle": 169.4,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": 1.6,
+      "descent_hip_delta_deg": 5.9,
+      "_phases": {
+        "liftoff_s": 3.24,
+        "lockout_s": 6.95,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift.mp4": {
+    "duree_s": 6.6,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.1748,
+    "largeur": 2.408,
+    "profondeur": -0.0178,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": -0.07,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 33.7,
+      "wrist_horizontal_drift_cm": 49.0,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 166.1,
+      "lockout_hip_angle": 175.9,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": -4.3,
+      "descent_hip_delta_deg": 8.2,
+      "_phases": {
+        "liftoff_s": 1.33,
+        "lockout_s": 3.4,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_1.mp4": {
+    "duree_s": 50.2,
+    "variante_pose": "sumo",
+    "regle": "profondeur",
+    "confiance": 0.00473,
+    "largeur": 1.116,
+    "profondeur": 0.0035,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.24,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 20.0,
+      "wrist_horizontal_drift_cm": 12.0,
+      "camera_view": "side",
+      "lockout_knee_angle": 163.3,
+      "lockout_hip_angle": 150.6,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 24.6,
+      "descent_hip_delta_deg": 57.1,
+      "_phases": {
+        "liftoff_s": 43.03,
+        "lockout_s": 47.73,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_10.mp4": {
+    "duree_s": 51.8,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.01721,
+    "largeur": 1.761,
+    "profondeur": 0.0757,
+    "kinematics": null,
+    "raison": null
+  },
+  "sumo_deadlift_11.mp4": {
+    "duree_s": 23.4,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.2809,
+    "largeur": 2.078,
+    "profondeur": 0.1357,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 0.844,
+      "shoulder_to_bar_alignment_at_start": "Shoulders directly over bar",
+      "shoulder_bar_offset_cm": -1.4,
+      "wrist_horizontal_drift_cm": 1.6,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 156.5,
+      "lockout_hip_angle": 131.2,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 23.9,
+      "descent_hip_delta_deg": 37.6,
+      "_phases": {
+        "liftoff_s": 20.07,
+        "lockout_s": 22.23,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_12.mp4": {
+    "duree_s": 23.8,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.47707,
+    "largeur": 2.616,
+    "profondeur": 0.3417,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.398,
+      "shoulder_to_bar_alignment_at_start": "Shoulders directly over bar",
+      "shoulder_bar_offset_cm": 0.6,
+      "wrist_horizontal_drift_cm": 17.4,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 165.0,
+      "lockout_hip_angle": 170.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -8.1,
+      "descent_hip_delta_deg": 2.4,
+      "_phases": {
+        "liftoff_s": 22.77,
+        "lockout_s": 23.1,
+        "facing": "right",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_2.mp4": {
+    "duree_s": 16.3,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.70753,
+    "largeur": 4.006,
+    "profondeur": -0.1315,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.511,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 17.7,
+      "wrist_horizontal_drift_cm": 9.4,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 169.1,
+      "lockout_hip_angle": 162.7,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 9.5,
+      "descent_hip_delta_deg": 29.5,
+      "_phases": {
+        "liftoff_s": 9.4,
+        "lockout_s": 11.93,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_3.mp4": {
+    "duree_s": 6.0,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.23967,
+    "largeur": 2.595,
+    "profondeur": 0.2285,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.6,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -11.3,
+      "wrist_horizontal_drift_cm": 14.2,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 174.1,
+      "lockout_hip_angle": 168.7,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 0.7,
+      "descent_hip_delta_deg": -1.3,
+      "_phases": {
+        "liftoff_s": 4.6,
+        "lockout_s": 5.53,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_4.mp4": {
+    "duree_s": 27.3,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.02752,
+    "largeur": 1.701,
+    "profondeur": -0.1429,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 6.647,
+      "shoulder_to_bar_alignment_at_start": "Shoulders directly over bar",
+      "shoulder_bar_offset_cm": 1.1,
+      "wrist_horizontal_drift_cm": 20.6,
+      "camera_view": "side",
+      "lockout_knee_angle": 175.5,
+      "lockout_hip_angle": 170.1,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 31.5,
+      "descent_hip_delta_deg": 45.5,
+      "_phases": {
+        "liftoff_s": 15.77,
+        "lockout_s": 18.4,
+        "facing": "left",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_5.mp4": {
+    "duree_s": 13.4,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.64007,
+    "largeur": 3.014,
+    "profondeur": 0.039,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 1.126,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -5.3,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 173.2,
+      "lockout_hip_angle": 176.8,
+      "descent_initial_movement": "Hips flexed before knees (good hinge)",
+      "descent_knee_delta_deg": -2.0,
+      "descent_hip_delta_deg": 18.8,
+      "_phases": {
+        "liftoff_s": 1.5,
+        "lockout_s": 4.0,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_6.mp4": {
+    "duree_s": 36.9,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.45997,
+    "largeur": 2.171,
+    "profondeur": 0.0171,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.533,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 6.6,
+      "wrist_horizontal_drift_cm": 2.9,
+      "camera_view": "three-quarter",
+      "lockout_knee_angle": 177.2,
+      "lockout_hip_angle": 163.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 5.1,
+      "descent_hip_delta_deg": 7.8,
+      "_phases": {
+        "liftoff_s": 14.4,
+        "lockout_s": 17.93,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_7.mp4": {
+    "duree_s": 29.2,
+    "variante_pose": "sumo",
+    "regle": "profondeur",
+    "confiance": 0.0012,
+    "largeur": 0.413,
+    "profondeur": -0.0112,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.478,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 13.9,
+      "wrist_horizontal_drift_cm": 7.7,
+      "camera_view": "side",
+      "lockout_knee_angle": 151.5,
+      "lockout_hip_angle": 139.4,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 16.3,
+      "descent_hip_delta_deg": 36.3,
+      "_phases": {
+        "liftoff_s": 24.97,
+        "lockout_s": 27.73,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_8.mp4": {
+    "duree_s": 10.1,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.8594,
+    "largeur": 2.083,
+    "profondeur": -0.2205,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.486,
+      "shoulder_to_bar_alignment_at_start": "Shoulders directly over bar",
+      "shoulder_bar_offset_cm": 2.0,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 171.6,
+      "lockout_hip_angle": 152.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 0.5,
+      "descent_hip_delta_deg": 1.5,
+      "_phases": {
+        "liftoff_s": 5.5,
+        "lockout_s": 8.0,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "sumo_deadlift_9.mp4": {
+    "duree_s": 10.1,
+    "variante_pose": "sumo",
+    "regle": "largeur",
+    "confiance": 0.04212,
+    "largeur": 1.804,
+    "profondeur": 0.1195,
+    "kinematics": {
+      "setup_hips_position": "Optimal (midway between knees and shoulders)",
+      "setup_hip_ratio": 0.688,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -15.4,
+      "wrist_horizontal_drift_cm": 29.4,
+      "camera_view": "side",
+      "lockout_knee_angle": 167.4,
+      "lockout_hip_angle": 149.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 3.3,
+      "descent_hip_delta_deg": 30.7,
+      "_phases": {
+        "liftoff_s": 6.1,
+        "lockout_s": 8.33,
+        "facing": "right",
+        "side": "r"
+      }
+    },
+    "raison": null
+  },
+  "thepanash_bench.mp4": {
+    "duree_s": 7.1,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.68299,
+    "largeur": 0.681,
+    "profondeur": -0.0134,
+    "kinematics": {
+      "setup_hips_position": "Too low (squatter setup)",
+      "setup_hip_ratio": 0.853,
+      "shoulder_to_bar_alignment_at_start": "Shoulders behind bar (subpar)",
+      "shoulder_bar_offset_cm": -16.9,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 164.8,
+      "lockout_hip_angle": 156.0,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": 58.8,
+      "descent_hip_delta_deg": 25.4,
+      "_phases": {
+        "liftoff_s": 5.17,
+        "lockout_s": 6.32,
+        "facing": "right",
+        "side": "l"
+      }
+    },
+    "raison": null
+  },
+  "thepanash_deadlift.mp4": {
+    "duree_s": 5.4,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 1.04198,
+    "largeur": 1.074,
+    "profondeur": -0.3157,
+    "kinematics": null,
+    "raison": null
+  },
+  "worst_deadlift.mp4": {
+    "duree_s": 11.9,
+    "variante_pose": "conventional",
+    "regle": "largeur",
+    "confiance": 0.62978,
+    "largeur": 1.175,
+    "profondeur": -0.3515,
+    "kinematics": {
+      "setup_hips_position": "Too high (stiff-legged)",
+      "setup_hip_ratio": 0.17,
+      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
+      "shoulder_bar_offset_cm": 10.7,
+      "wrist_drift_note": "bar path not measurable: lifter filmed from the front",
+      "camera_view": "front",
+      "lockout_knee_angle": 164.2,
+      "lockout_hip_angle": 169.2,
+      "descent_initial_movement": "Simultaneous flexion",
+      "descent_knee_delta_deg": -0.1,
+      "descent_hip_delta_deg": 2.2,
+      "_phases": {
+        "liftoff_s": 0.97,
+        "lockout_s": 8.0,
+        "facing": "left",
+        "side": "l"
+      }
+    },
+    "raison": null
+  }
+}

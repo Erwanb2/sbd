@@ -1,0 +1,2393 @@
+{
+  "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4": {
+    "summary": "Serie enchainee en touch-and-go, filmee de trois quarts AVANT et legerement en hauteur. Je vois le buste et les hanches, pas la barre par rapport au pied. En position basse (5,18-5,41 s) le haut du dos est visiblement enroule ; en haut (6,16-6,95 s) il est droit, sans recul.",
+    "method": "16 images sur 4,2-7,9 s (une repetition et demie), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "En bas les hanches sont a mi-hauteur et le buste incline sans exces ; l'angle de face empeche de voir la barre par rapport au milieu du pied, donc je ne peux pas monter plus haut que 'correct'.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 1,
+        "why": "La position basse ne dure qu'une image entre deux images en mouvement : la barre repart sans temps d'arret ni reprise de tension.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Deux images pour toute la montee (5,41 s en bas, 5,69 s deja presque debout) : je ne peux pas voir si les hanches partent avant les epaules.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente (4,67-5,18 s) les hanches reculent d'abord et les genoux ne flechissent que tard : c'est un hinge, pas un squat.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Epaules enroulees vers l'avant et haut du dos arrondi en position basse, sur les deux repetitions visibles.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts avant, l'ecart entre la barre et les jambes est dans l'axe de la camera : invisible.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout, hanches ouvertes et buste droit sur quatre images consecutives (6,16-6,95 s), sans bascule arriere.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "La barre redescend en deux images avec les mains dessus, sans chute libre ; elle n'est simplement pas freinee longtemps.",
+        "confidence": "low"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "low",
+    "persona_why": "Ce que je vois de plus marquant est l'enroulement du haut du dos en position basse, repete a chaque rep. Le touch-and-go sans pause plaiderait pour The Grip & Rip : les deux se defendent, je ne trancherais pas fermement."
+  },
+  "Arthur Garrec Profil de coureur Strava.mp4": {
+    "summary": "Le nom de fichier est faux : c'est une serie de deadlifts conventionnels, pas une capture Strava. Camera au ras du sol, de profil, avec le disque proche qui masque les tibias et les pieds sur toutes les images. Il tient la position basse pendant pres de deux secondes avant de tirer.",
+    "method": "16 images sur 25,7-29,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Buste incline et hanches a mi-hauteur, rien d'aberrant ; mais le disque du premier plan cache la barre par rapport au pied, donc je ne peux pas confirmer le placement.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Huit images consecutives mains sur la barre sans qu'elle bouge (25,7-27,7 s) : il prend le temps de se mettre en tension, ce n'est pas un grip and rip.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Une seule image entre la position basse et la position debout (27,97 s) : la sequence hanches/epaules n'est pas observable.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente (29,07-29,63 s) les hanches partent en arriere avant que les genoux flechissent, pour ce qui est visible au-dessus du disque.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le dos parait tenu en position basse, avec au plus une legere courbure du haut du dos ; contre-jour et distance limitent la lecture.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "Le disque au premier plan est exactement devant la zone a juger : je ne vois jamais l'ecart entre la barre et les jambes.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout, buste droit, hanches ouvertes sur trois images (28,23-28,80 s), sans bascule arriere ni hitch.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "La barre redescend sur trois images avec les mains dessus, sans chute.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien ne ressort comme defaut dominant sur ce que le cadrage laisse voir. Nommer un archetype ici serait inventer."
+  },
+  "arthur_froler_fesse.mp4": {
+    "summary": "Serie de plusieurs repetitions vue de profil et d'assez loin, avec un rack au premier plan. Le cycle est net : position basse, debout, position basse. La montee elle-meme tombe entre deux images a chaque fois.",
+    "method": "16 images sur 24,9-30,9 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "En bas (25,7-26,1 s) le buste est presque parallele au sol et les hanches sont hautes : il part deja en position de souleve jambes tendues plutot qu'avec les hanches a mi-hauteur.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il reste plusieurs images en position basse avant que la barre bouge ; la distance empeche de voir si les dorsaux sont verrouilles.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Aucune image intermediaire entre le bas (26,08 s) et le haut (26,48 s) : la montee n'est pas observable.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Les hanches reculent nettement a la descente, genoux peu flechis : le hinge est propre, c'est plutot sa hauteur de depart qui pose question.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Ligne de dos qui parait droite en position basse, sans creux ni bosse marquee, a la distance ou il est filme.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil la barre reste visuellement contre les jambes sur les images ou elle est en l'air.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, buste droit, sans hyperextension (26,48-27,68 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Descente etalee sur environ 0,8 s avec les mains sur la barre, sans lacher.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Les hanches hautes au depart evoquent The Crane, mais cet archetype decrit une extension de genou PREMATUREE pendant la montee, et la montee est justement ce que je ne vois pas. Je ne l'attribue donc pas."
+  },
+  "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4": {
+    "summary": "Charge tres lourde, stance sumo large et pointes ouvertes, filme de trois quarts arriere avec un pareur en blanc. La tiree est lente et aboutie ; le haut du dos s'arrondit sous la charge et la barre est lachee a la fin.",
+    "method": "16 images sur 7,4-10,4 s (la fenetre automatique tombait apres la tiree, j'ai recale a la main sur le pic de mouvement), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance large, pointes ouvertes, hanches a mi-hauteur, position tenue et stable sur quatre images. Le disque proche cache la relation barre / milieu du pied.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images mains sur la barre avant qu'elle bouge (7,40-8,00 s) : la mise en tension est prise au serieux.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste monte avec la barre entre 8,20 et 8,60 s sans s'effondrer vers l'avant ; de dos, l'ecartement lateral du sol n'est pas lisible.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Vu de trois quarts arriere, les genoux restent grossierement au-dessus des pieds pendant la montee, sans effondrement vers l'interieur.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Le haut du dos est nettement arrondi en position basse et le reste pendant la premiere moitie de la montee. Attendu a cette charge, mais bien visible.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout, buste droit et hanches ouvertes sur trois images (9,00-9,60 s), sans recul ni hitch visible.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 1,
+        "why": "A 10,20 s l'image est floue de mouvement et la barre est deja au sol : elle est lachee, pas reposee.",
+        "confidence": "medium"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "low",
+    "persona_why": "Le seul defaut que je vois vraiment est l'arrondi du haut du dos sous la charge. A ce niveau de poids c'est un compromis, pas une faute de debutant : l'archetype decrit ce que je vois, il ne juge pas le lifter."
+  },
+  "arthur_last.mp4": {
+    "summary": "Deadlift CONVENTIONNEL malgre ce que le reste du jeu pourrait laisser croire : sur le recadrage du bas du corps (9,0-11,0 s) les pieds sont a une largeur de hanches et les mains tiennent la barre a l'exterieur des tibias. Setup tres long et tres haut de hanches, puis une tiree propre.",
+    "method": "16 images sur 9,0-14,3 s + un recadrage du bas du corps a 9,0-11,0 s pour trancher la stance, lus seuls",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les six images de position basse (8,97-10,76 s) le buste est presque parallele au sol et les hanches sont hautes : la tiree part deja en jambes quasi tendues.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Pres de deux secondes mains sur la barre sans qu'elle bouge : la mise en tension est cherchee, meme si l'engagement des dorsaux ne se lit pas.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "A 11,13 s la barre est au genou avec un buste a mi-chemin : la proportion est normale, mais deux images ne suffisent pas a exclure une montee de hanches precoce.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente (13,26-14,34 s) les hanches reculent avant que les genoux flechissent.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos reste droite du bassin aux epaules sur tout le setup et la montee, sans creux ni bosse.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste contre la jambe a 11,13 s ; l'angle de trois quarts avant limite la lecture de la trajectoire.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, epaules en arriere, buste droit (11,84-12,92 s), sans hyperextension.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Descente etalee sur environ une seconde avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Les hanches hautes au depart font penser a The Crane, mais cet archetype porte sur une extension de genou prematuree PENDANT la montee, et la montee tient en deux images. Je ne l'attribue pas sur cette base."
+  },
+  "conventionnal_deadlift_2.mp4": {
+    "summary": "Tiree tres rapide filmee de trois quarts arriere, en sweat a capuche et pantalon ample : la colonne n'est visible sur aucune image. Les images sont espacees d'un dixieme de seconde, donc la sequence est fine, mais le vetement mange l'essentiel de l'information.",
+    "method": "16 images sur 16,8-18,4 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Il est bien installe sur la barre, hanches a mi-hauteur ; les disques du premier plan cachent les pieds et le sweat masque la position des epaules.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images barre immobile mains en place (16,83-17,17 s), soit environ trois dixiemes de seconde : c'est court, mais ce n'est pas un arrachage sans temps mort.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Deux images de montee (17,27 et 17,37 s) ou le buste se redresse avec la barre, sans bascule brutale vers l'avant.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Rien d'anormal sur ce qui est visible ; l'angle arriere ne montre pas la sequence genou/hanche.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Sweat a capuche ample et vue de dos : je ne vois jamais la ligne du dos.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, buste droit (17,70-18,03 s), sans bascule arriere ni hitch.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La barre est dans les mains a 18,03 s et il est debout bras libres a 18,23 s : aucune image ne montre la descente, je ne peux pas dire si elle est freinee ou lachee.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Le vetement et l'angle suppriment tout ce qui permettrait de nommer un archetype."
+  },
+  "conventionnal_deadlift_3.mp4": {
+    "summary": "Vue de profil nette, charge legere sur plateforme, une repetition complete bien couverte : quatre images de reglage, deux de montee, quatre de maintien debout, deux de descente. Un des clips les plus lisibles du jeu.",
+    "method": "16 images sur 7,8-12,5 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches a mi-hauteur entre genoux et epaules, dos plat, barre au-dessus du milieu du pied : bon setup, sans les tibias franchement au contact d'un 3/3.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images barre immobile avant le decollage ; a cette charge, la tension du haut du dos ne se lit pas.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "A 9,03 s la barre est au genou avec le buste encore incline, a 9,37 s le buste s'est redresse a mesure que la barre montait : pas de montee de hanches en fleche.",
+        "confidence": "medium"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Extension coordonnee sur les deux images de montee ; la descente confirme un hinge propre.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "De profil, la ligne du dos reste droite du bassin aux epaules pendant tout le setup et la montee.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre longe la jambe sur les deux images de montee, sans decrochage vers l'avant.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout et droit pendant pres de deux secondes (9,67-11,83 s), sans recul du buste.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Deux images de descente avec les mains sur la barre : controlee, sans que je puisse juger du freinage exact.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Execution reguliere et sans defaut saillant sur une repetition bien couverte : aucun archetype ne s'impose."
+  },
+  "conventionnal_deadlift_4.mp4": {
+    "summary": "Filme de trois quarts AVANT, on voit son visage et sa poitrine. Ceinture, charge moyenne. La consequence est simple : tout ce qui se juge de profil (dos, trajectoire) est invisible, et il ne reste que le general.",
+    "method": "16 images sur 12,5-16,5 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches ni tres hautes ni tres basses sur les trois images de position basse ; de face, ni la barre par rapport au pied ni la position des epaules ne sont verifiables.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Trois images en position basse avant que la barre bouge : il ne l'arrache pas d'emblee.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Passage du buste incline au buste droit en environ une demi-seconde sans a-coup ; l'angle de face raccourcit le torse, donc la lecture reste grossiere.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente les hanches partent en arriere, pour ce qu'on en voit de face.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "De face, ni la courbure lombaire ni l'arrondi thoracique ne sont observables.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De face, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Cinq images debout, buste droit, epaules en arriere (14,10-15,43 s), sans bascule ni hitch.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Trois images de descente avec les mains sur la barre (15,70-16,50 s), sans chute.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "L'angle de face supprime justement les criteres qui reveleraient un archetype."
+  },
+  "conventionnal_deadlift_5.mp4": {
+    "summary": "Filme de tres loin en exterieur : le lifter fait environ un sixieme de la hauteur de l'image. On voit la sequence generale (il tire, il tient debout plusieurs secondes) et rien de plus fin. C'est un bon cas de test de retenue : un scorer qui sort des notes precises sur ce clip invente.",
+    "method": "16 images sur 1,1-6,4 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "A cette distance, ni la hauteur de hanche, ni la position des epaules, ni la barre par rapport au pied ne sont lisibles.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il est en position sur la barre a 1,07 et 1,43 s avant qu'elle bouge : ce n'est pas un arrachage. L'intensite de la tension est hors de portee de l'image.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Deux images de montee sur une silhouette de quelques dizaines de pixels : l'angle du torse n'est pas mesurable a l'oeil.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": "NA",
+        "why": "Meme raison.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Un arrondi lombaire modere ne se verrait pas a cette distance ; dire que le dos est bon serait aussi faux que dire qu'il est mauvais.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "Distance et angle de trois quarts : la trajectoire n'est pas suivable.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Il tient debout, droit, pendant pres de quatre secondes (2,83-6,37 s) : c'est la seule chose que la distance laisse juger, et elle est correcte.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La descente n'est pas dans la fenetre : il tient encore la barre a la derniere image.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Rien n'est assez visible pour nommer un archetype."
+  },
+  "conventionnal_deadlift_1.mp4": {
+    "summary": "Trois fenetres essayees sur ce clip de 41 s (tout le clip, 24-30 s, puis 35,5-40,5 s sur le dernier pic de mouvement) : 44 images au total, et il est en position basse sur la quasi-totalite. Aucune repetition complete n'apparait. En revanche la position basse, elle, est tres documentee — et le haut du dos y est nettement arrondi.",
+    "method": "12 images sur tout le clip + deux planches denses de 16 images (24,4-30,4 s et 35,5-40,5 s), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur toutes les images de position basse les hanches sont hautes et le buste tres incline, avec le dos deja enroule avant meme que la barre bouge.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il reste plusieurs secondes mains sur la barre : le temps de mise en tension existe, mais je ne vois jamais le moment ou la barre part, donc je ne peux pas dire ce qu'il en fait.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Aucune phase de montee dans les 44 images echantillonnees.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": "NA",
+        "why": "Meme raison : pas de sequence d'extension observable.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "C'est le seul jugement solide de ce clip : le haut du dos forme une bosse nette en position basse, sur une dizaine d'images reparties sur deux fenetres differentes.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La barre ne quitte pas le sol sur les images disponibles.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": "NA",
+        "why": "Aucune image debout.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Aucune descente observable.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "low",
+    "persona_why": "L'arrondi du rachis est le seul trait dominant visible. L'archetype decrit une colonne tiree en flexion pendant l'effort ; ici je ne vois que la position de depart, donc je l'attribue sans conviction."
+  },
+  "conventionnal_deadlift_6.mp4": {
+    "summary": "Un des clips les mieux couverts du jeu : profil net, une repetition entiere avec quatre images de reglage, trois de montee, quatre de maintien et quatre de descente. Rien ne cloche vraiment.",
+    "method": "16 images sur 25,7-31,2 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches a mi-hauteur, dos droit, barre au-dessus du milieu du pied sur les quatre images de reglage. Bon setup, sans les tibias franchement au contact.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images barre immobile mains en place avant le decollage.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "A 27,13 s la barre est au genou avec le buste encore incline, a 27,50 s le buste s'est redresse a mesure que la barre montait : la progression est proportionnee, pas de montee de hanches en fleche.",
+        "confidence": "medium"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Extension genoux / hanches qui progresse ensemble sur les trois images de montee.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos reste droite du bassin aux epaules pendant le reglage et toute la montee.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil, la barre longe la jambe sur les trois images de montee, sans decrochage vers l'avant.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, buste droit, sans bascule arriere (28,23-29,70 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre : elle est accompagnee jusqu'au sol.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Repetition complete, bien filmee, sans defaut saillant : aucun archetype ne s'applique."
+  },
+  "conventionnal_deadlift_7.mp4": {
+    "summary": "Camera posee au sol en contre-plongee extreme, de profil. L'angle redresse artificiellement le buste et ecrase les proportions : je me mefie de tout ce qui touche aux angles sur ce clip. La repetition elle-meme est complete et sans incident visible.",
+    "method": "16 images sur 29,0-34,7 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Position basse tenue sur quatre images, hanches ni tres hautes ni tres basses ; la contre-plongee interdit d'etre plus precis.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images barre immobile mains en place avant que ca parte.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Le buste se redresse a mesure que la barre monte (30,90-31,67 s), sans bascule vers l'avant.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Rien d'anormal sur les images de montee ; l'angle de prise de vue deforme trop pour affirmer davantage.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le haut du dos parait legerement arrondi en position basse, mais vu d'en dessous cette impression est peu fiable : je ne la retiens pas comme defaut.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste contre la cuisse sur les images de montee.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droit (32,07-33,20 s), jambes tendues a l'oeil, sans hitch ni bascule.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Une seule image de descente (34,73 s) : impossible de dire si elle est freinee.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Aucun defaut ne ressort, et l'angle de prise de vue rend toute affirmation fragile."
+  },
+  "conventionnal_deadlift_9.mp4": {
+    "summary": "Serie longue de profil, charge legere, en chaussettes. La fenetre relue couvre le maintien debout, toute la descente et la position basse — mais pas la montee. Ce qui est visible est propre : la descente est un vrai hinge, hanches en arriere d'abord, genoux qui ne flechissent qu'en fin de course.",
+    "method": "16 images sur 4,5-9,5 s, choisies a la main apres profil de mouvement, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "En position basse (7,83-9,50 s) le dos est plat, les bras verticaux, les hanches a mi-hauteur et la barre au-dessus du milieu du pied.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il reste pres de deux secondes en position basse ; le depart de la barre n'est pas dans la fenetre, donc je ne vois pas ce qu'il fait de cette tension.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "La phase de montee n'est pas dans la fenetre relue.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 3,
+        "why": "A la descente (6,50-7,50 s) les hanches reculent nettement pendant que les genoux restent quasi tendus, puis flechissent seulement quand la barre passe le genou : c'est la sequence du bareme pour un 3/3.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos reste droite pendant toute la descente et en position basse, sans arrondi.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre longe la cuisse puis le tibia a la descente, sans s'ecarter.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, poitrine ouverte et epaules en arriere (4,83-5,83 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 3,
+        "why": "Descente freinee sur plus d'une seconde, en quatre images, barre reposee au sol sans choc.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "La partie visible est propre : aucun archetype de defaut ne correspond a ce que je vois."
+  },
+  "conventionnal_deadlift_10.mp4": {
+    "summary": "Trois quarts arriere, tiree en deficit sur plateforme. La montee est couverte par trois images, ce qui est deja pas mal, mais le t-shirt ample et l'angle de dos suppriment la lecture du rachis et de la trajectoire.",
+    "method": "16 images sur 1,7-6,7 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Quatre images de position basse, hanches plutot hautes sans exces ; de dos, ni la barre par rapport au pied ni les epaules ne sont verifiables.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images barre immobile avant le decollage.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "A 3,37 s la barre est au genou avec le buste encore incline : la montee est proportionnee, sans hanches qui partent seules.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Extension d'apparence normale sur les trois images de montee.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos parait droite sous le t-shirt pendant la montee, mais de dos et avec un vetement ample un arrondi modere passerait inapercu.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Huit images consecutives debout et droit (4,03-6,73 s) : verrouillage franc et tenu.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Il tient encore la barre a la derniere image : la descente n'est pas dans la fenetre.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien ne ressort ; l'angle de dos supprime la plupart des indices qui permettraient de trancher."
+  },
+  "conventionnal_deadlift_11.mp4": {
+    "summary": "Trois quarts avant, plateau surleve, avec un banc au premier plan. Setup tres long (pres d'une seconde et demie en position basse) et hanches hautes ; la montee, elle, tient en une seule image.",
+    "method": "16 images sur 7,0-14,2 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les cinq images de position basse le buste est presque parallele au sol et les hanches sont hautes : il part deja tres proche d'un souleve jambes tendues.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Cinq a six images mains sur la barre sans qu'elle bouge : la mise en place est longue et deliberee.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Une seule image entre la position basse et la position debout : la sequence hanches / epaules n'est pas observable.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Les deux images de reprise (13,73-14,20 s) montrent les hanches qui reculent d'abord.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "De trois quarts avant, le rachis n'est pas dans le champ de vue utile.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "Meme raison : l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Six images debout, buste droit, sur pres de trois secondes (10,33-13,23 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Deux images de descente avec les mains sur la barre, sans chute.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Les hanches hautes au depart evoquent The Crane, mais la montee — c'est-a-dire l'endroit ou cet archetype se juge — tient en une image."
+  },
+  "conventionnal_deadlift_12.mp4": {
+    "summary": "Profil rapproche en garage, pieds nus, une seule repetition. Le setup est le plus propre du lot conventionnel : dos plat, tete haute, bras verticaux, barre au-dessus du milieu du pied, tibias tout pres. En revanche le cadrage coupe le buste des que la barre monte : le haut de la tiree n'est pas jugeable.",
+    "method": "16 images sur 12,5-16,8 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 3,
+        "why": "Quatre images de position basse ou tout est en place : barre au-dessus du milieu du pied (pieds nus, c'est verifiable), tibias au contact, hanches a mi-hauteur, dos plat et tete haute.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Position tenue et stable sur quatre images avant que la barre bouge ; le verrouillage des dorsaux lui-meme ne se lit pas.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Deux images de montee avant que le disque cache le buste : rien d'anormal, mais peu de matiere.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Les images de reprise en fin de fenetre montrent les hanches qui reculent d'abord.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Dos parfaitement plat au setup et au debut de la tiree ; ce qui se passe au-dela n'est pas visible, d'ou l'absence de 3/3.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre part au contact du tibia et le reste sur les images ou elle est visible.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Jambes tendues et hanches ouvertes sur six images, mais le disque masque le buste : je ne peux pas verifier l'absence de bascule arriere.",
+        "confidence": "low"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Trois images de descente avec les mains sur la barre, sans chute.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Le setup est un contre-exemple d'archetype : rien de ce que decrivent les personas n'y est present. Le reste de la tiree est masque, donc je m'arrete la."
+  },
+  "worst_deadlift.mp4": {
+    "summary": "Filme d'un ecran de television. C'est de loin l'execution la plus degradee du jeu, et pour une fois ca se voit sans ambiguite : dos arrondi des la position basse et pendant toute la montee, puis une bascule arriere spectaculaire en haut, tete rejetee en arriere, tenue plusieurs secondes.",
+    "method": "16 images sur 0,2-9,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Hanches hautes, buste tres incline et dos deja enroule avant que la barre bouge (0,17-2,07 s).",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 1,
+        "why": "Epaules enroulees vers l'avant sur toutes les images de position basse : aucun verrouillage du haut du dos, la barre part sans que rien ne se soit tendu.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 1,
+        "why": "Entre 2,70 et 3,93 s la barre est a peine decollee et le buste est deja quasi horizontal : la barre monte au dos, pas aux jambes.",
+        "confidence": "medium"
+      },
+      "hip_hinge_mechanics": {
+        "score": 1,
+        "why": "Le bassin monte en premier et le buste ne se redresse qu'en toute fin : les deux extensions ne sont pas synchronisees.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Arrondi lombaire ET thoracique visible sur une dizaine d'images consecutives, du sol jusqu'a mi-cuisse. C'est le jugement le plus net de tout le jeu.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "L'angle est de trois quarts avant : la barre reste visuellement pres des jambes, mais l'ecart reel est dans l'axe de la camera. Je ne l'invente pas.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 1,
+        "why": "A 6,47-9,60 s il termine en bascule arriere marquee, tete rejetee en arriere et bassin pousse devant : c'est l'hyperextension que le bareme decrit comme un 1, pas un verrouillage fessier.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La fenetre se termine sur lui debout : aucune image de descente. Mon avis precedent lui mettait 1/3, c'etait une deduction, pas une observation.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Over-Extender",
+    "persona_confidence": "high",
+    "persona_why": "La bascule arriere en fin de tiree est le trait dominant, visible sur quatre images consecutives : il termine le mouvement en hyperextension lombaire au lieu de fermer la hanche."
+  },
+  "jeff_nippard.mp4": {
+    "summary": "Demo pedagogique en studio, de profil, lumiere parfaite. En relisant deux fenetres (la descente a 0,3-3,5 s et la montee a 9,0-11,6 s) on a la repetition entiere sous les yeux, et elle est propre de bout en bout. C'est l'ancre haute du jeu en conventionnel, et cette fois je le dis d'apres les images.",
+    "method": "Deux planches de 16 images (0,3-3,5 s pour la descente, 9,0-11,6 s pour la montee) choisies a la main apres profil de mouvement, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 3,
+        "why": "Position basse a 8,99-9,53 s : barre au-dessus du milieu du pied, tibias au contact, hanches a mi-hauteur entre genoux et epaules, epaules juste devant la barre, dos plat.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Position stable et bras tendus plusieurs images avant le decollage ; l'engagement des dorsaux lui-meme ne se voit pas a l'image, donc je ne monte pas a 3/3.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 3,
+        "why": "Entre 9,70 et 10,03 s la barre passe du sol au genou pendant que l'angle du torse reste pratiquement constant : c'est exactement ce que le bareme demande pour un 3/3.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 3,
+        "why": "Genoux et hanches s'etendent ensemble sur toute la montee, sans que le buste prenne du retard.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 3,
+        "why": "La ligne du dos est droite du bassin aux cervicales sur les 32 images des deux fenetres, en montee comme en descente.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 3,
+        "why": "La barre reste au contact du tibia puis de la cuisse sur toute la montee, sans jamais s'ecarter.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 3,
+        "why": "Debout, droit, hanches fermees, sans bascule arriere ni hitch, tenu plusieurs images (10,37-11,59 s).",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": 3,
+        "why": "Sur la fenetre de descente (1,99-2,87 s) les hanches reculent d'abord, les genoux ne flechissent qu'apres le passage de la barre, et la barre longe la jambe jusqu'au sol.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Technician",
+    "persona_confidence": "high",
+    "persona_why": "Aucun defaut visible sur la repetition complete. C'est le cas ou le pipeline force lui-meme 'The Technician' au-dela de 90 % du maximum, valeur d'ailleurs absente de l'enum du schema."
+  },
+  "pr_160.mp4": {
+    "summary": "Single maximal en exterieur, filme de trois quarts avant. Le defaut est visible directement : entre 4,08 et 4,48 s la barre monte du tibia au genou pendant que le buste reste quasi horizontal. Les hanches sont parties sans les epaules.",
+    "method": "16 images sur 2,4-8,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les quatre images de reglage les hanches sont hautes et le buste tres incline ; il commence deja dans la position ou la tiree va finir.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Quatre images de mise en place avant le decollage : le temps est pris, meme si le haut du dos ne se verrouille visiblement pas.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 1,
+        "why": "A 4,08 et 4,48 s la barre passe du tibia au genou avec un buste qui reste a l'horizontale : les hanches montent plus vite que les epaules, la barre finit de monter au dos.",
+        "confidence": "medium"
+      },
+      "hip_hinge_mechanics": {
+        "score": 1,
+        "why": "Consequence directe : l'extension de genou est terminee bien avant celle de hanche, le buste se redresse en dernier.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Le haut du dos s'arrondit a partir du passage du genou (4,48-4,88 s).",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "Trois quarts avant : la barre reste visuellement pres des jambes, mais l'ecart reel est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droit (5,71-6,91 s), sans bascule arriere : le verrouillage passe, meme s'il est laborieux.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Entre 8,15 s (barre en main, debout) et 8,55 s (barre au sol, mains libres) il n'y a aucune image. Quatre dixiemes de seconde, c'est rapide pour une descente accompagnee, mais je ne vais pas noter une chute que je n'ai pas vue.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Crane",
+    "persona_confidence": "medium",
+    "persona_why": "Extension de genou prematuree avec un buste qui reste horizontal : c'est mot pour mot la definition de l'archetype, et c'est visible sur deux images consecutives."
+  },
+  "jeff_nippard_conventional.mp4": {
+    "summary": "Demo studio de profil, avec une trace de trajectoire incrustee a l'image. Le nom de fichier dit 'conventional' mais le lift est un SUMO (confirme par Erwan) — et c'est justement une vue strictement de profil, ou la stance large et la prise interieure sont invisibles. Je note donc sur les criteres sumo, en signalant ceux que cet angle rend inaccessibles.",
+    "method": "16 images sur 0,1-6,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "De profil je vois des tibias proches de la verticale et un buste redresse, ce qui est coherent avec un bon setup sumo ; la largeur de stance et l'ouverture des pointes, qui font la moitie du critere, ne sont pas visibles sous cet angle.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge, avec les hanches qui descendent vers la barre : le wedge est construit.",
+        "confidence": "medium"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste reste redresse pendant que la barre monte (1,83-2,27 s) ; l'ecartement lateral du sol, l'autre moitie du critere, ne se voit pas de profil.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal juge sur une vue strictement laterale : un valgus ne serait pas visible.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 3,
+        "why": "Studio, lumiere laterale, dos nu : la ligne du rachis est parfaitement lisible et reste droite du bassin aux cervicales sur toute la repetition.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 3,
+        "why": "La trace incrustee a 4,43-4,87 s dessine une verticale, et la barre reste au contact des jambes sur toutes les images de montee.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 3,
+        "why": "Debout, droit, hanches fermees, sans bascule arriere (2,71-3,55 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Trois images de descente avec les mains sur la barre ; le detail du freinage n'est pas lisible.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Aucun defaut visible sur la repetition. Je ne mets pas 'The Technician' pour autant : la moitie des criteres specifiquement sumo est inaccessible de profil, donc je ne peux pas affirmer le sans-faute."
+  },
+  "pas_poitrine_relevee.mp4": {
+    "summary": "Moitie MAUVAISE de la paire poitrine haute / poitrine basse, vue de profil. Ce qui se voit sans discussion : en position basse le buste est presque parallele au sol, la tete est baissee et le haut du dos forme une courbe nette, sur six images consecutives. Meme lifter, meme salle, meme charge que poitrine_relevee.",
+    "method": "16 images sur 3,0-9,1 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Buste quasi horizontal, hanches hautes et tete baissee des la mise en place (3,01-4,21 s) : la position de depart est deja celle d'un souleve dos-dominant.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il reste quatre images en position basse avant que la barre parte : le temps de tension existe. Ce n'est pas la que la paire se joue.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 1,
+        "why": "Deduction assumee plutot qu'observation : depuis un buste deja horizontal il ne reste presque plus de course d'extension de genou, donc la barre monte forcement au dos. La sequence elle-meme tient en deux images.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Le hinge en lui-meme est correct : hanches en arriere, genoux peu avances. C'est la position du buste qui change, pas la mecanique.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Courbe nette du haut du dos et tete baissee sur six images consecutives (3,41-5,84 s) : c'est le defaut voulu par le clip, et il est parfaitement visible.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil, la barre reste contre la jambe sur les images de montee.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Deux images debout, buste droit, sans bascule arriere (7,05-7,45 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre, jusqu'au sol.",
+        "confidence": "medium"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "medium",
+    "persona_why": "Colonne en flexion et poitrine effondree en position basse : l'archetype decrit exactement ce que montre le clip, qui est concu pour ca."
+  },
+  "poitrine_relevee.mp4": {
+    "summary": "Moitie BONNE de la paire poitrine haute / poitrine basse : buste nettement plus redresse et poitrine ouverte en position basse, la ou le clip jumeau a le buste a l'horizontale. Un point a signaler pour la paire : les deux clips ne sont PAS filmes du meme angle — celui-ci est de trois quarts avant, le jumeau est de profil. Une partie de la difference qu'un modele percevra vient de la camera, pas de la technique.",
+    "method": "16 images sur 0,3-3,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Buste redresse et poitrine ouverte des la mise en place (0,27-0,93 s), hanches a mi-hauteur ; l'angle de trois quarts empeche de verifier la barre par rapport au pied.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Trois images en position basse avant que la barre bouge.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Deux images de montee, rien d'anormal : le buste ne bascule pas vers l'avant quand la barre part.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente les hanches partent en arriere avant que les genoux flechissent.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Dos droit et poitrine ouverte sur toutes les images de position basse : la difference avec le jumeau est nette a l'oeil.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes ; l'angle a 45 degres ne permet qu'une lecture approximative de la trajectoire.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, buste droit, sans bascule arriere (1,60-2,50 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "C'est la moitie propre de la paire : aucun archetype de defaut ne s'y applique. Un modele qui lui colle le meme persona qu'a son jumeau ne separe pas les deux."
+  },
+  "p_deadlift.mp4": {
+    "summary": "Clip pedagogique de 4,5 s, legende 'Conventional Deadlift' incrustee, qui coupe sur un plateau parlant a 3,9 s. J'ai verifie la stance sur un recadrage du bas du corps : pieds a largeur d'epaules, mains a l'EXTERIEUR des genoux, c'est bien du conventionnel. Quatre images couvrent la montee, ce qui est rare dans ce jeu.",
+    "method": "16 images sur 0,5-4,2 s + un recadrage du bas du corps a 0,8-1,6 s pour verifier la stance, lus seuls",
+    "criteria": {
+      "starting_position": {
+        "score": 3,
+        "why": "Sur le recadrage : barre au-dessus du milieu du pied, tibias au contact, hanches a mi-hauteur, poitrine ouverte, bras verticaux. Rien a redire.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Position tenue et stable sur quatre images avant le decollage ; le verrouillage des dorsaux ne se voit pas a l'image.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 3,
+        "why": "Entre 1,56 et 1,84 s la barre passe du sol au genou pendant que l'inclinaison du buste reste la meme : la poussee vient des jambes, pas du dos.",
+        "confidence": "medium"
+      },
+      "hip_hinge_mechanics": {
+        "score": 3,
+        "why": "Genoux et hanches s'etendent ensemble sur les quatre images de montee.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 3,
+        "why": "Dos plat et poitrine ouverte du debut a la fin de la montee, sans arrondi a aucun moment.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre longe la jambe sur les images de montee ; l'angle oblique limite la precision.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 3,
+        "why": "Quatre images debout, droit, hanches fermees, sans bascule arriere (2,62-3,67 s).",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Le clip coupe sur un plateau parlant : la descente n'est pas filmee.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Technician",
+    "persona_confidence": "medium",
+    "persona_why": "Aucun defaut sur la partie filmee, et le total depasse le seuil de 90 % au-dela duquel le pipeline attribue lui-meme ce persona. La descente n'etant pas filmee, je reste a une confiance moyenne."
+  },
+  "erwan_bon_slack.mp4": {
+    "summary": "Moitie BONNE de la paire slack pull, vue de trois quarts arriere. Ce qui se voit tres bien : huit images consecutives, soit environ 2,6 s, mains sur la barre sans qu'elle bouge d'un millimetre. La mise en tension est longue et deliberee, c'est exactement ce que le clip veut montrer.",
+    "method": "16 images sur 5,0-10,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches a mi-hauteur et position stable ; de dos, ni la barre par rapport au pied ni le placement des epaules ne sont verifiables.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 3,
+        "why": "Huit images barre immobile avant le decollage, position identique d'une image a l'autre : c'est la definition d'une mise en tension prise au serieux, et c'est mesurable a l'image.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Une seule image entre la position basse et la position debout : la sequence n'est pas observable.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente les hanches partent en arriere d'abord.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos parait droite sous le t-shirt ; de dos, un arrondi modere passerait inapercu.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Trois images debout, buste droit (8,00-8,74 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "C'est la moitie propre de la paire, et son point fort est justement la mise en tension : aucun archetype de defaut ne s'applique."
+  },
+  "erwan_mauvais_slack.mp4": {
+    "summary": "ATTENTION, MON AVIS CONTREDIT L'ETIQUETTE DE LA PAIRE. Ce clip est cense etre la moitie 'sans pause, touch-and-go' de la paire slack. Ce que je vois : huit images consecutives (environ 1,5 s) en position basse barre immobile avant la tiree, et sur la planche de tout le clip un cycle bas / haut d'environ trois secondes par repetition. Il ne rebondit pas. Soit la difference avec erwan_bon_slack se joue ailleurs que sur la duree de la pause, soit elle n'est pas visible aux cadences que j'ai echantillonnees.",
+    "method": "16 images sur 8,5-11,5 s + 12 images sur tout le clip, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "De profil, barre au-dessus du milieu du pied et hanches plutot hautes sans exces.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Huit images barre immobile avant le decollage : il y a bien un temps d'arret. Je ne peux pas voir s'il en profite pour reprendre de la tension, mais je ne vais pas noter 1/3 un arrachage que je ne vois pas.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Trois images de montee ou le buste se redresse a mesure que la barre monte, sans bascule.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Extension d'apparence coordonnee sur les images de montee.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Leger arrondi du haut du dos en position basse (9,56-9,97 s), sans rien de severe.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil, la barre longe la jambe pendant la montee.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Trois images debout, buste droit (10,85-11,49 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La fenetre dense se termine sur lui debout, et la planche generale n'a qu'une image par seconde : je ne vois aucune descente en detail.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "L'etiquette de la paire attend 'The Grip & Rip', mais je ne vois pas d'arrachage : il y a une pause en bas sur toutes les repetitions echantillonnees. Je prefere ne rien mettre que confirmer un archetype que les images ne montrent pas."
+  },
+  "erwan_last.mp4": {
+    "summary": "Cas de cadrage : filme de trois quarts arriere avec un montant de rack qui coupe une partie du champ. La sequence est complete (long reglage, tiree, maintien, descente) mais l'angle supprime la trajectoire et la lecture fine du dos. Clip a garder pour verifier qu'un scorer ne produit PAS de notes extremes confiantes depuis un mauvais angle.",
+    "method": "16 images sur 14,3-19,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Sept images de position basse, hanches a mi-hauteur, rien d'aberrant ; le montant et l'angle arriere empechent de verifier barre et epaules.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Environ 2,2 s mains sur la barre sans qu'elle bouge : la mise en place est longue.",
+        "confidence": "medium"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Une seule image entre la position basse et la position debout.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "A la descente les hanches reculent avant que les genoux flechissent.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Ligne du dos d'apparence droite ; vue de dos et t-shirt, un arrondi modere ne se verrait pas.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes n'est pas observable.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droit (17,12-18,15 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien de dominant n'est visible depuis cet angle."
+  },
+  "long_deadlift.mp4": {
+    "summary": "USAGE PRINCIPAL : VALIDATION, PAS NOTATION. Le clip dure 65,9 s, au-dessus du plafond MAX_VIDEO_SECONDS de 60 s : l'application doit le refuser avant meme d'appeler le modele. Sur le plan technique, la fenetre relue montre une serie a cadence normale — contrairement a ce que dit l'ancienne etiquette, il se redresse bel et bien completement entre les repetitions.",
+    "method": "16 images sur 52,0-60,0 s, choisies a la main apres profil de mouvement, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Quatre images de position basse, hanches a mi-hauteur, dos d'apparence droite, barre au-dessus du milieu du pied.",
+        "confidence": "low"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": 2,
+        "why": "Il reste plusieurs images en bas avant chaque depart : ce n'est pas un enchainement en rebond.",
+        "confidence": "low"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "Une a deux images de montee par repetition, rien d'anormal, pas de quoi affirmer davantage.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Les descentes montrent les hanches qui reculent avant que les genoux flechissent.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "De profil la ligne du dos reste droite sur les images de position basse.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre longe la jambe sur les images ou elle est en l'air.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Trois images debout, buste droit (54,67-55,73 s). Mon avis precedent disait des verrouillages partiels : les images ne le montrent pas.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien de dominant sur la repetition relue. L'interet de ce clip est la duree, pas la technique."
+  },
+  "engueran_fail_deadlift.mp4": {
+    "summary": "La seule repetition ratee du jeu, et elle est parfaitement lisible : stance sumo large avec les mains a l'interieur des genoux, puis un effort de plus de trois secondes pendant lequel la barre ne depasse jamais la hauteur du genou, avant de revenir au sol. lockout_execution DOIT valoir 1 — le bareme ecrit lui-meme 'fails to lockout'.",
+    "method": "16 images sur 29,5-36,0 s, choisies a la main (la fenetre automatique tombait avant la tentative), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance large, pointes ouvertes, mains a l'interieur des genoux : le setup sumo est en place. Le disque proche cache le rapport barre / pied.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 1,
+        "why": "Le buste est deja tres incline en position basse pour du sumo, et les hanches remontent des les premieres images de l'effort (31,23-31,67 s) : le wedge cede avant que la barre parte.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 1,
+        "why": "Plus de trois secondes d'effort pour une barre qui n'atteint jamais le genou : la poussee de jambes ne passe pas le point mort.",
+        "confidence": "medium"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent ouverts au-dessus des pieds pendant l'effort, sans effondrement vers l'interieur.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Le buste s'incline encore pendant l'effort et le haut du dos s'arrondit (32,10-33,40 s).",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La barre ne quitte pas vraiment le sol : il n'y a pas de trajectoire a juger.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 1,
+        "why": "Aucun verrouillage : la barre plafonne sous le genou et redescend. C'est le 1 du bareme, mot pour mot.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Il accompagne la barre jusqu'au sol a 34,70-35,57 s plutot que de la lacher, malgre l'echec.",
+        "confidence": "low"
+      }
+    },
+    "persona": "The Soft-Lock",
+    "persona_confidence": "medium",
+    "persona_why": "L'extension terminale n'est jamais atteinte : c'est le trait dominant et il est indiscutable a l'image. L'archetype decrit un verrouillage inacheve, ce qui est le cas extreme ici."
+  },
+  "sumo_deadlift_2.mp4": {
+    "summary": "Trois quarts avant, stance sumo large et pointes ouvertes, charge moderee. Un des rares clips ou le suivi des genoux dans le plan frontal est reellement observable. Le t-shirt oversize, en revanche, supprime toute lecture du dos.",
+    "method": "16 images sur 8,6-13,5 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance large, pointes ouvertes, tibias proches de la verticale, hanches a mi-hauteur sur les quatre images de reglage.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge, avec les hanches qui descendent vers la barre.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste reste redresse quand la barre quitte le sol (10,23 s) ; une seule image de montee, donc peu de matiere.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent au-dessus des pointes sur les images ou les jambes sont degagees, sans effondrement vers l'interieur.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "T-shirt oversize et sombre : la ligne du rachis n'est lisible sur aucune image.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes sur les images de montee ; l'angle a 45 degres limite la precision.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Trois images debout, buste droit, hanches ouvertes (10,57-11,23 s), sans bascule arriere.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre jusqu'au sol.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Repetition propre sur ce que l'angle laisse voir : aucun archetype ne s'impose."
+  },
+  "sumo_deadlift_5.mp4": {
+    "summary": "Vue de face, stance sumo tres large, en chaussettes. C'est un des rares clips ou le plan frontal est reellement lisible : le suivi des genoux se juge vraiment. Le setup est visiblement bas, facon squat, avec les hanches au niveau des genoux.",
+    "method": "16 images sur 0,7-5,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les huit images de position basse les hanches sont au niveau des genoux et les jambes tres flechies : il squatte la barre au lieu de se caler dessus. La stance et l'ouverture des pointes, elles, sont bonnes.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Environ 2,3 s en position basse avant que la barre bouge : le temps de mise en tension existe, meme si la position basse le desavantage.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste reste redresse pendant la montee (3,30-3,63 s) et les genoux poussent vers l'exterieur.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "De face, les genoux restent au-dessus des pointes du debut a la fin, sans effondrement vers l'interieur.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "De face, ni la courbure lombaire ni l'arrondi thoracique ne sont visibles.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De face, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Cinq images debout et droit (3,97-5,60 s), sans bascule arriere.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La fenetre se termine sur lui debout barre en main : aucune descente filmee.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Squatter",
+    "persona_confidence": "medium",
+    "persona_why": "Bassin trop bas et jambes tres flechies pendant tout le reglage : c'est la definition de l'archetype, et c'est visible sur huit images consecutives."
+  },
+  "sumo_deadlift_9.mp4": {
+    "summary": "Profil rapproche sur plateforme, lifter ceinture et torse nu — donc pour une fois le dos est lisible. Sequence complete : six images de reglage, deux de montee, quatre debout, quatre de descente. Rien de flagrant.",
+    "method": "16 images sur 5,3-9,9 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches a mi-hauteur, buste assez incline pour du sumo ou on cherche plus vertical ; la vue strictement laterale cache la largeur de stance, soit la moitie du critere.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Six images en position basse avant le decollage.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste se redresse a mesure que la barre monte ; l'ecartement lateral du sol n'est pas observable de profil.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal, vue strictement laterale.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Torse nu et de profil : la ligne du dos reste droite pendant le reglage et la montee, sans arrondi lombaire.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil, la barre longe la jambe sur les images de montee, sans decrochage visible vers l'avant.",
+        "confidence": "medium"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout, buste droit, hanches ouvertes (7,77-8,70 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Repetition propre sur ce que la vue laterale permet de juger."
+  },
+  "engueran_sumo.mp4": {
+    "summary": "Cas de test d'echantillonnage : 35,5 s de clip pour une tiree qui a lieu vers 31-34 s. Un echantillonnage uniforme depense l'essentiel de ses images sur le lifter qui tourne autour de la barre. La tiree elle-meme est propre et aboutie. Un point net en revanche : la barre passe de la hanche au sol en 0,23 s, elle est lachee.",
+    "method": "16 images sur 30,5-34,2 s (fenetre choisie a la main) + 16 images sur 33,9-35,4 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance large, pointes ouvertes, hanches a mi-hauteur, buste plutot redresse sur les quatre images de reglage.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Entre 31,50 et 31,97 s le buste reste redresse pendant que la barre monte : la poussee vient des jambes.",
+        "confidence": "medium"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent ouverts au-dessus des pointes pendant toute la montee, sans effondrement.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le buste reste haut et ne s'effondre pas pendant la tiree.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes ; l'angle de trois quarts limite la precision.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Six images debout, buste droit, hanches ouvertes (32,47-33,97 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 1,
+        "why": "A 33,97 s la barre est a la hanche, a 34,20 s elle est au sol : 0,23 s pour toute la descente, c'est une chute libre, pas un accompagnement.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "La tiree est competente ; le seul reproche est la barre lachee au verrouillage, ce qu'aucun des archetypes de l'enum ne decrit."
+  },
+  "sumo_deadlift_6.mp4": {
+    "summary": "Trois quarts avant sur plateforme, charge lourde, stance sumo large. Sequence complete et propre : quatre images de reglage, trois de montee ou le buste reste redresse, six debout, deux de descente.",
+    "method": "16 images sur 13,6-19,5 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance large, hanches a mi-hauteur, buste redresse sur les images de reglage.",
+        "confidence": "medium"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant le decollage.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste garde son inclinaison de 15,17 a 15,97 s pendant que la barre monte : pas de montee de hanches isolee.",
+        "confidence": "medium"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent vers l'exterieur sur les images de montee ; l'angle de trois quarts masquerait un valgus leger.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Buste haut et stable pendant toute la tiree, sans effondrement de la cage.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes ; de trois quarts, la trajectoire ne se lit qu'approximativement.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Six images debout et droit (16,77-18,73 s), sans bascule arriere.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Deux images de descente avec les mains sur la barre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Rien ne ressort comme defaut dominant sur une repetition pourtant bien couverte."
+  },
+  "sumo_deadlift_1.mp4": {
+    "summary": "Profil, salle d'entreprise, tiree en fin d'un clip de 50 s. Le defaut saute aux yeux : en position basse le haut du dos forme une bosse nette et la tete est baissee, et cet arrondi persiste pendant la premiere moitie de la montee.",
+    "method": "16 images sur 42,2-49,3 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Buste presque horizontal et hanches hautes, ce qui est loin du buste redresse attendu en sumo. La largeur de stance, elle, n'est pas visible de profil.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 1,
+        "why": "Quatre images de reglage, mais avec les hanches hautes et loin de la barre : le wedge n'est pas construit avant que ca parte.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "La barre monte regulierement entre 44,13 et 45,07 s ; l'ecartement lateral n'est pas observable de profil.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal juge sur une vue laterale.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Bosse marquee du haut du dos et tete baissee sur quatre images de position basse, arrondi conserve pendant la montee.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil la barre reste pres des jambes sur les images de montee.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droit (46,00-47,43 s), sans bascule arriere. Mon avis precedent parlait de verrouillage incomplet : c'etait un chiffre de pose, pas ce que montre l'image.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "medium",
+    "persona_why": "La colonne part en flexion des la position basse et le reste sous charge : c'est le trait dominant et il est net sur plusieurs images."
+  },
+  "thepanash_deadlift.mp4": {
+    "summary": "Tiree de competition IPF filmee d'un ecran, VUE DE FACE, et le clip commence alors que la barre a deja quitte le sol. Deux consequences : le reglage n'est pas filme du tout, et les criteres sagittaux ne sont pas jugeables. C'est exactement le test : est-ce qu'un scorer admet qu'il ne voit pas, ou est-ce qu'il note quand meme ?",
+    "method": "16 images sur 0,3-5,2 s (tout le clip), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "Des la premiere image la barre est deja au tibia : la position de depart n'est pas dans le clip.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": "NA",
+        "why": "Meme raison : la mise en tension precede le debut du clip.",
+        "confidence": "high"
+      },
+      "leg_drive_activation": {
+        "score": 2,
+        "why": "La barre monte regulierement de 0,30 a 1,62 s sans point d'arret ; de face l'angle du torse est raccourci, donc je ne peux pas verifier la sequence hanches / epaules.",
+        "confidence": "low"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "L'extension parait continue, mais de face la sequence n'est pas lisible.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "De face, le rachis n'est pas observable.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De face, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 3,
+        "why": "Six images debout, parfaitement droit et immobile, en attente du signal de repos : c'est un verrouillage de competition, tenu et sans compensation.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Le clip enchaine sur un autre plan a 4,86 s : la descente n'est pas filmee.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Cinq criteres sur huit ne sont pas observables : je n'ai pas de quoi nommer un archetype, et surtout pas 'The Technician', qui affirmerait un sans-faute que le clip ne montre pas."
+  },
+  "thepanash_bench.mp4": {
+    "summary": "SEUL CLIP DE DEVELOPPE COUCHE DU JEU : bench de competition IPF filme d'un ecran, camera cote pieds. Ce que le clip montre sans discussion, c'est la pause : la barre reste immobile sur la poitrine pendant au moins six images consecutives, en attente du signal. Le reste est limite par la resolution et par l'angle.",
+    "method": "16 images sur 4,4-6,9 s, lues seules",
+    "criteria": {
+      "setup_arch": {
+        "score": 2,
+        "why": "Le buste est visiblement cambre et les fesses restent sur le banc ; a cette resolution je ne peux pas verifier la retraction des scapulas, donc pas de 3/3.",
+        "confidence": "medium"
+      },
+      "leg_drive": {
+        "score": 2,
+        "why": "Pieds ancres et jambes sous tension sur toutes les images, sans que le bassin decolle du banc.",
+        "confidence": "medium"
+      },
+      "bar_path": {
+        "score": "NA",
+        "why": "Camera dans l'axe du banc, cote pieds : la courbe en J se deroule dans l'axe de la camera, elle n'est pas observable.",
+        "confidence": "high"
+      },
+      "touch_point": {
+        "score": 2,
+        "why": "La barre touche vers le bas de la poitrine, ni au cou ni au ventre ; l'angle empeche d'etre plus precis.",
+        "confidence": "low"
+      },
+      "elbow_stability": {
+        "score": 2,
+        "why": "Les coudes paraissent ranges autour de 45-60 degres, sans ouverture extreme ; la resolution limite la lecture.",
+        "confidence": "low"
+      },
+      "chest_pause": {
+        "score": 3,
+        "why": "Barre immobile sur la poitrine sur six images consecutives, soit plus d'une seconde : c'est un arret net, exactement ce que demande le 3/3.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "AnalyzeBench n'a pas de champ lifter_persona : il n'y a pas de persona a choisir pour un developpe couche, et la carte persona du front ne peut donc pas s'afficher sur ce mouvement."
+  },
+  "oscar_sumo_short.mp4": {
+    "summary": "Version courte du cas de classification le plus dur du jeu : camera pile de profil, disque proche au premier plan, donc la stance large et la prise interieure sont invisibles. Et la tiree elle-meme tombe entre deux images : je passe de la position basse a la position debout sans rien voir entre.",
+    "method": "16 images sur 4,4-6,3 s (tout le clip utile), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Buste incline et hanches a mi-hauteur sur les trois images de position basse ; la largeur de stance, qui fait la moitie du critere en sumo, n'est pas visible de profil.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Trois images en position basse avant que la barre parte.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": "NA",
+        "why": "Aucune image entre la position basse (4,70 s) et la position debout (4,83 s).",
+        "confidence": "high"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal, vue strictement laterale.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Leger arrondi du haut du dos en position basse, rien de severe.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La montee n'est visible sur aucune image : il n'y a pas de trajectoire a juger.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Six images debout, buste droit (4,83-5,93 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Deux images de descente avec les mains sur la barre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "La moitie de la repetition n'est pas filmee et l'autre moitie est vue sous un angle qui cache les specificites du sumo."
+  },
+  "oscar_sumo.mp4": {
+    "summary": "Le cas de classification le plus dur du jeu : camera pile de profil avec le disque proche qui remplit le bas du cadre, donc ni la largeur de stance ni la prise interieure ne sont visibles. Ce que je vois en revanche, c'est un buste presque horizontal en position basse — tres incline pour du sumo — avec le haut du dos arrondi.",
+    "method": "16 images sur 38,1-44,9 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les quatre images de reglage le buste est proche de l'horizontale, la ou un setup sumo cherche un torse redresse et des tibias verticaux.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 1,
+        "why": "Il reste bien quatre images sur la barre, mais avec les hanches hautes et loin d'elle : le wedge n'est pas construit.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "La barre monte regulierement entre 40,03 et 40,53 s ; l'ecartement lateral n'est pas observable de profil.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal, vue strictement laterale avec un disque au premier plan.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 1,
+        "why": "Haut du dos arrondi sur les images de position basse et pendant la premiere partie de la montee.",
+        "confidence": "medium"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "De profil la barre reste pres des jambes sur les deux images de montee.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Cinq images debout et droit (41,03-42,97 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "Entre 42,97 s (barre a la hanche) et 43,47 s (barre au sol, mains libres) il n'y a aucune image : une demi-seconde, c'est rapide, mais je ne note pas une chute que je n'ai pas vue.",
+        "confidence": "high"
+      }
+    },
+    "persona": "The Fishing Rod",
+    "persona_confidence": "medium",
+    "persona_why": "Buste tres incline et colonne en flexion des la position basse : c'est le trait dominant de ce qui est visible."
+  },
+  "sumo_deadlift_11.mp4": {
+    "summary": "Trois quarts arriere, charge legere, stance sumo large. La position de depart est nettement basse : les hanches sont au niveau des genoux et les jambes tres flechies. La repetition est ensuite complete et propre.",
+    "method": "16 images sur 19,3-23,2 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 1,
+        "why": "Sur les quatre images de reglage les hanches sont au niveau des genoux et les tibias avances : c'est une position de squat, pas un wedge sumo.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste se redresse a mesure que la barre monte (20,37-20,93 s), sans montee de hanches isolee.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "De trois quarts arriere les genoux restent au-dessus des pieds, sans effondrement vers l'interieur.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "La ligne du dos parait droite sous le t-shirt ; de dos, un arrondi modere passerait inapercu.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droite (21,20-22,33 s), sans bascule arriere.",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Trois images de descente avec les mains sur la barre jusqu'au sol.",
+        "confidence": "medium"
+      }
+    },
+    "persona": "The Squatter",
+    "persona_confidence": "low",
+    "persona_why": "Bassin au niveau des genoux et tibias avances pendant tout le reglage. Je reste a une confiance basse : la vue de dos deforme la perception de la hauteur de hanche."
+  },
+  "sumo_deadlift_8.mp4": {
+    "summary": "Vue de face en salle, stance sumo tres large, charge lourde, mais filme d'assez loin. Le plan frontal est lisible (genoux, pieds), le plan sagittal ne l'est pas du tout.",
+    "method": "16 images sur 4,7-9,6 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Stance tres large, pointes ouvertes, hanches a une hauteur raisonnable sur les quatre images de reglage ; la distance empeche d'etre plus precis.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant le decollage.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Les pieds restent plantes et les genoux poussent vers l'exterieur pendant la montee (6,00-7,00 s).",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "De face, les genoux restent au-dessus des pointes sur toute la montee, sans effondrement.",
+        "confidence": "medium"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "De face et a cette distance, le rachis n'est pas observable.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De face, l'ecart barre / jambes est dans l'axe de la camera.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Six images debout et droit (7,30-8,93 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Deux images de descente avec les mains sur la barre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien de dominant sur ce que la vue de face laisse juger."
+  },
+  "sumo_deadlift_4.mp4": {
+    "summary": "Camera posee bas derriere un banc qui occupe le tiers inferieur de l'image, lifter filme de trois quarts arriere. La repetition est complete mais les jambes et la barre sont masquees une bonne partie du temps.",
+    "method": "16 images sur 15,0-20,0 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Hanches a mi-hauteur sur les quatre images de reglage ; le banc cache les pieds et la barre, donc l'essentiel du critere n'est pas verifiable.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Le buste se redresse a mesure que la barre monte (16,30-17,33 s), sans a-coup.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Les genoux sont masques par le banc du premier plan sur la quasi-totalite des images.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le haut du dos parait legerement arrondi en position basse, sans que la vue de dos permette d'en juger la severite.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "De trois quarts arriere et avec le banc devant, la trajectoire n'est pas observable.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et droit (17,67-18,65 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Quatre images de descente avec les mains sur la barre.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien ne ressort ; le banc au premier plan supprime la moitie des indices."
+  },
+  "sumo_deadlift_3.mp4": {
+    "summary": "Clip de six secondes : une tiree lourde vue de profil dont il ne reste qu'une image de position basse et une de montee, puis il s'ecarte. Tres peu de matiere.",
+    "method": "16 images sur 3,8-5,9 s (tout le clip utile), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Une seule image de position basse, rien d'aberrant dessus ; la largeur de stance n'est de toute facon pas visible de profil.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": "NA",
+        "why": "Une seule image avant que la barre parte : une mise en tension ne se juge pas sur une image.",
+        "confidence": "high"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": "NA",
+        "why": "La montee tient en une image.",
+        "confidence": "high"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Critere de plan frontal, vue laterale.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Sur l'image de position basse le dos parait tenu, sans arrondi marque.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes sur l'image de montee.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Quatre images debout et stable (4,40-5,00 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La barre est en main a 5,00 s et au sol a 5,30 s, sans image entre les deux.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Deux images exploitables sur la tiree : il n'y a pas de quoi nommer un archetype."
+  },
+  "sumo_deadlift_7.mp4": {
+    "summary": "Exterieur de nuit, camera basse derriere un banc. La repetition est complete et sans incident visible, mais l'eclairage nocturne ecrase le relief et l'angle cache le plan frontal.",
+    "method": "16 images sur 24,2-28,8 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Quatre images de position basse, hanches a mi-hauteur, rien d'aberrant ; la largeur de stance n'est pas verifiable sous cet angle.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Quatre images en position basse avant que la barre bouge.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Montee reguliere entre 25,50 et 26,50 s, sans bascule du buste.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Vue de trois quarts arriere en contre-plongee, jambes coupees par le banc.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le dos parait tenu pendant la tiree, mais l'eclairage de nuit ecrase le relief : je ne verrais qu'un arrondi severe.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre reste pres des jambes sur les images de montee.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Trois images debout et droit (26,50-27,50 s).",
+        "confidence": "medium"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Trois images de descente avec les mains sur la barre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "low",
+    "persona_why": "Rien ne ressort assez dans ces conditions d'eclairage et d'angle."
+  },
+  "sumo_deadlift.mp4": {
+    "summary": "Tentative de PR abandonnee : le texte incruste annonce que la ceinture casse. Il tire, la barre ne finit pas sa course, et a l'image suivante il est debout mains sur les hanches, barre au sol. Bon cas d'anomalie, mauvais cas de notation.",
+    "method": "16 images sur 0,5-5,0 s (tout le clip), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": 2,
+        "why": "Quatre images de position basse, stance large, rien d'aberrant avant que ca parte.",
+        "confidence": "low"
+      },
+      "slack_pull_and_wedge": {
+        "score": 2,
+        "why": "Il reste plusieurs images sur la barre avant de tirer.",
+        "confidence": "low"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 1,
+        "why": "La tiree s'interrompt : entre 2,60 et 3,20 s il se releve sans la barre. La poussee ne va pas au bout, quelle qu'en soit la cause.",
+        "confidence": "medium"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": "NA",
+        "why": "Angle de trois quarts et tiree avortee : rien a juger dans le plan frontal.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le buste parait tenu jusqu'a l'abandon ; la ceinture qui lache change de toute facon les conditions.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La barre ne fait pas la moitie de sa course : il n'y a pas de trajectoire a juger.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 1,
+        "why": "Aucun verrouillage : a 3,50 s il est debout, mains sur les hanches, barre au sol. C'est le 1 du bareme.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": 1,
+        "why": "La barre est lachee pendant l'abandon, pas reposee.",
+        "confidence": "medium"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "medium",
+    "persona_why": "Aucun archetype de l'enum ne decrit un abandon sur casse de materiel. C'est un bon test : un modele qui sort quand meme un persona confiant invente une explication technique a un incident materiel."
+  },
+  "sumo_deadlift_10.mp4": {
+    "summary": "51,8 s filmees au ras du sol avec un disque rouge au premier plan : le buste est hors cadre sur la quasi-totalite des images. Deux fenetres denses essayees (16,5-21 s et 32-38 s) : on voit des jambes se tendre, jamais une repetition avec le torse. Cas de cadrage, pas cas de notation.",
+    "method": "12 images sur tout le clip + deux planches denses de 16 images (16,5-21,0 s et 32,0-38,0 s), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "Le buste et les epaules ne sont jamais dans le cadre au moment du reglage.",
+        "confidence": "high"
+      },
+      "slack_pull_and_wedge": {
+        "score": "NA",
+        "why": "Bras et haut du dos hors champ.",
+        "confidence": "high"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Les jambes s'etendent regulierement entre 18,0 et 18,9 s ; sans le torse, impossible de dire si la montee vient des jambes ou du dos.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent au-dessus des pieds sur les images ou ils sont nets.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Le rachis n'est visible sur aucune image.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "Le disque du premier plan cache la barre soulevee.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": "NA",
+        "why": "Le buste etant hors cadre, la posture finale n'est pas jugeable.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Les jambes se replient progressivement en fin de fenetre, sans effondrement.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Nommer un persona sur un clip ou le buste n'apparait jamais serait une invention."
+  },
+  "sumo_deadlift_12.mp4": {
+    "summary": "Gros plan lateral bas : seules les jambes et les hanches sont dans le cadre, le buste est coupe sur toutes les images. Trois criteres sur huit restent jugeables, et de loin.",
+    "method": "16 images sur 22,0-23,7 s, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "Le buste, les epaules et la barre au moment du reglage sont hors cadre.",
+        "confidence": "high"
+      },
+      "slack_pull_and_wedge": {
+        "score": "NA",
+        "why": "Bras et haut du dos hors du cadre.",
+        "confidence": "high"
+      },
+      "leg_drive_and_floor_spread": {
+        "score": 2,
+        "why": "Les jambes s'etendent regulierement entre 22,20 et 22,70 s ; sans le torse, la part du dos reste inconnue.",
+        "confidence": "low"
+      },
+      "hip_opening_and_knee_tracking": {
+        "score": 2,
+        "why": "Les genoux restent au-dessus des pieds sur les images nettes ; l'angle lateral limite la lecture du plan frontal.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Le rachis n'est jamais dans le cadre.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "La barre longe les jambes sur les images visibles.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": "NA",
+        "why": "Le buste etant coupe, ni la posture finale ni un eventuel recul ne sont visibles.",
+        "confidence": "high"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Les jambes se replient progressivement en fin de fenetre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Le buste n'est jamais visible : aucun archetype ne peut etre etabli."
+  },
+  "conventionnal_deadlift_8.mp4": {
+    "summary": "Camera posee au sol contre le disque, a contre-jour : le lifter est loin, petit et se detache en ombre chinoise derriere la barre du premier plan. Deux fenetres essayees, dont celle de la tiree reelle (2,6-5,2 s). Presque rien n'est jugeable.",
+    "method": "12 images sur tout le clip + 16 images sur 2,6-5,2 s (fenetre choisie a la main apres profil de mouvement), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "Contre-jour et disque du premier plan : ni les pieds, ni la barre, ni la hauteur des hanches ne sont exploitables.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": "NA",
+        "why": "Le haut du dos est en ombre chinoise, aucune tension n'est lisible.",
+        "confidence": "high"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Deux images entre la position basse et la position haute, sur une silhouette en ombre.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": "NA",
+        "why": "Meme raison : la sequence d'extension n'est pas observable.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Le dos est a contre-jour sur toutes les images.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La barre tiree se confond avec le disque du premier plan.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout et droit de 4,33 a 5,20 s, sans hitch ni recul visible — le seul critere que ce cadrage laisse juger, et de loin.",
+        "confidence": "low"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Il se rebaisse progressivement en fin de clip plutot que de lacher la barre.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Une silhouette a contre-jour ne permet aucun diagnostic technique."
+  },
+  "conventionnal_deadlift_13.mp4": {
+    "summary": "Camera posee au sol sur une plateforme surelevee : le buste sort du cadre sur la moitie des images et le disque masque le reste. J'ai du choisir la fenetre a la main, la detection automatique tombant sur une remise en place. Clip a garder comme cas de cadrage.",
+    "method": "16 images sur 14,5-19,5 s, choisies a la main apres profil de mouvement, lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "En contre-plongee extreme avec le buste hors cadre, ni la hauteur des hanches ni l'alignement epaules-barre ne sont evaluables.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": "NA",
+        "why": "Le haut du dos n'est jamais dans le cadre.",
+        "confidence": "high"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "L'angle du torse, seul indicateur, n'est pas visible.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": 2,
+        "why": "Sur 15,83-16,83 s les hanches reculent avant que les genoux flechissent : ce qu'on voit du bassin est correct.",
+        "confidence": "low"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": "NA",
+        "why": "Le rachis est hors champ ou masque par le disque sur la quasi-totalite des images.",
+        "confidence": "high"
+      },
+      "bar_path_and_proximity": {
+        "score": 2,
+        "why": "Le peu qu'on voit montre la barre au contact des jambes.",
+        "confidence": "low"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Jambes verrouillees et bassin ouvert a 14,50-15,50 s ; le buste etant coupe, l'inclinaison finale reste inconnue.",
+        "confidence": "low"
+      },
+      "eccentric_control_and_descent": {
+        "score": 2,
+        "why": "Descente etalee sur trois images avec la barre le long des jambes.",
+        "confidence": "low"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Le buste est hors cadre : aucun element pour trancher."
+  },
+  "conventionnal_deadlift_14.mp4": {
+    "summary": "Le lifter tire derriere une barre chargee posee au premier plan, qui l'occulte en permanence, puis vient reprendre son telephone. Environ six dixiemes de seconde de tiree exploitable sur dix-sept secondes de clip.",
+    "method": "16 images sur 10,8-14,2 s, choisies a la main (la fenetre automatique incluait sa marche vers la camera), lues seules",
+    "criteria": {
+      "starting_position": {
+        "score": "NA",
+        "why": "Le disque du premier plan cache le bas du corps et la barre soulevee.",
+        "confidence": "high"
+      },
+      "slack_pull_and_lat_engagement": {
+        "score": "NA",
+        "why": "Une seule image montre la position basse, et de loin.",
+        "confidence": "high"
+      },
+      "leg_drive_activation": {
+        "score": "NA",
+        "why": "Deux images entre le bas et le haut : la sequence n'est pas observable.",
+        "confidence": "high"
+      },
+      "hip_hinge_mechanics": {
+        "score": "NA",
+        "why": "Meme raison.",
+        "confidence": "high"
+      },
+      "core_bracing_and_spine_neutrality": {
+        "score": 2,
+        "why": "Le dos parait tenu a 11,70-12,17 s, mais a cette distance seul un defaut severe se verrait.",
+        "confidence": "low"
+      },
+      "bar_path_and_proximity": {
+        "score": "NA",
+        "why": "La barre soulevee n'est pas identifiable dans le cadre.",
+        "confidence": "high"
+      },
+      "lockout_execution": {
+        "score": 2,
+        "why": "Debout et droit a 12,83-13,30 s, sans recul ni hitch visible.",
+        "confidence": "low"
+      },
+      "eccentric_control_and_descent": {
+        "score": "NA",
+        "why": "La descente n'est pas dans le clip : il laisse la barre et marche vers la camera.",
+        "confidence": "high"
+      }
+    },
+    "persona": null,
+    "persona_confidence": "high",
+    "persona_why": "Six dixiemes de seconde de tiree derriere un disque : rien a caracteriser."
+  }
+}
