@@ -2,6 +2,19 @@
 
 Ce document décrit le concept, l'architecture technique et les procédures de déploiement du projet **SBD Reviews**. Il est destiné aux développeurs et aux assistants IA pour comprendre rapidement la structure du projet.
 
+---
+
+## 🔄 Méthode de travail : rien n'est figé
+
+Ce projet est en itération permanente. **Aucun choix décrit dans ce document n'est définitif** : architecture, prompts, schéma de notation, seuils de la cascade de pose, bloc de cinématique, modèle Gemini retenu, découpage des vidéos envoyées — tout est une version courante, pas une contrainte.
+
+L'objectif est un produit **utile et de qualité**, pas la préservation de l'existant. Un assistant qui repère un choix discutable doit le dire et proposer mieux, y compris sur du code récent ou soigneusement réglé.
+
+La contrepartie : on change sur **preuve**, pas sur intuition.
+*   Les seuils de `backend/pose_analysis.py` se revérifient avec `uv run python eval/check_pose_cascade.py` (depuis `backend/`).
+*   Les changements de prompt, de schéma ou de modèle se jugent contre `backend/eval/ground_truth.json` — paires contrôlées (`pair:chest`, `pair:slack`) et ancres (`top_anchor`, `bottom_anchor`) — jamais sur un ressenti après un ou deux essais.
+*   Une modification non mesurable est une préférence, pas une amélioration : le dire honnêtement plutôt que de l'habiller.
+
 ## 💡 1. Concept du Projet
 **SBD Reviews** est une application web d'analyse vidéo assistée par l'Intelligence Artificielle pour les mouvements de force athlétique (Squat, Bench, Deadlift). 
 L'utilisateur se connecte via Google, upload la vidéo de son mouvement, et l'IA analyse sa technique (posture, leg drive, stabilité, etc.) pour lui attribuer un score technique sur 20 avec des retours personnalisés. Le site est en anglais. 
