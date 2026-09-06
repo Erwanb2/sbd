@@ -2098,7 +2098,7 @@
     },
     "run_at": "2026-09-06T09:36:19"
   },
-  "jeff_nippard.mp4": {
+  "jeff_nippard_conv.mp4": {
     "model": "gemini-3.5-flash-lite",
     "movement": "conventional deadlift",
     "criteria": {
@@ -2185,7 +2185,7 @@
     },
     "run_at": "2026-09-06T09:36:30"
   },
-  "jeff_nippard_conventional.mp4": {
+  "jeff_nippard_sumo": {
     "model": "gemini-3.5-flash-lite",
     "movement": "conventional deadlift",
     "criteria": {

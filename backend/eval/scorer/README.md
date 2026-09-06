@@ -2,7 +2,8 @@
 
 But : produire un jeu de test fiable sur les 49 clips. Pour chaque clip et chaque critère
 du schéma du mouvement on veut, sur la **même échelle 1/3 · 2/3 · 3/3 que le pipeline**
-(compression `1-2 -> 1`, `3 -> 2`, `4 -> 3` faite dans `ai_service.analyze_movement`) :
+(le schéma demande directement 1, 2 ou 3 au modèle : il n'y a plus de note sur 4 ni de
+compression) :
 
 | source | fichier | état |
 |---|---|---|
@@ -33,7 +34,8 @@ Une page, un clip à la fois. La vidéo à gauche, les 8 critères à droite ave
   `The Technician` n'est pas dans l'enum non plus — c'est `ai_service` qui l'attribue au-delà
   de 90 % du maximum — mais il est proposé puisqu'il sort bel et bien du pipeline.
   Le développé couché n'a pas de persona du tout (`AnalyzeBench` n'a pas le champ).
-* `?` à côté d'un critère déplie la grille du barème **déjà compressée sur trois niveaux**
+* `?` à côté d'un critère déplie la grille du barème, telle quelle : le barème du schéma
+  est sur les trois mêmes niveaux que les boutons
 * l'avis de Claude et la note du LLM sont **repliés par défaut** — pour ne pas orienter la
   note humaine. Les déplier ne modifie rien.
 

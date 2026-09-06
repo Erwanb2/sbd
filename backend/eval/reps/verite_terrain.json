@@ -1,0 +1,391 @@
+{
+ "_about": "Nombre de repetitions par clip. `n` avec `source: humain` = compte d'Erwan sur la video, dans l'outil de notation (eval/scorer, bloc Repetitions) : c'est LA reference. `claude_n` = mon comptage prealable sur planches de frames, conserve pour mesurer mon propre ecart (43/49 justes). Une rep = une remontee complete jusqu'au verrouillage, barre en main ; une tentative ou la barre ne decolle pas vaut 0.",
+ "clips": {
+  "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "cadence reguliere, le titre du clip annonce 5",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:49:14.616Z"
+  },
+  "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "single lourd, verrouillage ~9.5s",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:49:23.004Z"
+  },
+  "Arthur Garrec Profil de coureur Strava.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~12.5 16.5 20.5 24.5 28.5 ; 12 s penche sur la barre avant de commencer",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:49:43.062Z"
+  },
+  "arthur_froler_fesse.mp4": {
+   "n": 3,
+   "conf": "moyenne",
+   "note": "il se releve en cours de serie sans reprendre la barre : la frontiere entre une repetition et une pause debout n'est pas tranchable a l'image. Debout vers ~12, ~27, ~33 et ~41 s. Compte humain retenu, outlier assume (voir README).",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:06:21.055Z",
+   "ambigu": true
+  },
+  "arthur_last.mp4": {
+   "n": 3,
+   "conf": "haute",
+   "note": "verrouillages ~2.5 12.2 20.3",
+   "claude_n": 3,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:50:25.376Z"
+  },
+  "p_deadlift.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "1 rep puis plan de coupe sur un plateau",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:58:35.184Z"
+  },
+  "conventionnal_deadlift_10.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~3.7s",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:50:57.601Z"
+  },
+  "conventionnal_deadlift_11.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "se redresse a ~14.7 APRES avoir repose la barre : piege pour un compteur de pose",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:51:08.915Z"
+  },
+  "conventionnal_deadlift_12.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "cadrage tres serre, verrouillages ~5.9 10.3 14.7 19.8 26.4",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:51:27.793Z"
+  },
+  "conventionnal_deadlift_13.mp4": {
+   "n": 7,
+   "conf": "haute",
+   "note": "verrouillages ~3.7 8.8 13.9 19.1 24.2 30.1 35.2",
+   "claude_n": 7,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:51:51.059Z"
+  },
+  "conventionnal_deadlift_14.mp4": {
+   "n": 3,
+   "conf": "haute",
+   "note": "1 rep puis plans de coupe rapproches",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:52:28.139Z"
+  },
+  "conventionnal_deadlift_2.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~7.3 13.9 ; se redresse a 18.3 barre au sol",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:52:47.811Z"
+  },
+  "conventionnal_deadlift_3.mp4": {
+   "n": 6,
+   "conf": "haute",
+   "note": "verrouillages ~5.1 10.3 14.7 19.8 26.4 33.0",
+   "claude_n": 6,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:53:08.143Z"
+  },
+  "conventionnal_deadlift_4.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~5.1 13.2",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:53:21.813Z"
+  },
+  "conventionnal_deadlift_5.mp4": {
+   "n": 3,
+   "conf": "haute",
+   "note": "verrouillages ~2.9 10.3 16.1, tenues longues en haut ; se redresse a 22.7 barre au sol",
+   "claude_n": 3,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:53:33.201Z"
+  },
+  "conventionnal_deadlift_6.mp4": {
+   "n": 4,
+   "conf": "haute",
+   "note": "verrouillages ~3.7 11.7 19.8 29.3, longues remises en place",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:53:52.185Z"
+  },
+  "conventionnal_deadlift_7.mp4": {
+   "n": 4,
+   "conf": "haute",
+   "note": "verrouillages ~9.5 16.1 22.0 24.2 32.3 ; les deux du milieu sont proches, cadrage en contre-plongee",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:54:13.345Z"
+  },
+  "conventionnal_deadlift_8.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~4.4",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:54:19.052Z"
+  },
+  "conventionnal_deadlift_9.mp4": {
+   "n": 4,
+   "conf": "haute",
+   "note": "verrouillages ~5.1 13.2 23.5 32.3",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:54:43.824Z"
+  },
+  "engueran_fail_deadlift.mp4": {
+   "n": 0,
+   "conf": "haute",
+   "note": "tiree echouee : 26 s de preparation, la barre ne monte pas, il se redresse a vide a 36.7",
+   "claude_n": 0,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:54:47.729Z"
+  },
+  "engueran_sumo.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "24 s de preparation, verrouillage ~31.5",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:54:50.154Z"
+  },
+  "erwan_bon_slack.mp4": {
+   "n": 4,
+   "conf": "haute",
+   "note": "verrouillages ~3.7 8.1 12.5 16.9 ; le clip s'arrete sur le dernier",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:55:30.329Z"
+  },
+  "erwan_last.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~0.7 6.6 11.7 17.6 22.2 ; le 5e verifie en zoom 0.2 s, rate a la premiere lecture",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:55:52.462Z"
+  },
+  "erwan_mauvais_slack.mp4": {
+   "n": 4,
+   "conf": "haute",
+   "note": "verrouillages ~0.7 3.7 7.4 11.2 ; commence et finit sur un verrouillage",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:56:07.899Z"
+  },
+  "jeff_nippard_conv.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "demo studio : commence barre en main, la repose, une seule tiree a ~10.4",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:56:24.605Z"
+  },
+  "jeff_nippard_sumo.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~3.0 puis descente lente, plan de coupe a 10.4",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:56:32.928Z"
+  },
+  "long_deadlift.mp4": {
+   "n": 10,
+   "conf": "haute",
+   "note": "verrouillages ~14.7 19.8 24.2 29.3 37.4 41.1 45.5 49.9 54.3 60.1 ; serie longue, resets inegaux",
+   "claude_n": 10,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:57:48.888Z"
+  },
+  "oscar_sumo.mp4": {
+   "n": 8,
+   "conf": "haute",
+   "note": "verrouillages ~9.5 13.2 17.6 22.7 26.4 30.8 36.7 41.1",
+   "claude_n": 8,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:58:13.561Z"
+  },
+  "oscar_sumo_short.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "extrait : verrouillages ~0.7 et 5.1, commence en pleine tiree",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:58:31.465Z"
+  },
+  "pas_poitrine_relevee.mp4": {
+   "n": 3,
+   "conf": "haute",
+   "note": "verrouillages ~1.5 7.3 11.1 ; le 3e verifie en zoom 0.2 s, rate a la premiere lecture",
+   "claude_n": 3,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:58:44.757Z"
+  },
+  "poitrine_relevee.mp4": {
+   "n": 3,
+   "conf": "haute",
+   "note": "verrouillages ~1.5 5.9 9.5",
+   "claude_n": 3,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:59:02.320Z"
+  },
+  "pr_160.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~5.1 puis celebration",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:59:05.434Z"
+  },
+  "sumo_deadlift_1.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~5.9 13.9 24.2 35.2 45.5",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:59:39.761Z"
+  },
+  "sumo_deadlift_2.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~5.1 10.3",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:01:02.558Z"
+  },
+  "sumo_deadlift_3.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~4.4",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:01:13.585Z"
+  },
+  "sumo_deadlift_4.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~0.7 6.6 12.5 18.3 24.2 ; cadrage serre, commence en pleine tiree",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:01:29.755Z"
+  },
+  "sumo_deadlift_5.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~4.4 11.0",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:01:53.361Z"
+  },
+  "sumo_deadlift_6.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~11.7 17.6 22.0 27.1 32.3 ; se redresse a 35.2 barre au sol",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:13.866Z"
+  },
+  "sumo_deadlift_7.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~3.7 9.5 15.4 20.5 26.4",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:32.021Z"
+  },
+  "sumo_deadlift_8.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~2.9 7.3, plan large",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:41.115Z"
+  },
+  "sumo_deadlift_9.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~7.3",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:48.739Z"
+  },
+  "sumo_deadlift_10.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "cadrage tres serre (jambes et un disque), verrouillages ~18.3 24.9 31.5 40.3 49.1",
+   "claude_n": 5,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:00:14.108Z"
+  },
+  "sumo_deadlift_11.mp4": {
+   "n": 5,
+   "conf": "haute",
+   "note": "verrouillages ~4.4 8.8 13.2 19.1",
+   "claude_n": 4,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:00:28.946Z"
+  },
+  "sumo_deadlift_12.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "verrouillages ~9.5 19.1 ; se redresse a 22.0 barre au sol",
+   "claude_n": 2,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:00:43.000Z"
+  },
+  "thepanash_deadlift.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "competition, verrouillage ~1.5 puis plan de coupe",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:56.759Z"
+  },
+  "worst_deadlift.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "note": "verrouillage ~5.9, tenu jusqu'a la coupe",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:59.250Z"
+  },
+  "conventionnal_deadlift_1.mp4": {
+   "n": 2,
+   "conf": "haute",
+   "note": "cadrage bas et serre ; verrouillages ~13.9 22.7 39.6, setups de 10 s",
+   "claude_n": 3,
+   "source": "humain",
+   "updated_at": "2026-09-06T16:50:49.449Z"
+  },
+  "thepanash_bench.mp4": {
+   "n": 1,
+   "conf": "haute",
+   "mouvement": "bench",
+   "note": "developpe couche de competition, un single : le corps ne se redresse jamais, hors perimetre d'un compteur base sur l'extension hanche/genou",
+   "claude_n": 1,
+   "source": "humain",
+   "updated_at": "2026-09-06T17:02:52.739Z"
+  }
+ }
+}

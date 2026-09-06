@@ -1,0 +1,188 @@
+{
+ "gemini-3.5-flash": {
+  "run1": {
+   "candidats": [
+    10.5,
+    14.83
+   ],
+   "fenetres": [
+    [
+     9.4,
+     13.933
+    ],
+    [
+     13.567,
+     17.167
+    ]
+   ],
+   "verite": 1,
+   "gardees": 1,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "2",
+      "note": "The lower back is rounded at setup."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "2",
+      "note": "The bar is yanked off the floor without pulling the slack."
+     },
+     "leg_drive_activation": {
+      "score": "2",
+      "note": "Hips rise faster than the shoulders at the start."
+     },
+     "hip_hinge_mechanics": {
+      "score": "2",
+      "note": "Knees bend too early on the descent."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "2",
+      "note": "Spine flexes significantly under load."
+     },
+     "bar_path_and_proximity": {
+      "score": "2",
+      "note": "The bar drifts forward to clear the knees."
+     },
+     "lockout_execution": {
+      "score": "3",
+      "note": "Lockout is achieved but lacks a strong glute finish."
+     },
+     "eccentric_control_and_descent": {
+      "score": "2",
+      "note": "The descent is controlled but the bar hits the knees."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 2,
+     "starting_position": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "leg_drive_activation": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "hip_hinge_mechanics": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "bar_path_and_proximity": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "lockout_execution": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "eccentric_control_and_descent": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed without the bar, so this segment does not contain a repetition."
+     },
+     "bar_left_floor": false
+    }
+   ]
+  },
+  "run2": {
+   "candidats": [
+    10.5,
+    14.83
+   ],
+   "fenetres": [
+    [
+     9.4,
+     13.933
+    ],
+    [
+     13.567,
+     17.167
+    ]
+   ],
+   "verite": 1,
+   "gardees": 1,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "3",
+      "note": "Hips are a bit high, causing a very horizontal torso, but overall position is tight."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "3",
+      "note": "Slight jerk off the floor, but lats are engaged."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Hips are high, leading to a dominant pull from the posterior chain rather than a strong leg drive off the floor."
+     },
+     "hip_hinge_mechanics": {
+      "score": "4",
+      "note": "Excellent hip hinge on both ascent and descent."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "4",
+      "note": "Spine remains neutral and braced throughout the lift."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar path is straight and stays in contact with the legs."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Clean lockout with hips and knees locked out simultaneously."
+     },
+     "eccentric_control_and_descent": {
+      "score": "4",
+      "note": "Controlled descent with hands on the bar."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 2,
+     "starting_position": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "leg_drive_activation": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "hip_hinge_mechanics": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "bar_path_and_proximity": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "lockout_execution": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "eccentric_control_and_descent": {
+      "score": "NA",
+      "note": "The athlete stood up empty-handed; no repetition was performed."
+     },
+     "bar_left_floor": false
+    }
+   ]
+  }
+ }
+}

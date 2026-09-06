@@ -595,7 +595,7 @@
     },
     "raison": null
   },
-  "jeff_nippard.mp4": {
+  "jeff_nippard_conv.mp4": {
     "duree_s": 12.9,
     "variante_pose": "conventional",
     "regle": "largeur",
@@ -623,7 +623,7 @@
     },
     "raison": null
   },
-  "jeff_nippard_conventional.mp4": {
+  "jeff_nippard_sumo.mp4": {
     "duree_s": 11.1,
     "variante_pose": "conventional",
     "regle": "largeur",
@@ -843,34 +843,6 @@
         "lockout_s": 6.95,
         "facing": "right",
         "side": "r"
-      }
-    },
-    "raison": null
-  },
-  "sumo_deadlift.mp4": {
-    "duree_s": 6.6,
-    "variante_pose": "sumo",
-    "regle": "largeur",
-    "confiance": 0.1748,
-    "largeur": 2.408,
-    "profondeur": -0.0178,
-    "kinematics": {
-      "setup_hips_position": "Too high (stiff-legged)",
-      "setup_hip_ratio": -0.07,
-      "shoulder_to_bar_alignment_at_start": "Shoulders slightly ahead of bar (good)",
-      "shoulder_bar_offset_cm": 33.7,
-      "wrist_horizontal_drift_cm": 49.0,
-      "camera_view": "three-quarter",
-      "lockout_knee_angle": 166.1,
-      "lockout_hip_angle": 175.9,
-      "descent_initial_movement": "Hips flexed before knees (good hinge)",
-      "descent_knee_delta_deg": -4.3,
-      "descent_hip_delta_deg": 8.2,
-      "_phases": {
-        "liftoff_s": 1.33,
-        "lockout_s": 3.4,
-        "facing": "left",
-        "side": "l"
       }
     },
     "raison": null

@@ -208,10 +208,9 @@ def _echelle(poses, s, lo, lk):
     return float(np.median(v)) if v else float("nan")
 
 
-def _interp(x, y, cible):
-    "Valeur de y quand x franchit `cible` (x suppose croissant en gros)."
-    idx = int(np.argmax(x >= cible)) if np.any(x >= cible) else len(x) - 1
-    return int(idx)
+def _interp(x, cible):
+    "Premier indice ou `x` franchit `cible`, le dernier a defaut."
+    return int(np.argmax(x >= cible)) if np.any(x >= cible) else len(x) - 1
 
 
 # ------------------------------------------------------------------ features
@@ -292,8 +291,8 @@ def mesures(clip: str) -> dict:
     if abs(course) > 1e-6:
         prog = (bar[lo:lk + 1] - bar[lo]) / course
         prog = np.maximum.accumulate(np.clip(prog, 0, 1.2))          # monotone
-        i_t1 = lo + _interp(prog, prog, 0.33)                        # premier tiers
-        i_t2 = lo + _interp(prog, prog, 0.66)
+        i_t1 = lo + _interp(prog, 0.33)                        # premier tiers
+        i_t2 = lo + _interp(prog, 0.66)
 
         # « les hanches partent en premier » : angle du tronc perdu sur le premier tiers
         out["pull_torso_delta_t1"] = round(float(torso[i_t1] - torso[lo]), 1)
@@ -331,7 +330,7 @@ def mesures(clip: str) -> dict:
             out["pull_bar_drift"] = round(float(np.percentile(xs, 95) - np.percentile(xs, 5)), 3)
             out["pull_bar_max_forward"] = round(float(np.max(xs) - xs[0]), 3)
             h_genou = (_pt(f0, "l_an")[1] + _pt(f0, "r_an")[1]) / 2 - _pt(f0, f"{s}_kn")[1]
-            i_kn = lo + _interp(bar[lo:lk + 1], bar[lo:lk + 1],
+            i_kn = lo + _interp(bar[lo:lk + 1],
                                 float(h_genou / max(_echelle_frame(f0), 1.0)))
             out["pull_bar_gap_knee"] = round(float(abs(
                 (_pt(poses[i_kn], "l_wr")[0] + _pt(poses[i_kn], "r_wr")[0]) / 2
@@ -362,14 +361,14 @@ def mesures(clip: str) -> dict:
     ext = (hip + knee) / 2.0
     haut = float(ext[lk])
     seuil = ext[lo] + 0.9 * (haut - ext[lo])
-    j = lo + _interp(ext[lo:lk + 1], ext[lo:lk + 1], seuil)
+    j = lo + _interp(ext[lo:lk + 1], seuil)
     out["lock_temps_dernier_10pct"] = round(float((t[lk] - t[j]) / max(t[lk] - t[lo], 1e-6)), 3)
     # desynchronisation hanche / genou en fin de tiree
     if knee[lk] - knee[lo] > 5 and hip[lk] - hip[lo] > 5:
         pk = np.clip((knee[lo:lk + 1] - knee[lo]) / (knee[lk] - knee[lo]), 0, 1)
         phh = np.clip((hip[lo:lk + 1] - hip[lo]) / (hip[lk] - hip[lo]), 0, 1)
         out["lock_desync_fin"] = round(float(abs(
-            _interp(pk, pk, 0.95) - _interp(phh, phh, 0.95)) / max(lk - lo, 1)), 3)
+            _interp(pk, 0.95) - _interp(phh, 0.95)) / max(lk - lo, 1)), 3)
 
     # ---- descente
     ap = [j for j in range(lk + 1, len(poses)) if t[j] - t[lk] <= 2.0]

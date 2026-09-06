@@ -1154,8 +1154,8 @@
   "vue_face": 0.045,
   "vue_side": 1
  },
- "jeff_nippard.mp4": {
-  "clip": "jeff_nippard.mp4",
+ "jeff_nippard_conv.mp4": {
+  "clip": "jeff_nippard_conv.mp4",
   "course_barre": 0.267,
   "dans_cadre": 1.0,
   "desc_amplitude": 0.088,
@@ -1203,8 +1203,8 @@
   "vue_face": 0.107,
   "vue_side": 1
  },
- "jeff_nippard_conventional.mp4": {
-  "clip": "jeff_nippard_conventional.mp4",
+ "jeff_nippard_sumo": {
+  "clip": "jeff_nippard_sumo",
   "course_barre": 1.011,
   "dans_cadre": 1.0,
   "desc_amplitude": -0.12,

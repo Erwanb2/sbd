@@ -1,19 +1,32 @@
 import { useState } from 'react';
 import ResultCard from './ResultCard.jsx';
+import RepHistogram from './RepHistogram.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
 
-// Rendu d'une analyse (score + persona + critères). Utilisé à la fois pour le
-// résultat réel de l'utilisateur (App.jsx) et pour la démo sample de la page
-// d'accueil. `onReset` est optionnel : absent = pas de bouton "analyze another".
-export default function ResultView({ result, movement, onReset }) {
+// Rendu d'une analyse (vidéo + score + reps + persona + critères). Utilisé à la
+// fois pour le résultat réel de l'utilisateur (App.jsx) et pour la démo sample
+// de la page d'accueil. `onReset` est optionnel : absent = pas de bouton
+// "analyze another". `videoUrl` est optionnel lui aussi : sans lui, la carte du
+// haut se réduit au score.
+export default function ResultView({ result, movement, videoUrl, onReset }) {
   const [ expandedCard, setExpandedCard ] = useState(null);
+  const [ selectedRep, setSelectedRep ] = useState(null);
 
   const scoreObtenu = result?.total_raw_score || result?.note_globale_brute || 0;
   const scoreMax = result?.raw_max_score || 24;
   const scorePercentage = (scoreObtenu / scoreMax) * 100;
 
   const fallback = result?.model_fallback;
+
+  // Un critère est le seul objet de la réponse à porter une clé "score"
+  // (éventuellement null quand il n'est pas visible à l'image). Tout le reste —
+  // totaux, quota, persona, reps — est ignoré sans liste à maintenir.
+  const criteres = Object.entries(result)
+    .filter(([ , data ]) => data && typeof data === 'object' && 'score' in data)
+    .map(([ cle ]) => cle);
+
+  const reps = Array.isArray(result?.reps) ? result.reps : [];
 
   return (
     <div className="space-y-6">
@@ -33,17 +46,51 @@ export default function ResultView({ result, movement, onReset }) {
         </div>
       ) }
 
-      <div className="flex flex-col items-center justify-center p-10 bg-gray-900 border border-gray-800 rounded-3xl shadow-lg">
-        <span className="text-gray-400 font-semibold mb-2 uppercase tracking-widest text-sm">
-          { result.movement_detected || movement }
-        </span>
-        <div className="flex items-baseline gap-2">
-          <span className={ `text-7xl font-black ${ scorePercentage >= 80 ? 'text-emerald-400' : scorePercentage >= 50 ? 'text-amber-400' : 'text-red-400' }` }>
-            { scoreObtenu }
+      { /* La vidéo à côté du score, et non au-dessus : la page ne s'allonge pas
+           d'un bloc, elle remplit une largeur qui était vide. */ }
+      <div className="flex flex-col sm:flex-row bg-gray-900 border border-gray-800 rounded-3xl shadow-lg overflow-hidden">
+        { videoUrl && (
+          <div className="relative sm:w-1/2 bg-black flex items-center justify-center">
+            { /* Le fragment #t force le rendu de la première image : sans lui, la
+                 carte s'ouvre sur un rectangle noir qui a l'air cassé. */ }
+            <video
+              src={ `${ videoUrl }#t=0.1` }
+              controls
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full max-h-[340px] object-contain bg-black"
+            />
+            <span className="pointer-events-none absolute bottom-2 left-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-gray-300 backdrop-blur-sm">
+              Video deleted in 24h
+            </span>
+          </div>
+        ) }
+
+        <div className="flex-1 flex flex-col items-center justify-center gap-2 p-8 sm:p-10">
+          <span className="text-gray-400 font-semibold uppercase tracking-widest text-sm text-center">
+            { result.movement_detected || movement }
           </span>
-          <span className="text-4xl text-gray-600 font-bold">/ { scoreMax }</span>
+          <div className="flex items-baseline gap-2">
+            <span className={ `text-7xl font-black ${ scorePercentage >= 80 ? 'text-emerald-400' : scorePercentage >= 50 ? 'text-amber-400' : 'text-red-400' }` }>
+              { scoreObtenu }
+            </span>
+            <span className="text-4xl text-gray-600 font-bold">/ { scoreMax }</span>
+          </div>
+          { reps.length > 0 && (
+            <span className="text-xs text-gray-500 uppercase tracking-wider">
+              across { reps.length } rep{ reps.length > 1 ? 's' : '' }
+            </span>
+          ) }
         </div>
       </div>
+
+      <RepHistogram
+        reps={ reps }
+        criteria={ criteres }
+        selected={ selectedRep }
+        onSelect={ setSelectedRep }
+      />
 
       { result.lifter_persona && (() => {
         const { emoji, filename } = getPersonaAssets(result.lifter_persona);
@@ -81,23 +128,16 @@ export default function ResultView({ result, movement, onReset }) {
       })() }
 
       <div className="grid grid-cols-1 gap-4">
-        { Object.entries(result).map(([ key, data ]) => {
-          // Un critère est le seul objet de la réponse à porter une clé "score"
-          // (éventuellement null quand il n'est pas visible à l'image). Tout le
-          // reste — totaux, quota, persona — est ignoré sans liste à maintenir.
-          if (!data || typeof data !== 'object' || !( 'score' in data )) return null;
-
-          return (
-            <ResultCard
-              key={ key }
-              criterionKey={ key }
-              data={ data }
-              isExpanded={ expandedCard === key }
-              onToggle={ () => setExpandedCard(expandedCard === key ? null : key) }
-              demo={ criteriaGuides[key] }
-            />
-          );
-        }) }
+        { criteres.map((cle) => (
+          <ResultCard
+            key={ cle }
+            criterionKey={ cle }
+            data={ result[cle] }
+            isExpanded={ expandedCard === cle }
+            onToggle={ () => setExpandedCard(expandedCard === cle ? null : cle) }
+            demo={ criteriaGuides[cle] }
+          />
+        )) }
       </div>
 
       { result.kinematics && (

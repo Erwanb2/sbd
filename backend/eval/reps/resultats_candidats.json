@@ -1,0 +1,334 @@
+{
+ "conventionnal_deadlift_11.mp4": {
+  "gemini-3.5-flash-lite": {
+   "candidats": [
+    10.5,
+    14.83
+   ],
+   "verite": 1,
+   "gardees": 1,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "4",
+      "note": "Hips and shoulders are well-positioned with a neutral spine."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "4",
+      "note": "Excellent tension built and lats fully engaged before lifting."
+     },
+     "leg_drive_activation": {
+      "score": "4",
+      "note": "Strong and immediate leg drive off the floor."
+     },
+     "hip_hinge_mechanics": {
+      "score": "4",
+      "note": "Hips and shoulders rise simultaneously."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "4",
+      "note": "Solid brace maintained with a flat back."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar stays glued to the legs during the ascent."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Complete and crisp lockout at the top."
+     },
+     "eccentric_control_and_descent": {
+      "score": "4",
+      "note": "Controlled descent back to the platform."
+     },
+     "bar_left_floor": true
+    }
+   ]
+  },
+  "gemini-3.5-flash": {
+   "candidats": [
+    10.5,
+    14.83
+   ],
+   "verite": 1,
+   "gardees": 1,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "2",
+      "note": "Hips are set a bit too low and the lower back is slightly rounded before the pull."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "2",
+      "note": "The bar is yanked off the floor with a sudden jerk instead of pulling the slack out first."
+     },
+     "leg_drive_activation": {
+      "score": "2",
+      "note": "Hips rise slightly faster than the chest during the initial break from the floor."
+     },
+     "hip_hinge_mechanics": {
+      "score": "3",
+      "note": "Concentric hip extension is decent, but the eccentric hinge is non-existent due to dropping the bar."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "2",
+      "note": "Significant spinal flexion is visible under load during the ascent."
+     },
+     "bar_path_and_proximity": {
+      "score": "2",
+      "note": "The bar drifts forward and loses contact with the legs around knee height."
+     },
+     "lockout_execution": {
+      "score": "3",
+      "note": "Lockout is completed, but with a slight tendency to lean back excessively."
+     },
+     "eccentric_control_and_descent": {
+      "score": "1",
+      "note": "The bar is dropped to the floor with no eccentric control."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 2,
+     "starting_position": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "leg_drive_activation": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "hip_hinge_mechanics": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "bar_path_and_proximity": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "lockout_execution": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "eccentric_control_and_descent": {
+      "score": "NA",
+      "note": "The athlete is standing up empty-handed after completing the set."
+     },
+     "bar_left_floor": false
+    }
+   ]
+  }
+ },
+ "conventionnal_deadlift_2.mp4": {
+  "gemini-3.5-flash-lite": {
+   "candidats": [
+    6.5,
+    13.67
+   ],
+   "verite": 2,
+   "gardees": 3,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "2",
+      "note": "Hips are slightly too high and shoulders are too far over the bar."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "2",
+      "note": "Missed pulling the slack out completely before breaking the floor."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Decent leg drive off the floor."
+     },
+     "hip_hinge_mechanics": {
+      "score": "3",
+      "note": "Hips and shoulders rose together reasonably well."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "2",
+      "note": "Slight rounding in the upper back during the pull."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar stayed glued to the legs."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Solid and complete lockout."
+     },
+     "eccentric_control_and_descent": {
+      "score": "3",
+      "note": "Controlled descent past the knees."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 2,
+     "starting_position": {
+      "score": "2",
+      "note": "Similar setup with hips starting slightly too high."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "2",
+      "note": "A bit rushed off the floor without complete lat tension."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Good leg drive pushing through the floor."
+     },
+     "hip_hinge_mechanics": {
+      "score": "3",
+      "note": "Hinged effectively at the top."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "2",
+      "note": "Upper back flexion persisted under load."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Maintained close bar path."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Crisp lockout at the top."
+     },
+     "eccentric_control_and_descent": {
+      "score": "3",
+      "note": "Acceptable eccentric control."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 3,
+     "starting_position": {
+      "score": "2",
+      "note": "Hips started slightly elevated again."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "2",
+      "note": "Rushed pull with a audible clank from remaining slack."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Drove through the floor strongly to finish."
+     },
+     "hip_hinge_mechanics": {
+      "score": "3",
+      "note": "Maintained good coordination."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "2",
+      "note": "Slight rounding noted in the thoracic spine."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar stayed close to the body."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Strong final lockout."
+     },
+     "eccentric_control_and_descent": {
+      "score": "3",
+      "note": "Maintained control on the descent."
+     },
+     "bar_left_floor": true
+    }
+   ]
+  },
+  "gemini-3.5-flash": {
+   "candidats": [
+    6.5,
+    13.67
+   ],
+   "verite": 2,
+   "gardees": 2,
+   "reps": [
+    {
+     "rep_index": 1,
+     "starting_position": {
+      "score": "3",
+      "note": "Hips are high but setup is tight and consistent."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "3",
+      "note": "Good tension created before the bar leaves the floor."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Strong leg drive with hips and shoulders rising together."
+     },
+     "hip_hinge_mechanics": {
+      "score": "4",
+      "note": "Perfect hip hinge on the descent, clearing the knees cleanly."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "3",
+      "note": "Solid lumbar spine neutrality with minor, stable upper back rounding."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar path is perfectly vertical and stays close to the body."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Clean, strong lockout with full hip and knee extension."
+     },
+     "eccentric_control_and_descent": {
+      "score": "4",
+      "note": "Excellent control of the weight on the way down."
+     },
+     "bar_left_floor": true
+    },
+    {
+     "rep_index": 2,
+     "starting_position": {
+      "score": "3",
+      "note": "Maintained the same high-hip setup as the first rep."
+     },
+     "slack_pull_and_lat_engagement": {
+      "score": "3",
+      "note": "Consistent slack pull and lat engagement."
+     },
+     "leg_drive_activation": {
+      "score": "3",
+      "note": "Leg drive remains strong and synchronized."
+     },
+     "hip_hinge_mechanics": {
+      "score": "4",
+      "note": "Flawless hip hinge on the descent."
+     },
+     "core_bracing_and_spine_neutrality": {
+      "score": "3",
+      "note": "Bracing remains tight with a stable spine."
+     },
+     "bar_path_and_proximity": {
+      "score": "4",
+      "note": "Bar path remains perfectly straight and close."
+     },
+     "lockout_execution": {
+      "score": "4",
+      "note": "Solid and complete lockout."
+     },
+     "eccentric_control_and_descent": {
+      "score": "4",
+      "note": "Controlled descent all the way to the floor."
+     },
+     "bar_left_floor": true
+    }
+   ]
+  }
+ }
+}

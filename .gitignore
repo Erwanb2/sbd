@@ -1,6 +1,9 @@
 .env
 backend/*.csv
 data/*.mp4
+# Les clips ecartes du jeu d'eval vivent en sous-dossier : eux non plus ne
+# partent pas dans git, seule leur note POURQUOI.md est versionnee.
+data/**/*.mp4
 backend/utilisateurs.db
 backend/data/
 backend/temp_*

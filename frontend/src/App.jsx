@@ -15,12 +15,20 @@ import { validateVideoFile, DEFAULT_LIMITS } from './utils/videoValidation.js';
 // Délai avant d'inviter le visiteur à se connecter, une fois l'analyse lancée.
 const AUTH_PROMPT_DELAY_MS = 5000;
 
+// Générations de modèle proposées par la bascule de debug, dans l'ordre du
+// cycle. Doit rester aligné sur ai_service.MODELES_ANALYSE côté backend.
+const MODELES = [ '3.5', '3.7' ];
+
 export default function App() {
-  // Bascule de modele d'analyse, pour comparer 3.5 et 3.7 sur une meme video.
-  // Volontairement discrete : c'est un outil de debug, pas une fonctionnalite.
+  // Bascule de modele d'analyse, pour comparer deux generations sur une meme
+  // video. Volontairement discrete : c'est un outil de debug, pas une
+  // fonctionnalite. Les cles doivent exister dans ai_service.MODELES_ANALYSE.
   const [ modelKey, setModelKey ] = useState(() => localStorage.getItem('sbd_model') || '3.5');
   const [ file, setFile ] = useState(null);
   const [ result, setResult ] = useState(null);
+  // URL de lecture de la vidéo analysée, rejouée sur la page de résultat.
+  // C'est un blob local : le fichier ne repart pas du navigateur pour ça.
+  const [ videoUrl, setVideoUrl ] = useState(null);
   const [ loadingStep, setLoadingStep ] = useState(0);
   const [ detectedMovement, setDetectedMovement ] = useState(null);
   // Jeton d'une analyse déjà calculée côté serveur mais pas encore déverrouillée.
@@ -41,6 +49,16 @@ export default function App() {
   const authTokenRef = useRef(null);
   const analysisReadyRef = useRef(false);
   const authPromptTimerRef = useRef(null);
+  const videoUrlRef = useRef(null);
+
+  // Un seul blob vivant à la fois : celui de l'analyse en cours. Sans la
+  // révocation, chaque nouvelle vidéo laisserait la précédente en mémoire.
+  const rejoueLaVideo = (fichier) => {
+    if (videoUrlRef.current) URL.revokeObjectURL(videoUrlRef.current);
+    const url = fichier ? URL.createObjectURL(fichier) : null;
+    videoUrlRef.current = url;
+    setVideoUrl(url);
+  };
 
   const isFreeUser = user?.plan?.toLowerCase() !== 'premium' && user?.plan?.toLowerCase() !== 'pro';
 
@@ -59,7 +77,10 @@ export default function App() {
       .catch(() => { /* on garde les valeurs par défaut */ });
   }, []);
 
-  useEffect(() => () => clearTimeout(authPromptTimerRef.current), []);
+  useEffect(() => () => {
+    clearTimeout(authPromptTimerRef.current);
+    if (videoUrlRef.current) URL.revokeObjectURL(videoUrlRef.current);
+  }, []);
 
   // Déverrouille un résultat déjà calculé : c'est CE appel qui consomme un
   // crédit, et le seul qui renvoie réellement la note au client.
@@ -97,6 +118,7 @@ export default function App() {
   const runAnalysis = async () => {
     if (!file) return;
 
+    rejoueLaVideo(file);
     setLoadingStep(1);
     setResult(null);
     setDetectedMovement(null);
@@ -218,7 +240,7 @@ export default function App() {
   const basculeModele = (
     <button
       onClick={ () => {
-        const suivant = modelKey === '3.5' ? '3.7' : '3.5';
+        const suivant = MODELES[(MODELES.indexOf(modelKey) + 1) % MODELES.length];
         setModelKey(suivant);
         localStorage.setItem('sbd_model', suivant);
       } }
@@ -319,7 +341,13 @@ export default function App() {
           <ResultView
             result={ result }
             movement={ detectedMovement }
-            onReset={ () => { setResult(null); setFile(null); setDetectedMovement(null); } }
+            videoUrl={ videoUrl }
+            onReset={ () => {
+              rejoueLaVideo(null);
+              setResult(null);
+              setFile(null);
+              setDetectedMovement(null);
+            } }
           />
         </div>
       ) }

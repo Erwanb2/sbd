@@ -411,7 +411,7 @@
     "comment": "hip shoot up a lot",
     "updated_at": "2026-09-05T20:49:37.859Z"
   },
-  "jeff_nippard.mp4": {
+  "jeff_nippard_conv.mp4": {
     "scores": {
       "starting_position": 3,
       "slack_pull_and_lat_engagement": 3,
@@ -428,22 +428,23 @@
     "comment": "",
     "updated_at": "2026-09-05T20:49:42.447Z"
   },
-  "jeff_nippard_conventional.mp4": {
+  "jeff_nippard_sumo.mp4": {
     "scores": {
       "starting_position": 3,
-      "slack_pull_and_lat_engagement": 3,
-      "leg_drive_activation": 3,
-      "hip_hinge_mechanics": 3,
+      "slack_pull_and_wedge": 3,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
       "core_bracing_and_spine_neutrality": 3,
       "bar_path_and_proximity": 3,
-      "lockout_execution": "NA",
-      "eccentric_control_and_descent": 3
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 3,
+      "set_consistency": "NA"
     },
     "persona": [
       "The Technician"
     ],
     "comment": "",
-    "updated_at": "2026-09-05T20:49:44.188Z"
+    "updated_at": "2026-09-06T18:59:36.490Z"
   },
   "long_deadlift.mp4": {
     "scores": {
@@ -566,23 +567,6 @@
     "comment": "",
     "updated_at": "2026-09-05T20:50:17.171Z"
   },
-  "sumo_deadlift.mp4": {
-    "scores": {
-      "starting_position": "NA",
-      "slack_pull_and_wedge": "NA",
-      "leg_drive_and_floor_spread": "NA",
-      "hip_opening_and_knee_tracking": "NA",
-      "core_bracing_and_spine_neutrality": "NA",
-      "bar_path_and_proximity": "NA",
-      "lockout_execution": "NA",
-      "eccentric_control_and_descent": "NA"
-    },
-    "persona": [
-      "NA"
-    ],
-    "comment": "la ceinture saute pendant le clip",
-    "updated_at": "2026-09-05T20:51:20.062Z"
-  },
   "sumo_deadlift_1.mp4": {
     "scores": {
       "starting_position": 2,
@@ -595,10 +579,11 @@
       "eccentric_control_and_descent": 2
     },
     "persona": [
-      "The Crane"
+      "The Crane",
+      "The Over-Extender"
     ],
     "comment": "petit hip shoot up dommage la position était géniale sinon, pas de slack pull excessif. Le dos s'arrondit juste avant de partir pour de vrai à chaque fois. Lockout un peu trop excessif en arrière",
-    "updated_at": "2026-09-05T20:51:24.374Z"
+    "updated_at": "2026-09-06T16:59:38.097Z"
   },
   "sumo_deadlift_10.mp4": {
     "scores": {

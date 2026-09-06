@@ -2677,7 +2677,7 @@
       }
     },
     {
-      "file": "jeff_nippard.mp4",
+      "file": "jeff_nippard_conv.mp4",
       "movement": "conventional deadlift",
       "criteria": {
         "starting_position": {
@@ -2791,7 +2791,7 @@
       }
     },
     {
-      "file": "jeff_nippard_conventional.mp4",
+      "file": "jeff_nippard_sumo",
       "movement": "sumo deadlift",
       "criteria": {
         "starting_position": {

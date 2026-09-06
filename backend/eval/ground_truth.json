@@ -1,11 +1,10 @@
 {
   "_about": {
-    "purpose": "Reference labels for the 22 clips in data/. Built by reviewing extracted frames (whole-clip contact sheets, then dense per-rep sheets, then large lower-body crops for stance calls). Scores are on the RAW 1-4 scale of schemas.EvaluationCriteria, BEFORE the 4->3 compression applied in ai_service.analyze_movement.",
+    "purpose": "Reference labels for the clips in data/. Built by reviewing extracted frames (whole-clip contact sheets, then dense per-rep sheets, then large lower-body crops for stance calls). Scores are on the 1-3 scale of schemas.CriteriaScore — the scale the model is asked for and the scale the page shows. There is no compression step any more.",
     "scale": {
-      "1": "Danger / terrible",
-      "2": "Poor / flawed",
-      "3": "Average / acceptable",
-      "4": "Optimal"
+      "1": "Poor / dangerous",
+      "2": "Subpar / flawed",
+      "3": "Good (criterion met)"
     },
     "confidence": {
       "high": "clearly visible across several frames; trust this label",
@@ -17,45 +16,47 @@
       "Only one bench clip.",
       "Temporal criteria (slack_pull, leg_drive, eccentric_control) are the least reliable labels here because they were judged from sampled frames rather than continuous motion. They are marked with lower confidence throughout.",
       "AnalyzeBench has no lifter_persona field, so the frontend persona card cannot render for bench videos.",
-      "Les 6 clips sumo_deadlift_1..6 (ajoutes le 2026-09-04) n'ont que l'etiquette de mouvement, aucun score de critere."
-    ]
+      "Les 6 clips sumo_deadlift_1..6 (ajoutes le 2026-09-04) n'ont que l'etiquette de mouvement, aucun score de critere.",
+      "Ces scores ne sont PAS la verite terrain notee : c'est eval/scorer/human_labels.json qui l'est, et rien dans le code ne lit le champ 'score' d'ici. Les deux annotations divergent en bas d'echelle (4 cases a 1/3 ici contre 38 chez l'humain sur les 149 cases communes) : l'annotation par images est plus indulgente au plancher. En cas de conflit, l'humain tranche ; ce fichier vaut pour 'movement', 'use_as', 'notes' et le bloc 'assertions'."
+    ],
+    "scale_history": "Ces etiquettes ont d'abord ete ecrites sur le 1-4 du schema d'alors, puis converties UNE FOIS par la table 1->1, 2->2, 3->2, 4->3, choisie sur le sens que le bloc scale d'origine donnait aux niveaux (2 'Poor/flawed' -> 2 'Subpar/flawed', 3 'Average/acceptable' -> 2, 4 'Optimal' -> 3). Valeurs d'origine dans git avant ce commit."
   },
   "videos": [
     {
-      "file": "jeff_nippard.mp4",
+      "file": "jeff_nippard_conv.mp4",
       "movement": "conventional deadlift",
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "hip_hinge_mechanics": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "lockout_execution": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         }
       },
@@ -75,35 +76,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -122,35 +123,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 4,
+          "score": 3,
           "confidence": "low"
         },
         "hip_hinge_mechanics": {
-          "score": 4,
+          "score": 3,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 4,
+          "score": 3,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -169,35 +170,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -229,7 +230,7 @@
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
@@ -237,15 +238,15 @@
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -264,35 +265,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -311,7 +312,7 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_lat_engagement": {
@@ -319,23 +320,23 @@
           "confidence": "medium"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
@@ -358,11 +359,11 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "leg_drive_activation": {
@@ -378,11 +379,11 @@
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
@@ -404,35 +405,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -450,35 +451,35 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -496,7 +497,7 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_lat_engagement": {
@@ -508,7 +509,7 @@
           "confidence": "medium"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
@@ -516,11 +517,11 @@
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
@@ -548,15 +549,15 @@
           "note": "NOT ASSESSABLE - camera is at floor level right beside the plate; feet, shins and the bar-over-midfoot relationship are completely occluded."
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
@@ -569,11 +570,11 @@
           "note": "NOT ASSESSABLE - shins are not visible, so bar-to-leg proximity cannot be judged."
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -600,11 +601,11 @@
           "confidence": "low"
         },
         "leg_drive_and_floor_spread": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_opening_and_knee_tracking": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
@@ -612,15 +613,15 @@
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -647,11 +648,11 @@
           "confidence": "low"
         },
         "leg_drive_and_floor_spread": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_opening_and_knee_tracking": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
@@ -659,15 +660,15 @@
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -685,27 +686,27 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "slack_pull_and_lat_engagement": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "leg_drive_activation": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_hinge_mechanics": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
@@ -713,7 +714,7 @@
           "confidence": "low"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         }
       },
@@ -772,40 +773,40 @@
       ]
     },
     {
-      "file": "jeff_nippard_conventional.mp4",
+      "file": "jeff_nippard_sumo.mp4",
       "movement": "sumo deadlift",
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "slack_pull_and_wedge": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "leg_drive_and_floor_spread": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "hip_opening_and_knee_tracking": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "bar_path_and_proximity": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "lockout_execution": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         }
       },
@@ -826,31 +827,31 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "slack_pull_and_wedge": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "leg_drive_and_floor_spread": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "hip_opening_and_knee_tracking": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "core_bracing_and_spine_neutrality": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "high"
         },
         "eccentric_control_and_descent": {
@@ -874,7 +875,7 @@
       "movement_confirmed_by": "erwan",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_wedge": {
@@ -922,19 +923,19 @@
       "movement_confidence": "high",
       "criteria": {
         "starting_position": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "slack_pull_and_wedge": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "leg_drive_and_floor_spread": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "hip_opening_and_knee_tracking": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "core_bracing_and_spine_neutrality": {
@@ -942,11 +943,11 @@
           "confidence": "medium"
         },
         "bar_path_and_proximity": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "lockout_execution": {
-          "score": 3,
+          "score": 2,
           "confidence": "medium"
         },
         "eccentric_control_and_descent": {
@@ -963,78 +964,32 @@
       ]
     },
     {
-      "file": "sumo_deadlift.mp4",
-      "movement": "sumo deadlift",
-      "movement_confidence": "high",
-      "criteria": {
-        "starting_position": {
-          "score": 3,
-          "confidence": "medium"
-        },
-        "slack_pull_and_wedge": {
-          "score": 2,
-          "confidence": "low"
-        },
-        "leg_drive_and_floor_spread": {
-          "score": 3,
-          "confidence": "low"
-        },
-        "hip_opening_and_knee_tracking": {
-          "score": 3,
-          "confidence": "low"
-        },
-        "core_bracing_and_spine_neutrality": {
-          "score": 2,
-          "confidence": "medium"
-        },
-        "bar_path_and_proximity": {
-          "score": 3,
-          "confidence": "low"
-        },
-        "lockout_execution": {
-          "score": 3,
-          "confidence": "medium"
-        },
-        "eccentric_control_and_descent": {
-          "score": 2,
-          "confidence": "low"
-        }
-      },
-      "persona": "The Fishing Rod",
-      "persona_confidence": "low",
-      "notes": "PR attempt during which the lifter's belt visibly breaks mid-lift; the lift is still completed. Burned-in caption explains it. Interesting anomaly case: the model almost certainly will not notice the equipment failure. Rear-three-quarter angle.",
-      "use_as": [
-        "classifier",
-        "anomaly_test"
-      ]
-    },
-    {
       "file": "thepanash_bench.mp4",
       "movement": "bench press",
       "movement_confidence": "high",
       "criteria": {
         "setup_arch": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         },
         "leg_drive": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "bar_path": {
-          "score": 3,
+          "score": 2,
           "confidence": "low"
         },
         "touch_point": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "elbow_stability": {
-          "score": 4,
+          "score": 3,
           "confidence": "medium"
         },
         "chest_pause": {
-          "score": 4,
+          "score": 3,
           "confidence": "high"
         }
       },
@@ -1352,7 +1307,7 @@
       "id": "anchors_ordering",
       "type": "ordering",
       "expect_total_order": [
-        "jeff_nippard.mp4",
+        "jeff_nippard_conv.mp4",
         "pr_160.mp4",
         "worst_deadlift.mp4"
       ],

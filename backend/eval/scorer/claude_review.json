@@ -832,7 +832,7 @@
     "persona_confidence": "high",
     "persona_why": "La bascule arriere en fin de tiree est le trait dominant, visible sur quatre images consecutives : il termine le mouvement en hyperextension lombaire au lieu de fermer la hanche."
   },
-  "jeff_nippard.mp4": {
+  "jeff_nippard_conv.mp4": {
     "summary": "Demo pedagogique en studio, de profil, lumiere parfaite. En relisant deux fenetres (la descente a 0,3-3,5 s et la montee a 9,0-11,6 s) on a la repetition entiere sous les yeux, et elle est propre de bout en bout. C'est l'ancre haute du jeu en conventionnel, et cette fois je le dis d'apres les images.",
     "method": "Deux planches de 16 images (0,3-3,5 s pour la descente, 9,0-11,6 s pour la montee) choisies a la main apres profil de mouvement, lues seules",
     "criteria": {
@@ -930,7 +930,7 @@
     "persona_confidence": "medium",
     "persona_why": "Extension de genou prematuree avec un buste qui reste horizontal : c'est mot pour mot la definition de l'archetype, et c'est visible sur deux images consecutives."
   },
-  "jeff_nippard_conventional.mp4": {
+  "jeff_nippard_sumo.mp4": {
     "summary": "Demo studio de profil, avec une trace de trajectoire incrustee a l'image. Le nom de fichier dit 'conventional' mais le lift est un SUMO (confirme par Erwan) — et c'est justement une vue strictement de profil, ou la stance large et la prise interieure sont invisibles. Je note donc sur les criteres sumo, en signalant ceux que cet angle rend inaccessibles.",
     "method": "16 images sur 0,1-6,6 s, lues seules",
     "criteria": {
@@ -2095,55 +2095,6 @@
     "persona": null,
     "persona_confidence": "low",
     "persona_why": "Rien ne ressort assez dans ces conditions d'eclairage et d'angle."
-  },
-  "sumo_deadlift.mp4": {
-    "summary": "Tentative de PR abandonnee : le texte incruste annonce que la ceinture casse. Il tire, la barre ne finit pas sa course, et a l'image suivante il est debout mains sur les hanches, barre au sol. Bon cas d'anomalie, mauvais cas de notation.",
-    "method": "16 images sur 0,5-5,0 s (tout le clip), lues seules",
-    "criteria": {
-      "starting_position": {
-        "score": 2,
-        "why": "Quatre images de position basse, stance large, rien d'aberrant avant que ca parte.",
-        "confidence": "low"
-      },
-      "slack_pull_and_wedge": {
-        "score": 2,
-        "why": "Il reste plusieurs images sur la barre avant de tirer.",
-        "confidence": "low"
-      },
-      "leg_drive_and_floor_spread": {
-        "score": 1,
-        "why": "La tiree s'interrompt : entre 2,60 et 3,20 s il se releve sans la barre. La poussee ne va pas au bout, quelle qu'en soit la cause.",
-        "confidence": "medium"
-      },
-      "hip_opening_and_knee_tracking": {
-        "score": "NA",
-        "why": "Angle de trois quarts et tiree avortee : rien a juger dans le plan frontal.",
-        "confidence": "high"
-      },
-      "core_bracing_and_spine_neutrality": {
-        "score": 2,
-        "why": "Le buste parait tenu jusqu'a l'abandon ; la ceinture qui lache change de toute facon les conditions.",
-        "confidence": "low"
-      },
-      "bar_path_and_proximity": {
-        "score": "NA",
-        "why": "La barre ne fait pas la moitie de sa course : il n'y a pas de trajectoire a juger.",
-        "confidence": "high"
-      },
-      "lockout_execution": {
-        "score": 1,
-        "why": "Aucun verrouillage : a 3,50 s il est debout, mains sur les hanches, barre au sol. C'est le 1 du bareme.",
-        "confidence": "high"
-      },
-      "eccentric_control_and_descent": {
-        "score": 1,
-        "why": "La barre est lachee pendant l'abandon, pas reposee.",
-        "confidence": "medium"
-      }
-    },
-    "persona": null,
-    "persona_confidence": "medium",
-    "persona_why": "Aucun archetype de l'enum ne decrit un abandon sur casse de materiel. C'est un bon test : un modele qui sort quand meme un persona confiant invente une explication technique a un incident materiel."
   },
   "sumo_deadlift_10.mp4": {
     "summary": "51,8 s filmees au ras du sol avec un disque rouge au premier plan : le buste est hors cadre sur la quasi-totalite des images. Deux fenetres denses essayees (16,5-21 s et 32-38 s) : on voit des jambes se tendre, jamais une repetition avec le torse. Cas de cadrage, pas cas de notation.",

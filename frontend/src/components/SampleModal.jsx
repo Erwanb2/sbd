@@ -82,7 +82,7 @@ export default function SampleModal({ onClose, onUploadOwn }) {
 
           { step === 3 && (
             <div className="animate-fade-in-up">
-              <ResultView result={ sampleResult } />
+              <ResultView result={ sampleResult } videoUrl="/sample-deadlift.mp4" />
 
               <button
                 onClick={ onUploadOwn }

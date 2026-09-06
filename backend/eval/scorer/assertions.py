@@ -12,11 +12,11 @@ et les ancres, elles, disent si le juge separe ce qu'il est cense separer.
 Les assertions viennent de `eval/ground_truth.json` (bloc "assertions"), portees ici
 avec deux changements :
 
-  * **L'echelle.** ground_truth.json etait sur le 1-4 brut du schema ; le jeu de test
-    est sur le 1/3-2/3-3/3 d'apres compression. La compression ecrase 1 et 2 sur la
-    meme valeur : une paire dont les deux moities valent 1 et 2 en brut devient
-    inseparable ici. Les assertions concernees le signalent au lieu d'echouer en
-    silence.
+  * **L'echelle.** Tout est desormais sur 1/3-2/3-3/3 : le schema, le jeu de test et
+    ground_truth.json, converti depuis l'ancien 1-4. La conversion a fusionne
+    "Average/acceptable" et "Poor/flawed" sur 2 : une paire que seul cet ecart
+    separait est devenue inseparable, et les assertions concernees le signalent au
+    lieu d'echouer en silence.
   * **L'autorite.** Le sens attendu n'est plus code en dur : il est lu dans les notes
     humaines. Si l'humain ne separe pas la paire, l'assertion devient NON EXPRIMABLE
     plutot que de juger le modele contre une attente que la verite terrain ne soutient
@@ -57,7 +57,7 @@ ASSERTIONS = [
      "pourquoi": "La rep n'est jamais verrouillee. C'est l'etiquette la moins discutable "
                  "du jeu : si le juge la note haut, rien d'autre n'est fiable."},
     {"id": "anchors_ordering", "type": "ordering",
-     "files": ["jeff_nippard.mp4", "pr_160.mp4", "worst_deadlift.mp4"],
+     "files": ["jeff_nippard_conv.mp4", "pr_160.mp4", "worst_deadlift.mp4"],
      "pourquoi": "Un juge incapable de classer une demo propre au-dessus d'un max grinde "
                  "au-dessus d'un lift casse n'a aucun signal exploitable."},
     {"id": "hard_classification", "type": "classification",
@@ -122,7 +122,7 @@ def _pairwise(a: dict, clips: dict) -> tuple[str, str]:
         # La verite terrain ne soutient plus l'attente : on ne juge pas le modele
         # contre une direction que l'humain n'a pas confirmee.
         return "NON EXPRIMABLE", (f"l'humain ne separe pas la paire sur {crit} "
-                                  f"({hb} vs {hm}) — compression 1-2→1 probable")
+                                  f"({hb} vs {hm})")
     lb, lm = _note(bon, crit, "llm"), _note(mauvais, crit, "llm")
     if lb is None or lm is None:
         return "MANQUANT", f"{crit} : prediction absente ({lb} / {lm})"

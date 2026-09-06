@@ -61,20 +61,22 @@ def compact(resultat, mouvement, modele, pose):
     for nom, valeur in resultat.items():
         if isinstance(valeur, dict) and "score" in valeur:
             criteres[nom] = {
-                "score": valeur.get("score"),          # deja compresse en 1..3, ou None si NA
-                # Score avant compression : permet de rejouer n'importe quelle
-                # correspondance 1-4 -> 1-3 hors ligne, sans redepenser un appel.
-                "raw_score": valeur.get("raw_score"),
+                "score": valeur.get("score"),          # 1..3, ou None si NA
                 "feedback": valeur.get("feedback", ""),
                 "visual_analysis": valeur.get("visual_analysis", ""),
                 "not_assessable": bool(valeur.get("not_assessable")),
             }
             if criteres[nom]["score"] is None:
                 criteres[nom]["score"] = "NA"
+    # Le detail par rep est garde tel quel : c'est la matiere premiere des notes
+    # de synthese ci-dessus, et la seule facon de rejouer hors ligne une autre
+    # regle d'agregation que la moyenne plancher.
     return {
         "model": modele,
         "movement": mouvement,
         "criteria": criteres,
+        "rep_count": resultat.get("rep_count"),
+        "reps": resultat.get("reps"),
         "persona": resultat.get("lifter_persona"),
         "persona_justification": resultat.get("persona_justification"),
         "total": resultat.get("total_raw_score"),
@@ -88,7 +90,7 @@ def compact(resultat, mouvement, modele, pose):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default=None,
-                    help="cle de MODELES_ANALYSE (3.5, 3.7). Par defaut flash-lite.")
+                    help="cle de MODELES_ANALYSE (2.5, 3.5, 3.7). Par defaut flash-lite.")
     ap.add_argument("--only", nargs="*", help="ne traiter que ces fichiers")
     ap.add_argument("--force", action="store_true", help="refaire meme si deja present")
     ap.add_argument("--out", help="fichier de sortie (defaut: llm_scores.json). Sert a "
@@ -100,8 +102,10 @@ def main():
 
     charge_env()
     if a.model is None:
-        # Le budget n'est illimite que sur flash-lite : c'est le defaut du batch.
-        os.environ["MODEL_GEMINI"] = "gemini-3.5-flash-lite"
+        # Defaut du batch : le modele le moins contraint en budget. Il ecrase
+        # MODEL_GEMINI du .env — passer --model pour utiliser autre chose, par
+        # exemple `--model 2.5` quand le quota flash-lite est epuise (429).
+        os.environ["MODEL_GEMINI"] = os.getenv("MODEL_GEMINI_BATCH", "gemini-3.5-flash-lite")
 
     import ai_service                                    # apres le reglage du modele
 

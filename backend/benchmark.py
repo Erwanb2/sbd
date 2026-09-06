@@ -139,21 +139,14 @@ def analyze_movement_with_model(file_name: str, model_name: str, max_retries: in
             resultat = json.loads(reponse_analyse.text)
             resultat["_cout"] = cout or {}
 
-            # --- GESTION DES NOTES (Brute sur 4 + Scalée sur 3) ---
+            # --- GESTION DES NOTES ---
+            # Le modele note directement sur 1-3 : plus de note brute sur 4 ni de
+            # table de compression (voir CriteriaScore dans schemas.py).
             for critere_key in CRITERES_DEADLIFT:
                 critere = resultat.get(critere_key)
                 if isinstance(critere, dict) and "score" in critere:
-                    raw_score = numeric_score(critere["score"])
-                    critere["raw_score_4"] = raw_score if raw_score is not None else "NA"
-
-                    if raw_score is None:
-                        critere["score_3"] = "NA"
-                    elif raw_score <= 2:
-                        critere["score_3"] = 1
-                    elif raw_score == 3:
-                        critere["score_3"] = 2
-                    else:
-                        critere["score_3"] = 3
+                    note = numeric_score(critere["score"])
+                    critere["score_3"] = note if note is not None else "NA"
 
             # --- CALCUL DU SCORE GLOBAL SUR 3 (en ignorant les "NA") ---
             scores_numeriques = [
@@ -268,11 +261,9 @@ def run_benchmark():
                         for critere_key in CRITERES_DEADLIFT:
                             data = analyse_result.get(critere_key, {})
                             if isinstance(data, dict):
-                                row_data[f"{critere_key}_note_4"] = data.get("raw_score_4", "NA")
                                 row_data[f"{critere_key}_note_3"] = data.get("score_3", "NA")
                                 row_data[f"{critere_key}_explanation"] = data.get("explanation", "")
                             else:
-                                row_data[f"{critere_key}_note_4"] = "NA"
                                 row_data[f"{critere_key}_note_3"] = "NA"
                                 row_data[f"{critere_key}_explanation"] = ""
 
@@ -304,8 +295,8 @@ def run_benchmark():
         print(f"✅ EXPORT RÉUSSI : Les données ont été sauvegardées dans '{nom_csv}'.")
         print("=" * 80)
 
-        # Aperçu avec les notes brutes sur 4 de chaque critère
-        colonnes_notes = [f"{c}_note_4" for c in CRITERES_DEADLIFT]
+        # Aperçu avec la note sur 3 de chaque critère
+        colonnes_notes = [f"{c}_note_3" for c in CRITERES_DEADLIFT]
         colonnes_a_afficher = ["Fichier", "Modèle", "Essai", "Score_Global_3", "Persona"] + colonnes_notes[:4]
 
         print("\nAPERÇU DES RÉSULTATS :")

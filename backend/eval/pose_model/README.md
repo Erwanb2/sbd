@@ -87,6 +87,12 @@ exactement les mêmes clips. **Plus bas est meilleur.**
 | leg_drive_and_floor_spread (sumo) | 14 | 1,286 | 0,714 | 0,786 | — |
 | *niveau général du clip* | 36 | 0,624 | 0,481 | — | — |
 
+⚠️ **La colonne `gemini` est une passe unique.** Deux passes identiques du pipeline ne rendent
+que 77 % de cases identiques (écart moyen 0,23 par case), donc un écart de moins de ~0,10 de
+MAE avec la pose ne veut rien dire. Concrètement : sur `hip_hinge_mechanics`, 0,348 contre
+0,381 est une égalité, pas une victoire. Sur `lockout_execution` (0,303 contre 0,606) et
+`bar_path_and_proximity` (0,350 contre 0,692), l'écart est trois fois le bruit.
+
 **Un signal crédible.** `hip_hinge_mechanics` ← `pull_hip_share_t1`, la part de l'extension de
 hanche déjà consommée au premier tiers de la course de barre. Beaucoup d'extension tôt = les
 hanches partent seules = « squatting the weight up » : c'est mot pour mot le mécanisme du
@@ -125,3 +131,40 @@ l'accompagnent. Une fois le halo retiré, elle ne prédit plus rien de spécifiq
   `bar_path_and_proximity` (0,692 contre 0,450).** Sur ces deux critères la pose fait mieux
   que le modèle de langage — c'est la piste la plus utile pour le produit, davantage que la
   prédiction complète d'un critère.
+
+## Le résultat le plus important : les deux signaux ne survivent pas sans le filtre
+
+Rejoué sur les 47 clips à phases plutôt que sur les 39 crédibles :
+
+| critère | 39 crédibles | 47 clips | constante (47) |
+|---|---|---|---|
+| hip_hinge_mechanics | 0,348 | 0,633 | 0,500 |
+| slack_pull_and_lat_engagement | 0,478 | 1,033 | 0,700 |
+
+Les deux passent sous la constante. La cause est vérifiée : en apprenant la règle sur les
+clips crédibles et en l'appliquant aux 7 écartés, la MAE est de 0,714 contre 0,571 pour la
+constante (hip_hinge) et 1,000 contre 0,571 (slack_pull) — et les mesures y sont visiblement
+cassées, `pull_hip_share_t1 = -4,96` pour une course de barre de 2,19 longueurs de jambe,
+deux NaN, une course de 0,07 sur `conventionnal_deadlift_13`.
+
+Autrement dit : **la règle ne vaut que là où la pose elle-même est exploitable, et le pipeline
+sait le dire sans étiquette** (la course de barre est un contrôle interne). En production cela
+veut dire s'abstenir sur ~20 % des clips, pas noter au hasard. Ce n'est pas un défaut caché,
+c'est une condition d'emploi — mais il faut l'énoncer, parce qu'un signal qui n'existe que sur
+le sous-ensemble facile n'est pas encore un signal établi.
+
+### Et symétriquement : ce qui apparaît sans le filtre est du halo
+
+Sur les 47 clips, trois gains passent p < 0,05 — aucun ne tient l'examen :
+
+| critère | modèle | MAE | constante | feature retenue | ce que c'est |
+|---|---|---|---|---|---|
+| starting_position | libre | 0,372 | 0,535 | `desc_vitesse_max` 43/43 | **du halo pur** : 70 % d'exactitude, mieux que Gemini (50 %), en mesurant à quelle vitesse la barre redescend. Rien à voir avec la position de départ. |
+| core_bracing | guidée | 0,500 | 0,568 | `tronc_long_setup` 44/44 | disparaît sur les 39 crédibles (0,556 = constante). La longueur projetée du tronc mesure l'angle de caméra, pas le rachis. |
+| hip_opening (sumo) | guidée | 0,286 | 0,643 | `setup_knee_deg` 14/14 | l'artefact décrit plus haut, deux tirées ratées à 175° de genou. |
+
+`lockout_execution` est le seul cas où la même règle (`lock_temps_dernier_10pct`, la part du
+temps de tirée passée dans les 10 derniers pour cent d'extension) gagne un peu **sur les deux
+sous-ensembles** — 0,303 contre 0,333 et 0,350 contre 0,400 — sans jamais passer sous
+p = 0,05. C'est la piste la plus régulière du lot, et flash-lite y est bien plus mauvais
+(0,575 à 0,606) qu'une constante.

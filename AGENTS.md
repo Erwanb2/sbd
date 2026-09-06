@@ -51,6 +51,37 @@ Le projet est divisé en deux parties principales (Frontend et Backend), orchest
 
 ---
 
+### 🎬 Pipeline d'analyse d'une vidéo
+
+Trois tâches partent **en parallèle** dès l'upload (`ai_service.upload_and_detect_concurrent`) :
+
+1. **Upload** du fichier vers l'API Gemini.
+2. **Classification** de la famille du mouvement par le modèle (squat / bench / deadlift).
+3. **Pose** (`pose_analysis.py`) — pour un deadlift, la variante sumo/conventionnel vient
+   d'une cascade locale, pas du modèle. **Ne pas toucher à son échantillonnage** (30 frames,
+   horodatages réels) sans rejouer `uv run python eval/check_pose_cascade.py`.
+4. **Répétitions candidates** (`rep_detection.py`) — passe de pose dense, volontairement
+   séparée de la cascade pour ne pas la déséquilibrer.
+
+Puis `analyze_movement` envoie la vidéo à Gemini. **Sur un deadlift avec des candidats**, elle
+part en **mode segments** : un `Part` vidéo par répétition candidate, borné par
+`start_offset`/`end_offset`, `media_resolution=HIGH`, budget de 300 images réparti sur les
+segments. Le modèle renseigne `bar_left_floor` pour chaque candidat, et le backend retire les
+`false` avant toute notation — la pose voit le corps, pas la barre, et se redresser après
+l'avoir reposée produit exactement le même mouvement qu'une répétition.
+
+Squat, bench, absence de candidats et **modèle de repli** gardent le chemin historique (vidéo
+entière, le modèle compte lui-même les reps) : `flash-lite` ne sait pas suivre le protocole des
+candidats, c'est mesuré.
+
+Conséquences assumées : le coût d'une analyse est **environ ×4**, et une répétition que la pose
+ne propose pas ne peut plus être rattrapée par le modèle. Les leviers de coût sont
+`BUDGET_IMAGES` et `media_resolution`, en haut d'`ai_service.py`.
+
+> Détails, chiffres et pièges : skill projet `.claude/skills/comptage-reps/`.
+
+---
+
 ## 🗺️ 3. Schéma de Communication
 
 ```text

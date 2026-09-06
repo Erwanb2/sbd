@@ -1,4 +1,10 @@
-"""Rejoue plusieurs correspondances 1-4 -> 1/3 sur des scores bruts deja obtenus.
+"""ARCHIVE. Rejoue plusieurs correspondances 1-4 -> 1/3 sur des passes anterieures.
+
+Le pipeline ne note plus sur 4 : `schemas.py` demande directement 1/2/3 et
+`ai_service` ne compresse plus rien. Ce script ne sert donc qu'a relire les dumps
+`llm_scores*.json` produits AVANT la bascule, qui portent encore `raw_score` — il
+est ce qui a montre que le niveau 4 ne sortait que sur 5,7 % des cases quand
+l'humain met 3/3 sur 30 %, et donc que le haut de l'echelle etait inatteignable.
 
     cd backend
     uv run python eval/scorer/scale_lab.py
