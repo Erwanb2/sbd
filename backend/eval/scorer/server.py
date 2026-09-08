@@ -37,7 +37,8 @@ REPS_VT = os.path.join(BACKEND, "eval", "reps", "verite_terrain.json")
 REPS_SIGNAUX = os.path.join(BACKEND, "eval", "reps", "signaux.json")
 UI = os.path.join(ICI, "ui.html")
 
-from schemas import schema_mapping  # noqa: E402  (apres l'ajout de BACKEND au path)
+import indicators  # noqa: E402  (apres l'ajout de BACKEND au path)
+import persona as persona_mod  # noqa: E402
 
 _ecriture = threading.Lock()
 
@@ -101,53 +102,57 @@ TECHNICIAN = {
 }
 
 
-def personas_du_schema(mouvement):
-    """[{name, description, defined}] pour un mouvement, lus dans le Field lifter_persona.
+def _variante(mouvement):
+    """"sumo deadlift" / "conventional deadlift" -> la cle du catalogue."""
+    return "sumo" if "sumo" in (mouvement or "").lower() else "conventional"
 
-    Trois personas conventionnels (Meteor, Bouncer, Pez Dispenser) sont dans l'enum sans
-    etre decrits dans le prompt : on les liste quand meme, signales comme non definis,
-    plutot que de les cacher.
+
+def personas_du_schema(mouvement):
+    """[{name, description, defined}] pour un mouvement, lus dans le catalogue.
+
+    Un persona n'est plus une valeur d'enum que le modele choisit : c'est un etat
+    observable precis, et sa description est celle de l'etat qui le declenche
+    (indicators.Etat.persona). Il n'y a donc plus de persona "non defini".
     """
-    modele = schema_mapping.get(mouvement)
-    champ = modele.model_fields.get("lifter_persona") if modele else None
-    if champ is None:
-        return []
-    descriptions = {}
-    for ligne in (champ.description or "").splitlines():
-        ligne = ligne.strip()
-        if ligne.startswith("- ") and ":" in ligne:
-            nom, _, texte = ligne[2:].partition(":")
-            descriptions[nom.strip()] = texte.strip()
+    variante = _variante(mouvement)
     out = [TECHNICIAN]
-    for e in champ.annotation:
-        out.append({
-            "name": e.value,
-            "description": descriptions.get(e.value, "Pas de definition dans le prompt : "
-                                                     "le modele peut le sortir sans savoir "
-                                                     "ce qu'il designe."),
-            "defined": e.value in descriptions,
-        })
+    vus = set()
+    for ind in indicators.pour(variante):
+        for etat in ind.etats:
+            if etat.persona and etat.persona not in vus:
+                vus.add(etat.persona)
+                out.append({"name": etat.persona, "description": etat.description,
+                            "defined": True, "indicateur": ind.id})
     return out
 
 
 def criteres_du_schema(mouvement):
-    """[{name, label, intro, levels}] pour un mouvement, lus dans les Field de schemas.py."""
-    modele = schema_mapping.get(mouvement)
-    if modele is None:
+    """[{name, label, intro, levels}] pour un mouvement, lus dans le catalogue.
+
+    Les "niveaux" ne viennent plus d'une rubrique redigee en prose : ils sont composes
+    des etats observables des indicateurs du critere, avec la note que chacun vaut.
+    C'est la meme source que celle qui notera le clip — l'annotateur humain et le
+    systeme lisent desormais exactement le meme texte.
+    """
+    variante = _variante(mouvement)
+    if not mouvement:
         return []
     out = []
-    for nom, champ in modele.model_fields.items():
-        # `reps` n'est pas un critere : c'est la liste des repetitions, dont les
-        # notes sont agregees dans les criteres ci-dessous (ai_service).
-        if nom in ("reps", "lifter_persona", "persona_justification"):
+    for cle, (libelle, poids) in indicators.CRITERES.items():
+        inds = [i for i in indicators.pour(variante) if i.critere == cle]
+        if not inds:
             continue
-        intro, lv = niveaux((champ.description or "").strip())
+        niveaux_ = []
+        for note in (3, 2, 1):
+            faits = [e.description for i in inds for e in i.etats if e.note == note]
+            if faits:
+                niveaux_.append({"score": str(note), "text": " · ".join(faits)})
         out.append({
-            "name": nom,
-            "label": nom.replace("_", " "),
-            "intro": intro,
-            "levels": lv,
-            "rubric": (champ.description or "").strip(),
+            "name": cle,
+            "label": libelle,
+            "intro": f"{len(inds)} indicateur(s) · poids {poids}",
+            "levels": niveaux_,
+            "rubric": " | ".join(f"[{i.id}] {i.question}" for i in inds),
         })
     return out
 
@@ -301,7 +306,21 @@ class Handler(BaseHTTPRequestHandler):
         self._envoie(404, b"introuvable", "text/plain")
 
     def _post_reps(self, recu):
-        """Ecrit le nombre de reps compte par l'humain dans eval/reps/verite_terrain.json.
+        """Ecrit le comptage humain des reps dans eval/reps/verite_terrain.json.
+
+        Deux champs, et ils ne disent pas la meme chose :
+          `n`        combien de repetitions — la reference historique ;
+          `verrous`  A QUEL INSTANT chacune se verrouille, en secondes.
+
+        Le second existe parce qu'un compte ne dit pas OU. Deux mesures ont deja
+        conclu de travers faute de savoir si un candidat de pose tombait sur une vraie
+        repetition ou sur autre chose : sur conventionnal_deadlift_14, trois candidats
+        pour trois reps donnaient une couverture "parfaite" alors qu'un seul candidat
+        etait reel, les deux autres etant le lifter qui marche vers la camera.
+
+        Avec les instants, la couverture se mesure vraiment (la fenetre du candidat
+        contient-elle le verrouillage ?), et `pose_analysis._phases` devient verifiable
+        ailleurs que sur l'unique clip ou les instants avaient ete notes a la main.
 
         Mon propre compte n'est pas ecrase : il passe sous `claude_n`, pour qu'on puisse
         mesurer apres coup de combien je me suis trompe, comme on le fait pour le LLM.
@@ -309,6 +328,12 @@ class Handler(BaseHTTPRequestHandler):
         fichier, n = recu.get("file"), recu.get("n")
         if not fichier or not isinstance(n, int) or not 0 <= n <= 99:
             return self._envoie(400, json.dumps({"erreur": "file ou n invalide"}))
+        verrous = recu.get("verrous")
+        if verrous is not None:
+            if (not isinstance(verrous, list) or len(verrous) > 99
+                    or not all(isinstance(t, (int, float)) and 0 <= t <= 3600 for t in verrous)):
+                return self._envoie(400, json.dumps({"erreur": "verrous invalides"}))
+            verrous = sorted(round(float(t), 2) for t in verrous)
         with _ecriture:
             vt = verite_reps()
             entree = dict(vt["clips"].get(fichier) or {})
@@ -316,11 +341,20 @@ class Handler(BaseHTTPRequestHandler):
                 entree.setdefault("claude_n", entree["n"])
             entree.update(n=n, source="humain", conf="haute",
                           updated_at=recu.get("updated_at"))
+            if verrous is not None:
+                # Liste vide = l'annotateur a tout retire : on efface la cle plutot que
+                # de laisser un [] qui se lirait comme "zero repetition verifiee".
+                if verrous:
+                    entree["verrous"] = verrous
+                else:
+                    entree.pop("verrous", None)
             vt["clips"][fichier] = entree
             vt.setdefault("_about", "")
             ecrit_atomique(REPS_VT, vt)
             faits = sum(1 for v in vt["clips"].values() if v.get("source") == "humain")
-        return self._envoie(200, json.dumps({"ok": True, "clips_reps": faits}))
+            marques = sum(1 for v in vt["clips"].values() if v.get("verrous"))
+        return self._envoie(200, json.dumps({"ok": True, "clips_reps": faits,
+                                             "clips_verrous": marques}))
 
     def do_POST(self):
         chemin = urllib.parse.urlparse(self.path).path

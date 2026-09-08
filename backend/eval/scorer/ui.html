@@ -136,6 +136,7 @@
         <span class="titre">Répétitions <span class="souffle" id="souffleReps"></span></span>
       </div>
       <div class="chips" id="chipsReps"></div>
+      <div id="verrous" class="souffle" style="margin-top:6px;line-height:1.7"></div>
       <details id="detReps">
         <summary>Comptes automatiques</summary>
         <div class="avis" id="avisReps"></div>
@@ -170,7 +171,8 @@
       <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> noter le critère courant &nbsp;·&nbsp; <kbd>0</kbd> NA<br>
       <kbd>↑</kbd> <kbd>↓</kbd> changer de critère &nbsp;·&nbsp; <kbd>←</kbd> <kbd>→</kbd> changer de clip<br>
       <kbd>espace</kbd> lecture / pause &nbsp;·&nbsp; <kbd>Échap</kbd> quitter le commentaire<br>
-      <kbd>+</kbd> <kbd>−</kbd> nombre de reps (les chiffres restent aux critères)
+      <kbd>+</kbd> <kbd>−</kbd> nombre de reps (les chiffres restent aux critères)<br>
+      <kbd>m</kbd> marquer le verrouillage à l'instant courant &nbsp;·&nbsp; <kbd>u</kbd> annuler le dernier
     </div>
   </section>
 </div>
@@ -349,6 +351,7 @@ function dessineReps(){
   $("#souffleReps").textContent = humain
     ? "compté par toi" + (n > MAX_CHIP ? " : " + n : "")
     : "pas encore compté";
+  dessineVerrous();
 
   // Replies, comme l'avis de Claude : voir un chiffre avant de compter oriente.
   const p = c.reps_pose || {};
@@ -364,14 +367,57 @@ function dessineReps(){
   $("#detReps").hidden = !bas.length;
 }
 
-function noteReps(n){
+// Les instants de verrouillage, un par repetition. Un COMPTE ne dit pas OU : deux
+// mesures ont deja conclu de travers faute de savoir si un candidat tombait sur une
+// vraie rep ou sur le lifter qui marche vers la camera. Le verrouillage est choisi
+// plutot que le decollage parce qu'il est net a l'oeil — l'athlete est debout — la ou
+// l'instant ou la barre quitte le sol se joue a deux dixiemes pres.
+function verrousDe(c){ return ((c.reps || {}).verrous || []).slice(); }
+
+function dessineVerrous(){
+  const c = clip(), v = verrousDe(c), n = (c.reps || {}).n;
+  const hote = $("#verrous");
+  if (!v.length){ hote.innerHTML = "aucun verrouillage marqué · <kbd>m</kbd> pour marquer"; return; }
+  const puces = v.map((t, i) =>
+    `<span style="display:inline-block;margin-right:8px">${i + 1}. ${t.toFixed(2)}s</span>`).join("");
+  const ecart = (typeof n === "number" && n !== v.length)
+    ? ` <b style="color:#e0a030">⚠ ${v.length} marqué${v.length > 1 ? "s" : ""} pour ${n} compté${n > 1 ? "s" : ""}</b>`
+    : "";
+  hote.innerHTML = puces + ecart;
+}
+
+function marqueVerrou(){
+  const c = clip(), t = $("#video").currentTime;
+  const v = verrousDe(c);
+  // Deux marques a moins d'une demi-seconde sont le meme verrouillage : on remplace.
+  if (v.length && Math.abs(v[v.length - 1] - t) < 0.5) v.pop();
+  v.push(+t.toFixed(2));
+  v.sort((a, b) => a - b);
+  // Le compte SUIT les marques, mais ne descend jamais tout seul : un marquage
+  // interrompu ne doit pas effacer un comptage deja fait avec soin.
+  const n = Math.max((c.reps || {}).n || 0, v.length);
+  envoieReps(n, v, `verrouillage ${v.length} à ${t.toFixed(2)}s`);
+}
+
+function annuleVerrou(){
+  const c = clip(), v = verrousDe(c);
+  if (!v.length) return signale("aucun repère à annuler");
+  v.pop();
+  envoieReps((c.reps || {}).n, v, `repère retiré (${v.length} restant${v.length > 1 ? "s" : ""})`);
+}
+
+function envoieReps(n, verrous, message){
   const c = clip();
-  c.reps = {...(c.reps || {}), n, source: "humain"};
+  c.reps = {...(c.reps || {}), n, verrous, source: "humain"};
   dessineReps(); majListe();
   fetch("/api/reps", {method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({file:c.file, n, updated_at:new Date().toISOString()})})
-    .then(r => r.json()).then(() => signale(n + " rep" + (n > 1 ? "s" : "")))
+    body: JSON.stringify({file:c.file, n, verrous, updated_at:new Date().toISOString()})})
+    .then(r => r.json()).then(() => signale(message))
     .catch(() => signale("échec d'enregistrement"));
+}
+
+function noteReps(n){
+  envoieReps(n, verrousDe(clip()), n + " rep" + (n > 1 ? "s" : ""));
 }
 
 function majFocus(){
@@ -477,6 +523,8 @@ document.addEventListener("keydown", e => {
     noteReps(Math.min(((c.reps || {}).n || 0) + 1, 99)); }
   else if (e.key === "-"){ e.preventDefault();
     noteReps(Math.max(((c.reps || {}).n || 0) - 1, 0)); }
+  else if (e.key === "m" || e.key === "M"){ e.preventDefault(); marqueVerrou(); }
+  else if (e.key === "u" || e.key === "U"){ e.preventDefault(); annuleVerrou(); }
   else if (e.key === " "){ e.preventDefault();
     const v = $("#video"); v.paused ? v.play() : v.pause(); }
   else if (e.key === "Enter"){ e.preventDefault(); $("#commentaire").focus(); }
