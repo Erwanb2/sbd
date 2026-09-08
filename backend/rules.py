@@ -306,6 +306,7 @@ def evalue(pose: dict, observations: dict) -> dict:
         contexte[ind.nom] = {"etat": cle, "texte": etat.description if etat else None}
     contexte["mesures"] = {k: v for k, v in mesures_set.items() if k != "variant"}
 
+    note = note_sur_20(moyennes)
     return {
         "variante": variante,
         "contexte": contexte,
@@ -315,10 +316,10 @@ def evalue(pose: dict, observations: dict) -> dict:
                          "notes_par_rep": [r["criteres"][c]["note"] for r in reps],
                          "faits": faits_du_critere(reps, c)}
                      for c in criteres},
-        "note_sur_20": note_sur_20(moyennes),
+        "note_sur_20": note,
         "nb_reps": len(reps),
         "segments_ecartes": retirees,
         "tenue_du_set": tenue_du_set(reps),
         "conseils": conseils(reps),
-        "persona": persona_mod.deduis([r["etats"] for r in reps]),
+        "persona": persona_mod.deduis([r["etats"] for r in reps], notes_set, note),
     }
