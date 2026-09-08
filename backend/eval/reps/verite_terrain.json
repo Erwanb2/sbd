@@ -75,7 +75,10 @@
       "note": "1 rep puis plan de coupe sur un plateau",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:58:35.184Z"
+      "updated_at": "2026-09-08T15:44:34.764Z",
+      "verrous": [
+        3.24
+      ]
     },
     "conventionnal_deadlift_10.mp4": {
       "n": 1,
@@ -174,7 +177,11 @@
       "note": "verrouillages ~5.1 13.2",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T16:53:21.813Z"
+      "updated_at": "2026-09-08T15:38:47.217Z",
+      "verrous": [
+        6.32,
+        14.74
+      ]
     },
     "conventionnal_deadlift_5.mp4": {
       "n": 3,
@@ -182,7 +189,12 @@
       "note": "verrouillages ~2.9 10.3 16.1, tenues longues en haut ; se redresse a 22.7 barre au sol",
       "claude_n": 3,
       "source": "humain",
-      "updated_at": "2026-09-06T16:53:33.201Z"
+      "updated_at": "2026-09-08T15:39:00.020Z",
+      "verrous": [
+        6.0,
+        11.72,
+        18.86
+      ]
     },
     "conventionnal_deadlift_6.mp4": {
       "n": 4,
@@ -190,7 +202,13 @@
       "note": "verrouillages ~3.7 11.7 19.8 29.3, longues remises en place",
       "claude_n": 4,
       "source": "humain",
-      "updated_at": "2026-09-06T16:53:52.185Z"
+      "updated_at": "2026-09-08T15:39:17.660Z",
+      "verrous": [
+        3.92,
+        12.15,
+        20.21,
+        29.39
+      ]
     },
     "conventionnal_deadlift_7.mp4": {
       "n": 4,
@@ -198,7 +216,13 @@
       "note": "verrouillages ~9.5 16.1 22.0 24.2 32.3 ; les deux du milieu sont proches, cadrage en contre-plongee",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T16:54:13.345Z"
+      "updated_at": "2026-09-08T15:39:37.714Z",
+      "verrous": [
+        9.78,
+        17.25,
+        25.08,
+        32.68
+      ]
     },
     "conventionnal_deadlift_8.mp4": {
       "n": 1,
@@ -206,7 +230,10 @@
       "note": "verrouillage ~4.4",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:54:19.052Z"
+      "updated_at": "2026-09-08T15:39:48.312Z",
+      "verrous": [
+        5.89
+      ]
     },
     "conventionnal_deadlift_9.mp4": {
       "n": 4,
@@ -214,7 +241,13 @@
       "note": "verrouillages ~5.1 13.2 23.5 32.3",
       "claude_n": 4,
       "source": "humain",
-      "updated_at": "2026-09-06T16:54:43.824Z"
+      "updated_at": "2026-09-08T15:41:28.202Z",
+      "verrous": [
+        5.32,
+        13.35,
+        23.6,
+        32.66
+      ]
     },
     "engueran_fail_deadlift.mp4": {
       "n": 0,
@@ -230,7 +263,10 @@
       "note": "24 s de preparation, verrouillage ~31.5",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:54:50.154Z"
+      "updated_at": "2026-09-08T15:41:45.801Z",
+      "verrous": [
+        33.41
+      ]
     },
     "erwan_bon_slack.mp4": {
       "n": 4,
@@ -238,7 +274,13 @@
       "note": "verrouillages ~3.7 8.1 12.5 16.9 ; le clip s'arrete sur le dernier",
       "claude_n": 4,
       "source": "humain",
-      "updated_at": "2026-09-06T16:55:30.329Z"
+      "updated_at": "2026-09-08T15:42:05.870Z",
+      "verrous": [
+        3.5,
+        8.51,
+        12.64,
+        17.09
+      ]
     },
     "erwan_last.mp4": {
       "n": 5,
@@ -246,7 +288,14 @@
       "note": "verrouillages ~0.7 6.6 11.7 17.6 22.2 ; le 5e verifie en zoom 0.2 s, rate a la premiere lecture",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T16:55:52.462Z"
+      "updated_at": "2026-09-08T15:42:27.678Z",
+      "verrous": [
+        0.77,
+        6.8,
+        12.04,
+        17.44,
+        22.48
+      ]
     },
     "erwan_mauvais_slack.mp4": {
       "n": 4,
@@ -254,7 +303,13 @@
       "note": "verrouillages ~0.7 3.7 7.4 11.2 ; commence et finit sur un verrouillage",
       "claude_n": 4,
       "source": "humain",
-      "updated_at": "2026-09-06T16:56:07.899Z"
+      "updated_at": "2026-09-08T15:42:42.619Z",
+      "verrous": [
+        0.94,
+        4.21,
+        7.52,
+        10.85
+      ]
     },
     "jeff_nippard_conv.mp4": {
       "n": 1,
@@ -262,7 +317,10 @@
       "note": "demo studio : commence barre en main, la repose, une seule tiree a ~10.4",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:56:24.605Z"
+      "updated_at": "2026-09-08T15:42:51.692Z",
+      "verrous": [
+        10.9
+      ]
     },
     "jeff_nippard_sumo.mp4": {
       "n": 1,
@@ -270,15 +328,31 @@
       "note": "verrouillage ~3.0 puis descente lente, plan de coupe a 10.4",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:56:32.928Z"
+      "updated_at": "2026-09-08T15:42:56.381Z",
+      "verrous": [
+        3.47
+      ]
     },
     "long_deadlift.mp4": {
-      "n": 10,
+      "n": 11,
       "conf": "haute",
       "note": "verrouillages ~14.7 19.8 24.2 29.3 37.4 41.1 45.5 49.9 54.3 60.1 ; serie longue, resets inegaux",
       "claude_n": 10,
       "source": "humain",
-      "updated_at": "2026-09-06T16:57:48.888Z"
+      "updated_at": "2026-09-08T15:43:28.077Z",
+      "verrous": [
+        14.96,
+        19.45,
+        24.23,
+        28.49,
+        33.11,
+        37.14,
+        41.27,
+        45.54,
+        49.86,
+        54.74,
+        60.59
+      ]
     },
     "oscar_sumo.mp4": {
       "n": 8,
@@ -286,7 +360,17 @@
       "note": "verrouillages ~9.5 13.2 17.6 22.7 26.4 30.8 36.7 41.1",
       "claude_n": 8,
       "source": "humain",
-      "updated_at": "2026-09-06T16:58:13.561Z"
+      "updated_at": "2026-09-08T15:43:52.994Z",
+      "verrous": [
+        9.16,
+        13.61,
+        17.97,
+        22.14,
+        26.43,
+        30.75,
+        36.59,
+        41.02
+      ]
     },
     "oscar_sumo_short.mp4": {
       "n": 2,
@@ -294,7 +378,11 @@
       "note": "extrait : verrouillages ~0.7 et 5.1, commence en pleine tiree",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T16:58:31.465Z"
+      "updated_at": "2026-09-08T15:44:30.618Z",
+      "verrous": [
+        1.1,
+        1.27
+      ]
     },
     "pas_poitrine_relevee.mp4": {
       "n": 3,
@@ -302,7 +390,12 @@
       "note": "verrouillages ~1.5 7.3 11.1 ; le 3e verifie en zoom 0.2 s, rate a la premiere lecture",
       "claude_n": 3,
       "source": "humain",
-      "updated_at": "2026-09-06T16:58:44.757Z"
+      "updated_at": "2026-09-08T15:44:42.633Z",
+      "verrous": [
+        2.09,
+        6.64,
+        11.51
+      ]
     },
     "poitrine_relevee.mp4": {
       "n": 3,
@@ -310,7 +403,12 @@
       "note": "verrouillages ~1.5 5.9 9.5",
       "claude_n": 3,
       "source": "humain",
-      "updated_at": "2026-09-06T16:59:02.320Z"
+      "updated_at": "2026-09-08T15:45:12.659Z",
+      "verrous": [
+        0.02,
+        0.12,
+        1.74
+      ]
     },
     "pr_160.mp4": {
       "n": 1,
@@ -318,7 +416,10 @@
       "note": "verrouillage ~5.1 puis celebration",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T16:59:05.434Z"
+      "updated_at": "2026-09-08T15:45:18.030Z",
+      "verrous": [
+        6.63
+      ]
     },
     "sumo_deadlift_1.mp4": {
       "n": 5,
@@ -326,7 +427,14 @@
       "note": "verrouillages ~5.9 13.9 24.2 35.2 45.5",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T16:59:39.761Z"
+      "updated_at": "2026-09-08T15:45:43.157Z",
+      "verrous": [
+        6.35,
+        14.19,
+        23.85,
+        35.08,
+        46.12
+      ]
     },
     "sumo_deadlift_2.mp4": {
       "n": 2,
@@ -334,7 +442,11 @@
       "note": "verrouillages ~5.1 10.3",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T17:01:02.558Z"
+      "updated_at": "2026-09-08T15:46:50.339Z",
+      "verrous": [
+        5.25,
+        10.8
+      ]
     },
     "sumo_deadlift_3.mp4": {
       "n": 1,
@@ -342,7 +454,10 @@
       "note": "verrouillage ~4.4",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T17:01:13.585Z"
+      "updated_at": "2026-09-08T15:46:56.483Z",
+      "verrous": [
+        4.41
+      ]
     },
     "sumo_deadlift_4.mp4": {
       "n": 5,
@@ -350,7 +465,14 @@
       "note": "verrouillages ~0.7 6.6 12.5 18.3 24.2 ; cadrage serre, commence en pleine tiree",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T17:01:29.755Z"
+      "updated_at": "2026-09-08T15:47:09.618Z",
+      "verrous": [
+        1.51,
+        7.02,
+        12.37,
+        17.96,
+        23.52
+      ]
     },
     "sumo_deadlift_5.mp4": {
       "n": 2,
@@ -358,7 +480,11 @@
       "note": "verrouillages ~4.4 11.0",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T17:01:53.361Z"
+      "updated_at": "2026-09-08T15:47:18.731Z",
+      "verrous": [
+        4.24,
+        11.08
+      ]
     },
     "sumo_deadlift_6.mp4": {
       "n": 5,
@@ -366,7 +492,14 @@
       "note": "verrouillages ~11.7 17.6 22.0 27.1 32.3 ; se redresse a 35.2 barre au sol",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:13.866Z"
+      "updated_at": "2026-09-08T15:47:37.895Z",
+      "verrous": [
+        12.28,
+        17.16,
+        22.47,
+        27.3,
+        32.68
+      ]
     },
     "sumo_deadlift_7.mp4": {
       "n": 5,
@@ -374,15 +507,27 @@
       "note": "verrouillages ~3.7 9.5 15.4 20.5 26.4",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:32.021Z"
+      "updated_at": "2026-09-08T15:47:54.538Z",
+      "verrous": [
+        4.01,
+        9.17,
+        15.38,
+        20.41,
+        26.94
+      ]
     },
     "sumo_deadlift_8.mp4": {
-      "n": 2,
+      "n": 3,
       "conf": "haute",
       "note": "verrouillages ~2.9 7.3, plan large",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:41.115Z"
+      "updated_at": "2026-09-08T15:48:07.449Z",
+      "verrous": [
+        3.16,
+        3.4,
+        8.08
+      ]
     },
     "sumo_deadlift_9.mp4": {
       "n": 1,
@@ -390,7 +535,10 @@
       "note": "verrouillage ~7.3",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:48.739Z"
+      "updated_at": "2026-09-08T15:48:14.895Z",
+      "verrous": [
+        7.83
+      ]
     },
     "sumo_deadlift_10.mp4": {
       "n": 5,
@@ -398,7 +546,14 @@
       "note": "cadrage tres serre (jambes et un disque), verrouillages ~18.3 24.9 31.5 40.3 49.1",
       "claude_n": 5,
       "source": "humain",
-      "updated_at": "2026-09-06T17:00:14.108Z"
+      "updated_at": "2026-09-08T15:46:11.518Z",
+      "verrous": [
+        18.98,
+        24.95,
+        31.67,
+        39.7,
+        49.2
+      ]
     },
     "sumo_deadlift_11.mp4": {
       "n": 5,
@@ -406,7 +561,14 @@
       "note": "verrouillages ~4.4 8.8 13.2 19.1",
       "claude_n": 4,
       "source": "humain",
-      "updated_at": "2026-09-06T17:00:28.946Z"
+      "updated_at": "2026-09-08T15:46:26.708Z",
+      "verrous": [
+        4.64,
+        8.98,
+        13.23,
+        17.49,
+        21.98
+      ]
     },
     "sumo_deadlift_12.mp4": {
       "n": 2,
@@ -414,7 +576,11 @@
       "note": "verrouillages ~9.5 19.1 ; se redresse a 22.0 barre au sol",
       "claude_n": 2,
       "source": "humain",
-      "updated_at": "2026-09-06T17:00:43.000Z"
+      "updated_at": "2026-09-08T15:46:40.477Z",
+      "verrous": [
+        9.94,
+        19.37
+      ]
     },
     "thepanash_deadlift.mp4": {
       "n": 1,
@@ -422,7 +588,10 @@
       "note": "competition, verrouillage ~1.5 puis plan de coupe",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:56.759Z"
+      "updated_at": "2026-09-08T15:48:26.374Z",
+      "verrous": [
+        3.26
+      ]
     },
     "worst_deadlift.mp4": {
       "n": 1,
@@ -430,7 +599,10 @@
       "note": "verrouillage ~5.9, tenu jusqu'a la coupe",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:59.250Z"
+      "updated_at": "2026-09-08T15:48:46.217Z",
+      "verrous": [
+        11.32
+      ]
     },
     "conventionnal_deadlift_1.mp4": {
       "n": 2,
@@ -451,7 +623,10 @@
       "note": "developpe couche de competition, un single : le corps ne se redresse jamais, hors perimetre d'un compteur base sur l'extension hanche/genou",
       "claude_n": 1,
       "source": "humain",
-      "updated_at": "2026-09-06T17:02:52.739Z"
+      "updated_at": "2026-09-08T15:48:23.390Z",
+      "verrous": [
+        6.62
+      ]
     }
   }
 }
