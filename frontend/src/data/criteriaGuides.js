@@ -4,7 +4,7 @@ import goodLegDrive from '../images/leg-drive/good-leg-drive.png';
 // Importe tes autres images pour le squat, bench, etc.
 
 export const criteriaGuides = {
-  leg_drive_activation: {
+  leg_drive: {
     bad: {
       title: "Common Mistake (Poor Leg Drive)",
       image: badLegDrive,

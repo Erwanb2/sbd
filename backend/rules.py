@@ -25,6 +25,8 @@ Les trois regles d'agregation, et pourquoi elles sont ce qu'elles sont :
 
 from __future__ import annotations
 
+import math
+
 import indicators
 import persona as persona_mod
 from indicators import Portee, Source
@@ -61,8 +63,16 @@ def _moyenne(notes) -> float | None:
 
 
 def _moyenne_arrondie(notes) -> int | None:
+    """Moyenne arrondie au plus proche, les EGALITES vers le bas.
+
+    L'arrondi reste au plus proche — 2,67 vaut 3 — ce qui ecarte l'arrondi a
+    l'inferieur, mesure comme arithmetiquement identique au minimum sur trois
+    repetitions et un point d'ecart. Seules les egalites exactes changent, et elles
+    descendent : sur un set ou une repetition sur deux est fautive, la moyenne vaut
+    2,5, et afficher 3/3 au-dessus de la liste des fautes se lit comme une erreur.
+    """
     m = _moyenne(notes)
-    return None if m is None else int(m + 0.5)     # notes positives : au plus proche
+    return None if m is None else math.ceil(m - 0.5)
 
 
 def note_du_critere(etats: dict, critere: str, variante: str) -> tuple[int | None, list[dict]]:
@@ -128,9 +138,11 @@ def conseils(reps: list[dict], limite: int = 2) -> list[dict]:
                     "note": fait["note"], "reps": []})
                 entree["reps"].append(rep["index"])
                 # La gravite retenue est la PIRE observee, pas la premiere : un defaut
-                # qui vaut 2 sur la rep 1 et 1 sur la rep 4 est un defaut a 1.
+                # qui vaut 2 sur la rep 1 et 1 sur la rep 4 est un defaut a 1. Le
+                # constat ET la consigne suivent — sinon la page affiche "termine ta
+                # serie" sur un dos qui s'effondre.
                 if fait["note"] < entree["note"]:
-                    entree.update(note=fait["note"], constat=fait["fait"])
+                    entree.update(note=fait["note"], constat=fait["fait"], a_essayer=texte)
     ordre = sorted(trouves.values(),
                    key=lambda c: (c["note"], -indicators.POIDS[c["critere"]], -len(c["reps"])))
     return ordre[:limite]
@@ -178,6 +190,23 @@ def tenue_du_set(reps: list[dict]) -> dict:
 
 
 # ------------------------------------------------------------------- assemblage
+
+def faits_du_critere(reps: list[dict], critere: str) -> list[dict]:
+    """Les faits observes pour un critere sur toute la serie, dedoublonnes.
+
+    Le modele n'ecrit plus de paragraphe par critere : la page montre ce qui a ete
+    observe, dans les mots du catalogue, avec les repetitions concernees. "Les hanches
+    partent en premier — reps 2, 3" est plus utile qu'un commentaire de coach genere,
+    et surtout il ne peut pas contredire la note.
+    """
+    groupes: dict[str, dict] = {}
+    for rep in reps:
+        for fait in rep["criteres"][critere]["faits"]:
+            entree = groupes.setdefault(fait["fait"], {**fait, "reps": []})
+            entree["reps"].append(rep["index"])
+    return sorted(groupes.values(),
+                  key=lambda f: (f["note"] is None, f["note"] if f["note"] else 0))
+
 
 def _aligne(candidats: list, entrees: list) -> dict[int, dict]:
     """{position du candidat: observations} — par rang, ou par `rep_index` si besoin.
@@ -243,7 +272,13 @@ def evalue(pose: dict, observations: dict) -> dict:
             "statut": "inachevee" if reel == "inachevee" else "complete",
             "criteres": bloc,
             "note": _moyenne_arrondie([b["note"] for b in bloc.values()]),
+            # Note fine, non arrondie : c'est elle qui donne la hauteur des barres de
+            # l'histogramme. Sans elle, deux reps que l'arrondi met a egalite sont
+            # dessinees identiques alors que l'une est nettement moins bonne.
+            "note_precise": (lambda m: None if m is None else round(m, 2))(
+                _moyenne([b["note"] for b in bloc.values()])),
             "sur": NOTE_MAX,
+            "non_evaluables": sum(1 for b in bloc.values() if b["note"] is None),
             "temps": {"tiree_s": mes.get("duree_tiree_s"),
                       "lockout_s": mes.get("duree_lockout_s")},
             "resume": obs.get("resume", ""),
@@ -272,7 +307,8 @@ def evalue(pose: dict, observations: dict) -> dict:
         "reps": [{k: v for k, v in r.items() if k != "etats"} for r in reps],
         "criteres": {c: {"libelle": indicators.LIBELLE[c], "note": notes_set[c],
                          "poids": indicators.POIDS[c],
-                         "notes_par_rep": [r["criteres"][c]["note"] for r in reps]}
+                         "notes_par_rep": [r["criteres"][c]["note"] for r in reps],
+                         "faits": faits_du_critere(reps, c)}
                      for c in criteres},
         "note_sur_20": note_sur_20(moyennes),
         "nb_reps": len(reps),

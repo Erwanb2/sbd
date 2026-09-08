@@ -4,49 +4,42 @@ import RepHistogram from './RepHistogram.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
 
-// Rendu d'une analyse (vidéo + score + reps + persona + critères). Utilisé à la
-// fois pour le résultat réel de l'utilisateur (App.jsx) et pour la démo sample
-// de la page d'accueil. `onReset` est optionnel : absent = pas de bouton
-// "analyze another". `videoUrl` est optionnel lui aussi : sans lui, la carte du
-// haut se réduit au score.
+// Rendu d'une analyse (vidéo + note + reps + conseils + persona + critères).
+// Utilisé à la fois pour le résultat réel (App.jsx) et pour la démo de la page
+// d'accueil. `onReset` et `videoUrl` sont optionnels.
+//
+// La forme lue ici est celle de `rules.evalue` côté backend : le modèle n'écrit
+// plus de commentaire et ne donne plus de note, il observe. Tous les nombres de
+// cette page sont calculés en Python à partir des états observés.
 export default function ResultView({ result, movement, videoUrl, onReset }) {
   const [ expandedCard, setExpandedCard ] = useState(null);
   const [ selectedRep, setSelectedRep ] = useState(null);
 
-  const scoreObtenu = result?.total_raw_score || result?.note_globale_brute || 0;
-  const scoreMax = result?.raw_max_score || 24;
-  const scorePercentage = (scoreObtenu / scoreMax) * 100;
+  const note = result?.note_sur_20 ?? 0;
+  const pourcentage = (note / 20) * 100;
 
-  const fallback = result?.model_fallback;
-
-  // Un critère est le seul objet de la réponse à porter une clé "score"
-  // (éventuellement null quand il n'est pas visible à l'image). Tout le reste —
-  // totaux, quota, persona, reps — est ignoré sans liste à maintenir.
-  const criteres = Object.entries(result)
-    .filter(([ , data ]) => data && typeof data === 'object' && 'score' in data)
-    .map(([ cle ]) => cle);
-
+  const criteres = Object.entries(result?.criteres || {});
   const reps = Array.isArray(result?.reps) ? result.reps : [];
+  const conseils = Array.isArray(result?.conseils) ? result.conseils : [];
+  const persona = result?.persona;
+
+  const mouvement = result?.contexte?.variante?.etat
+    ? `${ result.contexte.variante.etat } deadlift`
+    : movement;
 
   return (
     <div className="space-y-6">
-      { /* TEMPORAIRE (debug) : le modèle principal était saturé, l'analyse a
-           tourné sur le modèle de repli. À retirer quand ce ne sera plus utile. */ }
-      { fallback?.used && (
+      { result?.avertissement && (
         <div className="flex items-start gap-3 rounded-2xl border border-amber-500/40 bg-amber-500/10 px-5 py-4 text-left">
           <span className="text-lg leading-none">⚠️</span>
           <div className="text-sm">
-            <p className="font-bold text-amber-300">Debug · fallback model used</p>
-            <p className="mt-0.5 text-amber-200/70">
-              <span className="font-mono">{ fallback.primary }</span> was overloaded
-              (503) — this analysis ran on{ ' ' }
-              <span className="font-mono">{ fallback.model }</span>.
-            </p>
+            <p className="font-bold text-amber-300">Fallback model used</p>
+            <p className="mt-0.5 text-amber-200/70">{ result.avertissement }</p>
           </div>
         </div>
       ) }
 
-      { /* La vidéo à côté du score, et non au-dessus : la page ne s'allonge pas
+      { /* La vidéo à côté de la note, et non au-dessus : la page ne s'allonge pas
            d'un bloc, elle remplit une largeur qui était vide. */ }
       <div className="flex flex-col sm:flex-row bg-gray-900 border border-gray-800 rounded-3xl shadow-lg overflow-hidden">
         { videoUrl && (
@@ -69,38 +62,75 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
 
         <div className="flex-1 flex flex-col items-center justify-center gap-2 p-8 sm:p-10">
           <span className="text-gray-400 font-semibold uppercase tracking-widest text-sm text-center">
-            { result.movement_detected || movement }
+            { mouvement }
           </span>
           <div className="flex items-baseline gap-2">
-            <span className={ `text-7xl font-black ${ scorePercentage >= 80 ? 'text-emerald-400' : scorePercentage >= 50 ? 'text-amber-400' : 'text-red-400' }` }>
-              { scoreObtenu }
+            <span className={ `text-7xl font-black ${ pourcentage >= 80 ? 'text-emerald-400' : pourcentage >= 50 ? 'text-amber-400' : 'text-red-400' }` }>
+              { note }
             </span>
-            <span className="text-4xl text-gray-600 font-bold">/ { scoreMax }</span>
+            <span className="text-4xl text-gray-600 font-bold">/ 20</span>
           </div>
           { reps.length > 0 && (
             <span className="text-xs text-gray-500 uppercase tracking-wider">
               across { reps.length } rep{ reps.length > 1 ? 's' : '' }
+              { result?.segments_ecartes?.length > 0 && ' · false starts dropped' }
             </span>
           ) }
         </div>
       </div>
 
+      { /* Au plus deux conseils, et ils passent avant tout le reste : c'est la seule
+           partie de la page sur laquelle l'utilisateur peut agir demain. Deux et non
+           huit — une page qui reproche huit choses ne fait rien changer. */ }
+      { conseils.length > 0 && (
+        <div className="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-lg">
+          <h3 className="text-white font-black uppercase tracking-widest text-sm mb-4">
+            What to work on
+          </h3>
+          <div className="space-y-4">
+            { conseils.map((c) => (
+              <div key={ c.indicateur } className="flex items-start gap-4">
+                <span
+                  className={ `mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-xs font-black ${
+                    c.note === 1
+                      ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                      : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                  }` }
+                >
+                  { c.note }
+                </span>
+                <div className="min-w-0">
+                  <p className="text-white font-semibold leading-snug">{ c.a_essayer }</p>
+                  <p className="mt-1 text-sm text-gray-400 leading-relaxed">
+                    { c.constat }
+                    { reps.length > 1 && (
+                      <span className="text-gray-600">
+                        { ' ' }(rep{ c.reps.length > 1 ? 's' : '' } { c.reps.join(', ') })
+                      </span>
+                    ) }
+                  </p>
+                </div>
+              </div>
+            )) }
+          </div>
+        </div>
+      ) }
+
       <RepHistogram
         reps={ reps }
-        criteria={ criteres }
+        tenue={ result?.tenue_du_set?.texte }
         selected={ selectedRep }
         onSelect={ setSelectedRep }
       />
 
-      { result.lifter_persona && (() => {
-        const { emoji, filename } = getPersonaAssets(result.lifter_persona);
+      { persona?.nom && (() => {
+        const { emoji, filename } = getPersonaAssets(persona.nom);
         return (
           <div className="bg-gradient-to-br from-indigo-900 to-purple-900 border border-indigo-500/30 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row items-center gap-6 sm:gap-8 text-center sm:text-left transform transition-transform hover:scale-[1.02]">
-
             <div className="w-32 h-32 sm:w-40 sm:h-40 flex-shrink-0 bg-indigo-950/50 rounded-full border-4 border-indigo-400/50 overflow-hidden flex items-center justify-center shadow-inner relative">
               <img
                 src={ `/images/personas/${ filename }` }
-                alt={ result.lifter_persona }
+                alt={ persona.nom }
                 className="w-full h-full object-cover z-10"
                 onError={ (e) => {
                   e.target.style.display = 'none';
@@ -117,10 +147,16 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
                 Your Deadlift Persona
               </span>
               <h3 className="text-3xl sm:text-4xl font-black text-white mb-4 drop-shadow-md">
-                { result.lifter_persona }
+                { persona.nom }
               </h3>
+              { /* La justification est le FAIT qui a déclenché le persona, pas une
+                   phrase générée à côté : l'étiquette et son explication ne peuvent
+                   plus se contredire. */ }
               <p className="text-indigo-100 text-base sm:text-lg italic bg-black/20 p-4 rounded-xl leading-relaxed border border-indigo-500/20">
-                "{ result.persona_justification }"
+                "{ persona.fait }"
+                { persona.rep && (
+                  <span className="not-italic text-indigo-300/60 text-sm"> — rep { persona.rep }</span>
+                ) }
               </p>
             </div>
           </div>
@@ -128,11 +164,10 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
       })() }
 
       <div className="grid grid-cols-1 gap-4">
-        { criteres.map((cle) => (
+        { criteres.map(([ cle, data ]) => (
           <ResultCard
             key={ cle }
-            criterionKey={ cle }
-            data={ result[cle] }
+            data={ data }
             isExpanded={ expandedCard === cle }
             onToggle={ () => setExpandedCard(expandedCard === cle ? null : cle) }
             demo={ criteriaGuides[cle] }
@@ -140,22 +175,28 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
         )) }
       </div>
 
-      { result.kinematics && (
+      { result?.contexte && (
         <details className="mt-6 text-[11px] text-gray-500 border border-gray-800 rounded-lg bg-gray-900/40">
           <summary className="cursor-pointer px-3 py-2 uppercase tracking-wider select-none hover:text-gray-300">
-            Mesures de pose (debug)
+            Capture et mesures (debug)
           </summary>
           <div className="px-3 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono">
-            { Object.entries(result.kinematics).map(([ k, v ]) => (
-              <div key={ k } className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
-                <span className="text-gray-600 truncate">{ k }</span>
+            { Object.entries(result.contexte).map(([ cle, valeur ]) => (
+              <div key={ cle } className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
+                <span className="text-gray-600 truncate">{ cle }</span>
                 <span className="text-gray-400 text-right whitespace-nowrap">
-                  { typeof v === 'object' && v !== null
-                    ? Object.entries(v).map(([ a, b ]) => `${a}=${b}`).join(' ')
-                    : String(v) }
+                  { valeur && typeof valeur === 'object'
+                    ? (valeur.etat ?? Object.entries(valeur).map(([ a, b ]) => `${ a }=${ b }`).join(' '))
+                    : String(valeur) }
                 </span>
               </div>
             )) }
+            { result.modele && (
+              <div className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
+                <span className="text-gray-600 truncate">modele</span>
+                <span className="text-gray-400 text-right whitespace-nowrap">{ result.modele }</span>
+              </div>
+            ) }
           </div>
         </details>
       ) }
