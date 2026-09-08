@@ -378,10 +378,10 @@
    "note": "extrait : verrouillages ~0.7 et 5.1, commence en pleine tiree",
    "claude_n": 2,
    "source": "humain",
-   "updated_at": "2026-09-08T15:44:30.618Z",
+   "updated_at": "2026-09-08T16:04:18.872Z",
    "verrous": [
     1.1,
-    1.27
+    5.32
    ]
   },
   "pas_poitrine_relevee.mp4": {
@@ -517,16 +517,15 @@
    ]
   },
   "sumo_deadlift_8.mp4": {
-   "n": 3,
+   "n": 2,
    "conf": "haute",
    "note": "verrouillages ~2.9 7.3, plan large",
    "claude_n": 2,
    "source": "humain",
-   "updated_at": "2026-09-08T15:48:07.449Z",
+   "updated_at": "2026-09-08T16:05:26.535Z",
    "verrous": [
-    3.16,
-    3.4,
-    8.08
+    3.69,
+    8.4
    ]
   },
   "sumo_deadlift_9.mp4": {
@@ -580,17 +579,6 @@
    "verrous": [
     9.94,
     19.37
-   ]
-  },
-  "thepanash_deadlift.mp4": {
-   "n": 1,
-   "conf": "haute",
-   "note": "competition, verrouillage ~1.5 puis plan de coupe",
-   "claude_n": 1,
-   "source": "humain",
-   "updated_at": "2026-09-08T15:48:26.374Z",
-   "verrous": [
-    3.26
    ]
   },
   "worst_deadlift.mp4": {

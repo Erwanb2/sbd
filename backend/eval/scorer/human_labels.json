@@ -775,23 +775,6 @@
   "comment": "",
   "updated_at": "2026-09-05T20:54:12.373Z"
  },
- "thepanash_deadlift.mp4": {
-  "scores": {
-   "starting_position": "NA",
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 3,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 3
-  },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "il faut surement supprimer cette vidéo car tout le monde voit que c'est un athlète et triche sur la note",
-  "updated_at": "2026-09-05T20:54:26.407Z"
- },
  "worst_deadlift.mp4": {
   "scores": {
    "starting_position": 1,
