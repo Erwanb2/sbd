@@ -14,33 +14,33 @@ export const sampleResult =
 {
   "variante": "conventional",
   "contexte": {
-    "variante": {
+    "variant": {
       "etat": "conventional",
       "texte": "Hands outside the legs, hip-width stance."
     },
-    "vue_camera": {
-      "etat": "profil",
+    "camera_view": {
+      "etat": "side",
       "texte": "Filmed from the side: bar path and joint angles are readable."
     },
-    "qualite_pose": {
-      "etat": "bonne",
+    "pose_quality": {
+      "etat": "good",
       "texte": "Landmarks are stable and visible throughout."
     },
-    "materiel": {
-      "etat": "barre_libre",
+    "equipment": {
+      "etat": "barbell",
       "texte": "A standard barbell with plates on the floor."
     },
-    "prise": {
-      "etat": "mixte",
+    "grip": {
+      "etat": "mixed",
       "texte": "One palm forward, one back (mixed grip)."
     },
-    "orientation_pieds": {
-      "etat": "droits",
+    "foot_orientation": {
+      "etat": "forward",
       "texte": "The toes point roughly forward."
     },
     "mesures": {
-      "vue": 0.08,
-      "visibilite": 0.83
+      "view": 0.08,
+      "visibility": 0.83
     }
   },
   "reps": [

@@ -23,8 +23,8 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
   const conseils = Array.isArray(result?.conseils) ? result.conseils : [];
   const persona = result?.persona;
 
-  const mouvement = result?.contexte?.variante?.etat
-    ? `${ result.contexte.variante.etat } deadlift`
+  const mouvement = result?.contexte?.variant?.etat
+    ? `${ result.contexte.variant.etat } deadlift`
     : movement;
 
   return (

@@ -33,7 +33,7 @@ export default function SampleModal({ onClose, onUploadOwn }) {
   }, [ step ]);
 
   // La variante vient de la cascade de pose, elle est dans le contexte.
-  const movement = `${ sampleResult.contexte.variante.etat } deadlift`;
+  const movement = `${ sampleResult.contexte.variant.etat } deadlift`;
   const isIdle = step === STEP_IDLE;
   const isLoading = step > STEP_IDLE && step < 3;
 

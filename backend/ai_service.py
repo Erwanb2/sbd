@@ -205,7 +205,7 @@ def upload_and_detect_concurrent(file_path: str) -> dict:
 
     _memorise(video_file.name, pose)
     logger.info("variante %s (regle %s), vue %s, %d repetition(s) candidate(s)",
-                pose["variante"], pose["regle"], pose["vue"], len(pose["reps"]))
+                pose["variante"], pose["regle"], pose["view"], len(pose["reps"]))
 
     return {
         "file_name": video_file.name,

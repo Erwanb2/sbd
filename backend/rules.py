@@ -183,7 +183,12 @@ def tenue_du_set(reps: list[dict]) -> dict:
         etat, texte = "derive", "The technique drifts over the set."
     else:
         etat, texte = "tient", "The set holds together: the last rep looks like the first."
-    if decroche:
+    # Le decrochage n'est mentionne que si le set DERIVE vraiment. Le verdict compare
+    # la premiere et la derniere rep, `decroche` cherche le premier creux n'importe ou :
+    # un creux isole au milieu d'un set qui finit comme il a commence n'est pas une
+    # derive, et la phrase se contredisait ("the set holds together... it starts
+    # changing at rep 2").
+    if decroche and etat != "tient":
         texte += f" It starts changing at rep {decroche}."
     return {"etat": etat, "texte": texte, "ecart_note": ecart_note,
             "ralentissement": round(ralentissement, 2), "decroche_a": decroche}
@@ -247,8 +252,8 @@ def evalue(pose: dict, observations: dict) -> dict:
         # La pose voit le corps, pas la barre : se redresser apres l'avoir reposee produit
         # exactement le meme mouvement qu'une repetition. Seul le modele tranche, et il
         # le fait ici, avant toute notation.
-        reel = etats.get("bar_left_floor", "oui")
-        if reel == "non":
+        reel = etats.get("bar_left_floor", "yes")
+        if reel == "no":
             retirees.append(position + 1)
             continue
 
@@ -257,7 +262,7 @@ def evalue(pose: dict, observations: dict) -> dict:
             note, faits = note_du_critere(etats, critere, variante)
             # Une tentative inachevee n'a pas de lockout ni de descente : ces phases ne
             # sont pas invisibles, elles n'ont pas eu lieu. Non applicable, pas mauvais.
-            if reel == "inachevee" and critere in ("lockout", "descent"):
+            if reel == "incomplete" and critere in ("lockout", "descent"):
                 bloc[critere] = {"libelle": indicators.LIBELLE[critere], "note": None,
                                  "statut": "non_applicable", "faits": faits}
                 continue
@@ -269,7 +274,7 @@ def evalue(pose: dict, observations: dict) -> dict:
         reps.append({
             "index": len(reps) + 1,
             "debut_s": cand.get("debut_s"), "fin_s": cand.get("fin_s"),
-            "statut": "inachevee" if reel == "inachevee" else "complete",
+            "statut": "incomplete" if reel == "incomplete" else "complete",
             "criteres": bloc,
             "note": _moyenne_arrondie([b["note"] for b in bloc.values()]),
             # Note fine, non arrondie : c'est elle qui donne la hauteur des barres de
@@ -279,9 +284,9 @@ def evalue(pose: dict, observations: dict) -> dict:
                 _moyenne([b["note"] for b in bloc.values()])),
             "sur": NOTE_MAX,
             "non_evaluables": sum(1 for b in bloc.values() if b["note"] is None),
-            "temps": {"tiree_s": mes.get("duree_tiree_s"),
-                      "lockout_s": mes.get("duree_lockout_s")},
-            "resume": obs.get("resume", ""),
+            "temps": {"tiree_s": mes.get("pull_s"),
+                      "lockout_s": mes.get("lockout_s")},
+            "resume": obs.get("summary", ""),
             "etats": etats,
         })
 
@@ -291,15 +296,15 @@ def evalue(pose: dict, observations: dict) -> dict:
     # Le contexte reunit les indicateurs de portee SET des deux sources. Les mesures de
     # pose y passent par leurs seuils comme partout ailleurs : la page montre "filmed
     # from the side", pas "vue = 0.029".
-    contexte = {"variante": variante}
-    mesures_set = {"variante": variante, "vue": pose.get("vue"),
-                   "visibilite": pose.get("visibilite")}
+    contexte = {}
+    mesures_set = {"variant": variante, "view": pose.get("view"),
+                   "visibility": pose.get("visibility")}
     for ind in indicators.pour(variante, portee=Portee.SET):
         cle = (ind.etat_depuis_mesure(mesures_set.get(ind.mesure))
                if ind.source is Source.POSE else (observations or {}).get(ind.nom))
         etat = ind.etat(cle) if cle else None
         contexte[ind.nom] = {"etat": cle, "texte": etat.description if etat else None}
-    contexte["mesures"] = {k: v for k, v in mesures_set.items() if k != "variante"}
+    contexte["mesures"] = {k: v for k, v in mesures_set.items() if k != "variant"}
 
     return {
         "variante": variante,

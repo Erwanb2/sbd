@@ -374,7 +374,7 @@ def _joint_angles(f, s):
     return hip, knee
 
 
-def _phases(poses):
+def _phases(poses, cote=None):
     """Bas de la tiree et verrouillage, lus sur l'extension des articulations.
 
     Les coordonnees image ne conviennent pas : la hauteur des hanches ne varie que de
@@ -385,7 +385,12 @@ def _phases(poses):
     """
     if len(poses) < 6:
         return None
-    cote = _side_clip(poses)
+    # Le cote se decide sur le CLIP, pas sur la fenetre d'une repetition. Le
+    # redecouvrir par rep le fait basculer en cours de serie : mesure sur
+    # conventionnal_deadlift_12, la rep 3 passait a droite quand les quatre autres
+    # etaient a gauche, et ses mesures partaient en vrille (tibia a 157 degres,
+    # buste a 142) — c'est cette rep-la qui produisait le persona du clip.
+    cote = cote or _side_clip(poses)
     ang = np.array([_joint_angles(f, cote) for f in poses], dtype=float)
     ext = np.nanmean(ang, axis=1)
     if np.isnan(ext).all():
@@ -479,14 +484,14 @@ def _inclinaison_signee(f, s, facing) -> float:
     return a if facing == "right" else -a
 
 
-def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
+def mesures_de_rep(poses, extra=None, facing=None, cote=None) -> dict | None:
     """Les mesures POSE d'UNE repetition. None si la tiree n'est pas identifiable.
 
     `poses` est la fenetre de la repetition, `extra` d'eventuelles frames posterieures
     au verrouillage (la descente), `facing` le sens du regard fige sur tout le clip.
     Les cles rendues sont exactement les `mesure` des indicateurs `Source.POSE`.
     """
-    ph = _phases(poses)
+    ph = _phases(poses, cote)
     if ph is None:
         return None
     lo, lk, s, ext = ph["liftoff"], ph["lockout"], ph["cote"], ph["ext"]
@@ -507,30 +512,38 @@ def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
     im = f_lo["im"]
     y_sh, y_hip, y_kn = (im[L[f"{s}_sh"], 1], im[L[f"{s}_hip"], 1], im[L[f"{s}_kn"], 1])
     if abs(y_kn - y_sh) > 1e-6:
-        m["hanches_ratio"] = round(float((y_hip - y_sh) / (y_kn - y_sh)), 3)
+        m["hip_ratio"] = round(float((y_hip - y_sh) / (y_kn - y_sh)), 3)
 
     sens = 1.0 if facing == "right" else -1.0
-    m["epaules_barre"] = round(float((_px(f_lo, f"{s}_sh")[0] - _px(f_lo, f"{s}_wr")[0])
+    m["shoulder_bar_offset"] = round(float((_px(f_lo, f"{s}_sh")[0] - _px(f_lo, f"{s}_wr")[0])
                                      * sens / femur), 3)
 
     v_tibia = _px(f_lo, f"{s}_kn") - _px(f_lo, f"{s}_an")
-    m["tibia_deg"] = round(float(abs(np.degrees(np.arctan2(v_tibia[0], -v_tibia[1])))), 1)
+    m["shin_deg"] = round(float(abs(np.degrees(np.arctan2(v_tibia[0], -v_tibia[1])))), 1)
 
     # --- decollage (L01, L02) ---------------------------------------------------
     # Premier tiers de la tiree : c'est la que se joue le leg drive.
+    #
+    # Encore faut-il qu'il y ait un premier tiers. A 6 im/s, une tiree reperee sur
+    # trois images ne permet pas de comparer une montee de hanche a une montee
+    # d'epaule : le "tiers" fait une image. Mesure sur conventionnal_deadlift_12, une
+    # rep de 0,5 s sortait un rapport de 9,99 — la sentinelle "les epaules ne montent
+    # pas" — et donnait a elle seule son persona au clip.
+    assez_dense = (lk - lo) >= 4
     i_tiers = min(lk, lo + max(1, (lk - lo) // 3))
     f_t = poses[i_tiers]
     # en coordonnees image, y decroit vers le haut : une montee est une difference positive
     montee_hanche = float(_px(f_lo, f"{s}_hip")[1] - _px(f_t, f"{s}_hip")[1])
     montee_epaule = float(_px(f_lo, f"{s}_sh")[1] - _px(f_t, f"{s}_sh")[1])
-    if montee_hanche > 0.02 * femur:          # sinon la tiree n'a pas commence
+    if assez_dense and montee_hanche > 0.02 * femur:   # sinon la tiree n'a pas commence
         if montee_epaule <= 0.005 * femur:
             # les epaules ne montent pas du tout : c'est le cas extreme, pas une division
-            m["ratio_montee"] = 9.99
+            m["rise_ratio"] = 9.99
         else:
-            m["ratio_montee"] = round(montee_hanche / montee_epaule, 2)
+            m["rise_ratio"] = round(montee_hanche / montee_epaule, 2)
 
-    m["bascule_deg"] = round(_inclinaison(f_t, s) - _inclinaison(f_lo, s), 1)
+    if assez_dense:
+        m["pitch_deg"] = round(_inclinaison(f_t, s) - _inclinaison(f_lo, s), 1)
 
     # --- tiree (P01, P05, P06, P07) ---------------------------------------------
     # Derive mesuree par rapport aux CHEVILLES, qui ne bougent pas de la tiree : un
@@ -543,7 +556,7 @@ def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
         # 5e-95e centile et non max-min : un seul repere egare ne definit pas la trajectoire
         span = float(np.percentile(xs, 95) - np.percentile(xs, 5)) / femur
         if span <= 2.0:                        # au-dela, c'est la pose qui delire
-            m["derive_ratio"] = round(span, 3)
+            m["drift_ratio"] = round(span, 3)
 
     valgus = []
     for f in poses[lo:lk + 1]:
@@ -562,22 +575,22 @@ def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
     if len(vitesses) >= 3 and float(np.mean(vitesses)) > 1e-6:
         creux = int(np.argmin(vitesses))
         # -1 = aucun ralentissement marque ; sinon la position relative du creux
-        m["stagnation"] = (round(creux / max(len(vitesses) - 1, 1), 2)
+        m["sticking"] = (round(creux / max(len(vitesses) - 1, 1), 2)
                            if vitesses[creux] < 0.35 * float(np.mean(vitesses)) else -1.0)
 
-    m["duree_tiree_s"] = round(float(f_lk["t"] - f_lo["t"]), 2)
+    m["pull_s"] = round(float(f_lk["t"] - f_lo["t"]), 2)
 
     # --- lockout (K01, K02, K03, K06) -------------------------------------------
-    m["hanche_lockout_deg"] = round(hanche_lk, 1)
-    m["genou_lockout_deg"] = round(genou_lk, 1)
-    m["bascule_arriere_deg"] = round(max(0.0, -_inclinaison_signee(f_lk, s, facing)), 1)
+    m["hip_lockout_deg"] = round(hanche_lk, 1)
+    m["knee_lockout_deg"] = round(genou_lk, 1)
+    m["lean_back_deg"] = round(max(0.0, -_inclinaison_signee(f_lk, s, facing)), 1)
 
     # duree du dernier bout de la tiree : le temps passe a finir le mouvement
     seuil = float(ext[lk]) - 10.0
     j = lk
     while j - 1 > lo and ext[j - 1] >= seuil:
         j -= 1
-    m["duree_lockout_s"] = round(float(f_lk["t"] - poses[j]["t"]), 2)
+    m["lockout_s"] = round(float(f_lk["t"] - poses[j]["t"]), 2)
 
     # --- descente (E01) ----------------------------------------------------------
     apres = [f for f in (extra or []) if f["t"] > f_lk["t"]] or list(poses[lk + 1:])
@@ -587,20 +600,37 @@ def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
         k2 = _angle(_px(cible, f"{s}_hip"), _px(cible, f"{s}_kn"), _px(cible, f"{s}_an"))
         if not math.isnan(h2) and not math.isnan(k2):
             # positif = la hanche a plus flechi que le genou = charniere correcte
-            m["descente_ordre"] = round((hanche_lk - h2) - (genou_lk - k2), 1)
+            m["descent_order"] = round((hanche_lk - h2) - (genou_lk - k2), 1)
 
     m["_phases"] = dict(decollage_s=round(f_lo["t"], 2), lockout_s=round(f_lk["t"], 2),
                         cote=s, facing=facing)
     return m
 
 
-def _filtre_par_vue(mesures: dict, vue: float) -> dict:
-    """Retire les mesures que l'angle de camera rend fausses.
+def _filtre(mesures: dict, vue: float, visibilite: float) -> dict:
+    """Ne garde que les mesures qu'on a le droit de croire.
 
-    La regle vit dans le catalogue (`Indicateur.vue`), pas ici : ajouter une mesure de
-    face ne demande de toucher a rien dans ce fichier.
+    Trois raisons de jeter une mesure, toutes declarees dans le catalogue :
+
+    1. **La camera n'est pas au bon endroit** (`Indicateur.vue`). Un genou qui rentre
+       est indiscernable d'un genou qui avance vu de profil.
+    2. **La valeur est physiquement impossible** (`Indicateur.plausible`). Un tibia a
+       157 degres ou un buste bascule de 142 degres ne sont pas un mauvais lift, ce
+       sont les symptomes d'un reperage de phase qui a echoue. Sans cette borne, le
+       systeme note avec assurance a partir de bruit — mesure sur
+       conventionnal_deadlift_12, ou il mettait 1/3 en trajectoire de barre la ou
+       l'humain repond "pas visible".
+    3. **Les reperes ne sont pas fiables du tout** (`visibilite` sous le seuil bas
+       du catalogue) : plus rien n'est mesurable.
+
+    Une mesure jetee ne devient pas une mauvaise note : elle disparait, le critere
+    n'a plus de quoi se noter, et la page dit "not visible". C'est la seule facon
+    pour la pose de s'abstenir — les indicateurs POSE n'ont pas d'etat `not_visible`,
+    puisqu'une mesure absente dit deja la meme chose.
     """
     garde = {k: v for k, v in mesures.items() if k.startswith("_")}
+    if visibilite < indicators.VISIBILITE_MIN:
+        return garde
     for ind in indicators.INDICATEURS:
         if ind.source is not indicators.Source.POSE or ind.mesure not in mesures:
             continue
@@ -608,7 +638,13 @@ def _filtre_par_vue(mesures: dict, vue: float) -> dict:
             continue
         if ind.vue is indicators.Vue.FACE and vue < 0.30:
             continue
-        garde[ind.mesure] = mesures[ind.mesure]
+        valeur = mesures[ind.mesure]
+        if ind.plausible and isinstance(valeur, (int, float)):
+            bas, haut = ind.plausible
+            if not (bas <= valeur <= haut):
+                logger.info("mesure hors bornes ignoree : %s=%s (%s)", ind.mesure, valeur, ind.id)
+                continue
+        garde[ind.mesure] = valeur
     return garde
 
 
@@ -656,6 +692,7 @@ def analyse(file_path: str, avec_reps: bool = True) -> dict:
             return {"ok": False, "raison": "mesures de stance indisponibles"}
 
         vue = _vue_de_face(poses)
+        visibilite = _visibilite(poses)
         res = {
             "ok": True,
             "duree_s": round(time.time() - t0, 2),
@@ -663,8 +700,8 @@ def analyse(file_path: str, avec_reps: bool = True) -> dict:
             # Les grandeurs de la cascade restent a plat, comme avant : eval/
             # check_pose_cascade les lit telles quelles pour justifier chaque decision.
             **casc,
-            "vue": round(vue, 3),
-            "visibilite": round(_visibilite(poses), 3),
+            "view": round(vue, 3),
+            "visibility": round(visibilite, 3),
             "reps": [],
         }
 
@@ -680,15 +717,16 @@ def analyse(file_path: str, avec_reps: bool = True) -> dict:
         # Le cote camera et le sens du regard se decident sur tout le clip, jamais par
         # repetition : sinon le signe des mesures orientees s'inverse en cours de serie.
         facing = _facing_clip(denses) if denses else "right"
+        cote = _side_clip(denses) if denses else "l"
         for c in candidats:
             fenetre = [f for f in denses if c["debut_s"] <= f["t"] <= c["fin_s"]]
             apres = [f for f in denses if f["t"] > c["lockout_s"]]
-            mes = mesures_de_rep(fenetre, apres, facing) if len(fenetre) >= 6 else None
+            mes = mesures_de_rep(fenetre, apres, facing, cote) if len(fenetre) >= 6 else None
             res["reps"].append({
                 "debut_s": c["debut_s"],
                 "fin_s": c["fin_s"],
                 "lockout_s": c["lockout_s"],
-                "mesures": _filtre_par_vue(mes, vue) if mes else {},
+                "mesures": _filtre(mes, vue, visibilite) if mes else {},
             })
 
         res["duree_s"] = round(time.time() - t0, 2)

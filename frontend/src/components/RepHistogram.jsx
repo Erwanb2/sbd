@@ -81,7 +81,7 @@ export default function RepHistogram({ reps, tenue, selected, onSelect }) {
           <div className="flex items-baseline justify-between gap-3 mb-1">
             <h4 className="text-white font-black">
               Rep { ouverte.index }
-              { ouverte.statut === 'inachevee' && (
+              { ouverte.statut === 'incomplete' && (
                 <span className="ml-2 align-middle text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30">
                   Not locked out
                 </span>

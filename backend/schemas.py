@@ -51,8 +51,9 @@ def _modele_de_rep(variante: str) -> type[BaseModel]:
     }
     for ind in indicators.juges_par_le_modele(variante, Portee.REP):
         champs[ind.nom] = (_enum(ind), Field(description=ind.consigne()))
-    champs["resume"] = (str, Field(description="One short sentence describing what you "
-                                               "saw on THIS repetition. No score, no advice."))
+    champs["summary"] = (str, Field(description="One short sentence in ENGLISH describing "
+                                                "what you saw on THIS repetition. No score, "
+                                                "no advice."))
     return create_model(f"Rep{_classe(variante)}", **champs)
 
 
