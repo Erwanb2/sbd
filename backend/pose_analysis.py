@@ -396,10 +396,16 @@ def _phases(poses, cote=None):
     if np.isnan(ext).all():
         return None
     ext = np.where(np.isnan(ext), np.nanmedian(ext), ext)
+    # Filtre MEDIAN, et non moyenne mobile. Une moyenne ne supprime pas une valeur
+    # aberrante, elle l'etale sur ses voisins : sur conventionnal_deadlift_14, le
+    # squelette a decroche sur UNE image (156 -> 69 -> 160 deg), et la moyenne a
+    # ecrase tout le plateau de verrouillage de 156 a ~125. Le maximum du signal
+    # lisse est alors tombe une seconde et demie plus loin, EN PLEINE DESCENTE, et
+    # les angles "de lockout" ont ete releves pendant que le lifter redescendait.
+    # La mediane rend 156 sur les memes trois valeurs : le pic disparait, le plateau
+    # reste. C'est deja le filtre de rep_detection ; les deux se rejoignent.
     if len(ext) >= 5:
-        lisse = np.convolve(ext, np.ones(3) / 3, mode="same")
-        lisse[0], lisse[-1] = ext[0], ext[-1]
-        ext = lisse
+        ext = np.array([float(np.median(ext[max(0, i - 1):i + 2])) for i in range(len(ext))])
 
     # plus forte montee : le creux le plus bas qui precede le sommet le plus haut
     best, liftoff, lockout = -1.0, 0, 0
@@ -421,13 +427,22 @@ def _phases(poses, cote=None):
     # s'eloigne apres la serie, le maximum global tombe bien apres le vrai verrouillage
     lockout = liftoff + 1 + int(np.argmax(apres >= haut - 3.0))
 
-    # on resserre le depart sur la tiree elle-meme : en remontant depuis le verrouillage
-    # jusqu'a ce que l'extension cesse de decroitre. Sans ca, un lifter qui reste debout
+    # On resserre le depart sur la tiree elle-meme : sinon un lifter qui reste debout
     # avant de se pencher etire la fenetre sur plusieurs secondes et fausse la derive.
-    j = lockout
-    while j - 1 > liftoff and ext[j - 1] <= ext[j] + 1.5:
-        j -= 1
-    liftoff = j
+    #
+    # La question est posee en NIVEAU — "quel est le dernier instant ou il etait encore
+    # en bas ?" — et non en remontant le temps pas a pas. L'ancienne version remontait
+    # depuis le verrouillage tant que l'extension decroissait, avec une tolerance de
+    # 1,5 degre sur un signal dont le bruit vaut 15 : elle s'arretait au premier
+    # soubresaut. Sur conventionnal_deadlift_14 elle a transforme une tiree de deux
+    # secondes en 0,16 s, soit une seule image, et tout le clip a ete note la-dessus.
+    #
+    # Un seuil de niveau ne se laisse pas arreter par une valeur isolee : un point
+    # bruite reste de toute facon tres au-dessus du bas de la tiree.
+    bas = float(np.min(ext[liftoff:lockout + 1]))
+    seuil_bas = bas + 0.10 * (float(ext[lockout]) - bas)
+    encore_en_bas = [i for i in range(liftoff, lockout) if ext[i] <= seuil_bas]
+    liftoff = encore_en_bas[-1] if encore_en_bas else liftoff
     return dict(liftoff=liftoff, lockout=lockout, ext=ext, amplitude=best, cote=cote)
 
 
