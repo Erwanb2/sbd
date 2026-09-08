@@ -1,6 +1,12 @@
-"""Analyse de pose : variante du deadlift (sumo/conventionnel) et cinematique du lift.
+"""Analyse de pose : variante du deadlift, qualite de la capture, mesures par repetition.
 
-Une seule passe de decodage et une seule passe MediaPipe servent les deux usages.
+C'est la moitie MediaPipe du systeme. L'autre moitie est le modele de langage ; le
+partage des taches est declare une fois pour toutes dans `indicators.py`, et ce fichier
+ne calcule que les indicateurs marques `Source.POSE`.
+
+Deux passes MediaPipe : 30 frames uniformes pour la cascade, puis la passe dense a
+6 im/s de `rep_detection`, dont les poses servent a la fois a proposer les repetitions
+et a les mesurer.
 
 La variante vient d'une cascade a trois mesures, etablie sur 47 clips etiquetes
 (46/47, 0.936 en validation leave-one-out) :
@@ -30,6 +36,8 @@ import time
 
 import cv2
 import numpy as np
+
+import indicators
 
 logger = logging.getLogger(__name__)
 
@@ -68,9 +76,6 @@ def modele() -> str:
         _MODEL_CACHE = _resoudre_modele()
     return _MODEL_CACHE
 N_CASCADE = 30          # frames de la cascade : la configuration validee
-N_DENSE = N_CASCADE     # une seule passe : le suivi inter-frames change les mesures,
-                        # donc la cascade doit voir exactement sa configuration validee
-N_DESCENT = 12          # frames supplementaires juste apres le lockout
 
 REGLES = {
     "seuil_largeur": 1.605,
@@ -81,8 +86,6 @@ REGLES = {
 L = dict(nose=0, l_ear=7, r_ear=8, l_sh=11, r_sh=12, l_el=13, r_el=14, l_wr=15, r_wr=16,
          l_idx=19, r_idx=20, l_hip=23, r_hip=24, l_kn=25, r_kn=26, l_an=27, r_an=28,
          l_heel=29, r_heel=30, l_toe=31, r_toe=32)
-
-FEMUR_CM = 40.0         # longueur de femur supposee, pour convertir les pixels en cm
 
 
 # --------------------------------------------------------------------------- video
@@ -305,14 +308,6 @@ def _cascade(poses):
 
 # ---------------------------------------------------------------- cinematique
 
-def _side(f):
-    """Cote tourne vers la camera : ses reperes sont mesures, l'autre est devine."""
-    im = f["im"]
-    vl = np.mean([im[L[k], 3] for k in ("l_sh", "l_hip", "l_kn", "l_an", "l_wr")])
-    vr = np.mean([im[L[k], 3] for k in ("r_sh", "r_hip", "r_kn", "r_an", "r_wr")])
-    return "l" if vl >= vr else "r"
-
-
 def _px(f, key):
     """Coordonnees en pixels du repere demande."""
     im = f["im"]
@@ -367,9 +362,13 @@ def _side_clip(poses):
     return "l" if vl >= vr else "r"
 
 
-def _joint_angles(f, s=None):
-    """Angles hanche et genou du cote camera, en degres."""
-    s = s or _side(f)
+def _joint_angles(f, s):
+    """Angles hanche et genou, en degres, du cote passe en argument.
+
+    Le cote est un argument obligatoire, jamais redecouvert image par image : le
+    recalculer fait basculer la reference des que les visibilites s'egalisent, et les
+    angles sautent de plusieurs dizaines de degres sans que le lifter ait bouge.
+    """
     hip = _angle(_px(f, f"{s}_sh"), _px(f, f"{s}_hip"), _px(f, f"{s}_kn"))
     knee = _angle(_px(f, f"{s}_hip"), _px(f, f"{s}_kn"), _px(f, f"{s}_an"))
     return hip, knee
@@ -427,114 +426,223 @@ def _phases(poses):
     return dict(liftoff=liftoff, lockout=lockout, ext=ext, amplitude=best, cote=cote)
 
 
-def _kinematics(poses, extra=None):
-    """Les six mesures demandees, plus les instants des phases."""
+
+# ------------------------------------------------------- mesures d'une repetition
+#
+# Tout ce qui suit remplace l'ancien bloc `_kinematics`, qui calculait UNE cinematique
+# pour le clip entier — celle de la plus forte montee — et l'affichait comme si elle
+# decrivait la serie. Les mesures sont maintenant calculees par repetition.
+#
+# Deux regles tenues partout ici :
+#   - aucune distance en centimetres. L'ancien code convertissait les pixels avec un
+#     femur suppose de 40 cm : le resultat etait un ratio habille en unite calibree.
+#     Les distances sont en FRACTION DE FEMUR, et le disent.
+#   - aucune mesure hors de sa vue. Les angles lus a l'image ne veulent rien dire hors
+#     profil, et un genou qui rentre est indiscernable d'un genou qui avance. Le filtre
+#     est applique une fois, dans `_filtre_par_vue`, a partir du catalogue.
+
+
+def _echelle(poses, s, lo, lk) -> float:
+    """Longueur mediane du femur en pixels sur la tiree : l'unite de toutes les distances.
+
+    Mediane et non valeur d'une frame : un seul genou qui saute fausserait toute la
+    normalisation.
+    """
+    fem = [float(np.linalg.norm(_px(f, f"{s}_hip") - _px(f, f"{s}_kn")))
+           for f in poses[lo:lk + 1]]
+    fem = [x for x in fem if x > 1.0]
+    return float(np.median(fem)) if fem else 1.0
+
+
+def _facing_clip(poses) -> str:
+    """Sens du regard decide UNE fois pour le clip, par vote majoritaire.
+
+    Le recalculer par repetition le fait basculer des que le nez et l'oreille se
+    croisent, et le signe de toutes les mesures orientees s'inverse avec lui : mesure
+    sur conventionnal_deadlift_1, une rep sortait a 50,9 degres de bascule arriere
+    faute de ce vote. Meme piege que le cote camera, meme remede.
+    """
+    droite = sum(1 for f in poses if _facing(f) == "right")
+    return "right" if droite * 2 >= len(poses) else "left"
+
+
+def _inclinaison(f, s) -> float:
+    """Ecart du segment hanche->epaule a la verticale, en degres. Toujours positif."""
+    v = _px(f, f"{s}_sh") - _px(f, f"{s}_hip")
+    return float(abs(np.degrees(np.arctan2(v[0], -v[1]))))
+
+
+def _inclinaison_signee(f, s, facing) -> float:
+    """Meme mesure, signee : positif = epaules devant, negatif = penche en arriere."""
+    v = _px(f, f"{s}_sh") - _px(f, f"{s}_hip")
+    a = float(np.degrees(np.arctan2(v[0], -v[1])))
+    return a if facing == "right" else -a
+
+
+def mesures_de_rep(poses, extra=None, facing=None) -> dict | None:
+    """Les mesures POSE d'UNE repetition. None si la tiree n'est pas identifiable.
+
+    `poses` est la fenetre de la repetition, `extra` d'eventuelles frames posterieures
+    au verrouillage (la descente), `facing` le sens du regard fige sur tout le clip.
+    Les cles rendues sont exactement les `mesure` des indicateurs `Source.POSE`.
+    """
     ph = _phases(poses)
     if ph is None:
         return None
-    lo, lk = ph["liftoff"], ph["lockout"]
+    lo, lk, s, ext = ph["liftoff"], ph["lockout"], ph["cote"], ph["ext"]
     f_lo, f_lk = poses[lo], poses[lk]
-    s = ph["cote"]
-    facing = _facing(f_lk)
-    out = {}
+    facing = facing or _facing_clip(poses)
+    femur = _echelle(poses, s, lo, lk)
+    m: dict = {}
 
-    # 1. hauteur des hanches au decollage
-    im = f_lo["im"]
-    sy, hy, ky = im[L[f"{s}_sh"], 1], im[L[f"{s}_hip"], 1], im[L[f"{s}_kn"], 1]
-    denom = ky - sy
-    if abs(denom) > 1e-6:
-        ratio = float((hy - sy) / denom)
-        out["setup_hips_position"] = ("Too low (squatter setup)" if ratio > 0.8 else
-                                      "Too high (stiff-legged)" if ratio < 0.4 else
-                                      "Optimal (midway between knees and shoulders)")
-        out["setup_hip_ratio"] = round(ratio, 3)
-
-    # 2. epaules par rapport a la barre au decollage
-    sh, wr = _px(f_lo, f"{s}_sh"), _px(f_lo, f"{s}_wr")
-    # echelle prise sur la mediane de la tiree : une seule frame ou le genou saute
-    # suffirait a fausser toutes les conversions en centimetres
-    femurs = [float(np.linalg.norm(_px(f, f"{s}_hip") - _px(f, f"{s}_kn")))
-              for f in poses[lo:lk + 1]]
-    femur_px = float(np.median([x for x in femurs if x > 1.0])) if any(x > 1.0 for x in femurs) else 1.0
-    diff = (sh[0] - wr[0]) * (1.0 if facing == "right" else -1.0)
-    rel = diff / femur_px
-    out["shoulder_to_bar_alignment_at_start"] = (
-        "Shoulders slightly ahead of bar (good)" if rel > 0.08 else
-        "Shoulders behind bar (subpar)" if rel < -0.08 else
-        "Shoulders directly over bar")
-    out["shoulder_bar_offset_cm"] = round(rel * FEMUR_CM, 1)
-
-    # 3. derive horizontale de la barre pendant la montee
-    # Mesuree par rapport aux chevilles, qui ne bougent pas de la tiree : un panoramique
-    # de camera ou un lifter qui se decale ne comptent plus comme de la derive de barre.
-    # C'est aussi ce qu'un juge regarde, la barre au-dessus du milieu du pied.
-    cm_per_px = FEMUR_CM / femur_px
-    vue = _vue_de_face(poses[lo:lk + 1])
-    if vue < 0.6:                    # de face, un deplacement horizontal n'est pas de la
-        xs = []                      # derive de barre : la trajectoire se juge de profil
-        for f in poses[lo:lk + 1]:
-            ank = (_px(f, "l_an")[0] + _px(f, "r_an")[0]) / 2
-            xs.append(_px(f, f"{s}_wr")[0] - ank)
-        if len(xs) >= 4:
-            # ecart entre 5e et 95e centile plutot que max moins min : un seul repere
-            # egare ne doit pas definir la trajectoire de barre
-            span = float(np.percentile(xs, 95) - np.percentile(xs, 5)) * cm_per_px
-            if span <= 60.0:
-                out["wrist_horizontal_drift_cm"] = round(span, 1)
-            else:
-                out["wrist_drift_note"] = "bar path not measurable: pose too unstable"
-    else:
-        # cle absente plutot que nulle : le modele n'a pas a interpreter un null
-        out["wrist_drift_note"] = "bar path not measurable: lifter filmed from the front"
-    out["camera_view"] = ("front" if vue >= 0.6 else "three-quarter" if vue >= 0.3 else "side")
-
-    # 4 et 5. angles au lockout
-    kn_a = _angle(_px(f_lk, f"{s}_hip"), _px(f_lk, f"{s}_kn"), _px(f_lk, f"{s}_an"))
-    hp_a = _angle(_px(f_lk, f"{s}_sh"), _px(f_lk, f"{s}_hip"), _px(f_lk, f"{s}_kn"))
-    if not math.isnan(kn_a):
-        out["lockout_knee_angle"] = round(kn_a, 1)
-    if not math.isnan(hp_a):
-        out["lockout_hip_angle"] = round(hp_a, 1)
-
-    # 6. quelle articulation flechit en premier a la descente
-    desc = [f for f in (extra or []) if f["t"] > f_lk["t"]] or [f for f in poses[lk + 1:]]
-    cible = next((f for f in desc if f["t"] - f_lk["t"] >= 0.35), desc[-1] if desc else None)
-    if cible is not None and not math.isnan(kn_a) and not math.isnan(hp_a):
-        k2 = _angle(_px(cible, f"{s}_hip"), _px(cible, f"{s}_kn"), _px(cible, f"{s}_an"))
-        h2 = _angle(_px(cible, f"{s}_sh"), _px(cible, f"{s}_hip"), _px(cible, f"{s}_kn"))
-        if not math.isnan(k2) and not math.isnan(h2):
-            dk, dh = kn_a - k2, hp_a - h2
-            out["descent_initial_movement"] = (
-                "Knees flexed before hips" if dk > 5 and dh < 2 else
-                "Hips flexed before knees (good hinge)" if dh > 5 and dk < 2 else
-                "Simultaneous flexion")
-            out["descent_knee_delta_deg"] = round(dk, 1)
-            out["descent_hip_delta_deg"] = round(dh, 1)
-
-    # Si les articulations ne sont pas etendues sur la frame retenue, ce n'est pas un
-    # verrouillage : le reperage des phases a echoue et tout le bloc serait trompeur.
-    # Mieux vaut ne rien fournir au modele que des chiffres faux.
-    if out.get("lockout_knee_angle", 0) < 120 or out.get("lockout_hip_angle", 0) < 120:
+    # Garde-fou repris de l'ancien code : si les articulations ne sont pas etendues sur
+    # la frame retenue, ce n'est pas un verrouillage — le reperage des phases a echoue et
+    # toutes les mesures qui suivent seraient fausses. Mieux vaut ne rien rendre.
+    hanche_lk = _angle(_px(f_lk, f"{s}_sh"), _px(f_lk, f"{s}_hip"), _px(f_lk, f"{s}_kn"))
+    genou_lk = _angle(_px(f_lk, f"{s}_hip"), _px(f_lk, f"{s}_kn"), _px(f_lk, f"{s}_an"))
+    if math.isnan(hanche_lk) or math.isnan(genou_lk) or min(hanche_lk, genou_lk) < 120:
         return None
 
-    out["_phases"] = dict(liftoff_s=round(f_lo["t"], 2), lockout_s=round(f_lk["t"], 2),
-                          facing=facing, side=s)
-    return out
+    # --- setup (S01, S02, S03) --------------------------------------------------
+    im = f_lo["im"]
+    y_sh, y_hip, y_kn = (im[L[f"{s}_sh"], 1], im[L[f"{s}_hip"], 1], im[L[f"{s}_kn"], 1])
+    if abs(y_kn - y_sh) > 1e-6:
+        m["hanches_ratio"] = round(float((y_hip - y_sh) / (y_kn - y_sh)), 3)
+
+    sens = 1.0 if facing == "right" else -1.0
+    m["epaules_barre"] = round(float((_px(f_lo, f"{s}_sh")[0] - _px(f_lo, f"{s}_wr")[0])
+                                     * sens / femur), 3)
+
+    v_tibia = _px(f_lo, f"{s}_kn") - _px(f_lo, f"{s}_an")
+    m["tibia_deg"] = round(float(abs(np.degrees(np.arctan2(v_tibia[0], -v_tibia[1])))), 1)
+
+    # --- decollage (L01, L02) ---------------------------------------------------
+    # Premier tiers de la tiree : c'est la que se joue le leg drive.
+    i_tiers = min(lk, lo + max(1, (lk - lo) // 3))
+    f_t = poses[i_tiers]
+    # en coordonnees image, y decroit vers le haut : une montee est une difference positive
+    montee_hanche = float(_px(f_lo, f"{s}_hip")[1] - _px(f_t, f"{s}_hip")[1])
+    montee_epaule = float(_px(f_lo, f"{s}_sh")[1] - _px(f_t, f"{s}_sh")[1])
+    if montee_hanche > 0.02 * femur:          # sinon la tiree n'a pas commence
+        if montee_epaule <= 0.005 * femur:
+            # les epaules ne montent pas du tout : c'est le cas extreme, pas une division
+            m["ratio_montee"] = 9.99
+        else:
+            m["ratio_montee"] = round(montee_hanche / montee_epaule, 2)
+
+    m["bascule_deg"] = round(_inclinaison(f_t, s) - _inclinaison(f_lo, s), 1)
+
+    # --- tiree (P01, P05, P06, P07) ---------------------------------------------
+    # Derive mesuree par rapport aux CHEVILLES, qui ne bougent pas de la tiree : un
+    # panoramique de camera ou un lifter qui se decale ne comptent plus comme une derive.
+    xs = []
+    for f in poses[lo:lk + 1]:
+        cheville = (_px(f, "l_an")[0] + _px(f, "r_an")[0]) / 2
+        xs.append(_px(f, f"{s}_wr")[0] - cheville)
+    if len(xs) >= 4:
+        # 5e-95e centile et non max-min : un seul repere egare ne definit pas la trajectoire
+        span = float(np.percentile(xs, 95) - np.percentile(xs, 5)) / femur
+        if span <= 2.0:                        # au-dela, c'est la pose qui delire
+            m["derive_ratio"] = round(span, 3)
+
+    valgus = []
+    for f in poses[lo:lk + 1]:
+        g_an, d_an = _px(f, "l_an")[0], _px(f, "r_an")[0]
+        base = abs(g_an - d_an)
+        if base < 1e-6:
+            continue
+        milieu = (g_an + d_an) / 2
+        rentre = ((abs(g_an - milieu) - abs(_px(f, "l_kn")[0] - milieu))
+                  + (abs(d_an - milieu) - abs(_px(f, "r_kn")[0] - milieu))) / 2
+        valgus.append(rentre / base)
+    if valgus:
+        m["valgus_ratio"] = round(float(np.median(valgus)), 3)
+
+    vitesses = np.diff(ext[lo:lk + 1])
+    if len(vitesses) >= 3 and float(np.mean(vitesses)) > 1e-6:
+        creux = int(np.argmin(vitesses))
+        # -1 = aucun ralentissement marque ; sinon la position relative du creux
+        m["stagnation"] = (round(creux / max(len(vitesses) - 1, 1), 2)
+                           if vitesses[creux] < 0.35 * float(np.mean(vitesses)) else -1.0)
+
+    m["duree_tiree_s"] = round(float(f_lk["t"] - f_lo["t"]), 2)
+
+    # --- lockout (K01, K02, K03, K06) -------------------------------------------
+    m["hanche_lockout_deg"] = round(hanche_lk, 1)
+    m["genou_lockout_deg"] = round(genou_lk, 1)
+    m["bascule_arriere_deg"] = round(max(0.0, -_inclinaison_signee(f_lk, s, facing)), 1)
+
+    # duree du dernier bout de la tiree : le temps passe a finir le mouvement
+    seuil = float(ext[lk]) - 10.0
+    j = lk
+    while j - 1 > lo and ext[j - 1] >= seuil:
+        j -= 1
+    m["duree_lockout_s"] = round(float(f_lk["t"] - poses[j]["t"]), 2)
+
+    # --- descente (E01) ----------------------------------------------------------
+    apres = [f for f in (extra or []) if f["t"] > f_lk["t"]] or list(poses[lk + 1:])
+    cible = next((f for f in apres if f["t"] - f_lk["t"] >= 0.35), apres[-1] if apres else None)
+    if cible is not None:
+        h2 = _angle(_px(cible, f"{s}_sh"), _px(cible, f"{s}_hip"), _px(cible, f"{s}_kn"))
+        k2 = _angle(_px(cible, f"{s}_hip"), _px(cible, f"{s}_kn"), _px(cible, f"{s}_an"))
+        if not math.isnan(h2) and not math.isnan(k2):
+            # positif = la hanche a plus flechi que le genou = charniere correcte
+            m["descente_ordre"] = round((hanche_lk - h2) - (genou_lk - k2), 1)
+
+    m["_phases"] = dict(decollage_s=round(f_lo["t"], 2), lockout_s=round(f_lk["t"], 2),
+                        cote=s, facing=facing)
+    return m
+
+
+def _filtre_par_vue(mesures: dict, vue: float) -> dict:
+    """Retire les mesures que l'angle de camera rend fausses.
+
+    La regle vit dans le catalogue (`Indicateur.vue`), pas ici : ajouter une mesure de
+    face ne demande de toucher a rien dans ce fichier.
+    """
+    garde = {k: v for k, v in mesures.items() if k.startswith("_")}
+    for ind in indicators.INDICATEURS:
+        if ind.source is not indicators.Source.POSE or ind.mesure not in mesures:
+            continue
+        if ind.vue is indicators.Vue.PROFIL and vue >= 0.60:
+            continue
+        if ind.vue is indicators.Vue.FACE and vue < 0.30:
+            continue
+        garde[ind.mesure] = mesures[ind.mesure]
+    return garde
+
+
+def _visibilite(poses) -> float:
+    """Confiance moyenne des reperes qui portent les mesures."""
+    cles = ("l_sh", "r_sh", "l_hip", "r_hip", "l_kn", "r_kn", "l_an", "r_an")
+    return float(np.mean([np.mean([f["im"][L[k], 3] for k in cles]) for f in poses]))
 
 
 # ------------------------------------------------------------------- point d'entree
 
-def analyse(file_path: str, with_kinematics: bool = True) -> dict:
-    """Analyse complete : variante du deadlift et cinematique.
+def analyse(file_path: str, avec_reps: bool = True) -> dict:
+    """Variante, qualite de la capture, et les mesures POSE de chaque repetition.
+
+    `avec_reps=False` s'arrete apres la cascade : c'est le mode d'eval/check_pose_cascade,
+    qui valide la variante sur les 47 clips et n'a pas besoin de la passe dense.
 
     Ne leve jamais : en cas d'echec, renvoie {"ok": False, "raison": ...} et l'appelant
-    se rabat sur le modele de langage.
+    se rabat sur le modele seul.
+
+    Deux passes MediaPipe, et pas une de plus :
+      1. 30 frames uniformes pour la cascade sumo/conventionnel. Cet echantillonnage
+         est la configuration sur laquelle ses seuils ont ete valides — ne pas y toucher
+         sans rejouer eval/check_pose_cascade.py.
+      2. une passe dense a 6 im/s, celle de rep_detection, dont les poses servent a la
+         fois a proposer les repetitions et a les mesurer.
     """
     t0 = time.time()
     try:
         n, fps = _probe(file_path)
         if n <= 0:
             return {"ok": False, "raison": "video illisible"}
+
+        # --- passe 1 : la cascade, dans sa configuration validee -----------------
         idx = np.linspace(n * 0.05, n * 0.95, N_CASCADE).astype(int)
         frames, fps = _read_frames(file_path, idx)
         if len(frames) < 6:
@@ -544,55 +652,46 @@ def analyse(file_path: str, with_kinematics: bool = True) -> dict:
             return {"ok": False, "raison": "aucune pose exploitable"}
 
         casc = _cascade(poses)
+        if not casc:
+            return {"ok": False, "raison": "mesures de stance indisponibles"}
 
-        kin = None
-        if with_kinematics and _phases(poses) is None:
-            # 30 frames sur un clip de 40 s laissent passer la tiree. On tente d'abord
-            # deux fois plus dense, puis, en dernier recours seulement, un recentrage sur
-            # la fenetre ou l'image bouge — ce recentrage peut se tromper de segment.
-            essais = [np.linspace(n * 0.05, n * 0.95, N_CASCADE * 2).astype(int)]
-            fenetre = _fenetre_de_mouvement(file_path, n)
-            if fenetre:
-                essais.append(np.linspace(fenetre[0], fenetre[1], N_CASCADE).astype(int))
-            for idx2 in essais:
-                fr2, _ = _read_frames(file_path, idx2)
-                if len(fr2) < 12:
-                    continue
-                poses2 = _detect(fr2, fps)
-                if _phases(poses2) is not None:
-                    poses = poses2
-                    break
-        if with_kinematics:
-            extra = []
-            ph = _phases(poses)
-            if ph is not None:                     # passe dense juste apres le lockout
-                t_lk = poses[ph["lockout"]]["t"]
-                lo_i, hi_i = int(t_lk * fps) + 1, int((t_lk + 1.2) * fps)
-                more = [i for i in range(lo_i, min(hi_i, n)) if i not in set(idx.tolist())]
-                if more:
-                    step = max(1, len(more) // N_DESCENT)
-                    sel = more[::step][:N_DESCENT]
-                    fr2, _ = _read_frames(file_path, sel)
-                    if fr2:
-                        extra = _detect(fr2, fps)
-            # Les frames denses de la descente participent aussi a la recherche des
-            # phases : sans elles, un verrouillage tardif est vu trop tot et les angles
-            # sont sous-estimes.
-            fusion = poses
-            if extra:
-                vus = {p["i"] for p in poses}
-                fusion = sorted(poses + [p for p in extra if p["i"] not in vus],
-                                key=lambda p: p["t"])
-            kin = _kinematics(fusion, extra)
+        vue = _vue_de_face(poses)
+        res = {
+            "ok": True,
+            "duree_s": round(time.time() - t0, 2),
+            "frames_pose": len(poses),
+            # Les grandeurs de la cascade restent a plat, comme avant : eval/
+            # check_pose_cascade les lit telles quelles pour justifier chaque decision.
+            **casc,
+            "vue": round(vue, 3),
+            "visibilite": round(_visibilite(poses), 3),
+            "reps": [],
+        }
 
-        res = {"ok": casc is not None, "duree_s": round(time.time() - t0, 2),
-               "frames_pose": len(poses)}
-        if casc:
-            res.update(casc)
-        else:
-            res["raison"] = "mesures de stance indisponibles"
-        if kin:
-            res["kinematics"] = kin
+        if not avec_reps:
+            return res
+
+        # --- passe 2 : les repetitions, et leurs mesures --------------------------
+        # Import local : rep_detection importe ce module, un import en tete ferait un
+        # cycle. C'est le seul endroit ou les deux se rencontrent.
+        import rep_detection
+
+        candidats, denses = rep_detection.candidats_et_poses(file_path)
+        # Le cote camera et le sens du regard se decident sur tout le clip, jamais par
+        # repetition : sinon le signe des mesures orientees s'inverse en cours de serie.
+        facing = _facing_clip(denses) if denses else "right"
+        for c in candidats:
+            fenetre = [f for f in denses if c["debut_s"] <= f["t"] <= c["fin_s"]]
+            apres = [f for f in denses if f["t"] > c["lockout_s"]]
+            mes = mesures_de_rep(fenetre, apres, facing) if len(fenetre) >= 6 else None
+            res["reps"].append({
+                "debut_s": c["debut_s"],
+                "fin_s": c["fin_s"],
+                "lockout_s": c["lockout_s"],
+                "mesures": _filtre_par_vue(mes, vue) if mes else {},
+            })
+
+        res["duree_s"] = round(time.time() - t0, 2)
         return res
     except Exception as exc:                        # jamais bloquant pour la requete
         logger.warning("analyse de pose impossible: %s", exc)

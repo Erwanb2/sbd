@@ -97,7 +97,23 @@ def _segments(ts, vs):
     return [(a, b) for a, b in zip(bornes[:-1], bornes[1:]) if b - a >= 4]
 
 
+def candidats_et_poses(file_path: str, fps_analyse: float = FPS_ANALYSE):
+    """([{lockout_s, debut_s, fin_s}], poses) : les candidats ET la passe dense.
+
+    Les poses sont rendues telles quelles pour que `pose_analysis` mesure les
+    repetitions sans repasser MediaPipe une troisieme fois sur la meme video.
+    L'echantillonnage et l'hysteresis ne changent pas : le reglage cale pour le rappel
+    (0.40/0.60) est exactement celui valide sur les 47 clips.
+    """
+    return _candidats(file_path, fps_analyse)
+
+
 def candidats(file_path: str, fps_analyse: float = FPS_ANALYSE) -> list[dict]:
+    "Les candidats seuls, pour les appelants qui n'ont pas besoin des poses."
+    return _candidats(file_path, fps_analyse)[0]
+
+
+def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
     """[{lockout_s, debut_s, fin_s}] : les instants ou une repetition est possible.
 
     La fenetre d'un candidat va du creux qui precede sa montee au creux qui suit sa
@@ -109,23 +125,23 @@ def candidats(file_path: str, fps_analyse: float = FPS_ANALYSE) -> list[dict]:
     """
     n, fps = pa._probe(file_path)
     if not n or not fps:
-        return []
+        return [], []
     pas = max(1, int(round(fps / fps_analyse)))
     frames, _ = pa._read_frames(file_path, range(0, n, pas))
     if not frames:
-        return []
+        return [], []
     poses = pa._detect(frames, fps)
     if len(poses) < 6:
-        return []
+        return [], []
 
     ts, vs = _signal(poses)
     if len(ts) < 6:
-        return []
+        return [], poses
     cad = _cadence(ts)
     vs = _lisse(vs, cad)
     lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
     if hi - lo < AMPLITUDE_MIN:
-        return []
+        return [], poses
     norm = (vs - lo) / (hi - lo)
     duree = float(n / fps)
     mini_bas = max(2, round(DUREE_BAS * cad))
@@ -157,7 +173,7 @@ def candidats(file_path: str, fps_analyse: float = FPS_ANALYSE) -> list[dict]:
         out.append({"lockout_s": round(float(ts[i]), 2),
                     "debut_s": round(max(0.0, debut - MARGE), 2),
                     "fin_s": round(min(duree, fin + MARGE), 2)})
-    return out
+    return out, poses
 
 
 def analyse_candidats(file_path: str) -> list[dict]:

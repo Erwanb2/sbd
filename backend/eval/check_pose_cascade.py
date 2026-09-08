@@ -1,7 +1,7 @@
 """Rejoue la detection sumo/conventionnel sur tous les clips etiquetes de data/.
 
     uv run python eval/check_pose_cascade.py                 # cascade seule, ~2.5 s/clip
-    uv run python eval/check_pose_cascade.py --kinematics    # + cinematique, ~4.5 s/clip
+    uv run python eval/check_pose_cascade.py --kinematics    # + mesures par rep, ~35 s/clip
 
 Attendu au 2026-09-05 : 46 clips corrects sur 47. Les seuils vivent dans
 pose_analysis.REGLES ; ce script sert a verifier qu'un changement de version de
@@ -25,7 +25,7 @@ GT = os.path.join(ICI, "ground_truth.json")
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kinematics", action="store_true", help="calcule aussi la cinematique")
+    ap.add_argument("--kinematics", action="store_true", help="calcule aussi les mesures par repetition")
     ap.add_argument("--data", default=DATA)
     a = ap.parse_args()
 
@@ -38,7 +38,7 @@ def main():
     bons, sans_pose, sans_kin, total_t = 0, [], [], 0.0
     for f in clips:
         t0 = time.time()
-        r = pose_analysis.analyse(os.path.join(a.data, f), with_kinematics=a.kinematics)
+        r = pose_analysis.analyse(os.path.join(a.data, f), avec_reps=a.kinematics)
         total_t += time.time() - t0
         attendu = "sumo" if gt[f].startswith("sumo") else "conventional"
         if not r.get("ok"):
@@ -47,7 +47,7 @@ def main():
             continue
         juste = r["variante"] == attendu
         bons += juste
-        if a.kinematics and not r.get("kinematics"):
+        if a.kinematics and not r.get("reps"):
             sans_kin.append(f)
         print(f"  {f[:38]:40} {r['variante']:13} {'ok' if juste else 'RATE':5}"
               f" par {r['regle']:11} largeur={r['largeur']:5.2f} conf={r['confiance']:.4f}")
