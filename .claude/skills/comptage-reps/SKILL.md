@@ -1,6 +1,6 @@
 ---
 name: comptage-reps
-description: Compter les répétitions d'un deadlift — pourquoi MediaPipe seul n'y arrive pas (58% d'exactitude, mesuré sur 47 clips), et l'architecture retenue en production où la pose propose des instants candidats et Gemini tranche si la barre a décollé. À charger avant de toucher au comptage de reps, au champ `bar_left_floor`, au mode segments d'`ai_service`, à `rep_detection.py`, ou avant de proposer un détecteur de barre.
+description: Compter les répétitions d'un deadlift — le rappel réel du détecteur (95%, mesuré sur 146 répétitions horodatées à la main), pourquoi un compte de candidats ne prouve rien, et l'architecture où la pose propose des instants et Gemini tranche si la barre a décollé. À charger avant de toucher au comptage de reps, au champ `bar_left_floor`, au mode segments d'`ai_service`, à `rep_detection.py`, à `_phases`, ou avant de proposer un détecteur de barre ou de changer la cadence d'échantillonnage.
 ---
 
 # Compter les répétitions
@@ -31,30 +31,39 @@ bench, et le compteur n'a été validé que sur des soulevés de terre. Le **mod
 ## Les trois règles de conception, chacune payée par une mesure
 
 * **Régler l'hystérésis pour le RAPPEL** (0,40/0,60), pas pour l'exactitude : le modèle ne peut
-  qu'élaguer. Ce réglage met toutes les vraies reps dans la liste sur 43 clips sur 47, contre
-  42 au réglage équilibré.
+  qu'élaguer. Mesuré sur les instants : 95 % des vraies reps sont dans la liste.
 * **Champ dédié, jamais `NA`.** `NA` répond déjà à « est-ce que je VOIS ce critère ». Confondre
   les deux supprimerait une vraie rep filmée sous un mauvais angle.
 * **Pas de « c'est la dernière rep ».** Les faux candidats sont partout : installation à 0,5 s
   (`conventionnal_deadlift_8`), plan de coupe à 10,5 s (`jeff_nippard_sumo`), marche d'approche
   à 1,7 s (`700 lbs`).
 
-## Ce que vaut MediaPipe seul — mesuré sur 47 clips, 148 reps
+## Ce que vaut le détecteur — mesuré sur 46 clips, 146 répétitions HORODATÉES
 
-| | |
-|---|---|
-| compte exact | **58 %** |
-| à ±1 rep | 96 % |
-| biais | **+0,17 — il ajoute des reps, il n'en rate presque pas** |
-| détection à l'heure (±1,5 s) | **91 % de rappel**, 20 % de fausses |
-| plafond si on savait choisir le bon signal par clip | 83 % |
+Depuis le 2026-09-08, la vérité terrain contient les **instants** de verrouillage
+(`verrous` dans `verite_terrain.json`), pas seulement un compte. Ça change tout ce qu'on
+peut mesurer.
 
-**Bon détecteur, mauvais compteur.** C'est ce qui justifie l'architecture : on garde le rappel
-de 91 %, on confie la précision au modèle.
+|  | 6 im/s (production) | 15 im/s |
+|---|---|---|
+| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **95 %** (138/146) | 97 % (141/146) |
+| **précision** — un candidat contient une vraie rep | 85 % | 83 % |
 
-Vérité terrain : `backend/eval/reps/verite_terrain.json`, comptée **par Erwan sur la vidéo**
-dans l'outil de notation (`eval/scorer`, bloc « Répétitions »), clé `n` + `source: humain`.
-Mon comptage préalable sur planches de frames est sous `claude_n` : **43/49 seulement**.
+`uv run python eval/reps/rappel_instants.py` depuis `backend/`. Gratuit, aucun appel Gemini.
+
+**Le rappel est la seule métrique qui compte** : le modèle ne peut qu'élaguer. Les 15 % de
+candidats en trop ne sont pas un défaut, c'est le réglage voulu.
+
+### ⚠️ Un compte de candidats ne prouve RIEN
+
+C'est le piège le plus coûteux de la journée du 2026-09-08. `conventionnal_deadlift_14` a
+**3 candidats pour 3 vraies reps** — couverture « parfaite » au sens d'un comptage — alors
+qu'**un seul candidat correspond à une rep** : les deux autres sont le lifter qui marche vers
+la caméra pour arrêter l'enregistrement.
+
+Conséquence directe : une mesure de la cadence 15 im/s a d'abord conclu « aucun gain, même
+légèrement pire » sur le proxy par comptage (91 % → 89 %), et l'inverse sur les instants
+(95 % → 97 %). **Comparer des comptes n'est pas comparer des instants.**
 
 ## Pièges payés cash
 
@@ -62,17 +71,75 @@ Mon comptage préalable sur planches de frames est sous `claude_n` : **43/49 seu
    dans les deux sens, dont deux tirées jamais effectuées comptées comme des reps : sur une
    vignette on ne voit pas si la barre est en main. Les planches servent à **instruire un
    désaccord**, pas à établir la vérité. Passer par la vidéo, dans l'outil de notation.
-2. **Vérifier une lecture d'image avant d'en tirer une explication.** J'ai bâti et répété deux
-   fois une théorie de « tremblement du suivi » sur `conventionnal_deadlift_14` — sauts de 100°
-   sur un corps immobile. Faux : il montait et descendait vraiment. Le squelette avait raison.
-   **Fabriquer le rendu avec squelette AVANT de théoriser** (`eval/reps/rendu.py`).
+2. **Regarder les images AVANT de théoriser.** Le 2026-09-08 je me suis trompé trois fois de
+   suite sur `conventionnal_deadlift_14` : d'abord « la rep n'existe pas », puis « MediaPipe a
+   trouvé 3 candidats sur 3 reps donc il a bon », puis « les étapes 1 et 2 de `_phases` sont
+   correctes ». Les trois ont été démenties par une planche de frames, la dernière par la
+   remarque d'Erwan à l'œil nu (« je vois le lifter debout vers 5,7 s, pas 6,33 »), plus juste
+   que le code d'une seconde et demie. Plus tôt encore, une théorie de « tremblement du suivi »
+   avait été bâtie deux fois sur ce même clip, et démentie de même.
+   **Fabriquer le rendu ou la planche AVANT d'expliquer** (`eval/reps/rendu.py`).
 3. **`flash-lite` ne suit pas le protocole des candidats.** Mesuré : il supprime une entrée au
    lieu de la marquer `false`, et invente une 3e rep avec des notes copiées-collées sur un clip
    à 2 candidats. `flash` fait les deux correctement (rejette le faux, ne sur-élague pas le
    témoin).
-4. **Deux runs identiques à `temperature=0` peuvent donner 0 case identique sur 8.** Observé sur
+4. **Un outil d'annotation peut fabriquer de fausses données.** `poitrine_relevee` figurait
+   parmi les clips fautifs avec 1 rep couverte sur 3 — en réalité ses trois instants annotés
+   étaient `[0.02, 0.12, 1.74]` alors que les reps culminent vers 2,2 / 6,2 / 10,2 s, et les
+   trois candidats les couvraient parfaitement. Deux double-appuis et une vidéo en autoplay.
+   **Avant d'accuser le détecteur, vérifier que l'annotation est physiquement possible** :
+   deux verrouillages à moins d'une seconde, ou un repère à t≈0, sont des artefacts.
+5. **Deux runs identiques à `temperature=0` peuvent donner 0 case identique sur 8.** Observé sur
    `conventionnal_deadlift_11` en mode segments. Pire que le plancher de bruit déjà documenté
    dans AGENT.md (77 % de cases identiques). Aucune comparaison de prompt ne vaut sur un run.
+
+## Le système ne sait PAS quand il ne sait pas
+
+Mesuré sur les 46 clips (`eval/reps/sait_il_qu_il_ne_sait_pas.py`) :
+
+| | clips | le dit-il ? |
+|---|---|---|
+| rappel complet | 39 | — |
+| rappel partiel | 3 | **non** |
+| aucun candidat | 1 | oui → 422 |
+
+**Trois clips sur 46 rendent une analyse amputée en silence.** Le seul cas où le système
+s'abstient est le cas extrême où il ne trouve rien du tout.
+
+**L'instabilité du suivi ne permet PAS de le prévoir.** L'idée paraissait excellente sur deux
+clips (6,4 % de sauts impossibles contre 14,9 %). Sur 46 les distributions se recouvrent :
+médiane 1,0 % sur les clips justes contre 2,5 % sur les fautifs, et un seuil à 8 % signale
+5 clips dont **un seul** est vraiment fautif tout en en manquant 4. La visibilité ne sépare pas
+davantage (0,96 contre 0,95) — `poitrine_relevee` ratait avec une visibilité de 0,99.
+**Proposition abandonnée : ne pas la refaire sans une idée nouvelle.**
+
+## Les instants : `lockout_s` est mal nommé
+
+Deux instants différents circulent, et il ne faut pas les confondre :
+
+| | ce que c'est | biais contre l'humain |
+|---|---|---|
+| `lockout_s` d'un candidat | le franchissement de 60 % de l'amplitude — un **déclencheur** | **−0,71 s**, en avance 91 % du temps |
+| `pose_analysis._phases` | le verrouillage situé DANS la fenêtre, sur lequel toutes les mesures sont accrochées | **+0,13 s**, écart absolu médian 0,35 s |
+
+Le biais du déclencheur est structurel et sans conséquence sur le rappel (la fenêtre est
+large). Une seule conséquence réelle : dans `analyse()`, les images de la descente sont prises
+après `lockout_s`, donc ce lot contient encore un bout de la montée.
+
+## Les trois clips fautifs restants, et leur mécanisme
+
+* **`engueran_sumo`** — 35 s, une seule rep à 33,4 s. L'amplitude est mesurée sur TOUT le clip
+  (5e-95e centile) : avec 34 s de mise en place debout, elle vaut 19° et tombe sous le minimum
+  de 25°, donc `candidats` rend `[]` immédiatement. Rien à voir avec la pose : visibilité 1,00,
+  instabilité 0,0 %. **Le motif est courant chez un vrai utilisateur** — filmer, tourner autour
+  de la barre, faire un lourd, repartir. Piste : fenêtre glissante au lieu du clip entier.
+* **`long_deadlift`** — 11 reps, 2 ratées (28,49 s et 41,27 s) qui tombent dans des TROUS entre
+  candidats. Hypothèse non vérifiée : le ré-armement de l'hystérésis exige que le signal
+  redescende sous 0,40 pendant 0,33 s, ce qui n'arrive peut-être pas sur une série enchaînée.
+  Testable sur le cache, gratuitement.
+* **`conventionnal_deadlift_8`** — 7,7 s, une rep à 5,89 s, deux candidats `[0–2,93]` et
+  `[6,07–7,67]` : **aucun ne la contient**. Le système note deux non-reps en silence. C'est le
+  pire comportement produit du lot, et le seul dont le mécanisme reste inconnu.
 
 ## Ce qui a été essayé et écarté
 
@@ -83,6 +150,11 @@ Mon comptage préalable sur planches de frames est sous `claude_n` : **43/49 seu
   (`sumo_deadlift_4`, 32,0° → 3,9°, confirmé par un contrôle par décimation) **mais le comptage
   ne s'améliore pas** : 2/5 dans les deux cas. Coût ×5. L'échantillon était choisi pour
   favoriser l'hypothèse et elle n'a rien rapporté.
+* **Passer à 15 im/s.** Mesuré sur les instants : +2 points de rappel (95 → 97 %), −2 de
+  précision, **+64 % de temps de pose**. Le gain est réel mais petit ; c'est un arbitrage
+  produit, pas une évidence technique. Attention : une première mesure sur le proxy par
+  comptage avait conclu l'inverse — voir l'encadré plus haut. À ne pas trancher sans refaire
+  la mesure sur les instants.
 * **Détecter la barre en vision classique.** Deux tentatives, deux échecs : Hough sur les
   disques trouve 19 et 23 cercles dans une salle de sport ; la corrélation de phase d'une bande
   à hauteur des mains donne 0,00 de déplacement dans tous les cas, vrais comme faux.
