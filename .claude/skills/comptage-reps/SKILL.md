@@ -319,9 +319,10 @@ Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'ann
 * **Les notes par rep peuvent sortir strictement identiques** sur toute une série
   (`sumo_deadlift_1` : 2 partout, 8 critères, 5 reps). L'histogramme est alors plat. Pas de
   vérité terrain par rep dans le projet pour trancher entre série homogène et recopie.
-* **`RepHistogram.jsx` calcule la hauteur en `total/max`** : une rep avec des critères `NA`
-  affiche une barre pleine, à égalité visuelle avec une rep jugée sur 8 critères.
-  `not_assessable_count` est calculé côté back et ignoré par le composant.
+* ~~`RepHistogram.jsx` calcule la hauteur en `total/max`~~ — **faux, vérifié le 2026-09-09.**
+  Le composant fait `note_precise / rep.sur`, et `note_precise` est une **moyenne** sur les
+  critères effectivement évalués (`rules.py:283`), donc une rep avec des `NA` n'est pas
+  avantagée. Le champ s'appelle `non_evaluables`, pas `not_assessable_count`.
 
 ## Outillage
 
