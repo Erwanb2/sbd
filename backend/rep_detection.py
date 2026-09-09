@@ -179,6 +179,16 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
     ts, vs = _signal(poses)
     if len(ts) < 6:
         return [], poses
+    return depuis_signal(ts, vs, float(n / fps)), poses
+
+
+def depuis_signal(ts, vs, duree):
+    """[{lockout_s, debut_s, fin_s}] a partir du signal brut. LE coeur du detecteur.
+
+    Extrait pour que les outils d'eval (rendu, harnais de rappel) mesurent exactement ce
+    que la production fait : trois copies de cette boucle ont co-existe, et l'outil de
+    rendu a fini par dessiner un algorithme qui n'existait plus.
+    """
     cad = _cadence(ts)
     # Deux rangs pour deux questions. "S'est-il redresse ?" : une lecture haute isolee est
     # croyable, parce qu'un genou que la pose pose sur le disque SOUS-estime l'extension,
@@ -193,10 +203,9 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
     ts, med, haut = ts[d:], med[d:], haut[d:]
     lo, hi = float(np.percentile(med, 5)), float(np.percentile(med, 95))
     if hi - lo < AMPLITUDE_MIN:
-        return [], poses
+        return []
     norm = (med - lo) / (hi - lo)                  # pour redescendre et se re-armer
     norm_haut = (haut - lo) / (hi - lo)            # pour declarer le redressement
-    duree = float(n / fps)
     mini_bas = max(2, round(DUREE_BAS * cad))
 
     verrous = []
@@ -226,7 +235,7 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
         out.append({"lockout_s": round(float(ts[i]), 2),
                     "debut_s": round(max(0.0, debut - MARGE), 2),
                     "fin_s": round(min(duree, fin + MARGE), 2)})
-    return out, poses
+    return out
 
 
 def analyse_candidats(file_path: str) -> list[dict]:

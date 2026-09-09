@@ -1,4 +1,14 @@
-"""Compte les repetitions a partir du signal dense de dump_signal.py.
+"""COPIE HISTORIQUE FIGEE — CE N'EST PLUS L'ALGORITHME DE PRODUCTION.
+
+Ce module garde la version du detecteur telle qu'elle etait quand `test_candidats.py` et
+`test_offsets.py` ont valide l'architecture ; leurs resultats enregistres ne veulent dire
+quelque chose que si le code ne bouge pas. Ne rien y reporter.
+
+Pour mesurer la production, appeler `rep_detection.depuis_signal` — c'est ce que font
+`rappel_instants.py` et `rendu.py`. Le 2026-09-09, `rendu.py` importait encore d'ici et
+dessinait donc un algorithme qui n'existait plus.
+
+Compte les repetitions a partir du signal dense de dump_signal.py.
 
     cd backend
     uv run python eval/reps/compte_reps.py [--signal ext] [--json]

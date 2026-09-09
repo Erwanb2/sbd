@@ -27,7 +27,9 @@ sys.path.insert(0, BACKEND)
 sys.path.insert(0, ICI)
 
 import pose_analysis as pa                                    # noqa: E402
-from compte_reps import BAS, HAUT, _lisse, _cadence           # noqa: E402
+import rep_detection as rd                                    # noqa: E402
+
+BAS, HAUT = rd.BAS, rd.HAUT
 
 DATA = os.path.abspath(os.path.join(BACKEND, "..", "data"))
 SORTIE = os.path.join(BACKEND, "extracted_frames", "reps")
@@ -62,26 +64,31 @@ def signal(poses, fps):
             continue
         ts.append(f["t"]); vs.append((hip + knee) / 2.0); idx.append(i)
     if not ts:
-        return {}, None, None
-    v = _lisse(np.array(vs), _cadence(np.array(ts)))
-    return dict(zip(idx, v)), float(np.percentile(v, 5)), float(np.percentile(v, 95))
+        return {}, None, None, None, None, None
+    ts, vs = np.array(ts), np.array(vs)
+    v = rd._lisse(vs, rd._cadence(ts))
+    return dict(zip(idx, v)), float(np.percentile(v, 5)), float(np.percentile(v, 95)), ts, vs, idx
 
 
-def verrous(sig, poses, lo, hi, bas=BAS, haut=HAUT):
-    "Les frames ou le compteur declare une repetition, meme regle que compte_reps."
-    out, arme, sous = [], True, 0
-    for i in sorted(sig):
-        x = (sig[i] - lo) / max(hi - lo, 1e-6)
-        if x < bas:
-            sous += 1
-            if sous >= 2:
-                arme = True
-        elif x > haut and arme:
-            sous = 0
-            out.append(i)
-            arme = False
-        else:
-            sous = 0
+def verrous(sig, poses, lo, hi, ts=None, vs=None, idx=None):
+    """Les frames ou la PRODUCTION declare une repetition.
+
+    On appelle le coeur de rep_detection plutot que de recopier sa boucle : une copie a
+    deja diverge une fois, et l'outil dessinait un algorithme qui n'existait plus.
+    """
+    if ts is None:
+        return []
+    # La video est rendue dense pour etre regardable, mais la production echantillonne a
+    # FPS_ANALYSE : on lui donne le meme signal qu'elle aurait, sinon l'outil dessine des
+    # repetitions que la production ne voit pas.
+    grille = np.arange(ts[0], ts[-1] + 1e-9, 1.0 / rd.FPS_ANALYSE)
+    pris = sorted({int(np.argmin(np.abs(ts - g))) for g in grille})
+    ts, vs, idx = ts[pris], vs[pris], [idx[k] for k in pris]
+    cands = rd.depuis_signal(ts, vs, float(ts[-1]))
+    out = []
+    for c in cands:                                  # ramener chaque lockout a sa frame
+        k = int(np.argmin(np.abs(ts - c["lockout_s"])))
+        out.append(idx[k])
     return out
 
 
@@ -131,11 +138,11 @@ def main():
 
     chemin = os.path.join(DATA, a.clip)
     poses, fps, i0, i1 = pose_fenetre(chemin, a.debut, a.fin)
-    sig, lo, hi = signal(poses, fps)
+    sig, lo, hi, ts_s, vs_s, idx_s = signal(poses, fps)
     if not sig:
         print("aucune pose exploitable"); return
     ordre = sorted(sig)
-    verr = set(verrous(sig, poses, lo, hi))
+    verr = set(verrous(sig, poses, lo, hi, ts_s, vs_s, idx_s))
     print(f"{len(ordre)} frames, {len(verr)} repetition(s) comptee(s) sur la fenetre")
 
     os.makedirs(SORTIE, exist_ok=True)

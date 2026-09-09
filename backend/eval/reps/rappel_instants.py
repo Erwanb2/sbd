@@ -36,47 +36,7 @@ def candidats_depuis_cache(sig):
         return []
     ts = np.array([p["t"] for p in pts])
     vs = np.array([(p["hip_deg"] + p["knee_deg"]) / 2 for p in pts])
-    cad = rd._cadence(ts)
-    med = rd._lisse(vs, cad)
-    haut = rd._lisse(vs, cad, rd.QUANTILE_HAUT)
-    d = rd._debut_utile(ts, med)
-    ts, med, haut = ts[d:], med[d:], haut[d:]
-    lo, hi = float(np.percentile(med, 5)), float(np.percentile(med, 95))
-    if hi - lo < rd.AMPLITUDE_MIN:
-        return []
-    norm = (med - lo) / (hi - lo)
-    norm_haut = (haut - lo) / (hi - lo)
-    duree = float(sig.get("duree_s") or ts[-1])
-    mini_bas = max(2, round(rd.DUREE_BAS * cad))
-
-    verrous = []
-    for a, b in rd._segments(ts, med):
-        arme = norm_haut[a] < rd.HAUT
-        dernier, sous = -1e9, 0
-        for i in range(a, b):
-            if norm[i] < rd.BAS:
-                sous += 1
-                if sous >= mini_bas:
-                    arme = True
-            elif norm_haut[i] > rd.HAUT and arme:
-                sous = 0
-                if ts[i] - dernier >= rd.PERIODE_MIN:
-                    verrous.append(i)
-                    dernier = ts[i]
-                arme = False
-            else:
-                sous = 0
-
-    out = []
-    for i in verrous:
-        avant = [k for k in range(i, -1, -1) if norm[k] < rd.BAS]
-        apres = [k for k in range(i, len(ts)) if norm[k] < rd.BAS]
-        debut = float(ts[avant[0]]) if avant else 0.0
-        fin = float(ts[apres[0]]) if apres else duree
-        out.append({"lockout_s": round(float(ts[i]), 2),
-                    "debut_s": round(max(0.0, debut - rd.MARGE), 2),
-                    "fin_s": round(min(duree, fin + rd.MARGE), 2)})
-    return out
+    return rd.depuis_signal(ts, vs, float(sig.get("duree_s") or ts[-1]))
 
 
 def main():
