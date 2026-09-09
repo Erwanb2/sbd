@@ -39,9 +39,9 @@ def candidats_depuis_cache(sig):
     cad = rd._cadence(ts)
     vs = rd._lisse(vs, cad)
     lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
-    if hi - lo < rd.AMPLITUDE_MIN:
+    if float(vs.max() - vs.min()) < rd.AMPLITUDE_MIN:
         return []
-    norm = (vs - lo) / (hi - lo)
+    norm = (vs - lo) / max(hi - lo, 1e-6)
     duree = float(sig.get("duree_s") or ts[-1])
     mini_bas = max(2, round(rd.DUREE_BAS * cad))
 

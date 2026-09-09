@@ -140,9 +140,16 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
     cad = _cadence(ts)
     vs = _lisse(vs, cad)
     lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
-    if hi - lo < AMPLITUDE_MIN:
+    # La porte se juge sur l'etendue brute, pas sur les centiles : quand le clip
+    # contient beaucoup de temps mort debout (mise en place, tour autour de la barre),
+    # le 5e centile ne descend jamais jusqu'au creux de la rep et l'amplitude apparente
+    # passe sous le minimum. Mesure sur engueran_sumo : p5 = 155,4 deg la ou le creux
+    # reel est a 140 deg, donc 18,8 deg d'amplitude et zero candidat pour une vraie rep.
+    # La normalisation, elle, reste sur les centiles : c'est ce qui la rend insensible
+    # a un landmark egare.
+    if float(vs.max() - vs.min()) < AMPLITUDE_MIN:
         return [], poses
-    norm = (vs - lo) / (hi - lo)
+    norm = (vs - lo) / max(hi - lo, 1e-6)
     duree = float(n / fps)
     mini_bas = max(2, round(DUREE_BAS * cad))
 

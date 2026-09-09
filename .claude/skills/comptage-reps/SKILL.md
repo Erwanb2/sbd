@@ -46,7 +46,7 @@ peut mesurer.
 
 |  | 6 im/s (production) | 15 im/s |
 |---|---|---|
-| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **95 %** (138/146) | 97 % (141/146) |
+| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **95 %** (139/146) | 97 % (142/146) |
 | **précision** — un candidat contient une vraie rep | 85 % | 83 % |
 
 `uv run python eval/reps/rappel_instants.py` depuis `backend/`. Gratuit, aucun appel Gemini.
@@ -126,13 +126,36 @@ Le biais du déclencheur est structurel et sans conséquence sur le rappel (la f
 large). Une seule conséquence réelle : dans `analyse()`, les images de la descente sont prises
 après `lockout_s`, donc ce lot contient encore un bout de la montée.
 
-## Les trois clips fautifs restants, et leur mécanisme
+## La porte d'amplitude : centiles pour normaliser, étendue brute pour décider
 
-* **`engueran_sumo`** — 35 s, une seule rep à 33,4 s. L'amplitude est mesurée sur TOUT le clip
-  (5e-95e centile) : avec 34 s de mise en place debout, elle vaut 19° et tombe sous le minimum
-  de 25°, donc `candidats` rend `[]` immédiatement. Rien à voir avec la pose : visibilité 1,00,
-  instabilité 0,0 %. **Le motif est courant chez un vrai utilisateur** — filmer, tourner autour
-  de la barre, faire un lourd, repartir. Piste : fenêtre glissante au lieu du clip entier.
+**Corrigé le 2026-09-09** (`rep_detection.py`). La porte se juge désormais sur `max − min`, la
+normalisation reste sur `p95 − p5`.
+
+Le p95 n'a jamais été en cause : sur `engueran_sumo` il vaut 174,2° contre 174,4° au vrai pic.
+C'est le **p5** qui manque le creux : le lifter n'est en bas que 3,3 s sur 35,5 (9,4 % du clip),
+donc le 5e centile tombe en pleine descente à 155,4° là où le creux réel est à 140°. Amplitude
+apparente 18,8° < 25° → `candidats` rendait `[]` sans même chercher, pour une vraie rep. Le motif
+est courant chez un vrai utilisateur : filmer, tourner autour de la barre, faire un lourd, repartir.
+
+**Exactement 2 clips sur 48 changent**, aux deux cadences :
+
+| | 6 im/s | 15 im/s |
+|---|---|---|
+| p95−p5 (avant) | 138/146 (94,5 %) — précision 85,2 % | 141/146 (96,6 %) — 83,4 % |
+| max−min (en prod) | **139/146 (95,2 %)** — précision 85,4 % | 142/146 (97,3 %) — 83,1 % |
+
+`engueran_sumo` réparé. `engueran_fail_deadlift` — le seul clip à 0 rep, une tirée échouée où la
+barre ne quitte pas le sol — passe de 0 à 2 candidats (il se redresse à vide à 32,7 s et 36,2 s).
+**Arbitrage tranché : on accepte.** La porte n'était une protection déterministe pour ce clip que
+par accident ; le champ prévu pour ça est `bar_left_floor`, et les deux candidats sont exactement
+ce qu'il rejette. Le coût réel est ailleurs : ce clip déclenche maintenant un appel Gemini avant
+son 422 au lieu d'être écarté gratuitement, et sur le **modèle de repli** (flash-lite, sur 503)
+la protection saute — il supprime l'entrée au lieu de la marquer `false`, et `rules.py` retombe
+alors sur `bar_left_floor = "yes"` par défaut, donc note une tirée échouée. Non vérifié contre
+Gemini sur ce clip.
+
+## Les clips fautifs restants, et leur mécanisme
+
 * **`long_deadlift`** — 11 reps, 2 ratées (28,49 s et 41,27 s) qui tombent dans des TROUS entre
   candidats. Hypothèse non vérifiée : le ré-armement de l'hystérésis exige que le signal
   redescende sous 0,40 pendant 0,33 s, ce qui n'arrive peut-être pas sur une série enchaînée.
