@@ -35,6 +35,7 @@ PERIODE_MIN = 1.0          # s : deux verrouillages plus proches sont le meme
 FENETRE_LISSAGE = 0.5      # s : largeur du filtre median
 DUREE_BAS = 0.33           # s sous le seuil bas pour re-armer
 AMPLITUDE_MIN = 25.0       # degres : sous ca, personne ne se redresse
+QUANTILE_HAUT = 0.8        # rang lu pour juger le redressement (0,5 = mediane)
 VIS_MIN = 0.3              # sous ca, les reperes du cote camera sont devines
 TROU_MAX = 1.2             # s : au-dela, coupure de plan -> segment separe
 MARGE = 0.6                # s ajoutees de part et d'autre d'une fenetre de repetition
@@ -60,6 +61,12 @@ def _des_la_premiere_extension(ts, vs):
     Rappel mesure sur les 146 repetitions horodatees : 141/146 a 6 im/s, contre 138 sans
     elagage et 139 avec une porte sur max - min.
     """
+    d = _debut_utile(ts, vs)
+    return ts[d:], vs[d:]
+
+
+def _debut_utile(ts, vs):
+    """Index du creux d'ou part la premiere extension, 0 s'il n'y en a pas."""
     creux = 0
     for j in range(1, len(vs)):
         if vs[j] < vs[creux]:
@@ -67,10 +74,8 @@ def _des_la_premiere_extension(ts, vs):
         elif vs[j] - vs[creux] >= AMPLITUDE_MIN:
             break
     else:
-        return ts, vs                      # aucune extension : rien a elaguer
-    if len(ts) - creux < 6:
-        return ts, vs
-    return ts[creux:], vs[creux:]
+        return 0                           # aucune extension : rien a elaguer
+    return creux if len(ts) - creux >= 6 else 0
 
 
 def _signal(poses):
@@ -105,11 +110,14 @@ def _cadence(ts):
     return 1.0 / pas if pas > 1e-6 else FPS_ANALYSE
 
 
-def _lisse(v, fps):
-    """Filtre median sur FENETRE_LISSAGE secondes.
+def _lisse(v, fps, rang=0.5):
+    """Filtre de rang sur FENETRE_LISSAGE secondes. rang=0,5 est la mediane.
 
     En secondes et non en echantillons : sinon changer la cadence de la passe change
     la nervosite du filtre, et on ne mesure plus la pose mais son propre reglage.
+
+    Le rang est un parametre parce que l'hysteresis pose deux questions differentes et
+    n'a aucune raison d'y repondre pareil — voir _candidats.
     """
     k = max(3, int(round(FENETRE_LISSAGE * fps)) | 1)
     if len(v) < k:
@@ -117,7 +125,8 @@ def _lisse(v, fps):
     demi = k // 2
     piles = np.stack([v[i:len(v) - k + 1 + i] for i in range(k)])
     out = v.copy()
-    out[demi:len(v) - demi] = np.median(piles, axis=0)
+    out[demi:len(v) - demi] = (np.median(piles, axis=0) if rang == 0.5
+                               else np.quantile(piles, rang, axis=0))
     return out
 
 
@@ -171,25 +180,35 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
     if len(ts) < 6:
         return [], poses
     cad = _cadence(ts)
-    vs = _lisse(vs, cad)
-    ts, vs = _des_la_premiere_extension(ts, vs)
-    lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
+    # Deux rangs pour deux questions. "S'est-il redresse ?" : une lecture haute isolee est
+    # croyable, parce qu'un genou que la pose pose sur le disque SOUS-estime l'extension,
+    # il ne l'invente pas. "Est-il redescendu ?" : la mediane, qui resiste aux artefacts
+    # vers le haut (squelette effondre donnant une fausse extension).
+    # Mesure sur conventionnal_deadlift_14, ou les lectures justes arrivent isolees
+    # ([1, 1, 1] echantillon d'affilee a 6 im/s) : une mediane de 3 en demande 2, elle ne
+    # peut pas les croire. Rappel 141 -> 142/146 a 6 im/s, 142 -> 143 a 15.
+    med = _lisse(vs, cad)
+    haut = _lisse(vs, cad, QUANTILE_HAUT)
+    d = _debut_utile(ts, med)
+    ts, med, haut = ts[d:], med[d:], haut[d:]
+    lo, hi = float(np.percentile(med, 5)), float(np.percentile(med, 95))
     if hi - lo < AMPLITUDE_MIN:
         return [], poses
-    norm = (vs - lo) / (hi - lo)
+    norm = (med - lo) / (hi - lo)                  # pour redescendre et se re-armer
+    norm_haut = (haut - lo) / (hi - lo)            # pour declarer le redressement
     duree = float(n / fps)
     mini_bas = max(2, round(DUREE_BAS * cad))
 
     verrous = []
-    for a, b in _segments(ts, vs):
-        arme = norm[a] < HAUT
+    for a, b in _segments(ts, med):
+        arme = norm_haut[a] < HAUT
         dernier, sous = -1e9, 0
         for i in range(a, b):
             if norm[i] < BAS:
                 sous += 1
                 if sous >= mini_bas:
                     arme = True
-            elif norm[i] > HAUT and arme:
+            elif norm_haut[i] > HAUT and arme:
                 sous = 0
                 if ts[i] - dernier >= PERIODE_MIN:
                     verrous.append(i)

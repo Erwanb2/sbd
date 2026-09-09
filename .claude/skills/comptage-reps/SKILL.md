@@ -46,8 +46,8 @@ peut mesurer.
 
 |  | 6 im/s (production) | 15 im/s |
 |---|---|---|
-| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **97 %** (141/146) | 97 % (142/146) |
-| **précision** — un candidat contient une vraie rep | 84 % | 83 % |
+| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **97 %** (142/146) | 98 % (143/146) |
+| **précision** — un candidat contient une vraie rep | 83 % | 83 % |
 
 `uv run python eval/reps/rappel_instants.py` depuis `backend/`. Gratuit, aucun appel Gemini.
 
@@ -184,6 +184,36 @@ abandonnait la robustesse des centiles au point aberrant pour rien.
 15 im/s. L'écart entre les deux cadences n'est plus qu'**une répétition** — l'argument pour
 payer +64 % de temps de pose a pratiquement disparu.
 
+## Deux rangs pour deux questions : le filtre asymétrique
+
+**Depuis le 2026-09-09** (`QUANTILE_HAUT = 0.8`, `rep_detection.py`). L'hystérésis pose deux
+questions et n'y répond plus avec le même estimateur :
+
+| question | signal lu | pourquoi |
+|---|---|---|
+| « s'est-il redressé ? » | **quantile 0,8** sur la fenêtre de lissage | une lecture haute isolée est **croyable** : un genou que la pose plaque sur le disque **sous-estime** l'extension, il ne l'invente pas |
+| « est-il redescendu ? » | **médiane** (inchangé) | elle résiste aux artefacts vers le haut — un squelette effondré peut, lui, fabriquer une fausse extension (clip 8 à t≈0,5 s) |
+
+La normalisation reste celle de la médiane, pour que les deux seuils restent comparables.
+
+**Ce qui l'impose, mesuré sur `conventionnal_deadlift_14`.** Dans la fenêtre ratée, les lectures
+justes arrivent en rafales de **`[1, 1, 1]`** échantillon à 6 im/s — jamais deux d'affilée. Une
+médiane de 3 en exige 2 : elle ne *peut pas* les croire. À 15 im/s les mêmes lectures arrivent en
+rafales de `[1, 1, 2, 9, 1, 2, 7]`, et une médiane de 7 (qui en exige 4) les croit. **Ce n'est
+donc pas la proportion de bonnes lectures qui décide, c'est leur groupement** — à 6 im/s la
+majorité locale est fausse à 70 %, à 15 im/s à 56 %, et pourtant seule la seconde réussit.
+
+| | 6 im/s | 15 im/s |
+|---|---|---|
+| médiane seule | 141/146 (96,6 %) — précision 84,4 % | 142/146 (97,3 %) — 82,5 % |
+| **deux rangs** | **142/146 (97,3 %)** — 83,0 % | **143/146 (97,9 %)** — 82,6 % |
+
+**Seuls 3 clips changent à 6 im/s et 1 à 15, aucun ne se dégrade.** `conventionnal_deadlift_14`
+passe de 1/3 à 2/3 ; `conventionnal_deadlift_8`, qu'on croyait perdu, est **réparé à 15 im/s**
+(0/1 → 1/1). Plateau stable de 0,7 à 0,8 ; à 0,9 et au maximum, `sumo_deadlift_10` casse.
+Petit coût annexe : le biais de `lockout_s` passe de 0,56 à 0,66 s d'écart médian — le
+déclencheur tire plus tôt. Sans conséquence sur les fenêtres, qui restent ancrées sur la médiane.
+
 ## Les clips fautifs restants, et leur mécanisme
 
 Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'annotation).
@@ -197,7 +227,7 @@ Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'ann
   et vérifier la plausibilité anatomique ont été testés et ne séparent rien. Piste ouverte : le
   redressement du tronc (épaule-hanche) est propre là où l'angulaire est inversé, et se comporte
   en **complément** (répare 3 clips, en casse 2) — l'union des deux listes reste à mesurer.
-* **`conventionnal_deadlift_14`** — 1 rep couverte sur 3 à 6 im/s, **3 sur 3 à 15 im/s**.
+* **`conventionnal_deadlift_14`** — 2 reps couvertes sur 3 à 6 im/s (1 sur 3 avant le filtre asymétrique), **3 sur 3 à 15 im/s**.
   Instruit le 2026-09-09, l'annotation d'abord : aux deux instants ratés (8,18 s et 10,59 s)
   les images montrent bien le lifter debout, jambes tendues — ce sont de vraies reps.
   Mécanisme : caméra au ras du sol et très près, le disque chargé masque les jambes
