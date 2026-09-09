@@ -93,9 +93,32 @@ Résultat vérifié : `conventionnal_deadlift_12` rend The Technician, comme l'h
 4. **Figer le côté caméra ET le sens du regard sur le CLIP.** Les redécouvrir par répétition les
    fait basculer en cours de série, et le signe de toutes les mesures orientées s'inverse : une
    rep sortait à 50,9° de bascule arrière, une autre à 157° de tibia.
-5. **Ne pas tout afficher.** La première version des cartes de critère listait les huit faits
+5. **Le `summary` par rep ne parle pas des fautes qu'il vient de noter.** Mesuré le 2026-09-09
+   sur `conventionnal_deadlift_12`, deux runs indépendants. La rep 3 est la plus mauvaise du set
+   (`leg_drive` 1, `bar_path` 2, citée dans les deux conseils), et son résumé dit *« solid
+   technique with a flat back »* puis *« stable back positioning and a smooth ascent »*. Rien
+   n'est faux — `spine` vaut bien 3 — mais **rien ne lie le résumé aux critères** : la consigne
+   du schéma dit seulement « one short sentence describing what you saw on THIS repetition, no
+   score, no advice » (`schemas.py:54`). Le modèle est donc libre de ne décrire que ce qui va
+   bien, sur la rep qui va le moins bien. Un lecteur qui parcourt les reps une par une lit
+   l'inverse de la note. À corriger dans la consigne, pas dans le code.
+6. **Ne pas tout afficher.** La première version des cartes de critère listait les huit faits
    observés, y compris les bons, sous un critère à 3/3 : la page doublait de longueur. Seuls les
    faits sous le maximum s'affichent, le reste va dans le dépliant.
+
+## Le bruit run-à-run dépend du clip
+
+`AGENTS.md` retient un plancher de **77 % de cases identiques** entre deux passes identiques, et
+`comptage-reps` un cas à **0 case sur 8** (`conventionnal_deadlift_11`, en mode segments).
+
+Mesure du 2026-09-09 sur `conventionnal_deadlift_12`, `gemini-3.5-flash`, deux runs complets :
+**30 cases sur 30 identiques**, plus la note globale (19/20), le persona, la tenue du set, la
+qualité de pose et les deux conseils — mot pour mot. Seuls les résumés en texte libre diffèrent.
+
+**Le bruit n'est donc pas une propriété du modèle mais du clip** : une série de 5 reps nettes,
+bien segmentée, se reproduit exactement ; un clip ambigu part dans tous les sens. Conséquence
+pratique : **un run unique peut suffire à conclure sur un clip facile, jamais sur un clip
+litigieux** — et c'est justement sur les litigieux qu'on veut conclure.
 
 ## Outillage
 
