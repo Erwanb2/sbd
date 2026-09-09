@@ -224,6 +224,21 @@ Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'ann
 
 ## Ce qui a été essayé et écarté
 
+* **Écarter les échantillons physiquement impossibles avant le lissage** (2026-09-09). Un humain
+  ne change pas d'angle de hanche à 240 °/s ; l'idée était d'obtenir la robustesse par la
+  physique plutôt qu'en comptant des voix dans la médiane. Deux formes testées, un balayage de
+  150 à 400 °/s, aux deux cadences : **aucun gain**. À 6 im/s le rappel reste à 141/146 (la
+  précision gagne 0,5 point, au niveau du bruit) ; à 15 im/s les deux formes **dégradent**.
+  Le mécanisme de l'échec : une borne de vitesse dit qu'une **paire** d'échantillons est
+  incohérente, jamais lequel des deux est faux. Elle ne mord donc que sur des pointes isolées.
+  Or dans `conventionnal_deadlift_14`, 7 transitions sur 26 sont impossibles — le bruit est une
+  **oscillation**, pas une pointe : le filtre ne retire que 3 échantillons sur 27 et le clip
+  reste à 1/3. Quand la corruption est dense, il n'y a plus de majorité saine sur quoi s'ancrer.
+  Corollaire : **lisser en nombre d'images plutôt qu'en secondes est aussi un cul-de-sac** à
+  6 im/s — 7 votants y feraient 1,17 s de fenêtre, soit une montée entière (les verrouillages
+  du clip 14 sont espacés de 2,4 s). On ne peut pas avoir à la fois beaucoup de votants et de
+  la finesse temporelle : c'est la limite physique de la cadence, pas un défaut de réglage.
+
 * **Élaguer AUSSI les plages mortes du milieu** (2026-09-09) — la variante trop gourmande de
   l'élagage d'entrée qui est, lui, en production : jeter toute plage de N secondes sans
   extension, où qu'elle soit. **Mesurée : 136/146 à 5 s, contre 141 pour l'élagage d'entrée seul.**
