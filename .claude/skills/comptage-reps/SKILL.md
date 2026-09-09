@@ -106,6 +106,28 @@ Mesuré sur les 46 clips (`eval/reps/sait_il_qu_il_ne_sait_pas.py`) :
 **Trois clips sur 46 rendent une analyse amputée en silence.** Le seul cas où le système
 s'abstient est le cas extrême où il ne trouve rien du tout.
 
+**Refuser la vidéo quand le suivi est incohérent : mesuré à nouveau le 2026-09-09, toujours non.**
+Repris avec la vérité terrain aux instants, les 2 seuls clips fautifs restants, et une idée neuve
+(croiser deux signaux indépendants : l'angulaire a besoin des jambes, le tronc non).
+
+* **L'incohérence est l'état normal, pas l'exception.** Saut médian du signal brut entre deux
+  images : **21,9 °/s** de médiane sur 43 clips. Et le clip le PLUS instable du jeu
+  (`erwan_mauvais_slack`, 81,9 °/s) est analysé parfaitement, 4 reps sur 4.
+* **Au niveau de la vidéo** : pour attraper les 2 fautifs il faut refuser **7 vidéos sur 43
+  (16 %)**, dont **5 à tort** — 22 répétitions correctement analysées jetées. Cinq fausses
+  alertes pour deux vraies. La meilleure grandeur est le saut médian ; l'accord entre les deux
+  signaux fait moins bien, et `vis_legs` fait pire que le hasard.
+* **Au niveau du TROU** (part de sauts impossibles dans une plage ≥ 2 s sans candidat — là où
+  une rep ratée se cache) : bien plus net, médiane **0 %**, seuls 7 clips en ont. Un seuil à
+  20 % signale **2 vidéos sur 43 (5 %)**, dont 1 vrai fautif et 1 fausse alerte. C'est la seule
+  piste de cette famille qui vaille d'être reprise, et sous forme d'**avertissement**
+  (« je n'ai peut-être pas tout vu »), jamais de refus.
+* **Elle n'attrapera jamais `conventionnal_deadlift_8`** : 5,6 % seulement dans son trou. Son
+  signal est faux mais **stable** — MediaPipe replie le genou sur le disque et l'y laisse.
+  Une mesure de cohérence détecte le bruit, pas le biais.
+* **Deux clips fautifs ne valident aucun détecteur.** Tout seuil placé entre eux est arbitraire.
+  Avant de coder ça, il faut d'abord annoter des clips difficiles supplémentaires.
+
 **L'instabilité du suivi ne permet PAS de le prévoir.** L'idée paraissait excellente sur deux
 clips (6,4 % de sauts impossibles contre 14,9 %). Sur 46 les distributions se recouvrent :
 médiane 1,0 % sur les clips justes contre 2,5 % sur les fautifs, et un seuil à 8 % signale
