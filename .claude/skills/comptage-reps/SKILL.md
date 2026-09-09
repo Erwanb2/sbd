@@ -175,7 +175,28 @@ Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'ann
   et vérifier la plausibilité anatomique ont été testés et ne séparent rien. Piste ouverte : le
   redressement du tronc (épaule-hanche) est propre là où l'angulaire est inversé, et se comporte
   en **complément** (répare 3 clips, en casse 2) — l'union des deux listes reste à mesurer.
-* **`conventionnal_deadlift_14`** — 1 rep couverte sur 3. Non instruit depuis l'élagage.
+* **`conventionnal_deadlift_14`** — 1 rep couverte sur 3 à 6 im/s, **3 sur 3 à 15 im/s**.
+  Instruit le 2026-09-09, l'annotation d'abord : aux deux instants ratés (8,18 s et 10,59 s)
+  les images montrent bien le lifter debout, jambes tendues — ce sont de vraies reps.
+  Mécanisme : caméra au ras du sol et très près, le disque chargé masque les jambes
+  (`vis_legs` médiane **0,046**, sous 0,10 sur **100 %** de la fenêtre ratée). MediaPipe
+  invente donc les jambes, et il alterne entre juste et catastrophique d'une image à l'autre —
+  à 8,50 s il lit hanche 33°/genou 52° (plié en deux) sur une image où l'homme est debout,
+  à 8,67 s il lit 164°/177°. **28 % des écarts entre images voisines dépassent 40°**, ce qui
+  est physiquement impossible à 6 im/s.
+  Le filtre médian ne peut pas rattraper ça : `FENETRE_LISSAGE = 0,5 s` lui donne **3 voix** à
+  6 im/s contre **7 à 15 im/s**, et avec ~30 % d'échantillons faux la médiane de 3 élit souvent
+  le faux. Résultat chiffré : le signal lissé culmine à **130°** dans la fenêtre alors que le
+  seuil `HAUT` est à **130,4°** — les deux verrouillages passent à 0,4° du déclenchement.
+  À 15 im/s le même signal atteint 153° et les trois reps sortent (mais 5 candidats pour 3 reps).
+* **`conventionnal_deadlift_14`, ce qui NE marche PAS comme garde-fou** — deux pistes mesurées
+  et écartées le 2026-09-09. Le **signal de tronc** (épaule-hanche), qui n'a pas besoin des
+  jambes : il vaut **0,00 et 0,03** normalisé aux deux verrouillages, son minimum — le haut du
+  corps est déplacé lui aussi. Et **s'abstenir quand les jambes sont invisibles** : exiger
+  `vis_legs >= 0,10` sur 20 % des images rejetterait **5 clips**, dont `sumo_deadlift_7` (5/5),
+  `conventionnal_deadlift_3` (6/6) et `_13` (7/7) qui marchent parfaitement aujourd'hui.
+  Des jambes cachées ne prédisent pas l'échec : MediaPipe les infère juste la plupart du temps.
+  Le vrai discriminant serait l'incohérence, et la skill documente déjà qu'elle ne sépare pas.
 * **`poitrine_relevee`** (1/3) n'est PAS fautif : ses instants annotés sont un artefact
   d'annotation, voir le piège n°4.
 
