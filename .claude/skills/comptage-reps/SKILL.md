@@ -15,9 +15,13 @@ de seuils ne la contourne.
 
 La pose **propose**, le modèle **tranche**.
 
-1. `backend/rep_detection.py` — passe de pose dense (6 im/s), **séparée** de la cascade
-   sumo/conventionnel. Rend `[{lockout_s, debut_s, fin_s}]` : la fenêtre d'un candidat va du
-   creux avant la montée au creux après la descente, plus 0,6 s de marge.
+1. `backend/rep_detection.py` — passe de pose dense (**6 im/s**, `FPS_ANALYSE`), **séparée** de
+   la cascade sumo/conventionnel. Rend `[{lockout_s, debut_s, fin_s}]` : la fenêtre d'un candidat
+   va du creux avant la montée au creux après la descente, plus 0,6 s de marge.
+   Le cœur est `depuis_signal(ts, vs, duree)` — **l'appeler plutôt que recopier sa boucle**,
+   c'est ce que font `rappel_instants.py` et `rendu.py`. Trois étapes, chacune payée par une
+   mesure et détaillée plus bas : élagage de l'entrée → normalisation aux centiles sur ce qui
+   reste → hystérésis à **deux rangs** (quantile 0,8 pour monter, médiane pour redescendre).
 2. `ai_service.analyze_movement` — mode segments : **un `Part` vidéo par candidat** avec
    `start_offset`/`end_offset`, `media_resolution=HIGH`, budget de 300 images réparti sur les
    segments (`fps = 300 / durée totale`, borné 2-10).
@@ -105,6 +109,10 @@ Mesuré sur les 46 clips (`eval/reps/sait_il_qu_il_ne_sait_pas.py`) :
 
 **Trois clips sur 46 rendent une analyse amputée en silence.** Le seul cas où le système
 s'abstient est le cas extrême où il ne trouve rien du tout.
+
+> ⚠️ **Ce tableau date du 2026-09-08 et n'a pas été refait** depuis l'élagage d'entrée et le
+> filtre asymétrique. Il ne reste plus que 2 clips au rappel partiel à 6 im/s (dont un dû à une
+> annotation fausse), et plus aucun clip sans candidat. À relancer avant de s'appuyer dessus.
 
 **Refuser la vidéo quand le suivi est incohérent : mesuré à nouveau le 2026-09-09, toujours non.**
 Repris avec la vérité terrain aux instants, les 2 seuls clips fautifs restants, et une idée neuve
@@ -327,6 +335,18 @@ uv run python eval/reps/rendu.py <clip> --debut X --fin Y   # squelette + signal
 uv run python eval/reps/planches.py --clip <c> --pas 0.25 --debut X --fin Y  # zoom sur un litige
 ```
 
+```bash
+uv run python eval/reps/rappel_instants.py          # LA mesure de reference, les 2 cadences
+```
+
 `signaux.json` est un cache : le comptage se met au point dessus sans repasser la pose.
-`test_candidats.py` et `test_offsets.py` sont les deux harnais qui ont validé l'architecture
-(schéma de production non touché : ils dérivent une variante locale).
+
+**Qui reflète la production, et qui non.** `rappel_instants.py` et `rendu.py` appellent
+`rep_detection.depuis_signal` : ils sont justes par construction. `compte_reps.py` est une
+**copie historique figée** (et `effet_cadence.py`, `test_offsets.py`, `rendu.py` en dépendaient) —
+`test_candidats.py` et `test_offsets.py` n'ont de sens que si elle ne bouge pas. Le 2026-09-09,
+`rendu.py` en héritait encore et **dessinait un algorithme qui n'existait plus** : l'outil de
+diagnostic mentait. Avant de croire un outil d'eval, vérifier d'où il tire sa boucle.
+
+`rendu.py` échantillonne à `FPS_ANALYSE` avant de compter, tout en rendant la vidéo dense pour
+qu'elle reste regardable — sans ça il compte des reps que la production ne voit pas.
