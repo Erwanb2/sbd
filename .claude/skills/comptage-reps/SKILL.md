@@ -166,6 +166,20 @@ Gemini sur ce clip.
 
 ## Ce qui a été essayé et écarté
 
+* **Élaguer le temps mort au lieu de changer la porte** (2026-09-09) : « s'il n'y a pas
+  d'extension de hanche pendant N secondes, on jette ce bout de vidéo », puis centiles,
+  porte et hystérésis sur ce qui reste. Idée séduisante — elle garde la robustesse des
+  centiles que `max − min` abandonne. **Mesurée : 136/146 à 5 s contre 139 pour `max − min`.**
+  Le mécanisme est net et disqualifiant : sur `worst_deadlift` la règle jette **tout le clip**
+  (plages `0,00-5,50 s` à 128-152° et `5,67-11,83 s` à 154-171°). L'extension complète est bien
+  là, 43°, mais étalée sur 12 s — aucune tranche de 5 s n'atteint 25°. Mesurer une amplitude sur
+  une durée fixe, c'est mesurer une **vitesse** d'extension : la règle punit précisément les
+  tirées lentes, celles qui grindent. Le balayage le confirme, le rappel monte avec la fenêtre
+  (2 s → 126/146, 10 s → 139/146) : la règle ne devient bonne qu'en cessant d'élaguer.
+  Ne pas la refaire sous une autre forme temporelle. Si la fragilité de `max − min` au point
+  aberrant se manifeste un jour, la réparation est un min/max **robuste** (p2/p98, lissage plus
+  fort) — pas une fenêtre.
+
 * **Seuils absolus en degrés** (verrouillage = hanche et genou tendus) : 43 % d'exacts contre
   58 %. Les angles articulaires mesurés à l'image ne veulent rien dire hors vue de profil.
 * **Repasser la pose à pleine cadence** (30 im/s au lieu de 6, le mode pour lequel
