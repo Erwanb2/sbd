@@ -115,10 +115,16 @@ Mesure du 2026-09-09 sur `conventionnal_deadlift_12`, `gemini-3.5-flash`, deux r
 **30 cases sur 30 identiques**, plus la note globale (19/20), le persona, la tenue du set, la
 qualité de pose et les deux conseils — mot pour mot. Seuls les résumés en texte libre diffèrent.
 
-**Le bruit n'est donc pas une propriété du modèle mais du clip** : une série de 5 reps nettes,
-bien segmentée, se reproduit exactement ; un clip ambigu part dans tous les sens. Conséquence
-pratique : **un run unique peut suffire à conclure sur un clip facile, jamais sur un clip
-litigieux** — et c'est justement sur les litigieux qu'on veut conclure.
+**Hypothèse, pas fait établi** (2 runs sur 1 clip) : le bruit serait une propriété du **clip**
+plutôt que du modèle — une série nette et bien segmentée se reproduit, un clip ambigu part dans
+tous les sens. Les deux seuls points de mesure vont dans ce sens (30/30 ici, 0/8 sur le clip 11),
+c'est tout ce qu'on peut en dire.
+
+**Ce que ça ouvre.** Le désaccord entre deux runs mesure l'hésitation du JUGE, là où toutes les
+pistes tentées le 2026-09-09 pour « savoir qu'on ne sait pas » mesuraient la qualité de l'IMAGE —
+et ont toutes échoué. C'est la bonne grandeur, mais elle **double le coût** (~0,24 $ par vidéo),
+donc à réserver à l'évaluation. **Non validé** : il reste à mesurer, sur une dizaine de clips
+faciles et litigieux, si le désaccord prédit vraiment l'erreur. Sans ça, ne pas s'en servir.
 
 ## Outillage
 
