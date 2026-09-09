@@ -84,7 +84,11 @@ class Vue(str, Enum):
 # seul ou une mauvaise note est une blessure et non un kilo perdu.
 CRITERES = {
     "setup":     ("Setup and tension", 1.0),
-    "leg_drive": ("Leg drive off the floor", 1.0),
+    # 2026-09-09 : leg_drive n'avait QUE des indicateurs POSE (L01, L02, P05). Les trois
+    # etant retires, le critere n'a plus rien pour le noter — il est donc retire aussi
+    # plutot que d'afficher "not visible" sur chaque rep. Le denominateur des poids passe
+    # de 7,5 a 6,5. Pour le retablir, il faut d'abord un indicateur juge par le modele.
+    # "leg_drive": ("Leg drive off the floor", 1.0),
     "spine":     ("Spine under load", 2.0),
     "bar_path":  ("Bar path and proximity", 1.0),
     "lockout":   ("Lockout", 1.5),
@@ -718,13 +722,42 @@ E03 = Indicateur(
 # La liste. Tout le reste du code lit ceci.
 # =============================================================================
 
+# 2026-09-09 : LES 17 INDICATEURS `Source.POSE` SONT RETIRES DU CATALOGUE.
+#
+# Decision d'Erwan apres l'instruction de conventionnal_deadlift_12, un lift propre que
+# le systeme notait 19/20 avec deux conseils correctifs — les deux issus de mesures de
+# pose fausses, aucune du modele :
+#   - P01 hand_drift lisait la derive d'un poignet dont MediaPipe annonce lui-meme
+#     0,05 a 0,12 de visibilite sur 100 % des images (le projet rejette sous 0,30), et
+#     contredisait frontalement P03 (LLM) qui voyait la barre collee aux jambes ;
+#   - L01 hip_vs_shoulder_rise sortait sa sentinelle 9,99 sur une repetition ou le
+#     reperage de phase avait retenu une fenetre POSTERIEURE au verrouillage, sur un
+#     squelette ou le femur — un os rigide — passait de 460 a 85 px en une demi-seconde.
+# Sur cette meme repetition, 4 mesures sur 6 avaient ete rejetees par leurs bornes de
+# plausibilite : les garde-fous ont attrape les mesures inoffensives et laisse passer
+# les deux seules qui accusaient. Sans ces deux artefacts le lift vaut 20/20, sans conseil.
+#
+# La pose reste indispensable ailleurs et n'est pas touchee : cascade sumo/conventionnel
+# (39/39) et detection des repetitions candidates (142/146). C'est la NOTATION par la
+# pose qui s'arrete.
+#
+# Pour retablir un indicateur : le remettre dans le tuple, remettre ses entrees dans
+# CONSEILS, et pour L01/L02/P05 remettre "leg_drive" dans CRITERES.
 INDICATEURS: tuple[Indicateur, ...] = (
-    C01, C02, C03, C04, C05,
-    S01, S02, S03, S04, S05, S06, S07, S08,
-    L01, L02, L03, L04,
-    P01, P02, P03, P04, P05, P06, P07, P08, P09, P10,
-    K01, K02, K03, K04, K05, K06,
-    E01, E02, E03,
+    C04, C05,
+    S04, S05, S06, S07, S08,
+    L03, L04,
+    P02, P03, P04, P08, P09, P10,
+    K04, K05,
+    E02, E03,
+    # --- retires le 2026-09-09, voir ci-dessus -------------------------------------
+    # contexte  : C01 variant, C02 camera_view, C03 pose_quality
+    # setup     : S01 hip_height, S02 shoulders_over_bar, S03 shin_angle
+    # leg_drive : L01 hip_vs_shoulder_rise, L02 torso_pitch, P05 knee_valgus
+    # bar_path  : P01 hand_drift
+    # lockout   : K01 hip_extension, K02 knee_extension, K03 lean_back
+    # descent   : E01 descent_initiation
+    # non notes : P06 sticking_point, P07 pull_duration, K06 lockout_duration
 )
 
 # L'action a essayer pour chaque etat fautif, en une consigne.
@@ -734,11 +767,13 @@ INDICATEURS: tuple[Indicateur, ...] = (
 # consigne peut aider sans prouver quoi que ce soit. Les etats sans entree ici ne
 # produisent aucun conseil : c'est le cas normal d'un etat correct ou descriptif.
 CONSEILS = {
-    "hip_height:too_low": "Set the hips higher, between the knees and the shoulders, before you pull.",
-    "hip_height:too_high": "Drop the hips a little and bring the shoulders over the bar.",
-    "shoulders_over_bar:behind_bar": "Set the shoulders over or just ahead of the bar before you pull.",
-    "shoulders_over_bar:far_ahead": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
-    "shin_angle:angled": "Sit the hips back until the shins are vertical before you pull.",
+    # Les entrees commentees ci-dessous visent des indicateurs POSE retires le
+    # 2026-09-09 : _verifie() refuserait un conseil pointant vers un etat inexistant.
+    # "hip_height:too_low": "Set the hips higher, between the knees and the shoulders, before you pull.",
+    # "hip_height:too_high": "Drop the hips a little and bring the shoulders over the bar.",
+    # "shoulders_over_bar:behind_bar": "Set the shoulders over or just ahead of the bar before you pull.",
+    # "shoulders_over_bar:far_ahead": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
+    # "shin_angle:angled": "Sit the hips back until the shins are vertical before you pull.",
     "bar_over_midfoot:ahead_of_midfoot": "Set the bar over the middle of your foot, close to the shins.",
     "arms_straight:bent": "Keep the arms long and let the legs do the work.",
     "elbow_flexion:bent": "Keep the arms long through the whole pull.",
@@ -746,24 +781,24 @@ CONSEILS = {
     "slack_pull:yanked": "Take the slack out of the bar before you pull instead of yanking it.",
     "jerky_start:jerked": "Build tension against the bar, then accelerate: do not snatch it off the floor.",
     "back_at_setup:lower_back_rounded": "Set the back flat before the bar moves; drop the load if you cannot hold it.",
-    "hip_vs_shoulder_rise:hips_shoot_up": "Push the floor away and hold your chest angle through the first third of the pull.",
-    "torso_pitch:pitches_forward": "Keep the torso angle as the bar leaves the floor rather than letting the hips win.",
-    "hand_drift:moderate_drift": "Pull the shoulders down and keep the bar tracking over the mid-foot.",
-    "hand_drift:large_drift": "Keep the bar against your legs: pull the shoulders down and drag it up the shins.",
+    # "hip_vs_shoulder_rise:hips_shoot_up": "Push the floor away and hold your chest angle through the first third of the pull.",
+    # "torso_pitch:pitches_forward": "Keep the torso angle as the bar leaves the floor rather than letting the hips win.",
+    # "hand_drift:moderate_drift": "Pull the shoulders down and keep the bar tracking over the mid-foot.",
+    # "hand_drift:large_drift": "Keep the bar against your legs: pull the shoulders down and drag it up the shins.",
     "bar_leg_contact:away_from_legs": "Keep the bar in contact with the legs the whole way up.",
     "past_the_knees:loops": "Let the hips come through as the bar reaches the knees so it passes close.",
     "past_the_knees:catches": "Sit the hips back a touch at the knees so the bar has a path.",
     "back_under_load:flexion_appears": "Brace before you pull, and end the set when the shape starts to change.",
     "back_under_load:collapses": "Stop the set. Rebuild this at a load where the back holds its shape.",
-    "knee_valgus:collapses_in": "Push the knees out over your toes as you drive off the floor.",
+    # "knee_valgus:collapses_in": "Push the knees out over your toes as you drive off the floor.",
     "hitch:yes": "Finish with one continuous hip extension instead of ratcheting the bar up the thighs.",
     "asymmetry:uneven": "Film a front view and check whether one side is leading before changing anything.",
-    "hip_extension:incomplete": "Finish standing tall, hips and knees locked together.",
-    "knee_extension:incomplete": "Lock the knees at the top instead of leaving them soft.",
-    "lean_back:hyperextension": "Finish tall by squeezing the glutes, not by leaning back.",
+    # "hip_extension:incomplete": "Finish standing tall, hips and knees locked together.",
+    # "knee_extension:incomplete": "Lock the knees at the top instead of leaving them soft.",
+    # "lean_back:hyperextension": "Finish tall by squeezing the glutes, not by leaning back.",
     "shrug:yes": "Finish with the hips: the shrug adds no height to the bar.",
     "lockout_balance:behind_heels": "Finish balanced over your feet rather than drifting behind your heels.",
-    "descent_initiation:at_the_knees": "Send the hips back first and let the knees bend once the bar has passed them.",
+    # "descent_initiation:at_the_knees": "Send the hips back first and let the knees bend once the bar has passed them.",
     "descent_control:dropped": "Stay with the bar on the way down instead of dropping it.",
 }
 

@@ -27,13 +27,58 @@ indicators.py  ->  schemas.py        le schéma Pydantic des indicateurs jugés 
 
 Ajouter un indicateur = ajouter une entrée dans `INDICATEURS`. Le reste suit.
 
-**36 indicateurs** pour le deadlift, répartis en trois sources :
+**19 indicateurs** pour le deadlift depuis le 2026-09-09, en deux sources :
 
 | `Source` | nombre | sens |
 |---|---|---|
-| `POSE` | 17 | MediaPipe le mesure ; `seuils` transforme la valeur en état |
 | `LLM` | 10 | seul un modèle peut le voir |
 | `A_TESTER` | 9 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
+| ~~`POSE`~~ | ~~17~~ → **0** | **retirés du catalogue**, voir la section dédiée plus bas |
+
+## La pose ne note plus rien (2026-09-09)
+
+**Les 17 indicateurs `Source.POSE` sont commentés dans `indicators.py`.** Le catalogue est
+passé de 36 à 19 indicateurs, tous jugés par le modèle.
+
+**Ce qui l'a déclenché.** L'instruction de `conventionnal_deadlift_12`, un lift propre noté
+19/20 avec deux conseils correctifs — **les deux issus de mesures de pose fausses, aucun du
+modèle** :
+
+* `P01 hand_drift` lisait la dérive d'un poignet dont MediaPipe annonce lui-même **0,05 à 0,12
+  de visibilité sur 100 % des images** (le projet rejette sous 0,30). Il contredisait frontalement
+  `P03` (LLM), dans le même critère, qui voyait la barre collée aux jambes sur les 5 reps.
+* `L01 hip_vs_shoulder_rise` sortait sa sentinelle **9,99** sur une rep où `_phases` avait retenu
+  une fenêtre **postérieure au verrouillage**, sur un squelette où le fémur — un os rigide —
+  passait de **460 à 85 px en une demi-seconde**, et où la hanche était lue à **3,2°**.
+
+Le détail le plus parlant : sur cette rep, **4 mesures sur 6 avaient été rejetées** par leurs
+bornes de plausibilité (`hip_ratio`, `lean_back_deg`, `pitch_deg`, `shin_deg`). Les garde-fous ont
+attrapé les mesures inoffensives et laissé passer **les deux seules qui accusaient**. Sans ces
+deux artefacts, le lift vaut **20/20 sans aucun conseil**.
+
+**Ce que la pose continue de faire, et qui n'est pas touché** : la cascade sumo/conventionnel
+(39/39) et la détection des répétitions candidates (142/146 de rappel). C'est la **notation** par
+la pose qui s'arrête, pas la pose.
+
+### Ce que le retrait a emporté
+
+| | avant | après |
+|---|---|---|
+| critères notés | 6 | **5** — `leg_drive` n'avait QUE des indicateurs POSE (L01, L02, P05) |
+| somme des poids | 7,5 | **6,5** |
+| personas atteignables | 14 | **8** — perdus : The Squatter, The Crane, The X-Wing, The Soft-Lock, The Over-Extender, The Kneecapper |
+| bloc `contexte` | variant, camera_view, pose_quality, equipment, grip, foot_orientation | **equipment, grip, foot_orientation** |
+| durées affichées | `pull_s`, `lockout_s`, sticking point | **aucune** |
+
+`ResultView.jsx` retombe sur `mouvement_detecte` quand `contexte.variant` manque : le titre reste
+juste. `criteriaGuides.js` et `sampleResult.js` gardent une entrée `leg_drive` — inoffensive pour
+le premier (table de correspondance), mais **la démo mockée de la page d'accueil affiche encore un
+critère que le produit ne rend plus**.
+
+**Pour rétablir un indicateur** : le remettre dans le tuple `INDICATEURS`, décommenter ses entrées
+dans `CONSEILS` (`_verifie()` refuse un conseil vers un état inexistant), et pour L01/L02/P05
+remettre `"leg_drive"` dans `CRITERES`. `pose_analysis.mesures_de_rep` calcule toujours toutes les
+grandeurs : rien n'a été supprimé côté mesure, elles ne sont simplement plus consommées.
 
 ## Deux limites dures — ne jamais les contourner par un proxy
 
