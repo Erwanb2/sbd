@@ -38,10 +38,11 @@ def candidats_depuis_cache(sig):
     vs = np.array([(p["hip_deg"] + p["knee_deg"]) / 2 for p in pts])
     cad = rd._cadence(ts)
     vs = rd._lisse(vs, cad)
+    ts, vs = rd._des_la_premiere_extension(ts, vs)
     lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
-    if float(vs.max() - vs.min()) < rd.AMPLITUDE_MIN:
+    if hi - lo < rd.AMPLITUDE_MIN:
         return []
-    norm = (vs - lo) / max(hi - lo, 1e-6)
+    norm = (vs - lo) / (hi - lo)
     duree = float(sig.get("duree_s") or ts[-1])
     mini_bas = max(2, round(rd.DUREE_BAS * cad))
 

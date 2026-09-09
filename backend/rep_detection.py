@@ -40,6 +40,39 @@ TROU_MAX = 1.2             # s : au-dela, coupure de plan -> segment separe
 MARGE = 0.6                # s ajoutees de part et d'autre d'une fenetre de repetition
 
 
+def _des_la_premiere_extension(ts, vs):
+    """Jette l'entree de la video, jusqu'au creux d'ou part la premiere extension.
+
+    Filmer, poser le telephone, tourner autour de la barre : ce temps mort debout entre
+    dans les centiles et fausse les DEUX reperes. Mesure sur engueran_sumo (34 s de mise
+    en place, une rep a 33,4 s) : le 5e centile ne descend jamais jusqu'au creux, il vaut
+    155,4 deg la ou le creux reel est a 140 -> 18,8 deg d'amplitude apparente, sous le
+    minimum, zero candidat pour une vraie repetition. Mesure sur long_deadlift : l'entree
+    tire le 95e centile a 170,7 deg contre 163,7 pour la serie elle-meme, la normalisation
+    est etalonnee sur du temps mort et l'hysteresis ne se re-arme plus entre deux reps
+    enchainees -> 2 des 11 reps ratees.
+
+    On ne touche qu'a l'ENTREE : des que l'extension est trouvee, le reste est intact.
+    Une variante qui elaguait aussi les plages mortes du milieu perdait 3 reps de plus
+    (136/146) — elle jetait les tirees lentes, dont l'extension s'etale sur plus de temps
+    que la fenetre. Le seuil est AMPLITUDE_MIN, la meme extension que la porte exige.
+
+    Rappel mesure sur les 146 repetitions horodatees : 141/146 a 6 im/s, contre 138 sans
+    elagage et 139 avec une porte sur max - min.
+    """
+    creux = 0
+    for j in range(1, len(vs)):
+        if vs[j] < vs[creux]:
+            creux = j
+        elif vs[j] - vs[creux] >= AMPLITUDE_MIN:
+            break
+    else:
+        return ts, vs                      # aucune extension : rien a elaguer
+    if len(ts) - creux < 6:
+        return ts, vs
+    return ts[creux:], vs[creux:]
+
+
 def _signal(poses):
     """(temps, extension) : moyenne des angles hanche et genou du cote camera.
 
@@ -139,17 +172,11 @@ def _candidats(file_path: str, fps_analyse: float = FPS_ANALYSE):
         return [], poses
     cad = _cadence(ts)
     vs = _lisse(vs, cad)
+    ts, vs = _des_la_premiere_extension(ts, vs)
     lo, hi = float(np.percentile(vs, 5)), float(np.percentile(vs, 95))
-    # La porte se juge sur l'etendue brute, pas sur les centiles : quand le clip
-    # contient beaucoup de temps mort debout (mise en place, tour autour de la barre),
-    # le 5e centile ne descend jamais jusqu'au creux de la rep et l'amplitude apparente
-    # passe sous le minimum. Mesure sur engueran_sumo : p5 = 155,4 deg la ou le creux
-    # reel est a 140 deg, donc 18,8 deg d'amplitude et zero candidat pour une vraie rep.
-    # La normalisation, elle, reste sur les centiles : c'est ce qui la rend insensible
-    # a un landmark egare.
-    if float(vs.max() - vs.min()) < AMPLITUDE_MIN:
+    if hi - lo < AMPLITUDE_MIN:
         return [], poses
-    norm = (vs - lo) / max(hi - lo, 1e-6)
+    norm = (vs - lo) / (hi - lo)
     duree = float(n / fps)
     mini_bas = max(2, round(DUREE_BAS * cad))
 

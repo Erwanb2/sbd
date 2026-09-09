@@ -46,8 +46,8 @@ peut mesurer.
 
 |  | 6 im/s (production) | 15 im/s |
 |---|---|---|
-| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **95 %** (139/146) | 97 % (142/146) |
-| **précision** — un candidat contient une vraie rep | 85 % | 83 % |
+| **rappel** — une vraie rep tombe dans la fenêtre d'un candidat | **97 %** (141/146) | 97 % (142/146) |
+| **précision** — un candidat contient une vraie rep | 84 % | 83 % |
 
 `uv run python eval/reps/rappel_instants.py` depuis `backend/`. Gratuit, aucun appel Gemini.
 
@@ -126,59 +126,71 @@ Le biais du déclencheur est structurel et sans conséquence sur le rappel (la f
 large). Une seule conséquence réelle : dans `analyse()`, les images de la descente sont prises
 après `lockout_s`, donc ce lot contient encore un bout de la montée.
 
-## La porte d'amplitude : centiles pour normaliser, étendue brute pour décider
+## L'entrée de la vidéo est élaguée avant toute mesure
 
-**Corrigé le 2026-09-09** (`rep_detection.py`). La porte se juge désormais sur `max − min`, la
-normalisation reste sur `p95 − p5`.
+**Depuis le 2026-09-09** (`_des_la_premiere_extension`, `rep_detection.py`). On suit le minimum
+courant depuis le début ; dès que le signal remonte de `AMPLITUDE_MIN` au-dessus, l'extension a
+commencé : on jette tout ce qui précède **le creux d'où elle part**, et on ne touche plus à rien
+après. Porte et normalisation se font ensuite sur ce qui reste, toutes deux sur les centiles.
 
-Le p95 n'a jamais été en cause : sur `engueran_sumo` il vaut 174,2° contre 174,4° au vrai pic.
-C'est le **p5** qui manque le creux : le lifter n'est en bas que 3,3 s sur 35,5 (9,4 % du clip),
-donc le 5e centile tombe en pleine descente à 155,4° là où le creux réel est à 140°. Amplitude
-apparente 18,8° < 25° → `candidats` rendait `[]` sans même chercher, pour une vraie rep. Le motif
-est courant chez un vrai utilisateur : filmer, tourner autour de la barre, faire un lourd, repartir.
+Le temps mort d'entrée — filmer, poser le téléphone, tourner autour de la barre — faussait les
+**deux** repères, et le second dégât était le plus coûteux :
 
-**Exactement 2 clips sur 48 changent**, aux deux cadences :
+* **le p5 ne descend pas jusqu'au creux.** `engueran_sumo`, 34 s de mise en place et une rep à
+  33,4 s : p5 = 155,4° là où le creux réel est à 140°, amplitude apparente 18,8° < 25°, et
+  `candidats` rendait `[]` sans même chercher. (Le p95, lui, était juste : 174,2 contre 174,4.)
+* **le p95 est tiré vers le haut, donc la normalisation est étalonnée sur du temps mort.**
+  `long_deadlift` : p95 = 170,7° sur le clip entier contre **163,7°** sur la série seule.
+  L'hystérésis ne se ré-armait plus entre deux reps enchaînées → 2 des 11 reps ratées.
+  C'est la réponse à l'hypothèse de ré-armement laissée ouverte : la cause était en amont.
 
 | | 6 im/s | 15 im/s |
 |---|---|---|
-| p95−p5 (avant) | 138/146 (94,5 %) — précision 85,2 % | 141/146 (96,6 %) — 83,4 % |
-| max−min (en prod) | **139/146 (95,2 %)** — précision 85,4 % | 142/146 (97,3 %) — 83,1 % |
+| p95−p5 sur le clip entier | 138/146 (94,5 %) — précision 85,2 % | 141/146 (96,6 %) — 83,4 % |
+| porte sur `max − min` | 139/146 (95,2 %) — 85,4 % | 142/146 (97,3 %) — 83,1 % |
+| **élagage de l'entrée** | **141/146 (96,6 %)** — 84,4 % | 142/146 (97,3 %) — 82,5 % |
 
-`engueran_sumo` réparé. `engueran_fail_deadlift` — le seul clip à 0 rep, une tirée échouée où la
-barre ne quitte pas le sol — passe de 0 à 2 candidats (il se redresse à vide à 32,7 s et 36,2 s).
-**Arbitrage tranché : on accepte.** La porte n'était une protection déterministe pour ce clip que
-par accident ; le champ prévu pour ça est `bar_left_floor`, et les deux candidats sont exactement
-ce qu'il rejette. Le coût réel est ailleurs : ce clip déclenche maintenant un appel Gemini avant
-son 422 au lieu d'être écarté gratuitement, et sur le **modèle de repli** (flash-lite, sur 503)
-la protection saute — il supprime l'entrée au lieu de la marquer `false`, et `rules.py` retombe
-alors sur `bar_left_floor = "yes"` par défaut, donc note une tirée échouée. Non vérifié contre
-Gemini sur ce clip.
+Deux propriétés à ne pas perdre en retouchant : le seuil est `AMPLITUDE_MIN` lui-même, pas une
+nouvelle constante ; et exiger en plus « du temps mort pendant N secondes » est **inutile**
+(2, 5 ou 10 s donnent le même résultat) — ne pas rajouter ce paramètre.
+
+**`max − min` a été en production quelques heures le 2026-09-09, puis retiré** : il ouvrait la
+porte mais ne corrigeait pas la normalisation, donc ne réparait pas `long_deadlift`, et il
+abandonnait la robustesse des centiles au point aberrant pour rien.
+
+**Effet de bord sur l'arbitrage de cadence** : 6 im/s est passé de 138 à 141, contre 142 à
+15 im/s. L'écart entre les deux cadences n'est plus qu'**une répétition** — l'argument pour
+payer +64 % de temps de pose a pratiquement disparu.
 
 ## Les clips fautifs restants, et leur mécanisme
 
-* **`long_deadlift`** — 11 reps, 2 ratées (28,49 s et 41,27 s) qui tombent dans des TROUS entre
-  candidats. Hypothèse non vérifiée : le ré-armement de l'hystérésis exige que le signal
-  redescende sous 0,40 pendant 0,33 s, ce qui n'arrive peut-être pas sur une série enchaînée.
-  Testable sur le cache, gratuitement.
+Après l'élagage de l'entrée, il en reste **deux** (plus un faux positif d'annotation).
+
 * **`conventionnal_deadlift_8`** — 7,7 s, une rep à 5,89 s, deux candidats `[0–2,93]` et
-  `[6,07–7,67]` : **aucun ne la contient**. Le système note deux non-reps en silence. C'est le
-  pire comportement produit du lot, et le seul dont le mécanisme reste inconnu.
+  `[6,07–7,67]` : **aucun ne la contient**. Le système note deux non-reps en silence, c'est le
+  pire comportement produit du lot. Mécanisme connu depuis le 2026-09-08 : un disque de 5 kg est
+  entre la caméra (posée au sol) et les jambes, et MediaPipe replie genou et cheville dessus
+  pendant toute la montée — au verrouillage réel le signal dit « plié en deux » (0,04 normalisé).
+  Il est **confiant et faux** : visibilité 0,77-0,87 sur le genou. Durcir le filtre de visibilité
+  et vérifier la plausibilité anatomique ont été testés et ne séparent rien. Piste ouverte : le
+  redressement du tronc (épaule-hanche) est propre là où l'angulaire est inversé, et se comporte
+  en **complément** (répare 3 clips, en casse 2) — l'union des deux listes reste à mesurer.
+* **`conventionnal_deadlift_14`** — 1 rep couverte sur 3. Non instruit depuis l'élagage.
+* **`poitrine_relevee`** (1/3) n'est PAS fautif : ses instants annotés sont un artefact
+  d'annotation, voir le piège n°4.
 
 ## Ce qui a été essayé et écarté
 
-* **Élaguer le temps mort au lieu de changer la porte** (2026-09-09) : « s'il n'y a pas
-  d'extension de hanche pendant N secondes, on jette ce bout de vidéo », puis centiles,
-  porte et hystérésis sur ce qui reste. Idée séduisante — elle garde la robustesse des
-  centiles que `max − min` abandonne. **Mesurée : 136/146 à 5 s contre 139 pour `max − min`.**
+* **Élaguer AUSSI les plages mortes du milieu** (2026-09-09) — la variante trop gourmande de
+  l'élagage d'entrée qui est, lui, en production : jeter toute plage de N secondes sans
+  extension, où qu'elle soit. **Mesurée : 136/146 à 5 s, contre 141 pour l'élagage d'entrée seul.**
   Le mécanisme est net et disqualifiant : sur `worst_deadlift` la règle jette **tout le clip**
   (plages `0,00-5,50 s` à 128-152° et `5,67-11,83 s` à 154-171°). L'extension complète est bien
   là, 43°, mais étalée sur 12 s — aucune tranche de 5 s n'atteint 25°. Mesurer une amplitude sur
   une durée fixe, c'est mesurer une **vitesse** d'extension : la règle punit précisément les
   tirées lentes, celles qui grindent. Le balayage le confirme, le rappel monte avec la fenêtre
   (2 s → 126/146, 10 s → 139/146) : la règle ne devient bonne qu'en cessant d'élaguer.
-  Ne pas la refaire sous une autre forme temporelle. Si la fragilité de `max − min` au point
-  aberrant se manifeste un jour, la réparation est un min/max **robuste** (p2/p98, lissage plus
-  fort) — pas une fenêtre.
+  La leçon vaut au-delà : **ne jamais élaguer au milieu du clip**, seulement à l'entrée.
 
 * **Seuils absolus en degrés** (verrouillage = hanche et genou tendus) : 43 % d'exacts contre
   58 %. Les angles articulaires mesurés à l'image ne veulent rien dire hors vue de profil.
