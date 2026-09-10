@@ -1,6 +1,6 @@
 ---
 name: sbd-grading-changes
-description: L'architecture de notation du deadlift depuis le refacto du 2026-09-08 — le catalogue d'indicateurs (indicators.py) d'où découlent le schéma, les mesures de pose, la note et le persona, et les règles d'agrégation avec la mesure qui justifie chacune. À charger avant de toucher à indicators.py, schemas.py, rules.py, persona.py, aux seuils de mesure, au barème, ou avant d'ajouter un critère.
+description: L'architecture de notation du deadlift — le catalogue d'indicateurs (indicators.py) d'où découlent le schéma, la note et le persona, les six mécaniques en ordre causal, l'épingle unique et l'axe structure, et les règles d'agrégation avec la mesure qui justifie chacune. À charger avant de toucher à indicators.py, schemas.py, rules.py, persona.py, à ENCHAINEMENTS, au barème, ou avant d'ajouter un critère.
 ---
 
 # Noter un deadlift
@@ -27,13 +27,16 @@ indicators.py  ->  schemas.py        le schéma Pydantic des indicateurs jugés 
 
 Ajouter un indicateur = ajouter une entrée dans `INDICATEURS`. Le reste suit.
 
-**19 indicateurs** pour le deadlift depuis le 2026-09-09, en deux sources :
+**24 indicateurs** pour le deadlift depuis la refonte du 2026-09-09, en deux sources :
 
 | `Source` | nombre | sens |
 |---|---|---|
-| `LLM` | 10 | seul un modèle peut le voir |
-| `A_TESTER` | 9 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
-| ~~`POSE`~~ | ~~17~~ → **0** | **retirés du catalogue**, voir la section dédiée plus bas |
+| `LLM` | 17 | seul un modèle peut le voir |
+| `A_TESTER` | 7 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
+| ~~`POSE`~~ | ~~17~~ → **0** | **aucun indicateur POSE n'est noté**, voir plus bas |
+
+21 champs par répétition dans le schéma, contre 16 avant la refonte : **+30 % de sortie
+par rep**, et personne n'a encore mesuré si les 16 anciens se dégradent sous ce poids.
 
 ## La pose ne note plus rien (2026-09-09)
 
@@ -60,25 +63,127 @@ deux artefacts, le lift vaut **20/20 sans aucun conseil**.
 (39/39) et la détection des répétitions candidates (142/146 de rappel). C'est la **notation** par
 la pose qui s'arrête, pas la pose.
 
-### Ce que le retrait a emporté
+### Six de ces questions sont revenues, posées au modèle
 
-| | avant | après |
-|---|---|---|
-| critères notés | 6 | **5** — `leg_drive` n'avait QUE des indicateurs POSE (L01, L02, P05) |
-| somme des poids | 7,5 | **6,5** |
-| personas atteignables | 14 | **8** — perdus : The Squatter, The Crane, The X-Wing, The Soft-Lock, The Over-Extender, The Kneecapper |
-| bloc `contexte` | variant, camera_view, pose_quality, equipment, grip, foot_orientation | **equipment, grip, foot_orientation** |
-| durées affichées | `pull_s`, `lockout_s`, sticking point | **aucune** |
+Le même jour, la refonte des critères a **remis six questions POSE au modèle** : `S01 hip_height`,
+`S02 shoulders_over_bar`, `L01 hip_vs_shoulder_rise`, `P05 knee_valgus`, `K01`+`K02` fusionnés en
+`K07 lockout_completion`, et `K03 lean_back`.
 
-`ResultView.jsx` retombe sur `mouvement_detecte` quand `contexte.variant` manque : le titre reste
-juste. `criteriaGuides.js` et `sampleResult.js` gardent une entrée `leg_drive` — inoffensive pour
-le premier (table de correspondance), mais **la démo mockée de la page d'accueil affiche encore un
-critère que le produit ne rend plus**.
+**Ce n'est pas un retour en arrière** : aucun ratio n'est rebranché, on repose la question à la
+seule source qui voit la barre et le rachis. Mais **rien ne prouve encore que le modèle y répond
+bien** — c'est le risque principal de la refonte, et il n'a pas été mesuré. Le plus incertain de
+tous est `S09 brace`, nouveau : le gainage est à peine visible sur une vidéo. Il ne reste que s'il
+bat le hasard contre les annotations humaines.
 
-**Pour rétablir un indicateur** : le remettre dans le tuple `INDICATEURS`, décommenter ses entrées
-dans `CONSEILS` (`_verifie()` refuse un conseil vers un état inexistant), et pour L01/L02/P05
-remettre `"leg_drive"` dans `CRITERES`. `pose_analysis.mesures_de_rep` calcule toujours toutes les
-grandeurs : rien n'a été supprimé côté mesure, elles ne sont simplement plus consommées.
+**Pour rétablir un indicateur POSE** : le remettre dans le tuple `INDICATEURS` avec sa `mesure` et
+ses `seuils`, remettre ses entrées dans `CONSEILS` (`_verifie()` refuse un conseil vers un état
+inexistant). `pose_analysis.mesures_de_rep` calcule toujours toutes les grandeurs : rien n'a été
+supprimé côté mesure, elles ne sont simplement plus consommées.
+
+**Piège payé le 2026-09-09** : `_filtre` ne gardait plus AUCUNE mesure, puisqu'il ne garde que
+celles réclamées par un indicateur POSE et qu'il n'y en a plus. `pull_s` et `lockout_s` tombaient
+avec le reste, donc la moitié « ralentissement » de `tenue_du_set` était morte sans que rien ne le
+dise. D'où `indicators.MESURES_TECHNIQUES` : des mesures qui ne notent rien et survivent quand
+même, parce que du code les consomme.
+
+## Les critères sont des MÉCANIQUES, pas des phases (2026-09-09)
+
+C'est la refonte structurante. Avant, les critères étaient les phases du geste — setup, tirée,
+lockout, descente. **Une phase est l'endroit où une faute apparaît, jamais où elle se corrige** :
+personne n'a un « problème de lockout », on a des hanches qui ne passent pas, et ça se voit au
+lockout. Découper par phase garantit qu'on rapporte des symptômes.
+
+Un critère a **deux métiers**, et l'ancienne liste n'en faisait qu'un :
+
+1. **Nommer une mécanique**, pour que la chose existe dans la tête du lifter avec un nom, un
+   repère et un exercice. C'est la partie qui apprend — et c'est pourquoi on n'a pas le droit de
+   fusionner deux habiletés distinctes pour raccourcir la liste : « la barre t'a quitté aux
+   genoux » n'apprend ni à se placer, ni à sortir le slack, ni ce qu'est le leg drive.
+2. **Désigner quoi corriger.** Ce métier n'est PAS porté par la liste : il est porté par l'ordre
+   du dict, qui est causal, et par `ENCHAINEMENTS`.
+
+| clé | libellé | poids | indicateurs |
+|---|---|---|---|
+| `start_position` | Start position | 1,5 | hip_height, shoulders_over_bar, bar_over_midfoot, arms_long |
+| `slack_and_brace` | Slack and brace | 1,0 | slack_pull, brace, jerky_start |
+| `leg_drive` | Leg drive off the floor | 1,5 | hip_vs_shoulder_rise |
+| `bar_path` | Bar against the body | 1,5 | past_the_knees, bar_leg_contact |
+| `finish_position` | Finish position | 1,0 | lockout_completion, lean_back, hitch, shrug |
+| `reset` | Reset between reps | 0,5 | descent_control, rep_transition |
+| `structure` | Structure under load | 2,0 | back_at_setup, back_under_load, knee_valgus, asymmetry |
+
+Trois fusions le même jour, toutes contre la règle « le même événement physique ne doit peser
+qu'une fois » : `P10 elbow_flexion` → `S06 arms_long` (même faute au setup et à la tirée),
+`K01`+`K02` → `K07 lockout_completion`, `K05 lockout_balance` → `K03 lean_back` (le persona
+*The Heel Tipper* disparaît avec).
+
+### Deux axes, et un seul nombre
+
+**La séquence** — les six mécaniques, `indicators.MECANIQUES`, dans l'ordre causal. Elle produit
+**l'épingle**.
+
+**La structure** — le dos, les genoux, la symétrie. Ce ne sont pas des choses qu'on exécute, ce
+sont des choses qui **lâchent**. Elle produit **l'urgence**, un bandeau au-dessus de la grille.
+
+Montrer les deux ne disperse pas le lifter, là où montrer deux fautes de séquence le disperserait :
+l'un dit *change ça dans ton geste*, l'autre *ton corps ne tient pas, baisse*. **Le danger fixe
+l'urgence, la cause fixe l'action.** `structure` garde quand même son poids dans la note sur 20 —
+sinon un dos qui s'effondre sortirait à 18/20 et le chiffre mentirait.
+
+L'urgence se lit sur la **pire note vue sur une rep**, jamais sur la note agrégée : un dos qui
+s'effondre sur une rep sur cinq ressort à 3/3 après moyenne. C'est l'inverse exact du persona, qui
+exige au contraire que le défaut survive à la série — parce qu'un surnom étiquette une série et
+qu'une blessure n'attend pas la moyenne.
+
+### L'épingle : un seul défaut, et sa chaîne
+
+Cinq cartes à 3/3 et une à 2/3, ce n'est pas du coaching, c'est un bulletin.
+
+L'algorithme de `rules.epingle()` : **partir du PIRE défaut, remonter la chaîne aussi loin qu'elle
+va, épingler la racine.** Puis redescendre en avant, transitivement, pour rattacher les
+conséquences sous *« And that is why »*.
+
+Deux règles apprises en le construisant, chacune contre une sortie fausse mesurée sur la démo :
+
+* **« Le plus en amont » tout court ne marche pas.** Un `slack_pull:partial` à 2 se plaçait devant
+  des hanches qui décollent à 1 et les reprochait séparément, alors que c'est la même histoire.
+  Une broutille de setup masquerait en permanence un effondrement plus loin.
+* **Le parcours des conséquences doit être TRANSITIF.** S'arrêter au premier cran laissait
+  `bar_leg_contact` en défaut indépendant alors que la chaîne y menait en deux sauts, et la page
+  reprochait deux fois la même cause.
+
+`ENCHAINEMENTS` est une table **déclarée**, pas une règle « tout ce qui est en aval est supprimé » :
+toute faute en aval n'est pas une conséquence. Une arête ne joue que si **les deux bouts sont
+fautifs sur la même série**. `_verifie()` refuse une arête partant d'un état non fautif ou
+remontant la chaîne causale.
+
+**L'épingle ne pointe JAMAIS vers `structure`** : « utilise moins tes lombaires » n'est pas une
+consigne exécutable. La lombaire qui prend est le prix payé pour des hanches hautes sans leg drive.
+
+Même logique pour `hip_vs_shoulder_rise:hips_shoot_up` : **« les hanches décollent » n'est jamais
+la faute à rapporter telle quelle.** C'est la *correction* d'un mauvais départ en cours de
+mouvement — le corps va chercher sous charge l'angle de dos qu'il aurait dû avoir dès le début.
+« Ne laisse pas tes hanches monter » est inapplicable, d'où l'arête depuis `hip_height`.
+
+### L'honnêteté sur les causes qu'une vidéo ne sépare pas
+
+Des hanches hautes, ce sont deux personnes : celle qui se place comme ça, et celle qui **ne peut
+pas** tenir plus bas (chevilles, hanches, quadriceps). Même image, action opposée, et aucune vidéo
+ne les distingue. Pareil pour les genoux qui rentrent : manque de rotation externe, ou vraie
+faiblesse.
+
+Le conseil **nomme l'observation et donne le test**, il ne devine pas la cause :
+*« Drop the hips until your shoulders sit over the bar. If you cannot hold it there, that is
+mobility, not technique. »* Une phrase, les deux branches couvertes, et le lifter apprend au
+passage la différence entre un défaut de geste et une limite de corps.
+
+### Ce que le front en fait
+
+`result.mecaniques` donne les six clés dans l'ordre causal ; `ResultView.jsx` itère cette liste
+pour la grille et sort `structure` en bandeau. `criteriaGuides.js` porte le contenu
+**pédagogique** — `what` / `cue` / `drill` par mécanique, identique d'une vidéo à l'autre. C'est
+la carte ; l'épingle y plante une punaise. La page ne s'allonge pas : les six cartes ne montrent
+d'emblée que ce qui cloche.
 
 ## Deux limites dures — ne jamais les contourner par un proxy
 
@@ -99,8 +204,9 @@ grandeurs : rien n'a été supprimé côté mesure, elles ne sont simplement plu
 * **Note d'un critère sur le set = moyenne des notes par rep, arrondie au plus proche, les
   ÉGALITÉS VERS LE BAS.** L'arrondi à l'inférieur a été mesuré comme arithmétiquement identique
   au minimum sur ≤3 reps (45 critères sur 45), donc écarté. Mais l'arrondi au plus proche
-  classique affichait « Setup and tension 3/3 » au-dessus de deux fautes listées : sur 4 reps
-  notées 3,3,2,2 la moyenne vaut exactement 2,5. Seules les égalités changent.
+  classique affichait « Setup and tension 3/3 » au-dessus de deux fautes listées (le critère
+  s'appelait alors `setup`) : sur 4 reps notées 3,3,2,2 la moyenne vaut exactement 2,5. Seules
+  les égalités changent.
 * **Note sur 20 = moyenne pondérée des critères, sur les moyennes NON arrondies.** Sinon un set
   à moitié fautif sortait à 19/20 sous deux conseils correctifs.
 * **Un critère non évaluable sort du calcul ET du dénominateur.** Un clip où le dos n'est pas
@@ -116,9 +222,10 @@ Deux conditions, chacune contre une erreur constatée :
    20/20 : un critère à 1 sur une rep sur cinq ressort à 20/20 après moyenne, donc l'étiquette
    contredisait le chiffre.
 2. **Au-dessus de `SEUIL_TECHNICIEN` (18/20) et sans aucun critère à 1, c'est The Technician.**
-   La seconde moitié n'est pas décorative : la note est pondérée, et **quatre critères sur six
-   peuvent valoir 1/3 pour un total d'exactement 18**. Sans elle, le produit féliciterait un
-   lifter dont la barre part loin du corps.
+   La seconde moitié n'est pas décorative : la note est pondérée, et **deux critères sur sept
+   peuvent valoir 1/3 pour un total d'exactement 18** (recalculé le 2026-09-09 sur les nouveaux
+   poids : c'était quatre sur six avant la refonte). Sans elle, le produit féliciterait un
+   lifter dont le slack et le reset sont à 1/3.
 
 Résultat vérifié : `conventionnal_deadlift_12` rend The Technician, comme l'humain.
 

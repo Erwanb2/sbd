@@ -4,7 +4,10 @@ import RepHistogram from './RepHistogram.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
 
-// Rendu d'une analyse (vidéo + note + reps + conseils + persona + critères).
+// Rendu d'une analyse : vidéo + note, puis les deux axes — le bandeau `structure`
+// (ce qui a lâché, avec son urgence) et l'épingle (la seule chose à corriger, avec
+// ce qui en découle rattaché dessous) — puis les reps, le persona et les six cartes
+// de mécanique.
 // Utilisé à la fois pour le résultat réel (App.jsx) et pour la démo de la page
 // d'accueil. `onReset` et `videoUrl` sont optionnels.
 //
@@ -18,10 +21,28 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
   const note = result?.note_sur_20 ?? 0;
   const pourcentage = (note / 20) * 100;
 
-  const criteres = Object.entries(result?.criteres || {});
+  // Les cartes montrent les six MÉCANIQUES, dans l'ordre causal donné par le backend.
+  // `structure` est noté comme les autres et compte dans le /20, mais il ne va pas
+  // dans la grille : il s'affiche en bandeau, avec sa propre urgence. Ce ne sont pas
+  // des choses qu'on exécute, ce sont des choses qui lâchent.
+  const mecaniques = Array.isArray(result?.mecaniques)
+    ? result.mecaniques
+    : Object.keys(result?.criteres || {});
+  const criteres = mecaniques
+    .filter((c) => result?.criteres?.[c])
+    .map((c) => [ c, result.criteres[c] ]);
   const reps = Array.isArray(result?.reps) ? result.reps : [];
-  const conseils = Array.isArray(result?.conseils) ? result.conseils : [];
+  const epingle = result?.epingle;
+  const structure = result?.structure;
   const persona = result?.persona;
+
+  const urgenceStyle = {
+    stop: 'border-red-500/40 bg-red-500/10 text-red-300',
+    caution: 'border-amber-500/40 bg-amber-500/10 text-amber-300',
+    ok: 'border-emerald-500/30 bg-emerald-500/5 text-emerald-300',
+    inconnu: 'border-gray-700 bg-gray-900 text-gray-400',
+  }[structure?.etat] || 'border-gray-700 bg-gray-900 text-gray-400';
+  const urgenceIcone = { stop: '🛑', caution: '⚠️', ok: '✅' }[structure?.etat] || '👁️';
 
   const mouvement = result?.contexte?.variant?.etat
     ? `${ result.contexte.variant.etat } deadlift`
@@ -79,40 +100,93 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
         </div>
       </div>
 
-      { /* Au plus deux conseils, et ils passent avant tout le reste : c'est la seule
-           partie de la page sur laquelle l'utilisateur peut agir demain. Deux et non
-           huit — une page qui reproche huit choses ne fait rien changer. */ }
-      { conseils.length > 0 && (
+      { /* L'axe STRUCTURE, en bandeau au-dessus de tout. Le danger fixe l'urgence, la
+           cause fixe l'action : ce bandeau dit s'il faut s'arrêter, jamais quoi faire
+           du geste — « utilise moins tes lombaires » n'est pas exécutable. */ }
+      { structure?.texte && (
+        <div className={ `flex items-start gap-3 rounded-2xl border px-5 py-4 text-left ${ urgenceStyle }` }>
+          <span className="text-lg leading-none">{ urgenceIcone }</span>
+          <div className="min-w-0 text-sm">
+            <p className="font-bold">{ structure.texte }</p>
+            { structure.defauts?.length > 0 && (
+              <ul className="mt-1.5 space-y-1 text-current/70">
+                { structure.defauts.map((d) => (
+                  <li key={ d.indicateur }>
+                    { d.constat }
+                    { reps.length > 1 && (
+                      <span className="opacity-50">
+                        { ' ' }(rep{ d.reps.length > 1 ? 's' : '' } { d.reps.join(', ') })
+                      </span>
+                    ) }
+                  </li>
+                )) }
+              </ul>
+            ) }
+          </div>
+        </div>
+      ) }
+
+      { /* UNE chose à corriger, et une seule. Cinq cartes à 3/3 et une à 2/3, ce n'est
+           pas du coaching, c'est un bulletin. L'épingle est le défaut le plus EN AMONT,
+           pas le plus grave : ce qui en découle est rattaché dessous, parce que
+           demander deux corrections pour une cause n'en obtient aucune. */ }
+      { epingle && (
         <div className="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-lg">
           <h3 className="text-white font-black uppercase tracking-widest text-sm mb-4">
             What to work on
           </h3>
-          <div className="space-y-4">
-            { conseils.map((c) => (
-              <div key={ c.indicateur } className="flex items-start gap-4">
-                <span
-                  className={ `mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-xs font-black ${
-                    c.note === 1
-                      ? 'bg-red-500/15 text-red-400 border border-red-500/30'
-                      : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                  }` }
-                >
-                  { c.note }
-                </span>
-                <div className="min-w-0">
-                  <p className="text-white font-semibold leading-snug">{ c.a_essayer }</p>
-                  <p className="mt-1 text-sm text-gray-400 leading-relaxed">
-                    { c.constat }
-                    { reps.length > 1 && (
-                      <span className="text-gray-600">
-                        { ' ' }(rep{ c.reps.length > 1 ? 's' : '' } { c.reps.join(', ') })
-                      </span>
-                    ) }
+          <div className="flex items-start gap-4">
+            <span
+              className={ `mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-xs font-black ${
+                epingle.note === 1
+                  ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                  : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+              }` }
+            >
+              { epingle.note }
+            </span>
+            <div className="min-w-0">
+              <p className="text-white font-semibold leading-snug text-lg">{ epingle.a_essayer }</p>
+              <p className="mt-1 text-sm text-gray-400 leading-relaxed">
+                { epingle.constat }
+                { reps.length > 1 && (
+                  <span className="text-gray-600">
+                    { ' ' }(rep{ epingle.reps.length > 1 ? 's' : '' } { epingle.reps.join(', ') })
+                  </span>
+                ) }
+              </p>
+
+              { /* Rattaché, pas listé à côté : c'est la même cause. */ }
+              { epingle.consequences?.length > 0 && (
+                <div className="mt-3 border-l-2 border-gray-700 pl-3">
+                  <p className="text-xs uppercase tracking-wider text-gray-500 font-bold">
+                    And that is why
                   </p>
+                  <ul className="mt-1 space-y-0.5 text-sm text-gray-500">
+                    { epingle.consequences.map((c) => (
+                      <li key={ c.indicateur }>{ c.constat }</li>
+                    )) }
+                  </ul>
                 </div>
-              </div>
-            )) }
+              ) }
+            </div>
           </div>
+
+          { /* Ce que l'épingle n'explique pas : un seul, en petit. La page ne doit
+               pas s'allonger, et deux reproches indépendants se neutralisent. */ }
+          { epingle.autres?.length > 0 && (
+            <div className="mt-5 border-t border-gray-800 pt-4 text-sm">
+              <p className="text-xs uppercase tracking-wider text-gray-600 font-bold mb-1.5">
+                Separately
+              </p>
+              { epingle.autres.map((c) => (
+                <p key={ c.indicateur } className="text-gray-400">
+                  <span className="text-gray-300">{ c.a_essayer }</span>{ ' ' }
+                  <span className="text-gray-600">{ c.constat }</span>
+                </p>
+              )) }
+            </div>
+          ) }
         </div>
       ) }
 

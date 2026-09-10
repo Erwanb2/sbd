@@ -40,6 +40,11 @@ pose = {"variant": "conventional", "view": 0.08, "visibility": 0.83,
         "reps": [{"debut_s": 1.2 + 5 * i, "fin_s": 5.4 + 5 * i, "mesures": m}
                  for i, m in enumerate(mesures)]}
 
+# L'histoire que la demo raconte est CAUSALE, et c'est tout l'interet : le placement
+# tient d'un bout a l'autre, mais a partir de la rep 3 les hanches decollent avant les
+# epaules — et c'est ce seul defaut qui tire la barre en avant puis enroule le dos.
+# L'epingle doit donc tomber sur `leg_drive`, avec la trajectoire de barre rattachee
+# dessous, et le bandeau structure passer au rouge sur la derniere rep.
 resumes = ["Textbook first pull, everything stacked.",
            "Still tight, the bar drifts a touch more.",
            "The hips beat the shoulders out of the floor.",
@@ -48,15 +53,21 @@ obs = []
 for i, r in enumerate(resumes, 1):
     obs.append({
         "rep_index": i, "bar_over_midfoot": "over_midfoot",
-        "back_at_setup": "flat", "arms_straight": "straight",
+        "hip_height": "between_knees_and_shoulders", "shoulders_over_bar": "over_bar",
+        "back_at_setup": "flat", "arms_long": "straight",
         "slack_pull": "progressive" if i <= 2 else "partial",
+        "brace": "braced" if i <= 3 else "partial",
         "jerky_start": "smooth", "bar_left_floor": "yes",
+        "hip_vs_shoulder_rise": "together" if i <= 2 else "hips_shoot_up",
         "past_the_knees": "clean" if i <= 2 else "loops",
-        "bar_leg_contact": "in_contact" if i <= 2 else "brief_loss",
+        "bar_leg_contact": "in_contact" if i <= 2 else "away_from_legs",
         "back_under_load": "unchanged" if i <= 2 else ("flexion_appears" if i == 3 else "collapses"),
-        "hitch": "no", "asymmetry": "even", "elbow_flexion": "straight",
-        "shrug": "no", "lockout_balance": "held",
-        "descent_control": "controlled", "rep_transition": "reset", "summary": r,
+        "knee_valgus": "not_visible", "asymmetry": "even",
+        "hitch": "no", "shrug": "no", "lean_back": "upright",
+        "lockout_completion": "locked",
+        "descent_control": "controlled",
+        "rep_transition": "last_rep" if i == len(resumes) else "reset",
+        "summary": r,
     })
 llm = {"equipment": "barbell", "grip": "mixed", "foot_orientation": "forward",
        "reps": obs}

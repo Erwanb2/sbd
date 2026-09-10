@@ -644,6 +644,12 @@ def _filtre(mesures: dict, vue: float, visibilite: float) -> dict:
     puisqu'une mesure absente dit deja la meme chose.
     """
     garde = {k: v for k, v in mesures.items() if k.startswith("_")}
+    # Les horodatages ne sont pas des mesures notees : ce sont des faits du clip, lus
+    # sur les images et consommes par du code (`tenue_du_set`, l'histogramme). Depuis
+    # le retrait des 17 indicateurs POSE le 2026-09-09, plus aucun indicateur ne les
+    # reclamait, donc la boucle ci-dessous les jetait avec le reste — et la moitie
+    # "ralentissement" de la tenue du set etait morte sans que rien ne le dise.
+    garde.update({k: v for k, v in mesures.items() if k in indicators.MESURES_TECHNIQUES})
     if visibilite < indicators.VISIBILITE_MIN:
         return garde
     for ind in indicators.INDICATEURS:

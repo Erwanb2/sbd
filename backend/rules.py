@@ -21,6 +21,25 @@ Les trois regles d'agregation, et pourquoi elles sont ce qu'elles sont :
 3. **Note sur 20 = moyenne ponderee des criteres**, poids declares dans le catalogue.
    Un critere non evaluable sort du calcul ET du denominateur : un clip ou le dos n'est
    pas visible n'est pas un clip ou le dos est mauvais.
+
+## Deux axes, et un seul nombre
+
+Depuis le 2026-09-09, les criteres sont les MECANIQUES du geste et non ses phases, et
+ils se lisent sur deux axes qui ne se melangent pas :
+
+* **La sequence** — les six mecaniques, dans l'ordre causal. Elle produit l'EPINGLE :
+  un seul defaut mis en avant, le plus en amont, avec ce qui en decoule rattache
+  dessous. Voir `epingle()`.
+* **La structure** — le dos, les genoux, la symetrie. Des choses qui ne s'executent
+  pas, qui LACHENT. Elle produit l'URGENCE, un bandeau avec sa propre gravite. Voir
+  `urgence()`.
+
+Montrer les deux ne disperse pas le lifter, la ou montrer deux fautes de sequence le
+disperserait : l'un dit "change ca dans ton geste", l'autre "ton corps ne tient pas,
+baisse". Le danger fixe l'urgence, la cause fixe l'action.
+
+Un seul nombre en sort quand meme : `structure` garde son poids dans la note sur 20,
+sinon un dos qui s'effondre sortirait a 18/20 et le chiffre mentirait.
 """
 
 from __future__ import annotations
@@ -116,12 +135,12 @@ def note_sur_20(notes_criteres: dict[str, float | None]) -> int | None:
 
 # ------------------------------------------------------------------- conseils
 
-def conseils(reps: list[dict], limite: int = 2) -> list[dict]:
-    """Au plus deux conseils, les plus graves d'abord.
+def _defauts(reps: list[dict]) -> dict[str, dict]:
+    """Un defaut par indicateur fautif sur la serie, avec sa pire note et ses reps.
 
-    Deux et non huit : une page qui reproche huit choses ne fait rien changer. Un
-    conseil dit quoi essayer, jamais pourquoi le defaut existe — la cause ne se lit pas
-    sur une video.
+    La gravite retenue est la PIRE observee, pas la premiere : un defaut qui vaut 2 sur
+    la rep 1 et 1 sur la rep 4 est un defaut a 1. Le constat suit — sinon la page affiche
+    "termine ta serie" sur un dos qui s'effondre.
     """
     trouves: dict[str, dict] = {}
     for rep in reps:
@@ -133,19 +152,120 @@ def conseils(reps: list[dict], limite: int = 2) -> list[dict]:
                 if texte is None or fait["note"] is None:
                     continue
                 entree = trouves.setdefault(ind.nom, {
-                    "indicateur": ind.id, "critere": critere,
-                    "constat": fait["fait"], "a_essayer": texte,
+                    "indicateur": ind.id, "nom": ind.nom, "critere": critere,
+                    "constat": fait["fait"], "a_essayer": texte, "etat": cle,
                     "note": fait["note"], "reps": []})
                 entree["reps"].append(rep["index"])
-                # La gravite retenue est la PIRE observee, pas la premiere : un defaut
-                # qui vaut 2 sur la rep 1 et 1 sur la rep 4 est un defaut a 1. Le
-                # constat ET la consigne suivent — sinon la page affiche "termine ta
-                # serie" sur un dos qui s'effondre.
                 if fait["note"] < entree["note"]:
-                    entree.update(note=fait["note"], constat=fait["fait"], a_essayer=texte)
-    ordre = sorted(trouves.values(),
-                   key=lambda c: (c["note"], -indicators.POIDS[c["critere"]], -len(c["reps"])))
-    return ordre[:limite]
+                    entree.update(note=fait["note"], constat=fait["fait"],
+                                  a_essayer=texte, etat=cle)
+    return trouves
+
+
+def epingle(reps: list[dict]) -> dict | None:
+    """LE defaut mis en avant, et ce qui en decoule. Un seul, jamais deux.
+
+    Cinq cartes a 3/3 et une a 2/3, ce n'est pas du coaching, c'est un bulletin. Ce qui
+    aide un lifter, c'est UNE chose a corriger pour la prochaine seance.
+
+    Deux regles, et elles sont tout l'ecart entre un bulletin et un coach :
+
+    1. **L'epingle est le defaut le plus EN AMONT de la chaine causale**, pas le plus
+       grave. Une faute de placement produit trois reproches — hanches basses, hanches
+       qui decollent, barre qui s'eloigne — pour une seule cause, et c'est la premiere
+       qu'il faut corriger : les deux autres disparaissent avec elle.
+    2. **Ce qui en decoule est RATTACHE, pas liste a cote.** Annoncer les deux, c'est
+       demander deux corrections pour une cause et n'en obtenir aucune.
+
+    L'epingle ne pointe jamais vers l'axe structure : "utilise moins tes lombaires"
+    n'est pas une consigne executable. Le danger fixe l'urgence, la cause fixe l'action.
+    """
+    defauts = _defauts(reps)
+    candidats = [d for d in defauts.values() if d["critere"] != indicators.STRUCTURE]
+    if not candidats:
+        return None
+
+    # On part du PIRE defaut, puis on remonte la chaine aussi loin qu'elle va, et on
+    # epingle la racine. "Le plus en amont" tout court ne marche pas : mesure sur la
+    # demo de la page d'accueil, un slack a 2 se placait devant des hanches qui
+    # decollent a 1 et les reprochait separement, alors que c'est la meme histoire.
+    # Une broutille de setup masquerait en permanence un effondrement plus loin.
+    pire = min(candidats, key=lambda d: (d["note"], indicators.rang_causal(d["critere"]),
+                                         -len(d["reps"])))
+
+    # Les ancetres du pire defaut : ceux dont la chaine y mene, de proche en proche.
+    parents: dict[str, list[dict]] = {}
+    for d in defauts.values():
+        for aval in indicators.ENCHAINEMENTS.get(f"{d['nom']}:{d['etat']}", ()):
+            if aval in defauts:
+                parents.setdefault(aval, []).append(d)
+    racines, vus, a_voir = [pire], {pire["nom"]}, [pire]
+    while a_voir:
+        for parent in parents.get(a_voir.pop(0)["nom"], ()):
+            if parent["nom"] not in vus and parent["critere"] != indicators.STRUCTURE:
+                vus.add(parent["nom"])
+                racines.append(parent)
+                a_voir.append(parent)
+
+    tete = min(racines, key=lambda d: (indicators.rang_causal(d["critere"]),
+                                       d["note"], -len(d["reps"])))
+
+    # Le parcours est TRANSITIF : des hanches trop basses expliquent des hanches qui
+    # decollent, qui expliquent a leur tour une barre qui s'eloigne. S'arreter au
+    # premier cran laisserait le bout de la chaine en defaut independant, et la page
+    # reprocherait deux fois la meme cause.
+    #
+    # Une arete ne joue que si les DEUX bouts sont fautifs sur cette serie : un
+    # enchainement declare n'est une consequence que si la consequence a eu lieu.
+    consequences, vus, a_voir = [], {tete["nom"]}, [tete]
+    while a_voir:
+        courant = a_voir.pop(0)
+        for nom in indicators.ENCHAINEMENTS.get(f"{courant['nom']}:{courant['etat']}", ()):
+            if nom in vus or nom not in defauts:
+                continue
+            vus.add(nom)
+            suivant = defauts[nom]
+            if suivant["critere"] != indicators.STRUCTURE:
+                consequences.append(suivant)
+            a_voir.append(suivant)
+    # Le dos et les genoux ne descendent pas dans les consequences affichees : ils
+    # remontent au bandeau, qui a sa propre urgence. Ils restent "vus" pour ne pas
+    # etre rapportes une seconde fois comme defaut independant.
+    consequences.sort(key=lambda d: indicators.rang_causal(d["critere"]))
+    expliques = vus
+
+    return {**tete, "consequences": consequences,
+            # Ce qui reste et que l'epingle n'explique pas. Un seul : la page ne doit
+            # pas rallonger, et deux reproches independants se neutralisent deja.
+            #
+            # Un defaut du MEME critere que l'epingle n'y figure pas : il s'affiche
+            # deja sur la carte de la mecanique, et le sortir ici donnerait deux
+            # consignes sous le meme titre.
+            "autres": sorted((d for d in candidats if d["nom"] not in expliques
+                              and d["critere"] != tete["critere"]),
+                             key=lambda d: (d["note"], -len(d["reps"])))[:1]}
+
+
+def urgence(reps: list[dict]) -> dict:
+    """Le bandeau de l'axe structure : ce qui a lache, et a quel point c'est grave.
+
+    Elle se lit sur la PIRE note vue sur une repetition, jamais sur la note agregee :
+    un dos qui s'effondre sur une rep sur cinq ressort a 3/3 apres moyenne, et il faut
+    quand meme dire de s'arreter. C'est l'inverse du persona, qui exige au contraire
+    que le defaut survive a la serie — parce qu'un surnom etiquette une serie et qu'une
+    blessure n'attend pas la moyenne.
+    """
+    notes = [rep["criteres"][indicators.STRUCTURE]["note"] for rep in reps]
+    notes = [n for n in notes if n is not None]
+    defauts = [d for d in _defauts(reps).values() if d["critere"] == indicators.STRUCTURE]
+    if not notes:
+        return {"etat": "inconnu", "note": None, "defauts": defauts,
+                "texte": "The camera angle never showed enough to judge back, knees or "
+                         "symmetry on this set."}
+    pire = min(notes)
+    etat, texte = indicators.URGENCES[pire]
+    return {"etat": etat, "note": pire, "texte": texte,
+            "defauts": sorted(defauts, key=lambda d: d["note"])}
 
 
 def etat_cle(rep: dict, nom: str) -> str | None:
@@ -260,9 +380,9 @@ def evalue(pose: dict, observations: dict) -> dict:
         bloc = {}
         for critere in criteres:
             note, faits = note_du_critere(etats, critere, variante)
-            # Une tentative inachevee n'a pas de lockout ni de descente : ces phases ne
-            # sont pas invisibles, elles n'ont pas eu lieu. Non applicable, pas mauvais.
-            if reel == "incomplete" and critere in ("lockout", "descent"):
+            # Une tentative inachevee n'a ni position d'arrivee ni reset : ces mecaniques
+            # ne sont pas invisibles, elles n'ont pas eu lieu. Non applicable, pas mauvais.
+            if reel == "incomplete" and critere in ("finish_position", "reset"):
                 bloc[critere] = {"libelle": indicators.LIBELLE[critere], "note": None,
                                  "statut": "non_applicable", "faits": faits}
                 continue
@@ -307,6 +427,7 @@ def evalue(pose: dict, observations: dict) -> dict:
     contexte["mesures"] = {k: v for k, v in mesures_set.items() if k != "variant"}
 
     note = note_sur_20(moyennes)
+    pin = epingle(reps)
     return {
         "variante": variante,
         "contexte": contexte,
@@ -316,10 +437,17 @@ def evalue(pose: dict, observations: dict) -> dict:
                          "notes_par_rep": [r["criteres"][c]["note"] for r in reps],
                          "faits": faits_du_critere(reps, c)}
                      for c in criteres},
+        # Les six mecaniques, dans l'ordre causal. Le front itere cette liste pour la
+        # grille ; `structure` est deja dans `criteres` mais s'affiche en bandeau.
+        "mecaniques": list(indicators.MECANIQUES),
+        "structure": urgence(reps),
+        "epingle": pin,
         "note_sur_20": note,
         "nb_reps": len(reps),
         "segments_ecartes": retirees,
         "tenue_du_set": tenue_du_set(reps),
-        "conseils": conseils(reps),
+        # Liste a plat, l'epingle en tete : gardee pour l'eval et le scorer, qui
+        # comptent des conseils sans se soucier de la chaine causale.
+        "conseils": ([pin] + pin["autres"]) if pin else [],
         "persona": persona_mod.deduis([r["etats"] for r in reps], notes_set, note),
     }

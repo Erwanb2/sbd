@@ -1,7 +1,7 @@
 """Serveur local de notation humaine des clips de data/.
 
 Sert une page unique qui deroule les clips un par un : la video, le nom du
-fichier, les 8 criteres du schema du mouvement avec trois boutons 1/3 2/3 3/3,
+fichier, les criteres du catalogue avec trois boutons 1/3 2/3 3/3,
 une zone de commentaire, le nombre de repetitions, et — replies par defaut — l'avis de
 Claude et la note du LLM sur les memes criteres.
 

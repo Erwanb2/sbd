@@ -24,6 +24,9 @@ export default function ResultCard({ data, isExpanded, onToggle, demo }) {
 
   const isDetailedGuide = demo && typeof demo === 'object' && demo.bad && demo.good;
   const isSimpleUrl = demo && typeof demo === 'string';
+  // La partie qui APPREND : identique d'une vidéo à l'autre, c'est ce qui fait qu'au
+  // troisième upload le lifter connaît les six mécaniques par leur nom.
+  const cours = demo && typeof demo === 'object' && demo.what ? demo : null;
 
   return (
     <div
@@ -95,6 +98,29 @@ export default function ResultCard({ data, isExpanded, onToggle, demo }) {
           </div>
         ) }
 
+        { cours && (
+          <div className="mb-4 rounded-xl border border-gray-800 bg-gray-950/60 p-4 space-y-3">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500/70">
+                What good looks like
+              </span>
+              <p className="mt-1 text-sm leading-relaxed text-gray-300">{ cours.what }</p>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-400/70">
+                Cue
+              </span>
+              <p className="mt-1 text-sm leading-relaxed text-white/90 italic">“{ cours.cue }”</p>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                Drill it
+              </span>
+              <p className="mt-1 text-sm leading-relaxed text-gray-400">{ cours.drill }</p>
+            </div>
+          </div>
+        ) }
+
         { isDetailedGuide ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <div className="bg-red-950/20 border border-red-900/40 rounded-xl p-4">
@@ -129,14 +155,14 @@ export default function ResultCard({ data, isExpanded, onToggle, demo }) {
           <div className="bg-gray-950 rounded-xl p-4 flex flex-col items-center justify-center border border-gray-800">
             <img src={ demo } alt="Demo" className="rounded-lg max-h-64 object-cover" />
           </div>
-        ) : (
+        ) : !cours ? (
           <div className="bg-gray-950 rounded-xl p-4 flex flex-col items-center justify-center border border-gray-800">
             <div className="flex flex-col items-center text-gray-500 py-6">
               <PlayCircle className="w-10 h-10 mb-2 opacity-30" />
               <span className="text-xs font-medium uppercase tracking-wider">Guide à venir</span>
             </div>
           </div>
-        ) }
+        ) : null }
       </div>
     </div>
   );

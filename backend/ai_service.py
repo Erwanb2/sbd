@@ -264,9 +264,9 @@ give and no praise to write.
 The one judgement only you can make is `bar_left_floor`. The detector cannot tell a
 repetition from an athlete standing up after putting the bar down, because the body does
 exactly the same thing. Look at the bar and the plates:
-  - 'oui'       : the bar left the floor and was lifted.
-  - 'non'       : the bar never left the floor, or was already down. Not a repetition.
-  - 'inachevee' : the bar left the floor but came back down before lockout.
+  - 'yes'        : the bar left the floor and was lifted.
+  - 'no'         : the bar never left the floor, or was already down. Not a repetition.
+  - 'incomplete' : the bar left the floor but came back down before lockout.
 Return the entry either way, with every other field filled as best you can.
 
 When something genuinely cannot be seen, use 'not_visible' for that field alone. It means

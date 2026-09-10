@@ -14,18 +14,6 @@ export const sampleResult =
 {
   "variante": "conventional",
   "contexte": {
-    "variant": {
-      "etat": "conventional",
-      "texte": "Hands outside the legs, hip-width stance."
-    },
-    "camera_view": {
-      "etat": "side",
-      "texte": "Filmed from the side: bar path and joint angles are readable."
-    },
-    "pose_quality": {
-      "etat": "good",
-      "texte": "Landmarks are stable and visible throughout."
-    },
     "equipment": {
       "etat": "barbell",
       "texte": "A standard barbell with plates on the floor."
@@ -50,22 +38,22 @@ export const sampleResult =
       "fin_s": 5.4,
       "statut": "complete",
       "criteres": {
-        "setup": {
-          "libelle": "Setup and tension",
+        "start_position": {
+          "libelle": "Start position",
           "note": 3,
           "statut": "note",
           "faits": [
             {
               "indicateur": "S01",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The hips sit between the knees and the shoulders.",
               "note": 3
             },
             {
               "indicateur": "S02",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The shoulders are stacked over or just ahead of the bar.",
               "note": 3
             },
@@ -80,9 +68,16 @@ export const sampleResult =
               "indicateur": "S06",
               "phase": "setup",
               "source": "a_tester",
-              "fait": "The arms hang straight, elbows locked out.",
+              "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
               "note": 3
-            },
+            }
+          ]
+        },
+        "slack_and_brace": {
+          "libelle": "Slack and brace",
+          "note": 3,
+          "statut": "note",
+          "faits": [
             {
               "indicateur": "S07",
               "phase": "setup",
@@ -91,17 +86,17 @@ export const sampleResult =
               "note": 3
             },
             {
+              "indicateur": "S09",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+              "note": 3
+            },
+            {
               "indicateur": "L03",
               "phase": "decollage",
               "source": "a_tester",
               "fait": "The bar accelerates smoothly out of the floor.",
-              "note": 3
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The arms stay long throughout the pull.",
               "note": 3
             }
           ]
@@ -114,52 +109,17 @@ export const sampleResult =
             {
               "indicateur": "L01",
               "phase": "decollage",
-              "source": "pose",
+              "source": "llm",
               "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
-              "note": 3
-            },
-            {
-              "indicateur": "L02",
-              "phase": "decollage",
-              "source": "pose",
-              "fait": "The torso angle holds as the bar leaves the floor.",
-              "note": 3
-            }
-          ]
-        },
-        "spine": {
-          "libelle": "Spine under load",
-          "note": 3,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "S05",
-              "phase": "setup",
-              "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
-              "note": 3
-            },
-            {
-              "indicateur": "P04",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
               "note": 3
             }
           ]
         },
         "bar_path": {
-          "libelle": "Bar path and proximity",
+          "libelle": "Bar against the body",
           "note": 3,
           "statut": "note",
           "faits": [
-            {
-              "indicateur": "P01",
-              "phase": "tiree",
-              "source": "pose",
-              "fait": "The hands stay over the same point through the pull.",
-              "note": 3
-            },
             {
               "indicateur": "P02",
               "phase": "tiree",
@@ -176,8 +136,8 @@ export const sampleResult =
             }
           ]
         },
-        "lockout": {
-          "libelle": "Lockout",
+        "finish_position": {
+          "libelle": "Finish position",
           "note": 3,
           "statut": "note",
           "faits": [
@@ -189,30 +149,9 @@ export const sampleResult =
               "note": 3
             },
             {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3
-            },
-            {
-              "indicateur": "K01",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The hips reach full extension, the lifter standing tall.",
-              "note": 3
-            },
-            {
-              "indicateur": "K02",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The knees lock out fully.",
-              "note": 3
-            },
-            {
               "indicateur": "K03",
               "phase": "lockout",
-              "source": "pose",
+              "source": "llm",
               "fait": "The lifter finishes upright and neutral.",
               "note": 3
             },
@@ -224,31 +163,66 @@ export const sampleResult =
               "note": 3
             },
             {
-              "indicateur": "K05",
+              "indicateur": "K07",
               "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lifter finishes balanced over the feet.",
+              "source": "llm",
+              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
               "note": 3
             }
           ]
         },
-        "descent": {
-          "libelle": "Descent",
+        "reset": {
+          "libelle": "Reset between reps",
           "note": 3,
           "statut": "note",
           "faits": [
-            {
-              "indicateur": "E01",
-              "phase": "descente",
-              "source": "pose",
-              "fait": "The hips travel back first, the knees bending once the bar has passed them.",
-              "note": 3
-            },
             {
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
               "fait": "The bar is lowered under control, the lifter staying with it.",
+              "note": 3
+            },
+            {
+              "indicateur": "E03",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "note": 3
+            }
+          ]
+        },
+        "structure": {
+          "libelle": "Structure under load",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "S05",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The back is flat and set before the bar moves.",
+              "note": 3
+            },
+            {
+              "indicateur": "P04",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+              "note": 3
+            },
+            {
+              "indicateur": "P05",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "note": null
+            },
+            {
+              "indicateur": "P09",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "Both sides rise together.",
               "note": 3
             }
           ]
@@ -270,22 +244,22 @@ export const sampleResult =
       "fin_s": 10.4,
       "statut": "complete",
       "criteres": {
-        "setup": {
-          "libelle": "Setup and tension",
+        "start_position": {
+          "libelle": "Start position",
           "note": 3,
           "statut": "note",
           "faits": [
             {
               "indicateur": "S01",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The hips sit between the knees and the shoulders.",
               "note": 3
             },
             {
               "indicateur": "S02",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The shoulders are stacked over or just ahead of the bar.",
               "note": 3
             },
@@ -300,9 +274,16 @@ export const sampleResult =
               "indicateur": "S06",
               "phase": "setup",
               "source": "a_tester",
-              "fait": "The arms hang straight, elbows locked out.",
+              "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
               "note": 3
-            },
+            }
+          ]
+        },
+        "slack_and_brace": {
+          "libelle": "Slack and brace",
+          "note": 3,
+          "statut": "note",
+          "faits": [
             {
               "indicateur": "S07",
               "phase": "setup",
@@ -311,17 +292,17 @@ export const sampleResult =
               "note": 3
             },
             {
+              "indicateur": "S09",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+              "note": 3
+            },
+            {
               "indicateur": "L03",
               "phase": "decollage",
               "source": "a_tester",
               "fait": "The bar accelerates smoothly out of the floor.",
-              "note": 3
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The arms stay long throughout the pull.",
               "note": 3
             }
           ]
@@ -334,52 +315,17 @@ export const sampleResult =
             {
               "indicateur": "L01",
               "phase": "decollage",
-              "source": "pose",
+              "source": "llm",
               "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
-              "note": 3
-            },
-            {
-              "indicateur": "L02",
-              "phase": "decollage",
-              "source": "pose",
-              "fait": "The torso angle holds as the bar leaves the floor.",
-              "note": 3
-            }
-          ]
-        },
-        "spine": {
-          "libelle": "Spine under load",
-          "note": 3,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "S05",
-              "phase": "setup",
-              "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
-              "note": 3
-            },
-            {
-              "indicateur": "P04",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
               "note": 3
             }
           ]
         },
         "bar_path": {
-          "libelle": "Bar path and proximity",
+          "libelle": "Bar against the body",
           "note": 3,
           "statut": "note",
           "faits": [
-            {
-              "indicateur": "P01",
-              "phase": "tiree",
-              "source": "pose",
-              "fait": "The hands stay over the same point through the pull.",
-              "note": 3
-            },
             {
               "indicateur": "P02",
               "phase": "tiree",
@@ -396,8 +342,8 @@ export const sampleResult =
             }
           ]
         },
-        "lockout": {
-          "libelle": "Lockout",
+        "finish_position": {
+          "libelle": "Finish position",
           "note": 3,
           "statut": "note",
           "faits": [
@@ -409,30 +355,9 @@ export const sampleResult =
               "note": 3
             },
             {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3
-            },
-            {
-              "indicateur": "K01",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The hips reach full extension, the lifter standing tall.",
-              "note": 3
-            },
-            {
-              "indicateur": "K02",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The knees lock out fully.",
-              "note": 3
-            },
-            {
               "indicateur": "K03",
               "phase": "lockout",
-              "source": "pose",
+              "source": "llm",
               "fait": "The lifter finishes upright and neutral.",
               "note": 3
             },
@@ -444,31 +369,66 @@ export const sampleResult =
               "note": 3
             },
             {
-              "indicateur": "K05",
+              "indicateur": "K07",
               "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lifter finishes balanced over the feet.",
+              "source": "llm",
+              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
               "note": 3
             }
           ]
         },
-        "descent": {
-          "libelle": "Descent",
+        "reset": {
+          "libelle": "Reset between reps",
           "note": 3,
           "statut": "note",
           "faits": [
-            {
-              "indicateur": "E01",
-              "phase": "descente",
-              "source": "pose",
-              "fait": "The hips travel back first, the knees bending once the bar has passed them.",
-              "note": 3
-            },
             {
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
               "fait": "The bar is lowered under control, the lifter staying with it.",
+              "note": 3
+            },
+            {
+              "indicateur": "E03",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "note": 3
+            }
+          ]
+        },
+        "structure": {
+          "libelle": "Structure under load",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "S05",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The back is flat and set before the bar moves.",
+              "note": 3
+            },
+            {
+              "indicateur": "P04",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+              "note": 3
+            },
+            {
+              "indicateur": "P05",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "note": null
+            },
+            {
+              "indicateur": "P09",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "Both sides rise together.",
               "note": 3
             }
           ]
@@ -490,22 +450,22 @@ export const sampleResult =
       "fin_s": 15.4,
       "statut": "complete",
       "criteres": {
-        "setup": {
-          "libelle": "Setup and tension",
-          "note": 2,
+        "start_position": {
+          "libelle": "Start position",
+          "note": 3,
           "statut": "note",
           "faits": [
             {
               "indicateur": "S01",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The hips sit between the knees and the shoulders.",
               "note": 3
             },
             {
               "indicateur": "S02",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The shoulders are stacked over or just ahead of the bar.",
               "note": 3
             },
@@ -520,9 +480,16 @@ export const sampleResult =
               "indicateur": "S06",
               "phase": "setup",
               "source": "a_tester",
-              "fait": "The arms hang straight, elbows locked out.",
+              "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
               "note": 3
-            },
+            }
+          ]
+        },
+        "slack_and_brace": {
+          "libelle": "Slack and brace",
+          "note": 2,
+          "statut": "note",
+          "faits": [
             {
               "indicateur": "S07",
               "phase": "setup",
@@ -531,17 +498,17 @@ export const sampleResult =
               "note": 2
             },
             {
+              "indicateur": "S09",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+              "note": 3
+            },
+            {
               "indicateur": "L03",
               "phase": "decollage",
               "source": "a_tester",
               "fait": "The bar accelerates smoothly out of the floor.",
-              "note": 3
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The arms stay long throughout the pull.",
               "note": 3
             }
           ]
@@ -554,21 +521,91 @@ export const sampleResult =
             {
               "indicateur": "L01",
               "phase": "decollage",
-              "source": "pose",
+              "source": "llm",
               "fait": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
               "note": 1
-            },
-            {
-              "indicateur": "L02",
-              "phase": "decollage",
-              "source": "pose",
-              "fait": "The torso pitches further forward at liftoff: the hips win the race and the back takes the load.",
-              "note": 2
             }
           ]
         },
-        "spine": {
-          "libelle": "Spine under load",
+        "bar_path": {
+          "libelle": "Bar against the body",
+          "note": 1,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P02",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The bar loops forward around the knees before coming back in.",
+              "note": 2
+            },
+            {
+              "indicateur": "P03",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The bar travels visibly away from the legs.",
+              "note": 1
+            }
+          ]
+        },
+        "finish_position": {
+          "libelle": "Finish position",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P08",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The bar rises in one continuous motion.",
+              "note": 3
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The lifter finishes upright and neutral.",
+              "note": 3
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The lift finishes with hip extension alone.",
+              "note": 3
+            },
+            {
+              "indicateur": "K07",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "note": 3
+            }
+          ]
+        },
+        "reset": {
+          "libelle": "Reset between reps",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "E02",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "note": 3
+            },
+            {
+              "indicateur": "E03",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "note": 3
+            }
+          ]
+        },
+        "structure": {
+          "libelle": "Structure under load",
           "note": 2,
           "statut": "note",
           "faits": [
@@ -585,48 +622,13 @@ export const sampleResult =
               "source": "llm",
               "fait": "Flexion appears during the pull that was not there at the start.",
               "note": 2
-            }
-          ]
-        },
-        "bar_path": {
-          "libelle": "Bar path and proximity",
-          "note": 2,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "P01",
-              "phase": "tiree",
-              "source": "pose",
-              "fait": "The hands drift forward and come back.",
-              "note": 2
             },
             {
-              "indicateur": "P02",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The bar loops forward around the knees before coming back in.",
-              "note": 2
-            },
-            {
-              "indicateur": "P03",
+              "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Contact is briefly lost, then the bar comes back to the legs.",
-              "note": 3
-            }
-          ]
-        },
-        "lockout": {
-          "libelle": "Lockout",
-          "note": 3,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "P08",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3
+              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "note": null
             },
             {
               "indicateur": "P09",
@@ -634,68 +636,12 @@ export const sampleResult =
               "source": "a_tester",
               "fait": "Both sides rise together.",
               "note": 3
-            },
-            {
-              "indicateur": "K01",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The hips reach full extension, the lifter standing tall.",
-              "note": 3
-            },
-            {
-              "indicateur": "K02",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The knees lock out fully.",
-              "note": 3
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The lifter finishes upright and neutral.",
-              "note": 3
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
-              "note": 3
-            },
-            {
-              "indicateur": "K05",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lifter finishes balanced over the feet.",
-              "note": 3
-            }
-          ]
-        },
-        "descent": {
-          "libelle": "Descent",
-          "note": 2,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "E01",
-              "phase": "descente",
-              "source": "pose",
-              "fait": "The knees bend before the bar has passed them, pushing the bar forward or into the kneecaps.",
-              "note": 2
-            },
-            {
-              "indicateur": "E02",
-              "phase": "descente",
-              "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
-              "note": 3
             }
           ]
         }
       },
       "note": 2,
-      "note_precise": 2.0,
+      "note_precise": 2.14,
       "sur": 3,
       "non_evaluables": 0,
       "temps": {
@@ -710,22 +656,22 @@ export const sampleResult =
       "fin_s": 20.4,
       "statut": "complete",
       "criteres": {
-        "setup": {
-          "libelle": "Setup and tension",
-          "note": 2,
+        "start_position": {
+          "libelle": "Start position",
+          "note": 3,
           "statut": "note",
           "faits": [
             {
               "indicateur": "S01",
               "phase": "setup",
-              "source": "pose",
-              "fait": "The hips start very high: the pull begins as a stiff-legged lift with the shoulders far in front.",
-              "note": 2
+              "source": "llm",
+              "fait": "The hips sit between the knees and the shoulders.",
+              "note": 3
             },
             {
               "indicateur": "S02",
               "phase": "setup",
-              "source": "pose",
+              "source": "llm",
               "fait": "The shoulders are stacked over or just ahead of the bar.",
               "note": 3
             },
@@ -740,9 +686,16 @@ export const sampleResult =
               "indicateur": "S06",
               "phase": "setup",
               "source": "a_tester",
-              "fait": "The arms hang straight, elbows locked out.",
+              "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
               "note": 3
-            },
+            }
+          ]
+        },
+        "slack_and_brace": {
+          "libelle": "Slack and brace",
+          "note": 2,
+          "statut": "note",
+          "faits": [
             {
               "indicateur": "S07",
               "phase": "setup",
@@ -751,17 +704,17 @@ export const sampleResult =
               "note": 2
             },
             {
+              "indicateur": "S09",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "Some air is taken but the midsection gives during the pull, or the breath is let go before lockout.",
+              "note": 2
+            },
+            {
               "indicateur": "L03",
               "phase": "decollage",
               "source": "a_tester",
               "fait": "The bar accelerates smoothly out of the floor.",
-              "note": 3
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The arms stay long throughout the pull.",
               "note": 3
             }
           ]
@@ -774,21 +727,91 @@ export const sampleResult =
             {
               "indicateur": "L01",
               "phase": "decollage",
-              "source": "pose",
+              "source": "llm",
               "fait": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
               "note": 1
-            },
-            {
-              "indicateur": "L02",
-              "phase": "decollage",
-              "source": "pose",
-              "fait": "The torso pitches further forward at liftoff: the hips win the race and the back takes the load.",
-              "note": 2
             }
           ]
         },
-        "spine": {
-          "libelle": "Spine under load",
+        "bar_path": {
+          "libelle": "Bar against the body",
+          "note": 1,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P02",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The bar loops forward around the knees before coming back in.",
+              "note": 2
+            },
+            {
+              "indicateur": "P03",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The bar travels visibly away from the legs.",
+              "note": 1
+            }
+          ]
+        },
+        "finish_position": {
+          "libelle": "Finish position",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P08",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The bar rises in one continuous motion.",
+              "note": 3
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The lifter finishes upright and neutral.",
+              "note": 3
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The lift finishes with hip extension alone.",
+              "note": 3
+            },
+            {
+              "indicateur": "K07",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "note": 3
+            }
+          ]
+        },
+        "reset": {
+          "libelle": "Reset between reps",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "E02",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "note": 3
+            },
+            {
+              "indicateur": "E03",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "This is the last rep of the set.",
+              "note": null
+            }
+          ]
+        },
+        "structure": {
+          "libelle": "Structure under load",
           "note": 1,
           "statut": "note",
           "faits": [
@@ -805,48 +828,13 @@ export const sampleResult =
               "source": "llm",
               "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
               "note": 1
-            }
-          ]
-        },
-        "bar_path": {
-          "libelle": "Bar path and proximity",
-          "note": 1,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "P01",
-              "phase": "tiree",
-              "source": "pose",
-              "fait": "The hands drift well away from the body, lengthening the lever on the lower back.",
-              "note": 1
             },
             {
-              "indicateur": "P02",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The bar loops forward around the knees before coming back in.",
-              "note": 2
-            },
-            {
-              "indicateur": "P03",
+              "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Contact is briefly lost, then the bar comes back to the legs.",
-              "note": 3
-            }
-          ]
-        },
-        "lockout": {
-          "libelle": "Lockout",
-          "note": 3,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "P08",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3
+              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "note": null
             },
             {
               "indicateur": "P09",
@@ -854,68 +842,12 @@ export const sampleResult =
               "source": "a_tester",
               "fait": "Both sides rise together.",
               "note": 3
-            },
-            {
-              "indicateur": "K01",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The hips reach full extension, the lifter standing tall.",
-              "note": 3
-            },
-            {
-              "indicateur": "K02",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "The knees lock out fully.",
-              "note": 3
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "pose",
-              "fait": "A slight lean back at the top.",
-              "note": 3
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
-              "note": 3
-            },
-            {
-              "indicateur": "K05",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lifter finishes balanced over the feet.",
-              "note": 3
-            }
-          ]
-        },
-        "descent": {
-          "libelle": "Descent",
-          "note": 2,
-          "statut": "note",
-          "faits": [
-            {
-              "indicateur": "E01",
-              "phase": "descente",
-              "source": "pose",
-              "fait": "The knees bend before the bar has passed them, pushing the bar forward or into the kneecaps.",
-              "note": 2
-            },
-            {
-              "indicateur": "E02",
-              "phase": "descente",
-              "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
-              "note": 3
             }
           ]
         }
       },
       "note": 2,
-      "note_precise": 1.67,
+      "note_precise": 2.0,
       "sur": 3,
       "non_evaluables": 0,
       "temps": {
@@ -926,54 +858,34 @@ export const sampleResult =
     }
   ],
   "criteres": {
-    "setup": {
-      "libelle": "Setup and tension",
-      "note": 2,
-      "poids": 1.0,
+    "start_position": {
+      "libelle": "Start position",
+      "note": 3,
+      "poids": 1.5,
       "notes_par_rep": [
         3,
         3,
-        2,
-        2
+        3,
+        3
       ],
       "faits": [
         {
-          "indicateur": "S07",
+          "indicateur": "S01",
           "phase": "setup",
           "source": "llm",
-          "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-          "note": 2,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "S01",
-          "phase": "setup",
-          "source": "pose",
-          "fait": "The hips start very high: the pull begins as a stiff-legged lift with the shoulders far in front.",
-          "note": 2,
-          "reps": [
-            4
-          ]
-        },
-        {
-          "indicateur": "S01",
-          "phase": "setup",
-          "source": "pose",
           "fait": "The hips sit between the knees and the shoulders.",
           "note": 3,
           "reps": [
             1,
             2,
-            3
+            3,
+            4
           ]
         },
         {
           "indicateur": "S02",
           "phase": "setup",
-          "source": "pose",
+          "source": "llm",
           "fait": "The shoulders are stacked over or just ahead of the bar.",
           "note": 3,
           "reps": [
@@ -1000,12 +912,46 @@ export const sampleResult =
           "indicateur": "S06",
           "phase": "setup",
           "source": "a_tester",
-          "fait": "The arms hang straight, elbows locked out.",
+          "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
           "note": 3,
           "reps": [
             1,
             2,
             3,
+            4
+          ]
+        }
+      ]
+    },
+    "slack_and_brace": {
+      "libelle": "Slack and brace",
+      "note": 2,
+      "poids": 1.0,
+      "notes_par_rep": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "faits": [
+        {
+          "indicateur": "S07",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
+          "note": 2,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "S09",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "Some air is taken but the midsection gives during the pull, or the breath is let go before lockout.",
+          "note": 2,
+          "reps": [
             4
           ]
         },
@@ -1021,23 +967,22 @@ export const sampleResult =
           ]
         },
         {
-          "indicateur": "L03",
-          "phase": "decollage",
-          "source": "a_tester",
-          "fait": "The bar accelerates smoothly out of the floor.",
+          "indicateur": "S09",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
           "note": 3,
           "reps": [
             1,
             2,
-            3,
-            4
+            3
           ]
         },
         {
-          "indicateur": "P10",
-          "phase": "tiree",
+          "indicateur": "L03",
+          "phase": "decollage",
           "source": "a_tester",
-          "fait": "The arms stay long throughout the pull.",
+          "fait": "The bar accelerates smoothly out of the floor.",
           "note": 3,
           "reps": [
             1,
@@ -1051,7 +996,7 @@ export const sampleResult =
     "leg_drive": {
       "libelle": "Leg drive off the floor",
       "note": 2,
-      "poids": 1.0,
+      "poids": 1.5,
       "notes_par_rep": [
         3,
         3,
@@ -1062,7 +1007,7 @@ export const sampleResult =
         {
           "indicateur": "L01",
           "phase": "decollage",
-          "source": "pose",
+          "source": "llm",
           "fait": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
           "note": 1,
           "reps": [
@@ -1071,32 +1016,10 @@ export const sampleResult =
           ]
         },
         {
-          "indicateur": "L02",
-          "phase": "decollage",
-          "source": "pose",
-          "fait": "The torso pitches further forward at liftoff: the hips win the race and the back takes the load.",
-          "note": 2,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
           "indicateur": "L01",
           "phase": "decollage",
-          "source": "pose",
+          "source": "llm",
           "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
-          "note": 3,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "L02",
-          "phase": "decollage",
-          "source": "pose",
-          "fait": "The torso angle holds as the bar leaves the floor.",
           "note": 3,
           "reps": [
             1,
@@ -1105,8 +1028,178 @@ export const sampleResult =
         }
       ]
     },
-    "spine": {
-      "libelle": "Spine under load",
+    "bar_path": {
+      "libelle": "Bar against the body",
+      "note": 2,
+      "poids": 1.5,
+      "notes_par_rep": [
+        3,
+        3,
+        1,
+        1
+      ],
+      "faits": [
+        {
+          "indicateur": "P03",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "The bar travels visibly away from the legs.",
+          "note": 1,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "P02",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "The bar loops forward around the knees before coming back in.",
+          "note": 2,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "P02",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "The bar passes the knees close to the legs, in one line.",
+          "note": 3,
+          "reps": [
+            1,
+            2
+          ]
+        },
+        {
+          "indicateur": "P03",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+          "note": 3,
+          "reps": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "finish_position": {
+      "libelle": "Finish position",
+      "note": 3,
+      "poids": 1.0,
+      "notes_par_rep": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "P08",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "The bar rises in one continuous motion.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "K03",
+          "phase": "lockout",
+          "source": "llm",
+          "fait": "The lifter finishes upright and neutral.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "K04",
+          "phase": "lockout",
+          "source": "a_tester",
+          "fait": "The lift finishes with hip extension alone.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "K07",
+          "phase": "lockout",
+          "source": "llm",
+          "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    "reset": {
+      "libelle": "Reset between reps",
+      "note": 3,
+      "poids": 0.5,
+      "notes_par_rep": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "E02",
+          "phase": "descente",
+          "source": "llm",
+          "fait": "The bar is lowered under control, the lifter staying with it.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "E03",
+          "phase": "descente",
+          "source": "llm",
+          "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "indicateur": "E03",
+          "phase": "descente",
+          "source": "llm",
+          "fait": "This is the last rep of the set.",
+          "note": null,
+          "reps": [
+            4
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "libelle": "Structure under load",
       "note": 2,
       "poids": 2.0,
       "notes_par_rep": [
@@ -1159,120 +1252,6 @@ export const sampleResult =
             1,
             2
           ]
-        }
-      ]
-    },
-    "bar_path": {
-      "libelle": "Bar path and proximity",
-      "note": 2,
-      "poids": 1.0,
-      "notes_par_rep": [
-        3,
-        3,
-        2,
-        1
-      ],
-      "faits": [
-        {
-          "indicateur": "P01",
-          "phase": "tiree",
-          "source": "pose",
-          "fait": "The hands drift well away from the body, lengthening the lever on the lower back.",
-          "note": 1,
-          "reps": [
-            4
-          ]
-        },
-        {
-          "indicateur": "P01",
-          "phase": "tiree",
-          "source": "pose",
-          "fait": "The hands drift forward and come back.",
-          "note": 2,
-          "reps": [
-            3
-          ]
-        },
-        {
-          "indicateur": "P02",
-          "phase": "tiree",
-          "source": "a_tester",
-          "fait": "The bar loops forward around the knees before coming back in.",
-          "note": 2,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "P01",
-          "phase": "tiree",
-          "source": "pose",
-          "fait": "The hands stay over the same point through the pull.",
-          "note": 3,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "P02",
-          "phase": "tiree",
-          "source": "a_tester",
-          "fait": "The bar passes the knees close to the legs, in one line.",
-          "note": 3,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "P03",
-          "phase": "tiree",
-          "source": "llm",
-          "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
-          "note": 3,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "P03",
-          "phase": "tiree",
-          "source": "llm",
-          "fait": "Contact is briefly lost, then the bar comes back to the legs.",
-          "note": 3,
-          "reps": [
-            3,
-            4
-          ]
-        }
-      ]
-    },
-    "lockout": {
-      "libelle": "Lockout",
-      "note": 3,
-      "poids": 1.5,
-      "notes_par_rep": [
-        3,
-        3,
-        3,
-        3
-      ],
-      "faits": [
-        {
-          "indicateur": "P08",
-          "phase": "tiree",
-          "source": "a_tester",
-          "fait": "The bar rises in one continuous motion.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
         },
         {
           "indicateur": "P09",
@@ -1288,120 +1267,11 @@ export const sampleResult =
           ]
         },
         {
-          "indicateur": "K01",
-          "phase": "lockout",
-          "source": "pose",
-          "fait": "The hips reach full extension, the lifter standing tall.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K02",
-          "phase": "lockout",
-          "source": "pose",
-          "fait": "The knees lock out fully.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K03",
-          "phase": "lockout",
-          "source": "pose",
-          "fait": "The lifter finishes upright and neutral.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "indicateur": "K04",
-          "phase": "lockout",
-          "source": "a_tester",
-          "fait": "The lift finishes with hip extension alone.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K05",
-          "phase": "lockout",
-          "source": "a_tester",
-          "fait": "The lifter finishes balanced over the feet.",
-          "note": 3,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K03",
-          "phase": "lockout",
-          "source": "pose",
-          "fait": "A slight lean back at the top.",
-          "note": 3,
-          "reps": [
-            4
-          ]
-        }
-      ]
-    },
-    "descent": {
-      "libelle": "Descent",
-      "note": 2,
-      "poids": 1.0,
-      "notes_par_rep": [
-        3,
-        3,
-        2,
-        2
-      ],
-      "faits": [
-        {
-          "indicateur": "E01",
-          "phase": "descente",
-          "source": "pose",
-          "fait": "The knees bend before the bar has passed them, pushing the bar forward or into the kneecaps.",
-          "note": 2,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "E01",
-          "phase": "descente",
-          "source": "pose",
-          "fait": "The hips travel back first, the knees bending once the bar has passed them.",
-          "note": 3,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "E02",
-          "phase": "descente",
+          "indicateur": "P05",
+          "phase": "tiree",
           "source": "llm",
-          "fait": "The bar is lowered under control, the lifter staying with it.",
-          "note": 3,
+          "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+          "note": null,
           "reps": [
             1,
             2,
@@ -1411,6 +1281,89 @@ export const sampleResult =
         }
       ]
     }
+  },
+  "mecaniques": [
+    "start_position",
+    "slack_and_brace",
+    "leg_drive",
+    "bar_path",
+    "finish_position",
+    "reset"
+  ],
+  "structure": {
+    "etat": "stop",
+    "note": 1,
+    "texte": "Stop the set: something is giving way under the load.",
+    "defauts": [
+      {
+        "indicateur": "P04",
+        "nom": "back_under_load",
+        "critere": "structure",
+        "constat": "The lower back rounds hard and keeps rounding as the bar rises.",
+        "a_essayer": "Stop the set. Rebuild this at a load where the back holds its shape.",
+        "etat": "collapses",
+        "note": 1,
+        "reps": [
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  "epingle": {
+    "indicateur": "S07",
+    "nom": "slack_pull",
+    "critere": "slack_and_brace",
+    "constat": "Some tension is taken but it is lost as the bar breaks the floor.",
+    "a_essayer": "Pull the slack out until you feel the bar load, then push the floor away.",
+    "etat": "partial",
+    "note": 2,
+    "reps": [
+      3,
+      4
+    ],
+    "consequences": [
+      {
+        "indicateur": "L01",
+        "nom": "hip_vs_shoulder_rise",
+        "critere": "leg_drive",
+        "constat": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
+        "a_essayer": "Push the floor away with your legs and hold your chest angle through the first third of the pull.",
+        "etat": "hips_shoot_up",
+        "note": 1,
+        "reps": [
+          3,
+          4
+        ]
+      },
+      {
+        "indicateur": "P03",
+        "nom": "bar_leg_contact",
+        "critere": "bar_path",
+        "constat": "The bar travels visibly away from the legs.",
+        "a_essayer": "Keep the bar in contact with the legs the whole way up.",
+        "etat": "away_from_legs",
+        "note": 1,
+        "reps": [
+          3,
+          4
+        ]
+      },
+      {
+        "indicateur": "P02",
+        "nom": "past_the_knees",
+        "critere": "bar_path",
+        "constat": "The bar loops forward around the knees before coming back in.",
+        "a_essayer": "Let the hips come through as the bar reaches the knees so it passes close.",
+        "etat": "loops",
+        "note": 2,
+        "reps": [
+          3,
+          4
+        ]
+      }
+    ],
+    "autres": []
   },
   "note_sur_20": 16,
   "nb_reps": 4,
@@ -1424,26 +1377,59 @@ export const sampleResult =
   },
   "conseils": [
     {
-      "indicateur": "P04",
-      "critere": "spine",
-      "constat": "The lower back rounds hard and keeps rounding as the bar rises.",
-      "a_essayer": "Stop the set. Rebuild this at a load where the back holds its shape.",
-      "note": 1,
+      "indicateur": "S07",
+      "nom": "slack_pull",
+      "critere": "slack_and_brace",
+      "constat": "Some tension is taken but it is lost as the bar breaks the floor.",
+      "a_essayer": "Pull the slack out until you feel the bar load, then push the floor away.",
+      "etat": "partial",
+      "note": 2,
       "reps": [
         3,
         4
-      ]
-    },
-    {
-      "indicateur": "L01",
-      "critere": "leg_drive",
-      "constat": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
-      "a_essayer": "Push the floor away and hold your chest angle through the first third of the pull.",
-      "note": 1,
-      "reps": [
-        3,
-        4
-      ]
+      ],
+      "consequences": [
+        {
+          "indicateur": "L01",
+          "nom": "hip_vs_shoulder_rise",
+          "critere": "leg_drive",
+          "constat": "The hips shoot up while the shoulders barely move: the lift turns into a stiff-legged pull finished by the back.",
+          "a_essayer": "Push the floor away with your legs and hold your chest angle through the first third of the pull.",
+          "etat": "hips_shoot_up",
+          "note": 1,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "P03",
+          "nom": "bar_leg_contact",
+          "critere": "bar_path",
+          "constat": "The bar travels visibly away from the legs.",
+          "a_essayer": "Keep the bar in contact with the legs the whole way up.",
+          "etat": "away_from_legs",
+          "note": 1,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "P02",
+          "nom": "past_the_knees",
+          "critere": "bar_path",
+          "constat": "The bar loops forward around the knees before coming back in.",
+          "a_essayer": "Let the hips come through as the bar reaches the knees so it passes close.",
+          "etat": "loops",
+          "note": 2,
+          "reps": [
+            3,
+            4
+          ]
+        }
+      ],
+      "autres": []
     }
   ],
   "persona": {
@@ -1454,4 +1440,3 @@ export const sampleResult =
   },
   "modele": "gemini-3.5-flash"
 }
-;

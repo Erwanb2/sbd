@@ -12,13 +12,14 @@ export const getPersonaAssets = (persona) => {
   if (p.includes('fishing')) return { emoji: '🎣', filename: 'fishing-rod.png' };
   if (p.includes('pendulum')) return { emoji: '🔄', filename: 'pendulum.png' };
   if (p.includes('kneecapper')) return { emoji: '🦵', filename: 'kneecapper.png' };
-  if (p.includes('heel')) return { emoji: '🦶', filename: 'heel-tipper.png' };
   if (p.includes('rex')) return { emoji: '🦖', filename: 't-rex.png' };
   if (p.includes('soft')) return { emoji: '🫠', filename: 'soft-lock.png' };
   if (p.includes('x-wing')) return { emoji: '🚀', filename: 'x-wing.png' };
   if (p.includes('helicopter')) return { emoji: '🚁', filename: 'helicopter.png' };
   // Pas encore d'artwork : l'image 404 et le onError de ResultView bascule sur l'emoji.
   if (p.includes('shrug')) return { emoji: '🤷', filename: 'shrugger.png' };
+  if (p.includes('deflator')) return { emoji: '🎈', filename: 'deflator.png' };
+  if (p.includes('trampolinist')) return { emoji: '🤸', filename: 'trampolinist.png' };
 
   return { emoji: '💪', filename: 'default.png' };
 };
