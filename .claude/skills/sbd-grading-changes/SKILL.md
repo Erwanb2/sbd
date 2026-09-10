@@ -110,7 +110,7 @@ Un critère a **deux métiers**, et l'ancienne liste n'en faisait qu'un :
 | `bar_path` | Bar against the body | 1,5 | past_the_knees, bar_leg_contact |
 | `finish_position` | Finish position | 1,0 | lockout_completion, lean_back, hitch, shrug |
 | `reset` | Reset between reps | 0,5 | descent_control, rep_transition |
-| `structure` | Structure under load | 2,0 | back_at_setup, back_under_load, knee_valgus, asymmetry |
+| `structure` | Structure under load | 2,0 | lumbar_at_setup, thoracic_at_setup, lumbar_under_load, thoracic_under_load, knee_valgus, asymmetry |
 
 Trois fusions le même jour, toutes contre la règle « le même événement physique ne doit peser
 qu'une fois » : `P10 elbow_flexion` → `S06 arms_long` (même faute au setup et à la tirée),
@@ -192,10 +192,50 @@ d'emblée que ce qui cloche.
    s'appelle `hand_drift`, pas `bar_drift`, et c'est délibéré.
 2. **MediaPipe ne voit pas le rachis.** Aucun repère entre épaules et hanches : le tronc est un
    segment droit par construction. Un « angle de flexion lombaire » calculé depuis épaule-hanche
-   mesure l'inclinaison du buste, pas sa courbure. `back_at_setup` et `back_under_load` restent
-   `LLM`, définitivement — et c'est le critère pondéré 2, celui où une mauvaise note est une
-   blessure. Sur `conventionnal_deadlift_14`, l'humain écrit « dos beaucoup arrondi » et le
-   modèle répond « flat » trois fois sur trois. Rien dans l'architecture ne peut le contredire.
+   mesure l'inclinaison du buste, pas sa courbure. Les quatre champs du dos restent `LLM`,
+   définitivement — et c'est le critère pondéré 2, celui où une mauvaise note est une blessure.
+
+### Le dos se demande en DEUX segments, jamais en un choix exclusif
+
+Jusqu'au 2026-09-10, `back_at_setup` proposait `flat` / `upper_back_rounded` /
+`lower_back_rounded`. Sur 13 runs et **260 réponses d'indicateur** : 220 états à 3/3,
+**0 état à 2/3**, et 8 états à 1/3 tous identiques (la barre lâchée sur `pr_160`).
+`lower_back_rounded` n'est jamais sorti une seule fois.
+
+Aucun réglage n'y changeait rien — neuf leviers mesurés le même jour : rotation, résolution,
+cadrage, proportion d'images, cadence jusqu'à 24 im/s (le plafond de l'API), ordre des états,
+ton des descriptions, transport, `thinking_level=HIGH`. Zéro état changé à chaque fois.
+
+**Ce qui a tranché : la même question en TEXTE LIBRE.** Sur les mêmes images de `pr_160`, le
+modèle écrit « *the lumbar spine starts in a state of mild flexion, rounding slightly outward
+from the pelvis* » ET « *the thoracic spine exhibits a more pronounced, moderate flexion* », et
+identifie la ceinture de force qui masque le rachis lombaire. **La perception n'était pas le
+problème.** La liste imposait un OU EXCLUSIF à une réalité qui est un ET : sommé de désigner un
+seul segment, il nommait le dominant — le thoracique, à 3/3. Fidèle à sa perception, et gratuit.
+
+D'où `S05 lumbar_at_setup` + `S10 thoracic_at_setup`, `P04 lumbar_under_load` +
+`P10 thoracic_under_load`. `upper_back_rounded` et `stable_rounding` sont supprimés : ils
+valaient 3/3 et disaient « je le vois mais je ne te le compte pas ».
+
+`S10` garde ses deux états à 3/3 et ne note donc rien. C'est voulu : un haut du dos arrondi et
+figé dès le départ est une technique assumée. Il existe pour que le modèle puisse le dire sans
+que ce soit sa réponse à la question lombaire.
+
+Mesure, mêmes images, prompt neutre : `pr_160` passe à `lumbar_at_setup=flexed`, 18/20 au lieu
+de 19, bandeau `caution` ; `conventionnal_deadlift_12`, que l'humain juge bon, reste à 20/20
+avec les quatre champs `neutral`. **Le mauvais clip bouge, le bon ne bouge pas.**
+
+### Une observation libre avant chaque état
+
+Chaque champ d'état est précédé de `<nom>_observed`, texte libre. L'ordre des champs étant
+l'ordre de génération en décodage contraint, ce texte est produit **avant** le choix et ne peut
+pas être réécrit après coup.
+
+La formulation vient d'une mesure : demander « la preuve qui tranche ce champ, avec un
+horodatage » produit 21 verdicts avec une heure collée devant, et ne change aucun état.
+Demander une **géométrie** — les formes, les positions, leur évolution — en interdisant de
+nommer une option et de qualifier, produit des descriptions justes et l'incertitude avec.
+C'est ce qui a révélé que le modèle croyait regarder un profil sur un clip filmé de face.
 
 ## Les règles d'agrégation, et la mesure derrière chacune
 
