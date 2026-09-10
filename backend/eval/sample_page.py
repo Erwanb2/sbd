@@ -54,20 +54,36 @@ for i, r in enumerate(resumes, 1):
     obs.append({
         "rep_index": i, "bar_over_midfoot": "over_midfoot",
         "hip_height": "between_knees_and_shoulders", "shoulders_over_bar": "over_bar",
-        "back_at_setup": "flat", "arms_long": "straight",
+        "lumbar_at_setup": "neutral", "thoracic_at_setup": "rounded",
+        "arms_long": "straight",
         "slack_pull": "progressive" if i <= 2 else "partial",
         "brace": "braced" if i <= 3 else "partial",
         "jerky_start": "smooth", "bar_left_floor": "yes",
         "hip_vs_shoulder_rise": "together" if i <= 2 else "hips_shoot_up",
         "past_the_knees": "clean" if i <= 2 else "loops",
         "bar_leg_contact": "in_contact" if i <= 2 else "away_from_legs",
-        "back_under_load": "unchanged" if i <= 2 else ("flexion_appears" if i == 3 else "collapses"),
+        # Le dos se decrit en deux segments depuis le 2026-09-10. Le thoracique est
+        # arrondi et assume des la rep 1 (il ne coute rien) ; c'est le LOMBAIRE qui
+        # cede a mesure que les hanches decollent — la seule moitie qui penalise.
+        "lumbar_under_load": "unchanged" if i <= 2 else ("flexion_appears" if i == 3 else "collapses"),
+        "thoracic_under_load": "unchanged" if i <= 3 else "flexion_appears",
         "knee_valgus": "not_visible", "asymmetry": "even",
         "hitch": "no", "shrug": "no", "lean_back": "upright",
         "lockout_completion": "locked",
         "descent_control": "controlled",
         "rep_transition": "last_rep" if i == len(resumes) else "reset",
         "summary": r,
+        # Le schema demande une observation libre AVANT chaque etat. La demo en
+        # fabrique pour les seuls champs qui portent son histoire : le reste
+        # resterait du texte mort sur une page qu'on veut courte.
+        "lumbar_at_setup_observed": "The lower back keeps its inward curve at the setup.",
+        "thoracic_at_setup_observed": "The upper back is rounded and already set before the bar moves.",
+        "lumbar_under_load_observed": ("The lower back holds its shape to lockout."
+                                       if i <= 2 else
+                                       "The lower back rounds further as the bar passes the knees."),
+        "hip_vs_shoulder_rise_observed": ("Hips and shoulders leave the floor at the same rate."
+                                         if i <= 2 else
+                                         "The hips rise first; the torso stays inclined past the knees."),
     })
 llm = {"equipment": "barbell", "grip": "mixed", "foot_orientation": "forward",
        "reps": obs}

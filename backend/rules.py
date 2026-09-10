@@ -408,6 +408,13 @@ def evalue(pose: dict, observations: dict) -> dict:
                       "lockout_s": mes.get("lockout_s")},
             "resume": obs.get("summary", ""),
             "etats": etats,
+            # Ce que le modele a decrit AVANT de choisir chaque etat. Produit par le
+            # schema (`<nom>_observed`), conserve ici parce que c'est la seule fenetre
+            # qu'on ait sur ce qu'il regarde, critere par critere. Sans ca, le texte est
+            # genere, facture, puis jete — et une divergence entre la description et
+            # l'etat choisi devient introuvable.
+            "observations": {nom: txt for nom in etats
+                             if (txt := obs.get(f"{nom}_observed"))},
         })
 
     par_critere = {c: [r["criteres"][c]["note"] for r in reps] for c in criteres}

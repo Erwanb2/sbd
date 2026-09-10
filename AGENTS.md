@@ -18,6 +18,12 @@ L'approche actuelle consiste donc à identifier 2-3 vidéos et se concentrer des
 
 Nous sommes dicter par le bon sens et la simplicité. Plus les choix sont obvious, moins on a besoin de les tester avec rigueur.
 
+**Un clip qui résiste sert d'abord à éliminer, pas à conclure.** C'est vrai qu'un test réussi sur une seule vidéo ne prouve pas que le reste est corrigé — il faudra élargir. Mais s'il continue de ne pas marcher sur ce clip-là, alors le tester sur les autres cas n'aurait servi à rien : on aurait payé des appels pour confirmer un échec qu'on connaissait déjà.
+
+Donc l'ordre est : on prend le cas le plus dur, on y élimine tout ce qui ne marche pas, et on n'élargit qu'à partir du moment où quelque chose bouge. Une variante qui ne déplace rien sur le clip difficile est abandonnée sans deuxième mesure.
+
+La seule exception est le **garde-fou anti-sévérité** : dès qu'une variante rend le système plus critique, elle se remesure immédiatement sur un clip que l'humain juge bon, sinon on confond « mieux discriminer » et « taper plus fort sur tout le monde ».
+
 ## 💡 1. Concept du Projet
 **SBD Reviews** est une application web d'analyse vidéo assistée par l'Intelligence Artificielle pour les mouvements de force athlétique (Squat, Bench, Deadlift). 
 

@@ -38,18 +38,50 @@ def _enum(ind: indicators.Indicateur) -> type[Enum]:
                 {e.cle.upper(): e.cle for e in ind.tous_les_etats}, type=str)
 
 
+# Ce qu'on demande AVANT chaque etat. L'ordre des champs est l'ordre de generation en
+# decodage contraint : ce texte est donc produit avant que l'etat soit choisi, et il ne
+# peut pas etre reecrit apres coup pour coller a la reponse.
+#
+# La formulation compte, et elle vient d'une mesure. Une premiere version demandait "ecris
+# ce que tu VOIS qui tranche ce champ, avec un horodatage" : le modele rendait 21 phrases
+# qui etaient son verdict avec une heure collee devant ("At 4.50s the hips and shoulders
+# rise together"), et aucun etat ne changeait. Interroge au contraire sur la GEOMETRIE,
+# sans liste et sans verdict, il produit une description fine et juste — c'est ainsi qu'on
+# a obtenu "the lumbar spine starts in a state of mild flexion" sur un clip ou la liste
+# fermee lui faisait repondre "the back is flat".
+#
+# D'ou : on demande des formes, des positions et leur evolution. On INTERDIT de nommer une
+# option ou de qualifier. Et on demande l'incertitude, qui est la partie la plus utile a
+# la relecture — c'est elle qui a revele que le modele croyait regarder un profil, et que
+# la ceinture masquait le rachis lombaire.
+OBSERVATION = (
+    "Before answering '{nom}', describe what you actually SEE about it: the shapes, the "
+    "positions, and how they change, with timestamps. Describe the geometry, not your "
+    "conclusion — do NOT name any of the options listed for that field, and do NOT say "
+    "whether it looks good or bad. Finish by saying what, if anything, stops you from "
+    "being sure.")
+
+
 def _modele_de_rep(variante: str) -> type[BaseModel]:
-    """Une repetition : un champ par indicateur juge par le modele, dans l'ordre du geste.
+    """Une repetition : par indicateur, une observation libre PUIS un etat ferme.
 
     L'ordre des champs est l'ordre de generation en decodage contraint. Il suit la
     chronologie du mouvement — setup, decollage, tiree, lockout, descente — pour que le
     modele observe dans l'ordre ou les choses arrivent.
+
+    Chaque etat est precede de son champ `_observed`, libre. Deux raisons, dans cet ordre :
+    la relecture — on voit enfin sur quoi le modele s'appuie, critere par critere — et
+    l'espoir qu'ecrire la forme avant de la classer rende l'etat flatteur plus couteux.
+    Le second point n'est PAS acquis : mesure au 2026-09-10, un champ libre mal formule
+    n'avait rien change aux etats. La valeur de diagnostic, elle, est acquise.
     """
     champs: dict = {
         "rep_index": (int, Field(description="1 for the first repetition, 2 for the "
                                              "second, and so on. Never repeat an index.")),
     }
     for ind in indicators.juges_par_le_modele(variante, Portee.REP):
+        champs[f"{ind.nom}_observed"] = (
+            str, Field(description=OBSERVATION.format(nom=ind.nom)))
         champs[ind.nom] = (_enum(ind), Field(description=ind.consigne()))
     champs["summary"] = (str, Field(description="One short sentence in ENGLISH describing "
                                                 "what you saw on THIS repetition. No score, "

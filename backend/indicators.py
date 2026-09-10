@@ -392,17 +392,44 @@ S04 = Indicateur(
                 "A mesurer contre une annotation image avant de basculer en POSE.",
 )
 
+# Le dos se demande en DEUX questions, une par segment, et non en un choix exclusif.
+#
+# Mesure du 2026-09-10 sur pr_160 : interroge en TEXTE LIBRE sur les memes images, le
+# modele decrit "the lumbar spine starts in a state of mild flexion, rounding slightly
+# outward from the pelvis" ET "the thoracic spine exhibits a more pronounced, moderate
+# flexion". Il voit les deux segments, separement, correctement. Somme de choisir UN etat
+# dans l'ancienne liste flat / upper_back_rounded / lower_back_rounded, il repondait
+# `flat` (13 runs) ou au mieux `upper_back_rounded` avec un prompt severe.
+#
+# La liste imposait un OU EXCLUSIF a une realite qui est un ET : sommé de designer un seul
+# segment, il nommait le dominant — le thoracique — qui vaut 3/3. Ce n'etait pas de la
+# complaisance, c'etait fidele a sa perception et la question etait mal decoupee.
 S05 = Indicateur(
-    id="S05", nom="back_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
+    id="S05", nom="lumbar_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
-    question="What shape is the back in before the bar moves?",
-    etats=(Etat("flat", "The back is flat and set before the bar moves.", 3),
-           Etat("upper_back_rounded", "The upper back is rounded but the position looks deliberate "
-                                "and set.", 3),
-           Etat("lower_back_rounded", "The lower back is already rounded at the start.", 2,
+    question="Look ONLY at the lower back, between the pelvis and the bottom of the ribs, "
+             "before the bar moves. Ignore the upper back entirely: it is asked separately.",
+    etats=(Etat("neutral", "The lower back keeps its natural inward curve at the setup.", 3),
+           Etat("flexed", "The lower back is rounded outward at the setup.", 2,
                 persona="The Fishing Rod")),
     note_source="LIMITE DURE : aucun repere entre epaules et hanches. Le tronc est un "
-                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici.",
+                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici.\n"
+                "Separe du thoracique le 2026-09-10 : voir le commentaire au-dessus.",
+)
+
+S10 = Indicateur(
+    id="S10", nom="thoracic_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
+    critere="structure",
+    question="Look ONLY at the upper back, between the bottom of the ribs and the neck, "
+             "before the bar moves. Ignore the lower back entirely: it is asked separately.",
+    etats=(Etat("neutral", "The upper back is flat before the bar moves.", 3),
+           Etat("rounded", "The upper back is rounded before the bar moves.", 3)),
+    note_source="Les DEUX etats valent 3 : un haut du dos arrondi et fige des le depart est "
+                "une technique assumee, pas une faute. L'indicateur ne note donc rien — il "
+                "EXISTE pour que le modele puisse dire ce qu'il voit du thoracique sans que "
+                "ce soit sa reponse a la question lombaire. C'est ce qui retire la porte de "
+                "sortie gratuite : il ne peut plus reconnaitre l'arrondi ici pour eviter de "
+                "repondre la-bas.",
 )
 
 S06 = Indicateur(
@@ -586,22 +613,35 @@ P03 = Indicateur(
                 "barre. Ne pas exiger de racler les tibias, ce n'est pas un objectif.",
 )
 
+# Meme decoupage qu'au setup, et pour la meme raison. `stable_rounding` a disparu : il
+# valait 3/3 et disait "je le vois mais je ne te le compte pas". Ce que cet etat portait de
+# vrai — un arrondi present des le depart et qui n'empire pas — est maintenant dit par
+# thoracic_at_setup=rounded PLUS lumbar_under_load=unchanged, sans porte de sortie.
 P04 = Indicateur(
-    id="P04", nom="back_under_load", phase=Phase.TIREE, source=Source.LLM,
+    id="P04", nom="lumbar_under_load", phase=Phase.TIREE, source=Source.LLM,
     portee=Portee.REP, critere="structure",
-    question="Does the back keep the SAME shape from the floor to lockout, or does flexion "
-             "get added under load?",
-    etats=(Etat("unchanged", "The back holds the same shape at the floor, at knee height and "
-                            "at lockout: no flexion added under load.", 3),
-           Etat("stable_rounding", "There is rounding, but it is set from the start and does "
-                                  "not get worse during the pull.", 3),
-           Etat("flexion_appears", "Flexion appears during the pull that was not there at "
-                                    "the start.", 2),
+    question="Look ONLY at the lower back. Compare its shape at the floor, at knee height "
+             "and at lockout. Does flexion get ADDED there during the pull?",
+    etats=(Etat("unchanged", "The lower back keeps the same shape from the floor to lockout.", 3),
+           Etat("flexion_appears", "The lower back rounds further during the pull than it "
+                                   "was at the start.", 2),
            Etat("collapses", "The lower back rounds hard and keeps rounding as the bar "
-                                "rises.", 1, persona="The Fishing Rod")),
+                             "rises.", 1, persona="The Fishing Rod")),
     note_source="LIMITE DURE, comme S05 : pas de repere rachidien. C'est le critere ou une "
                 "mauvaise note est une blessure et non un kilo perdu, et c'est precisement "
                 "celui que la pose ne verra jamais. Il reste au modele, definitivement.",
+)
+
+P10 = Indicateur(
+    id="P10", nom="thoracic_under_load", phase=Phase.TIREE, source=Source.LLM,
+    portee=Portee.REP, critere="structure",
+    question="Look ONLY at the upper back. Compare its shape at the floor, at knee height "
+             "and at lockout. Does flexion get ADDED there during the pull?",
+    etats=(Etat("unchanged", "The upper back keeps the same shape from the floor to lockout.", 3),
+           Etat("flexion_appears", "The upper back rounds further during the pull than it "
+                                   "was at the start.", 2)),
+    note_source="Un thoracique qui S'AGGRAVE sous charge n'est plus la technique assumee de "
+                "S10 : c'est le dos qui cede. D'ou 2, la ou l'arrondi fige vaut 3.",
 )
 
 P05 = Indicateur(
@@ -825,9 +865,9 @@ E03 = Indicateur(
 # mesure contre les annotations humaines avant qu'on fasse confiance a ces six-la.
 INDICATEURS: tuple[Indicateur, ...] = (
     C04, C05,
-    S01, S02, S04, S05, S06, S07, S08, S09,
+    S01, S02, S04, S05, S10, S06, S07, S08, S09,
     L01, L03, L04,
-    P02, P03, P04, P05, P08, P09,
+    P02, P03, P04, P10, P05, P08, P09,
     K03, K04, K07,
     E02, E03,
     # --- toujours retires, mesures par la pose et jamais rebranches ------------------
@@ -895,9 +935,10 @@ CONSEILS = {
 
     # --- axe structure ---------------------------------------------------------------
     # Ces conseils ne servent JAMAIS d'epingle : ils accompagnent le bandeau d'urgence.
-    "back_at_setup:lower_back_rounded": "Set the back flat before the bar moves; drop the load if you cannot hold it.",
-    "back_under_load:flexion_appears": "Brace before you pull, and end the set when the shape starts to change.",
-    "back_under_load:collapses": "Stop the set. Rebuild this at a load where the back holds its shape.",
+    "lumbar_at_setup:flexed": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
+    "lumbar_under_load:flexion_appears": "Brace before you pull, and end the set when the shape starts to change.",
+    "thoracic_under_load:flexion_appears": "Set the upper back before the pull and hold that shape; stop the set when it starts to give.",
+    "lumbar_under_load:collapses": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
     "knee_valgus:collapses_in": "Screw your feet into the floor and push the knees out over your toes as you drive.",
     "asymmetry:uneven": "Film a front view and check whether one side is leading before changing anything.",
 }
@@ -921,20 +962,20 @@ ENCHAINEMENTS: dict[str, tuple[str, ...]] = {
     "hip_height:too_low": ("hip_vs_shoulder_rise", "shoulders_over_bar", "past_the_knees"),
     # Des hanches trop hautes, c'est deja un souleve jambes tendues : plus de leg drive
     # disponible, et la lombaire prend ce que les jambes ne donnent pas.
-    "hip_height:too_high": ("hip_vs_shoulder_rise", "back_under_load", "lockout_completion"),
+    "hip_height:too_high": ("hip_vs_shoulder_rise", "lumbar_under_load", "lockout_completion"),
     "shoulders_over_bar:behind_bar": ("bar_leg_contact", "past_the_knees"),
-    "shoulders_over_bar:far_ahead": ("back_under_load",),
+    "shoulders_over_bar:far_ahead": ("lumbar_under_load",),
     # Le decollage des hanches fait plonger la poitrine, et la barre part en avant.
     "hip_vs_shoulder_rise:hips_shoot_up": ("bar_leg_contact", "past_the_knees",
-                                           "back_under_load", "hitch"),
+                                           "lumbar_under_load", "hitch"),
     # Partir sans tension arrache le lifter de sa position avant meme la tiree. La
     # tension seulement PARTIELLE compte autant : elle est prise puis perdue quand la
     # barre casse le sol, et c'est exactement le moment ou les hanches gagnent.
-    "slack_pull:yanked": ("hip_vs_shoulder_rise", "back_under_load"),
+    "slack_pull:yanked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
     "slack_pull:partial": ("hip_vs_shoulder_rise",),
-    "jerky_start:jerked": ("hip_vs_shoulder_rise", "back_under_load"),
-    "brace:none": ("back_under_load",),
-    "brace:partial": ("back_under_load",),
+    "jerky_start:jerked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
+    "brace:none": ("lumbar_under_load",),
+    "brace:partial": ("lumbar_under_load",),
     # Une barre loin du corps allonge le bras de levier : le verrouillage se paie.
     "bar_leg_contact:away_from_legs": ("hitch", "lockout_completion", "lean_back"),
     "past_the_knees:loops": ("hitch",),

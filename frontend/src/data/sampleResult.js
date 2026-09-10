@@ -201,14 +201,28 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
+              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "note": 3
+            },
+            {
+              "indicateur": "S10",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The upper back is rounded before the bar moves.",
               "note": 3
             },
             {
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+              "fait": "The lower back keeps the same shape from the floor to lockout.",
+              "note": 3
+            },
+            {
+              "indicateur": "P10",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The upper back keeps the same shape from the floor to lockout.",
               "note": 3
             },
             {
@@ -236,7 +250,13 @@ export const sampleResult =
         "tiree_s": 1.35,
         "lockout_s": 0.2
       },
-      "resume": "Textbook first pull, everything stacked."
+      "resume": "Textbook first pull, everything stacked.",
+      "observations": {
+        "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
+        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
+        "hip_vs_shoulder_rise": "Hips and shoulders leave the floor at the same rate.",
+        "lumbar_under_load": "The lower back holds its shape to lockout."
+      }
     },
     {
       "index": 2,
@@ -407,14 +427,28 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
+              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "note": 3
+            },
+            {
+              "indicateur": "S10",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The upper back is rounded before the bar moves.",
               "note": 3
             },
             {
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+              "fait": "The lower back keeps the same shape from the floor to lockout.",
+              "note": 3
+            },
+            {
+              "indicateur": "P10",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The upper back keeps the same shape from the floor to lockout.",
               "note": 3
             },
             {
@@ -442,7 +476,13 @@ export const sampleResult =
         "tiree_s": 1.55,
         "lockout_s": 0.3
       },
-      "resume": "Still tight, the bar drifts a touch more."
+      "resume": "Still tight, the bar drifts a touch more.",
+      "observations": {
+        "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
+        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
+        "hip_vs_shoulder_rise": "Hips and shoulders leave the floor at the same rate.",
+        "lumbar_under_load": "The lower back holds its shape to lockout."
+      }
     },
     {
       "index": 3,
@@ -613,15 +653,29 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
+              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "note": 3
+            },
+            {
+              "indicateur": "S10",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The upper back is rounded before the bar moves.",
               "note": 3
             },
             {
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Flexion appears during the pull that was not there at the start.",
+              "fait": "The lower back rounds further during the pull than it was at the start.",
               "note": 2
+            },
+            {
+              "indicateur": "P10",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The upper back keeps the same shape from the floor to lockout.",
+              "note": 3
             },
             {
               "indicateur": "P05",
@@ -648,7 +702,13 @@ export const sampleResult =
         "tiree_s": 2.1,
         "lockout_s": 0.6
       },
-      "resume": "The hips beat the shoulders out of the floor."
+      "resume": "The hips beat the shoulders out of the floor.",
+      "observations": {
+        "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
+        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
+        "hip_vs_shoulder_rise": "The hips rise first; the torso stays inclined past the knees.",
+        "lumbar_under_load": "The lower back rounds further as the bar passes the knees."
+      }
     },
     {
       "index": 4,
@@ -819,7 +879,14 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The back is flat and set before the bar moves.",
+              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "note": 3
+            },
+            {
+              "indicateur": "S10",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The upper back is rounded before the bar moves.",
               "note": 3
             },
             {
@@ -828,6 +895,13 @@ export const sampleResult =
               "source": "llm",
               "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
               "note": 1
+            },
+            {
+              "indicateur": "P10",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The upper back rounds further during the pull than it was at the start.",
+              "note": 2
             },
             {
               "indicateur": "P05",
@@ -854,7 +928,13 @@ export const sampleResult =
         "tiree_s": 2.6,
         "lockout_s": 0.9
       },
-      "resume": "Last rep: the back rounds and the bar swings out."
+      "resume": "Last rep: the back rounds and the bar swings out.",
+      "observations": {
+        "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
+        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
+        "hip_vs_shoulder_rise": "The hips rise first; the torso stays inclined past the knees.",
+        "lumbar_under_load": "The lower back rounds further as the bar passes the knees."
+      }
     }
   ],
   "criteres": {
@@ -1223,17 +1303,40 @@ export const sampleResult =
           "indicateur": "P04",
           "phase": "tiree",
           "source": "llm",
-          "fait": "Flexion appears during the pull that was not there at the start.",
+          "fait": "The lower back rounds further during the pull than it was at the start.",
           "note": 2,
           "reps": [
             3
           ]
         },
         {
+          "indicateur": "P10",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "The upper back rounds further during the pull than it was at the start.",
+          "note": 2,
+          "reps": [
+            4
+          ]
+        },
+        {
           "indicateur": "S05",
           "phase": "setup",
           "source": "llm",
-          "fait": "The back is flat and set before the bar moves.",
+          "fait": "The lower back keeps its natural inward curve at the setup.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "S10",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "The upper back is rounded before the bar moves.",
           "note": 3,
           "reps": [
             1,
@@ -1246,11 +1349,23 @@ export const sampleResult =
           "indicateur": "P04",
           "phase": "tiree",
           "source": "llm",
-          "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+          "fait": "The lower back keeps the same shape from the floor to lockout.",
           "note": 3,
           "reps": [
             1,
             2
+          ]
+        },
+        {
+          "indicateur": "P10",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "The upper back keeps the same shape from the floor to lockout.",
+          "note": 3,
+          "reps": [
+            1,
+            2,
+            3
           ]
         },
         {
@@ -1297,14 +1412,26 @@ export const sampleResult =
     "defauts": [
       {
         "indicateur": "P04",
-        "nom": "back_under_load",
+        "nom": "lumbar_under_load",
         "critere": "structure",
         "constat": "The lower back rounds hard and keeps rounding as the bar rises.",
-        "a_essayer": "Stop the set. Rebuild this at a load where the back holds its shape.",
+        "a_essayer": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
         "etat": "collapses",
         "note": 1,
         "reps": [
           3,
+          4
+        ]
+      },
+      {
+        "indicateur": "P10",
+        "nom": "thoracic_under_load",
+        "critere": "structure",
+        "constat": "The upper back rounds further during the pull than it was at the start.",
+        "a_essayer": "Set the upper back before the pull and hold that shape; stop the set when it starts to give.",
+        "etat": "flexion_appears",
+        "note": 2,
+        "reps": [
           4
         ]
       }
@@ -1439,4 +1566,4 @@ export const sampleResult =
     "indicateur": "P04"
   },
   "modele": "gemini-3.5-flash"
-}
+};
