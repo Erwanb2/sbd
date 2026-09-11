@@ -404,8 +404,13 @@ def evalue(pose: dict, observations: dict) -> dict:
                 _moyenne([b["note"] for b in bloc.values()])),
             "sur": NOTE_MAX,
             "non_evaluables": sum(1 for b in bloc.values() if b["note"] is None),
+            # `decollage_s` est l'horodatage exact ou la barre quitte le sol (lu sur les
+            # images, dans `_phases`), pas `debut_s` : celui-la inclut la marge de mise en
+            # place ajoutee par `rep_detection` autour de la fenetre. C'est ce que le front
+            # utilise pour marquer le decollage sur la barre de lecture de la rep.
             "temps": {"tiree_s": mes.get("pull_s"),
-                      "lockout_s": mes.get("lockout_s")},
+                      "lockout_s": mes.get("lockout_s"),
+                      "decollage_s": (mes.get("_phases") or {}).get("decollage_s")},
             "resume": obs.get("summary", ""),
             "etats": etats,
             # Ce que le modele a decrit AVANT de choisir chaque etat. Produit par le
@@ -457,4 +462,7 @@ def evalue(pose: dict, observations: dict) -> dict:
         # comptent des conseils sans se soucier de la chaine causale.
         "conseils": ([pin] + pin["autres"]) if pin else [],
         "persona": persona_mod.deduis([r["etats"] for r in reps], notes_set, note),
+        # Le suivi dense deja calcule par la pose, recopie tel quel pour l'overlay du
+        # front. Absent si la pose ne l'a pas produit (voir `pose_analysis._squelette`).
+        "squelette": pose.get("squelette"),
     }

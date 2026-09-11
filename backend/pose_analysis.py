@@ -87,6 +87,13 @@ L = dict(nose=0, l_ear=7, r_ear=8, l_sh=11, r_sh=12, l_el=13, r_el=14, l_wr=15, 
          l_idx=19, r_idx=20, l_hip=23, r_hip=24, l_kn=25, r_kn=26, l_an=27, r_an=28,
          l_heel=29, r_heel=30, l_toe=31, r_toe=32)
 
+# Le sous-ensemble de reperes qu'un overlay a besoin de dessiner : le tronc et les
+# quatre membres, sans les doigts ni les oreilles. L'ORDRE est le contrat avec le
+# front, qui n'a pas les noms — seulement cette meme liste, ecrite en dur.
+KEYS_SQUELETTE = ("nose", "l_sh", "r_sh", "l_el", "r_el", "l_wr", "r_wr",
+                  "l_hip", "r_hip", "l_kn", "r_kn", "l_an", "r_an",
+                  "l_heel", "r_heel", "l_toe", "r_toe")
+
 
 # --------------------------------------------------------------------------- video
 
@@ -675,6 +682,25 @@ def _visibilite(poses) -> float:
     return float(np.mean([np.mean([f["im"][L[k], 3] for k in cles]) for f in poses]))
 
 
+def _squelette(denses: list[dict]) -> dict:
+    """Le suivi dense (6 im/s de `rep_detection`), reduit a ce qu'un overlay dessine.
+
+    Deja calcule pour proposer et mesurer les repetitions : on ne repasse pas
+    MediaPipe, on ne garde que `KEYS_SQUELETTE`. `pts` reste dans le repere de `im`
+    (x/y normalises [0,1] sur l'image APRES rotation, cf. `_read_frames`) : c'est le
+    meme repere que `videoWidth`/`videoHeight` cote navigateur, donc mappable sans
+    connaitre l'orientation d'origine du fichier.
+    """
+    idx = [L[k] for k in KEYS_SQUELETTE]
+    return {
+        "points": KEYS_SQUELETTE,
+        "frames": [{"t": round(float(f["t"]), 2),
+                   "pts": [[round(float(x), 3), round(float(y), 3), round(float(v), 3)]
+                           for x, y, _z, v in f["im"][idx]]}
+                  for f in denses],
+    }
+
+
 # ------------------------------------------------------------------- point d'entree
 
 def analyse(file_path: str, avec_reps: bool = True) -> dict:
@@ -749,6 +775,10 @@ def analyse(file_path: str, avec_reps: bool = True) -> dict:
                 "lockout_s": c["lockout_s"],
                 "mesures": _filtre(mes, vue, visibilite) if mes else {},
             })
+
+        # Le suivi complet du clip, pas seulement des fenetres de repetition : la video
+        # cote front se scrube aussi en dehors d'une rep selectionnee.
+        res["squelette"] = _squelette(denses)
 
         res["duree_s"] = round(time.time() - t0, 2)
         return res

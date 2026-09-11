@@ -210,7 +210,10 @@ def upload_and_detect_concurrent(file_path: str) -> dict:
     return {
         "file_name": video_file.name,
         "mouvement_detecte": f"{pose['variante']} deadlift",
-        "pose": {k: v for k, v in pose.items() if k != "reps"},
+        # `reps` et `squelette` ne servent qu'a `analyze_movement` (repli sur le cache) et
+        # a l'overlay du resultat final : les taire ici evite de doubler leur poids dans
+        # cette premiere reponse, qui n'anime que l'ecran de chargement.
+        "pose": {k: v for k, v in pose.items() if k not in ("reps", "squelette")},
         "nb_candidats": len(pose["reps"]),
     }
 
