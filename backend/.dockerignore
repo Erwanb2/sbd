@@ -1,0 +1,10 @@
+# Ce qui n'a rien a faire dans l'image. Sans ce fichier, `COPY . .` envoyait le .venv
+# local (1,1 Go) a travers le pont WSL/Windows, pour que `uv sync` le refasse ensuite.
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+eval/runs
+eval/reps
+# Injecte au demarrage par docker-compose (env_file), pas cuit dans l'image.
+.env

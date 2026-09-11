@@ -1,0 +1,4 @@
+# `npm install` les refait dans l'image ; les envoyer ne sert qu'a ralentir le build.
+node_modules
+dist
+# .env reste : Vite lit les VITE_* au moment du `npm run build`.
