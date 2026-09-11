@@ -53,8 +53,16 @@ MODELES_ANALYSE = {"3.5": "gemini-3.5-flash", "3.7": "gemini-3.7-flash"}
 # segments plutot que fixee : sinon une serie de dix reps coute dix fois une serie d'une.
 # Bornes pour qu'un clip tres court ne parte pas a 60 im/s et qu'un clip long ne tombe
 # pas sous la cadence ou un verrouillage bref passe entre deux images.
-BUDGET_IMAGES = 300
-FPS_MIN, FPS_MAX = 2.0, 10.0
+#
+# 24 im/s est le plafond de l'API (30 refuse). C'est la cadence de la run A du
+# 2026-09-11 (`eval/runs/pr_160_A_video24.json`), la configuration que la prod doit
+# reproduire : c'est a cette cadence que le modele a vu un depart arrache — "the high
+# frame rate allows us to see the suddenness of the start". Le budget de 720 images
+# couvre 30 s de repetitions a pleine cadence (4-5 reps) ; au-dela la cadence baisse.
+# Cout : ~265 tokens par image en HIGH, soit ~190 k tokens d'entree au plafond du budget,
+# environ 0,30 $ sur gemini-3.5-flash.
+BUDGET_IMAGES = 720
+FPS_MIN, FPS_MAX = 2.0, 24.0
 
 _POSE_EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=2)
 
@@ -277,15 +285,35 @@ you could not SEE it, never that you saw it and disliked it, and it must not spr
 the fields you could see."""
 
 
+# Les reglages de l'appel d'analyse, tous au plafond, identiques a la run A du
+# 2026-09-11. Exposes dans `debug` pour que la page dise avec quoi elle a ete produite.
+REGLAGES_ANALYSE = {"media_resolution": "HIGH", "thinking_level": "HIGH", "temperature": 0.0}
+
+
 def _appelle(modele: str, contenus: list, schema, label: str):
+    """L'appel d'analyse, et le detail de ce qu'il a coute (`pricing.log_usage`)."""
     reponse = client.models.generate_content(
         model=modele, contents=contenus,
         config=types.GenerateContentConfig(
             response_mime_type="application/json", response_schema=schema,
-            temperature=0.0, media_resolution=types.MediaResolution.MEDIA_RESOLUTION_HIGH),
+            temperature=REGLAGES_ANALYSE["temperature"],
+            media_resolution=types.MediaResolution.MEDIA_RESOLUTION_HIGH,
+            # Raisonnement au plafond. Le repli flash-lite l'accepte aussi (verifie par
+            # un appel texte le 2026-09-11).
+            thinking_config=types.ThinkingConfig(thinking_level=types.ThinkingLevel.HIGH)),
     )
-    log_usage(model=modele, response=reponse, label=label)
-    return reponse
+    usage = log_usage(model=modele, response=reponse, label=label)
+    return reponse, usage
+
+
+def _usage_public(usage: dict | None) -> dict | None:
+    """Les tokens et le cout d'un appel, sans les grilles tarifaires internes."""
+    if not usage:
+        return None
+    cles = ("prompt_tokens", "thoughts_tokens", "candidates_tokens", "total_tokens",
+            "input_usd", "output_usd", "total_usd")
+    return {k: (round(v, 4) if isinstance(v, float) else v)
+            for k, v in usage.items() if k in cles}
 
 
 def _sature(exc: Exception) -> bool:
@@ -315,11 +343,13 @@ def analyze_movement(file_name: str, mouvement_detecte: str,
     modele = MODELES_ANALYSE.get(modele_demande or "", MODELES_ANALYSE["3.5"])
     try:
         video_file = client.files.get(name=file_name)
-        contenus = [*_segments(video_file, candidats), _prompt(variante, len(candidats))]
+        segments = _segments(video_file, candidats)
+        prompt = _prompt(variante, len(candidats))
+        contenus = [*segments, prompt]
 
         repli = None
         try:
-            reponse = _appelle(modele, contenus, schema, f"analyse {variante}")
+            reponse, usage = _appelle(modele, contenus, schema, f"analyse {variante}")
         except Exception as exc:
             if not _sature(exc):
                 raise
@@ -328,11 +358,20 @@ def analyze_movement(file_name: str, mouvement_detecte: str,
             # `rules` realigne sur `rep_index`, mais le resultat reste degrade : on le dit.
             logger.warning("modele sature, repli sur %s", MODEL_ANALYSIS_FALLBACK)
             repli = MODEL_ANALYSIS_FALLBACK
-            reponse = _appelle(repli, contenus, schema, f"analyse {variante} (repli)")
+            reponse, usage = _appelle(repli, contenus, schema, f"analyse {variante} (repli)")
 
         observations = reponse.parsed.model_dump(mode="json")
         resultat = rules.evalue(pose, observations)
         resultat["modele"] = repli or modele
+        # Tout ce qui a produit la reponse, pour l'onglet debug : le modele, les
+        # reglages, les fenetres envoyees, le prompt, et ce que l'appel a coute.
+        resultat["debug"]["appel"] = {
+            "modele": repli or modele, "repli": repli is not None,
+            **REGLAGES_ANALYSE, "fps": segments[0].video_metadata.fps,
+            "segments": [{"debut_s": c["debut_s"], "fin_s": c["fin_s"]} for c in candidats],
+            "prompt": prompt,
+            "usage": _usage_public(usage),
+        }
         if repli:
             resultat["avertissement"] = ("Modele principal sature : analyse produite par "
                                          "un modele de repli, moins fiable sur le "

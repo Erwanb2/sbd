@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import ResultCard from './ResultCard.jsx';
 import RepHistogram from './RepHistogram.jsx';
 import SkeletonOverlay from './SkeletonOverlay.jsx';
+import DebugView from './DebugView.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
 import { formatTemps } from '../utils/helpers.js';
@@ -20,6 +21,9 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
   const [ expandedCard, setExpandedCard ] = useState(null);
   const [ selectedRep, setSelectedRep ] = useState(null);
   const [ squeletteVisible, setSqueletteVisible ] = useState(true);
+  // Deux onglets : la page (ce qui cloche, une chose à corriger) et le debug (TOUT ce
+  // que le modèle a rendu, champ par champ). Le second ne rallonge pas le premier.
+  const [ onglet, setOnglet ] = useState('result');
   const videoRef = useRef(null);
 
   const note = result?.note_sur_20 ?? 0;
@@ -74,8 +78,45 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
     ? `${ result.contexte.variant.etat } deadlift`
     : movement;
 
+  const Onglets = () => (
+    <div className="flex justify-end">
+      <div className="inline-flex rounded-xl border border-gray-800 bg-gray-900 p-1 text-xs font-bold uppercase tracking-wider">
+        { [ [ 'result', 'Result' ], [ 'debug', 'Debug' ] ].map(([ cle, libelle ]) => (
+          <button
+            key={ cle }
+            type="button"
+            onClick={ () => setOnglet(cle) }
+            className={ `rounded-lg px-3 py-1.5 transition-colors ${
+              onglet === cle ? 'bg-gray-800 text-white' : 'text-gray-500 hover:text-gray-300'
+            }` }
+          >
+            { libelle }
+          </button>
+        )) }
+      </div>
+    </div>
+  );
+
+  if (onglet === 'debug') {
+    return (
+      <div className="space-y-6">
+        <Onglets />
+        <DebugView result={ result } />
+        { onReset && (
+          <button
+            onClick={ onReset }
+            className="w-full mt-8 bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded-xl transition-all uppercase tracking-wider text-sm"
+          >
+            Analyze another video
+          </button>
+        ) }
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
+      <Onglets />
       { result?.avertissement && (
         <div className="flex items-start gap-3 rounded-2xl border border-amber-500/40 bg-amber-500/10 px-5 py-4 text-left">
           <span className="text-lg leading-none">⚠️</span>
@@ -297,32 +338,6 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
           />
         )) }
       </div>
-
-      { result?.contexte && (
-        <details className="mt-6 text-[11px] text-gray-500 border border-gray-800 rounded-lg bg-gray-900/40">
-          <summary className="cursor-pointer px-3 py-2 uppercase tracking-wider select-none hover:text-gray-300">
-            Capture et mesures (debug)
-          </summary>
-          <div className="px-3 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono">
-            { Object.entries(result.contexte).map(([ cle, valeur ]) => (
-              <div key={ cle } className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
-                <span className="text-gray-600 truncate">{ cle }</span>
-                <span className="text-gray-400 text-right whitespace-nowrap">
-                  { valeur && typeof valeur === 'object'
-                    ? (valeur.etat ?? Object.entries(valeur).map(([ a, b ]) => `${ a }=${ b }`).join(' '))
-                    : String(valeur) }
-                </span>
-              </div>
-            )) }
-            { result.modele && (
-              <div className="flex justify-between gap-3 border-b border-gray-800/60 py-0.5">
-                <span className="text-gray-600 truncate">modele</span>
-                <span className="text-gray-400 text-right whitespace-nowrap">{ result.modele }</span>
-              </div>
-            ) }
-          </div>
-        </details>
-      ) }
 
       { onReset && (
         <button

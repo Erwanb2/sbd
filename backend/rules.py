@@ -368,7 +368,7 @@ def evalue(pose: dict, observations: dict) -> dict:
     criteres = list(indicators.CRITERES)
     par_llm = _aligne(pose.get("reps") or [], (observations or {}).get("reps") or [])
 
-    reps, retirees = [], []
+    reps, retirees, ecartes = [], [], []
     for position, cand in enumerate(pose.get("reps") or []):
         obs = par_llm.get(position, {})
         etats = etats_de_rep(cand.get("mesures"), obs, variante)
@@ -379,6 +379,8 @@ def evalue(pose: dict, observations: dict) -> dict:
         reel = etats.get("bar_left_floor", "yes")
         if reel == "no":
             retirees.append(position + 1)
+            ecartes.append({"candidat": position + 1, "debut_s": cand.get("debut_s"),
+                            "fin_s": cand.get("fin_s"), "obs": obs})
             continue
 
         bloc = {}
@@ -424,6 +426,9 @@ def evalue(pose: dict, observations: dict) -> dict:
             # l'etat choisi devient introuvable.
             "observations": {nom: txt for nom in etats
                              if (txt := obs.get(f"{nom}_observed"))},
+            # Interne : ce que le modele a rendu pour cette rep, tel quel. Sert au
+            # bloc `debug` et n'est pas renvoye dans `reps`.
+            "_obs": obs, "_candidat": position + 1,
         })
 
     par_critere = {c: [r["criteres"][c]["note"] for r in reps] for c in criteres}
@@ -447,7 +452,8 @@ def evalue(pose: dict, observations: dict) -> dict:
     return {
         "variante": variante,
         "contexte": contexte,
-        "reps": [{k: v for k, v in r.items() if k != "etats"} for r in reps],
+        "reps": [{k: v for k, v in r.items() if k not in ("etats", "_obs", "_candidat")}
+                 for r in reps],
         "criteres": {c: {"libelle": indicators.LIBELLE[c], "note": notes_set[c],
                          "poids": indicators.POIDS[c],
                          "notes_par_rep": [r["criteres"][c]["note"] for r in reps],
@@ -469,4 +475,71 @@ def evalue(pose: dict, observations: dict) -> dict:
         # Le suivi dense deja calcule par la pose, recopie tel quel pour l'overlay du
         # front. Absent si la pose ne l'a pas produit (voir `pose_analysis._squelette`).
         "squelette": pose.get("squelette"),
+        "debug": _debug(observations, reps, ecartes, variante),
+    }
+
+
+# ---------------------------------------------------------------------- debug
+
+def _fiche(ind, obs: dict, cle: str | None) -> dict:
+    """La reponse du modele a un indicateur, et ce qu'elle vaut. La question et les
+    etats possibles sont dans `debug.catalogue`, une seule fois."""
+    etat = ind.etat(cle) if cle is not None else None
+    return {
+        "nom": ind.nom,
+        "etat": cle, "fait": etat.description if etat else None,
+        "note": etat.note if etat else None,
+        "observation": obs.get(f"{ind.nom}_observed"),
+        # Ce que le modele a ecrit dans le champ, avant filtrage : identique a `etat`
+        # sauf si la cle est inconnue du catalogue, auquel cas `etat` est None.
+        "reponse_brute": obs.get(ind.nom),
+    }
+
+
+def _catalogue(inds) -> dict:
+    return {ind.nom: {"id": ind.id, "critere": ind.critere, "phase": ind.phase.value,
+                      "source": ind.source.value, "vue": ind.vue.value, "portee": ind.portee.value,
+                      "question": ind.question,
+                      "etats": [{"cle": e.cle, "note": e.note, "description": e.description}
+                                for e in ind.tous_les_etats]}
+            for ind in inds}
+
+
+def _debug(observations: dict, reps: list[dict], ecartes: list[dict], variante: str) -> dict:
+    """Tout ce que le modele a rendu, mis en face du catalogue — rien n'est resume.
+
+    La page principale ne montre que ce qui cloche ; ici on montre TOUT : chaque
+    champ, la question posee, l'observation libre ecrite avant de repondre, l'etat
+    choisi, sa note, et les autres etats qu'il aurait pu choisir. Les segments que le
+    modele a ecartes (`bar_left_floor: no`) y figurent aussi, avec leurs reponses,
+    alors qu'ils disparaissent du reste du resultat.
+    """
+    par_rep = indicators.pour(variante, portee=Portee.REP)
+    par_set = indicators.pour(variante, portee=Portee.SET)
+    connus = {i.nom for i in par_rep} | {"rep_index", "summary"}
+
+    def fiche_de_rep(obs: dict, etats: dict | None) -> dict:
+        etats = etats if etats is not None else etats_de_rep({}, obs, variante)
+        return {
+            "indicateurs": [_fiche(ind, obs, etats.get(ind.nom)) for ind in par_rep],
+            "summary": obs.get("summary"),
+            # Ce que le modele a rendu et que le catalogue ne connait pas : vide avec
+            # le decodage contraint, mais s'il apparait, c'est ici qu'on le verra.
+            "hors_catalogue": {k: v for k, v in obs.items()
+                               if k not in connus and not k.endswith("_observed")},
+        }
+
+    return {
+        "observations_brutes": observations,
+        "catalogue": _catalogue(par_rep + [i for i in par_set if i.source is not Source.POSE]),
+        "reps": [{"index": r["index"], "candidat": r["_candidat"],
+                  "debut_s": r["debut_s"], "fin_s": r["fin_s"], "statut": r["statut"],
+                  "etats": r["etats"],
+                  "notes": {c: b["note"] for c, b in r["criteres"].items()},
+                  **fiche_de_rep(r["_obs"], r["etats"])}
+                 for r in reps],
+        "ecartes": [{"candidat": e["candidat"], "debut_s": e["debut_s"], "fin_s": e["fin_s"],
+                     **fiche_de_rep(e["obs"], None)} for e in ecartes],
+        "contexte": [_fiche(ind, observations or {}, (observations or {}).get(ind.nom))
+                     for ind in par_set if ind.source is not Source.POSE],
     }
