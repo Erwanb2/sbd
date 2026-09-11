@@ -507,8 +507,12 @@ L01 = Indicateur(
              "together, or do the hips rise faster and leave the shoulders behind?",
     etats=(Etat("together", "Hips and shoulders rise together: the legs are driving the "
                             "floor away and the torso angle holds.", 3),
+           # 3 -> 2 le 2026-09-11. "Un peu en avance" est un DEFAUT LEGER, pas un equivalent
+           # du manuel. C'etait le cran 2/3 manquant portant un badge 3/3 : le catalogue ne
+           # proposait aucun "un peu mauvais" ici, il fallait declarer la catastrophe
+           # (hips_shoot_up, 1/3) ou rien.
            Etat("hips_slightly_ahead", "The hips rise somewhat ahead of the shoulders, but the "
-                                  "torso does not pitch forward.", 3),
+                                  "torso does not pitch forward.", 2),
            Etat("hips_shoot_up", "The hips shoot up while the shoulders barely move: the "
                                   "lift turns into a stiff-legged pull finished by the back.",
                 1, persona="The Crane")),
@@ -606,7 +610,7 @@ P03 = Indicateur(
     question="Does the bar stay in contact with, or very close to, the legs?",
     etats=(Etat("in_contact", "The bar stays against or within a few centimetres of the legs "
                            "the whole way up.", 3),
-           Etat("brief_loss", "Contact is briefly lost, then the bar comes back to the legs.", 3),
+           Etat("brief_loss", "Contact is briefly lost, then the bar comes back to the legs.", 2),
            Etat("away_from_legs", "The bar travels visibly away from the legs.", 1,
                 persona="The Pendulum")),
     note_source="Le contact barre-jambe n'est pas observable par la pose : il faut voir la "
@@ -651,7 +655,7 @@ P05 = Indicateur(
              "answerable from the front or three-quarter view: from the side a knee coming "
              "in is indistinguishable from a knee coming forward, so answer 'not_visible'.",
     etats=(Etat("tracks_out", "The knees track outward over the feet throughout.", 3),
-           Etat("slight", "The knees waver inward at the hardest point but never collapse.", 3),
+           Etat("slight", "The knees waver inward at the hardest point but never collapse.", 2),
            Etat("collapses_in", "The knees collapse inward off the floor.", 1, persona="The X-Wing")),
     note_source="Etait POSE (valgus_ratio) jusqu'au 2026-09-09. Revient en LLM, et il "
                 "rejoint l'axe STRUCTURE et non une mecanique : un genou qui rentre n'est "
@@ -752,7 +756,7 @@ K03 = Indicateur(
     portee=Portee.REP, critere="finish_position", vue=Vue.PROFIL,
     question="Does the lifter lean back at the top?",
     etats=(Etat("upright", "The lifter finishes upright and neutral.", 3),
-           Etat("slight", "A slight lean back at the top.", 3),
+           Etat("slight", "A slight lean back at the top.", 2),
            Etat("hyperextension", "Marked lumbar hyperextension at the top instead of "
                                   "finishing with the glutes.", 1, persona="The Over-Extender")),
     note_source="Etait POSE (lean_back_deg) jusqu'au 2026-09-09. Revient en LLM. Il absorbe "
@@ -814,7 +818,7 @@ E02 = Indicateur(
              "accompanied lowering is not.",
     etats=(Etat("controlled", "The bar is lowered under control, the lifter staying with it.", 3),
            Etat("fast_but_controlled", "The descent is quick but the hands stay with the bar "
-                                      "all the way down.", 3),
+                                      "all the way down.", 2),
            Etat("dropped", "The bar is dropped or crashes to the floor.", 1),
            Etat("cut_off", "The lowering is cut off by the end of the video.", None)),
     note_source="Il faut voir la barre et le sol : la pose ne voit ni l'un ni l'autre. "

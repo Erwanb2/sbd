@@ -59,6 +59,15 @@ OBSERVATION = (
     "positions, and how they change, with timestamps. Describe the geometry, not your "
     "conclusion — do NOT name any of the options listed for that field, and do NOT say "
     "whether it looks good or bad. Finish by saying what, if anything, stops you from "
+    # RETIRE le 2026-09-11, une heure apres l'avoir ajoute. Le paragraphe demandait, pour
+    # les champs portant sur un evenement, soit l'horodatage soit "dis que tu as suivi le
+    # mouvement image par image et nomme les images verifiees". Mesure sur pr_160 : les
+    # champs exprimant une reserve tombent de 22/23 a 2/23, et 22/23 se terminent par
+    # "Nothing stops me from being sure". On lui a demande de certifier son exhaustivite,
+    # il l'a certifiee — et la certitude s'est propagee aux etats. `asymmetry` est passe
+    # d'une abstention correcte a "les deux cotes montent ensemble" sur un clip filme de
+    # trois-quarts. Deuxieme consigne d'observation de la journee a se retourner : la
+    # premiere demandait "la preuve qui tranche" et rendait des verdicts horodates.
     "being sure.")
 
 
