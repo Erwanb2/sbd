@@ -1,0 +1,637 @@
+{
+ "variante": "conventional",
+ "contexte": {
+  "equipment": {
+   "etat": "barbell",
+   "texte": "A standard barbell with plates on the floor."
+  },
+  "grip": {
+   "etat": "not_visible",
+   "texte": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+  },
+  "foot_orientation": {
+   "etat": "forward",
+   "texte": "The toes point roughly forward."
+  },
+  "mesures": {
+   "view": 0.19,
+   "visibility": 0.58
+  }
+ },
+ "reps": [
+  {
+   "index": 1,
+   "debut_s": 4.4,
+   "fin_s": 8.6,
+   "statut": "complete",
+   "criteres": {
+    "start_position": {
+     "libelle": "Start position",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S01",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The hips sit between the knees and the shoulders.",
+       "note": 3
+      },
+      {
+       "indicateur": "S02",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The shoulders are stacked over or just ahead of the bar.",
+       "note": 3
+      },
+      {
+       "indicateur": "S04",
+       "phase": "setup",
+       "source": "a_tester",
+       "fait": "The bar sits over the middle of the foot, close to the shins.",
+       "note": 3
+      },
+      {
+       "indicateur": "S06",
+       "phase": "setup",
+       "source": "a_tester",
+       "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
+       "note": 3
+      }
+     ]
+    },
+    "slack_and_brace": {
+     "libelle": "Slack and brace",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S07",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+       "note": 3
+      },
+      {
+       "indicateur": "S09",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+       "note": 3
+      },
+      {
+       "indicateur": "L03",
+       "phase": "decollage",
+       "source": "a_tester",
+       "fait": "The bar accelerates smoothly out of the floor.",
+       "note": 3
+      }
+     ]
+    },
+    "leg_drive": {
+     "libelle": "Leg drive off the floor",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "L01",
+       "phase": "decollage",
+       "source": "llm",
+       "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
+       "note": 3
+      }
+     ]
+    },
+    "bar_path": {
+     "libelle": "Bar against the body",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "P02",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "The bar passes the knees close to the legs, in one line.",
+       "note": 3
+      },
+      {
+       "indicateur": "P03",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+       "note": 3
+      }
+     ]
+    },
+    "finish_position": {
+     "libelle": "Finish position",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "P08",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "The bar rises in one continuous motion.",
+       "note": 3
+      },
+      {
+       "indicateur": "K03",
+       "phase": "lockout",
+       "source": "llm",
+       "fait": "The lifter finishes upright and neutral.",
+       "note": 3
+      },
+      {
+       "indicateur": "K04",
+       "phase": "lockout",
+       "source": "a_tester",
+       "fait": "The lift finishes with hip extension alone.",
+       "note": 3
+      },
+      {
+       "indicateur": "K07",
+       "phase": "lockout",
+       "source": "llm",
+       "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+       "note": 3
+      }
+     ]
+    },
+    "reset": {
+     "libelle": "Reset between reps",
+     "note": null,
+     "statut": "non_evaluable",
+     "faits": [
+      {
+       "indicateur": "E02",
+       "phase": "descente",
+       "source": "llm",
+       "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+       "note": null
+      },
+      {
+       "indicateur": "E03",
+       "phase": "descente",
+       "source": "llm",
+       "fait": "This is the last rep of the set.",
+       "note": null
+      }
+     ]
+    },
+    "structure": {
+     "libelle": "Structure under load",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S05",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The lower back keeps its natural inward curve at the setup.",
+       "note": 3
+      },
+      {
+       "indicateur": "S10",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The upper back is flat before the bar moves.",
+       "note": 3
+      },
+      {
+       "indicateur": "P04",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "The lower back keeps the same shape from the floor to lockout.",
+       "note": 3
+      },
+      {
+       "indicateur": "P10",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "The upper back keeps the same shape from the floor to lockout.",
+       "note": 3
+      },
+      {
+       "indicateur": "P05",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+       "note": null
+      },
+      {
+       "indicateur": "P09",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+       "note": null
+      }
+     ]
+    }
+   },
+   "note": 3,
+   "note_precise": 3.0,
+   "sur": 3,
+   "non_evaluables": 1,
+   "temps": {
+    "tiree_s": 1.67,
+    "lockout_s": 0.5
+   },
+   "resume": "The lifter performs a single conventional deadlift with a neutral spine, smooth bar path, and a complete lockout.",
+   "observations": {
+    "hip_height": "At 4.40s, the hips are positioned clearly above the level of the knees and below the level of the shoulders, creating an angled torso. This position is maintained as the pull begins at 4.80s.",
+    "shoulders_over_bar": "At 4.40s and 4.80s, the shoulders are positioned directly over or slightly in front of the bar, with the arms hanging nearly vertically down to the bar.",
+    "bar_over_midfoot": "At 4.40s, the bar is positioned close to the shins, directly above the middle of the foot.",
+    "lumbar_at_setup": "At 4.40s and 4.80s, the lower back shows a straight, flat profile without visible rounding or excessive arching.",
+    "thoracic_at_setup": "At 4.40s and 4.80s, the upper back is held in a straight line continuous with the rest of the spine, with no distinct rounding of the shoulders or thoracic spine.",
+    "arms_long": "Throughout the setup and pull (4.40s to 5.40s), the elbows remain fully extended and the arms are straight.",
+    "slack_pull": "Between 4.40s and 4.80s, the lifter pre-tensions the body and bar, and the bar leaves the floor smoothly without any sudden jerking motion.",
+    "brace": "At 4.40s, the lifter's midsection is visibly expanded and held rigid, maintaining this shape as the lift begins.",
+    "hip_vs_shoulder_rise": "From 4.80s to 5.20s, the hips and shoulders rise at the same rate, maintaining a constant torso angle relative to the floor.",
+    "jerky_start": "The bar transitions from stationary on the floor at 4.40s to moving upward at 4.80s in a smooth, continuous motion without sudden acceleration or jerking.",
+    "bar_left_floor": "At 4.80s and 5.00s, the plates are clearly elevated off the platform.",
+    "past_the_knees": "At 5.20s and 5.40s, the bar travels vertically past the knees in a straight line without hitting the knees or looping outward.",
+    "bar_leg_contact": "Throughout the ascent (4.80s to 5.40s), the bar remains in close contact with the shins and thighs.",
+    "lumbar_under_load": "In the close-up frames from 4.80s to 5.40s, the lower back maintains its flat, neutral shape without any visible flexion or collapse.",
+    "thoracic_under_load": "In the close-up frames from 4.80s to 5.40s, the upper back remains straight and neutral, showing no signs of rounding under the load.",
+    "knee_valgus": "The side-profile camera angle prevents a clear view of any inward or outward movement of the knees.",
+    "hitch": "From 5.00s to 5.60s, the bar moves upward in a continuous, smooth motion without resting on the thighs or stalling.",
+    "asymmetry": "The side-profile view of the lifter makes it impossible to compare the left and right sides of the body for asymmetry.",
+    "lean_back": "At 5.60s and 6.20s, the lifter stands fully upright with a vertical torso, without leaning backward or hyperextending the spine.",
+    "shrug": "At 5.60s and 6.20s, the shoulders remain in a depressed, natural position without any upward shrugging motion.",
+    "lockout_completion": "At 5.60s and 6.20s, the knees and hips are fully extended, and the shoulders are pulled back, completing the lift.",
+    "descent_control": "The frames end at 7.00s with the lifter still holding the bar at lockout, so the descent is not captured.",
+    "rep_transition": "The frames end while the lifter is holding the lockout, indicating this is the final or only repetition shown."
+   }
+  }
+ ],
+ "criteres": {
+  "start_position": {
+   "libelle": "Start position",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S01",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The hips sit between the knees and the shoulders.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S02",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The shoulders are stacked over or just ahead of the bar.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S04",
+     "phase": "setup",
+     "source": "a_tester",
+     "fait": "The bar sits over the middle of the foot, close to the shins.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S06",
+     "phase": "setup",
+     "source": "a_tester",
+     "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "slack_and_brace": {
+   "libelle": "Slack and brace",
+   "note": 3,
+   "poids": 1.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S07",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S09",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "L03",
+     "phase": "decollage",
+     "source": "a_tester",
+     "fait": "The bar accelerates smoothly out of the floor.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "leg_drive": {
+   "libelle": "Leg drive off the floor",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "L01",
+     "phase": "decollage",
+     "source": "llm",
+     "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "bar_path": {
+   "libelle": "Bar against the body",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "P02",
+     "phase": "tiree",
+     "source": "a_tester",
+     "fait": "The bar passes the knees close to the legs, in one line.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P03",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "finish_position": {
+   "libelle": "Finish position",
+   "note": 3,
+   "poids": 1.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "P08",
+     "phase": "tiree",
+     "source": "a_tester",
+     "fait": "The bar rises in one continuous motion.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K03",
+     "phase": "lockout",
+     "source": "llm",
+     "fait": "The lifter finishes upright and neutral.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K04",
+     "phase": "lockout",
+     "source": "a_tester",
+     "fait": "The lift finishes with hip extension alone.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K07",
+     "phase": "lockout",
+     "source": "llm",
+     "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "reset": {
+   "libelle": "Reset between reps",
+   "note": null,
+   "poids": 0.5,
+   "notes_par_rep": [
+    null
+   ],
+   "faits": [
+    {
+     "indicateur": "E02",
+     "phase": "descente",
+     "source": "llm",
+     "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+     "note": null,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "E03",
+     "phase": "descente",
+     "source": "llm",
+     "fait": "This is the last rep of the set.",
+     "note": null,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "structure": {
+   "libelle": "Structure under load",
+   "note": 3,
+   "poids": 2.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S05",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The lower back keeps its natural inward curve at the setup.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S10",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The upper back is flat before the bar moves.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P04",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "The lower back keeps the same shape from the floor to lockout.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P10",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "The upper back keeps the same shape from the floor to lockout.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P05",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+     "note": null,
+     "reps": [
+      1,
+      1
+     ]
+    }
+   ]
+  }
+ },
+ "mecaniques": [
+  "start_position",
+  "slack_and_brace",
+  "leg_drive",
+  "bar_path",
+  "finish_position",
+  "reset"
+ ],
+ "structure": {
+  "etat": "ok",
+  "note": 3,
+  "texte": "Your structure held from the floor to lockout.",
+  "defauts": []
+ },
+ "epingle": null,
+ "note_sur_20": 20,
+ "nb_reps": 1,
+ "segments_ecartes": [],
+ "tenue_du_set": {
+  "etat": "rep_unique",
+  "texte": "A single repetition: there is nothing to compare across the set."
+ },
+ "conseils": [],
+ "persona": {
+  "nom": "The Technician",
+  "fait": "Nothing in this set stood out as a fault worth a nickname.",
+  "rep": null
+ },
+ "_obs": {
+  "reps": [
+   {
+    "rep_index": 1,
+    "hip_height_observed": "At 4.40s, the hips are positioned clearly above the level of the knees and below the level of the shoulders, creating an angled torso. This position is maintained as the pull begins at 4.80s.",
+    "hip_height": "between_knees_and_shoulders",
+    "shoulders_over_bar_observed": "At 4.40s and 4.80s, the shoulders are positioned directly over or slightly in front of the bar, with the arms hanging nearly vertically down to the bar.",
+    "shoulders_over_bar": "over_bar",
+    "bar_over_midfoot_observed": "At 4.40s, the bar is positioned close to the shins, directly above the middle of the foot.",
+    "bar_over_midfoot": "over_midfoot",
+    "lumbar_at_setup_observed": "At 4.40s and 4.80s, the lower back shows a straight, flat profile without visible rounding or excessive arching.",
+    "lumbar_at_setup": "neutral",
+    "thoracic_at_setup_observed": "At 4.40s and 4.80s, the upper back is held in a straight line continuous with the rest of the spine, with no distinct rounding of the shoulders or thoracic spine.",
+    "thoracic_at_setup": "neutral",
+    "arms_long_observed": "Throughout the setup and pull (4.40s to 5.40s), the elbows remain fully extended and the arms are straight.",
+    "arms_long": "straight",
+    "slack_pull_observed": "Between 4.40s and 4.80s, the lifter pre-tensions the body and bar, and the bar leaves the floor smoothly without any sudden jerking motion.",
+    "slack_pull": "progressive",
+    "brace_observed": "At 4.40s, the lifter's midsection is visibly expanded and held rigid, maintaining this shape as the lift begins.",
+    "brace": "braced",
+    "hip_vs_shoulder_rise_observed": "From 4.80s to 5.20s, the hips and shoulders rise at the same rate, maintaining a constant torso angle relative to the floor.",
+    "hip_vs_shoulder_rise": "together",
+    "jerky_start_observed": "The bar transitions from stationary on the floor at 4.40s to moving upward at 4.80s in a smooth, continuous motion without sudden acceleration or jerking.",
+    "jerky_start": "smooth",
+    "bar_left_floor_observed": "At 4.80s and 5.00s, the plates are clearly elevated off the platform.",
+    "bar_left_floor": "yes",
+    "past_the_knees_observed": "At 5.20s and 5.40s, the bar travels vertically past the knees in a straight line without hitting the knees or looping outward.",
+    "past_the_knees": "clean",
+    "bar_leg_contact_observed": "Throughout the ascent (4.80s to 5.40s), the bar remains in close contact with the shins and thighs.",
+    "bar_leg_contact": "in_contact",
+    "lumbar_under_load_observed": "In the close-up frames from 4.80s to 5.40s, the lower back maintains its flat, neutral shape without any visible flexion or collapse.",
+    "lumbar_under_load": "unchanged",
+    "thoracic_under_load_observed": "In the close-up frames from 4.80s to 5.40s, the upper back remains straight and neutral, showing no signs of rounding under the load.",
+    "thoracic_under_load": "unchanged",
+    "knee_valgus_observed": "The side-profile camera angle prevents a clear view of any inward or outward movement of the knees.",
+    "knee_valgus": "not_visible",
+    "hitch_observed": "From 5.00s to 5.60s, the bar moves upward in a continuous, smooth motion without resting on the thighs or stalling.",
+    "hitch": "no",
+    "asymmetry_observed": "The side-profile view of the lifter makes it impossible to compare the left and right sides of the body for asymmetry.",
+    "asymmetry": "not_visible",
+    "lean_back_observed": "At 5.60s and 6.20s, the lifter stands fully upright with a vertical torso, without leaning backward or hyperextending the spine.",
+    "lean_back": "upright",
+    "shrug_observed": "At 5.60s and 6.20s, the shoulders remain in a depressed, natural position without any upward shrugging motion.",
+    "shrug": "no",
+    "lockout_completion_observed": "At 5.60s and 6.20s, the knees and hips are fully extended, and the shoulders are pulled back, completing the lift.",
+    "lockout_completion": "locked",
+    "descent_control_observed": "The frames end at 7.00s with the lifter still holding the bar at lockout, so the descent is not captured.",
+    "descent_control": "not_visible",
+    "rep_transition_observed": "The frames end while the lifter is holding the lockout, indicating this is the final or only repetition shown.",
+    "rep_transition": "last_rep",
+    "summary": "The lifter performs a single conventional deadlift with a neutral spine, smooth bar path, and a complete lockout."
+   }
+  ],
+  "equipment": "barbell",
+  "grip": "not_visible",
+  "foot_orientation": "forward"
+ },
+ "_modele": "gemini-3.5-flash"
+}

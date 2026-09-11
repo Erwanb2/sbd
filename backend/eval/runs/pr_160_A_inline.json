@@ -1,0 +1,601 @@
+{
+ "variante": "conventional",
+ "contexte": {
+  "equipment": {
+   "etat": "barbell",
+   "texte": "A standard barbell with plates on the floor."
+  },
+  "grip": {
+   "etat": "double_overhand",
+   "texte": "Both palms facing the lifter (double overhand)."
+  },
+  "foot_orientation": {
+   "etat": "not_visible",
+   "texte": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+  },
+  "mesures": {
+   "view": 0.606,
+   "visibility": 0.941
+  }
+ },
+ "reps": [
+  {
+   "index": 1,
+   "debut_s": 3.41,
+   "fin_s": 10.89,
+   "statut": "complete",
+   "criteres": {
+    "start_position": {
+     "libelle": "Start position",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S01",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The hips sit between the knees and the shoulders.",
+       "note": 3
+      },
+      {
+       "indicateur": "S02",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The shoulders are stacked over or just ahead of the bar.",
+       "note": 3
+      },
+      {
+       "indicateur": "S04",
+       "phase": "setup",
+       "source": "a_tester",
+       "fait": "The bar sits over the middle of the foot, close to the shins.",
+       "note": 3
+      },
+      {
+       "indicateur": "S06",
+       "phase": "setup",
+       "source": "a_tester",
+       "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
+       "note": 3
+      }
+     ]
+    },
+    "slack_and_brace": {
+     "libelle": "Slack and brace",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S07",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+       "note": 3
+      },
+      {
+       "indicateur": "S09",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+       "note": 3
+      },
+      {
+       "indicateur": "L03",
+       "phase": "decollage",
+       "source": "a_tester",
+       "fait": "The bar accelerates smoothly out of the floor.",
+       "note": 3
+      }
+     ]
+    },
+    "leg_drive": {
+     "libelle": "Leg drive off the floor",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "L01",
+       "phase": "decollage",
+       "source": "llm",
+       "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
+       "note": 3
+      }
+     ]
+    },
+    "bar_path": {
+     "libelle": "Bar against the body",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "P02",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "The bar passes the knees close to the legs, in one line.",
+       "note": 3
+      },
+      {
+       "indicateur": "P03",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+       "note": 3
+      }
+     ]
+    },
+    "finish_position": {
+     "libelle": "Finish position",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "P08",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "The bar rises in one continuous motion.",
+       "note": 3
+      },
+      {
+       "indicateur": "K03",
+       "phase": "lockout",
+       "source": "llm",
+       "fait": "The lifter finishes upright and neutral.",
+       "note": 3
+      },
+      {
+       "indicateur": "K04",
+       "phase": "lockout",
+       "source": "a_tester",
+       "fait": "The lift finishes with hip extension alone.",
+       "note": 3
+      },
+      {
+       "indicateur": "K07",
+       "phase": "lockout",
+       "source": "llm",
+       "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+       "note": 3
+      }
+     ]
+    },
+    "reset": {
+     "libelle": "Reset between reps",
+     "note": 1,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "E02",
+       "phase": "descente",
+       "source": "llm",
+       "fait": "The bar is dropped or crashes to the floor.",
+       "note": 1
+      },
+      {
+       "indicateur": "E03",
+       "phase": "descente",
+       "source": "llm",
+       "fait": "This is the last rep of the set.",
+       "note": null
+      }
+     ]
+    },
+    "structure": {
+     "libelle": "Structure under load",
+     "note": 3,
+     "statut": "note",
+     "faits": [
+      {
+       "indicateur": "S05",
+       "phase": "setup",
+       "source": "llm",
+       "fait": "The back is flat and set before the bar moves.",
+       "note": 3
+      },
+      {
+       "indicateur": "P04",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+       "note": 3
+      },
+      {
+       "indicateur": "P05",
+       "phase": "tiree",
+       "source": "llm",
+       "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+       "note": null
+      },
+      {
+       "indicateur": "P09",
+       "phase": "tiree",
+       "source": "a_tester",
+       "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+       "note": null
+      }
+     ]
+    }
+   },
+   "note": 3,
+   "note_precise": 2.71,
+   "sur": 3,
+   "non_evaluables": 0,
+   "temps": {
+    "tiree_s": 2.0,
+    "lockout_s": 0.17
+   },
+   "resume": "The athlete performs a single conventional deadlift with a flat back and a controlled ascent, but drops the bar at the end."
+  }
+ ],
+ "criteres": {
+  "start_position": {
+   "libelle": "Start position",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S01",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The hips sit between the knees and the shoulders.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S02",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The shoulders are stacked over or just ahead of the bar.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S04",
+     "phase": "setup",
+     "source": "a_tester",
+     "fait": "The bar sits over the middle of the foot, close to the shins.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S06",
+     "phase": "setup",
+     "source": "a_tester",
+     "fait": "The arms hang straight and stay long, elbows locked out, from the setup to the top.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "slack_and_brace": {
+   "libelle": "Slack and brace",
+   "note": 3,
+   "poids": 1.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S07",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "S09",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "A breath is taken at the bottom and held: the midsection stays expanded and rigid through the pull.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "L03",
+     "phase": "decollage",
+     "source": "a_tester",
+     "fait": "The bar accelerates smoothly out of the floor.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "leg_drive": {
+   "libelle": "Leg drive off the floor",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "L01",
+     "phase": "decollage",
+     "source": "llm",
+     "fait": "Hips and shoulders rise together: the legs are driving the floor away and the torso angle holds.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "bar_path": {
+   "libelle": "Bar against the body",
+   "note": 3,
+   "poids": 1.5,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "P02",
+     "phase": "tiree",
+     "source": "a_tester",
+     "fait": "The bar passes the knees close to the legs, in one line.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P03",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "finish_position": {
+   "libelle": "Finish position",
+   "note": 3,
+   "poids": 1.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "P08",
+     "phase": "tiree",
+     "source": "a_tester",
+     "fait": "The bar rises in one continuous motion.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K03",
+     "phase": "lockout",
+     "source": "llm",
+     "fait": "The lifter finishes upright and neutral.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K04",
+     "phase": "lockout",
+     "source": "a_tester",
+     "fait": "The lift finishes with hip extension alone.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "K07",
+     "phase": "lockout",
+     "source": "llm",
+     "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "reset": {
+   "libelle": "Reset between reps",
+   "note": 1,
+   "poids": 0.5,
+   "notes_par_rep": [
+    1
+   ],
+   "faits": [
+    {
+     "indicateur": "E02",
+     "phase": "descente",
+     "source": "llm",
+     "fait": "The bar is dropped or crashes to the floor.",
+     "note": 1,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "E03",
+     "phase": "descente",
+     "source": "llm",
+     "fait": "This is the last rep of the set.",
+     "note": null,
+     "reps": [
+      1
+     ]
+    }
+   ]
+  },
+  "structure": {
+   "libelle": "Structure under load",
+   "note": 3,
+   "poids": 2.0,
+   "notes_par_rep": [
+    3
+   ],
+   "faits": [
+    {
+     "indicateur": "S05",
+     "phase": "setup",
+     "source": "llm",
+     "fait": "The back is flat and set before the bar moves.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P04",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "The back holds the same shape at the floor, at knee height and at lockout: no flexion added under load.",
+     "note": 3,
+     "reps": [
+      1
+     ]
+    },
+    {
+     "indicateur": "P05",
+     "phase": "tiree",
+     "source": "llm",
+     "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+     "note": null,
+     "reps": [
+      1,
+      1
+     ]
+    }
+   ]
+  }
+ },
+ "mecaniques": [
+  "start_position",
+  "slack_and_brace",
+  "leg_drive",
+  "bar_path",
+  "finish_position",
+  "reset"
+ ],
+ "structure": {
+  "etat": "ok",
+  "note": 3,
+  "texte": "Your structure held from the floor to lockout.",
+  "defauts": []
+ },
+ "epingle": {
+  "indicateur": "E02",
+  "nom": "descent_control",
+  "critere": "reset",
+  "constat": "The bar is dropped or crashes to the floor.",
+  "a_essayer": "Stay with the bar on the way down instead of dropping it.",
+  "etat": "dropped",
+  "note": 1,
+  "reps": [
+   1
+  ],
+  "consequences": [],
+  "autres": []
+ },
+ "note_sur_20": 19,
+ "nb_reps": 1,
+ "segments_ecartes": [],
+ "tenue_du_set": {
+  "etat": "rep_unique",
+  "texte": "A single repetition: there is nothing to compare across the set."
+ },
+ "conseils": [
+  {
+   "indicateur": "E02",
+   "nom": "descent_control",
+   "critere": "reset",
+   "constat": "The bar is dropped or crashes to the floor.",
+   "a_essayer": "Stay with the bar on the way down instead of dropping it.",
+   "etat": "dropped",
+   "note": 1,
+   "reps": [
+    1
+   ],
+   "consequences": [],
+   "autres": []
+  }
+ ],
+ "persona": {
+  "nom": "The Technician",
+  "fait": "Nothing in this set stood out as a fault worth a nickname.",
+  "rep": null
+ },
+ "_observations_brutes": {
+  "reps": [
+   {
+    "rep_index": 1,
+    "hip_height_seen": "At 00:03.700, the athlete is in the setup position with hips positioned between the knees and shoulders.",
+    "hip_height": "between_knees_and_shoulders",
+    "shoulders_over_bar_seen": "At 00:03.700, the shoulders are positioned directly over the barbell.",
+    "shoulders_over_bar": "over_bar",
+    "bar_over_midfoot_seen": "At 00:03.700, the barbell is positioned directly over the midfoot.",
+    "bar_over_midfoot": "over_midfoot",
+    "back_at_setup_seen": "At 00:03.700, the athlete's back is flat in the setup position.",
+    "back_at_setup": "flat",
+    "arms_long_seen": "At 00:03.700, the athlete's arms are fully extended and straight.",
+    "arms_long": "straight",
+    "slack_pull_seen": "At 00:04.000, the athlete progressively pulls the slack out of the bar before lifting.",
+    "slack_pull": "progressive",
+    "brace_seen": "At 00:03.600, the athlete takes a deep breath and braces their core.",
+    "brace": "braced",
+    "hip_vs_shoulder_rise_seen": "At 00:04.500, the hips and shoulders rise together as the lift begins.",
+    "hip_vs_shoulder_rise": "together",
+    "jerky_start_seen": "At 00:04.200, the athlete initiates the lift with a smooth pull off the floor.",
+    "jerky_start": "smooth",
+    "bar_left_floor_seen": "At 00:04.200, the barbell leaves the floor.",
+    "bar_left_floor": "yes",
+    "past_the_knees_seen": "At 00:04.800, the barbell passes the knees in a clean, straight path.",
+    "past_the_knees": "clean",
+    "bar_leg_contact_seen": "At 00:04.800, the barbell remains in contact with the shins and thighs.",
+    "bar_leg_contact": "in_contact",
+    "back_under_load_seen": "At 00:04.800, the athlete's back remains flat and unchanged under load.",
+    "back_under_load": "unchanged",
+    "knee_valgus_seen": "At 00:04.500, the knees are not clearly visible from this side angle to determine valgus.",
+    "knee_valgus": "not_visible",
+    "hitch_seen": "At 00:05.000, the barbell rises smoothly without any hitching on the thighs.",
+    "hitch": "no",
+    "asymmetry_seen": "At 00:05.600, the side view prevents assessment of lateral asymmetry.",
+    "asymmetry": "not_visible",
+    "lean_back_seen": "At 00:05.800, the athlete stands upright at lockout without hyperextension.",
+    "lean_back": "upright",
+    "shrug_seen": "At 00:05.800, the shoulders are down and relaxed at lockout without shrugging.",
+    "shrug": "no",
+    "lockout_completion_seen": "At 00:05.800, the knees and hips are fully locked out.",
+    "lockout_completion": "locked",
+    "descent_control_seen": "At 00:08.400, the athlete releases the barbell, letting it drop to the floor.",
+    "descent_control": "dropped",
+    "rep_transition_seen": "At 00:08.500, the athlete stands up after dropping the bar, completing the set.",
+    "rep_transition": "last_rep",
+    "summary": "The athlete performs a single conventional deadlift with a flat back and a controlled ascent, but drops the bar at the end."
+   }
+  ],
+  "equipment": "barbell",
+  "grip": "double_overhand",
+  "foot_orientation": "not_visible"
+ }
+}

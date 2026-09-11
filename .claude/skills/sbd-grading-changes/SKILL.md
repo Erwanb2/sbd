@@ -225,6 +225,10 @@ Mesure, mêmes images, prompt neutre : `pr_160` passe à `lumbar_at_setup=flexed
 de 19, bandeau `caution` ; `conventionnal_deadlift_12`, que l'humain juge bon, reste à 20/20
 avec les quatre champs `neutral`. **Le mauvais clip bouge, le bon ne bouge pas.**
 
+> **Ce que le modèle accepte de rapporter, et les onze leviers mesurés pour l'y amener :
+> skill projet `.claude/skills/rapporter-un-defaut/`. À charger avant de reformuler une
+> question, d'ajouter ou de retirer un état, ou de proposer un prompt plus sévère.**
+
 ### Une observation libre avant chaque état
 
 Chaque champ d'état est précédé de `<nom>_observed`, texte libre. L'ordre des champs étant
