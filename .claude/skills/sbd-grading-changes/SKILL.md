@@ -27,16 +27,41 @@ indicators.py  ->  schemas.py        le schéma Pydantic des indicateurs jugés 
 
 Ajouter un indicateur = ajouter une entrée dans `INDICATEURS`. Le reste suit.
 
-**25 indicateurs** pour le deadlift (compte du 2026-09-11 soir : le dos en quatre champs, `brace` sorti), en deux sources :
+**21 indicateurs** pour le deadlift (compte du 2026-09-11 soir, après la réécriture en
+frontières), en deux sources :
 
 | `Source` | nombre | sens |
 |---|---|---|
-| `LLM` | 18 | seul un modèle peut le voir |
-| `A_TESTER` | 7 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
+| `LLM` | 16 | seul un modèle peut le voir |
+| `A_TESTER` | 5 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
 | ~~`POSE`~~ | ~~17~~ → **0** | **aucun indicateur POSE n'est noté**, voir plus bas |
 
-22 champs par répétition dans le schéma, contre 16 avant la refonte : **+35 % de sortie
-par rep**, et personne n'a encore mesuré si les 16 anciens se dégradent sous ce poids.
+18 champs par répétition dans le schéma (17 critères + `bar_left_floor`), plus
+`equipment`, `grip`, `foot_orientation` au niveau du set.
+
+## Réécriture en frontières (2026-09-11 soir)
+
+Les 17 champs notés ont été **réécrits d'un bloc par l'humain** sur la règle d'`AGENTS.md`
+(2.1 et 2.2) : plus aucun adverbe d'intensité (« un peu », « nettement »), chaque question
+nomme **une image précise** et **une frontière géométrique binaire** — une ligne coupée ou
+non, un angle à 180 ou non, une distance qui change ou non. Noms de champs, questions,
+états et notes sont ceux de la liste humaine, tels quels ; le code n'a apporté que les
+personas (reportés sur l'état équivalent), `CONSEILS`, `ENCHAINEMENTS` et un texte
+`not_visible` propre à chaque champ (`Indicateur.non_visible`, clé inchangée).
+
+Ce qui a disparu : `arms_long` + `slack_pull` + `jerky_start` fondus dans
+`arms_tension_at_setup` (un coude qui se tend AU décollage EST le slack arraché) ;
+`thoracic_under_load` et `asymmetry` sans équivalent ; les personas The T-Rex et The
+Helicopter avec eux ; l'état `cut_off` de la descente et `last_rep` de la transition,
+fondus dans le `not_visible` du champ.
+
+La liste humaine mettait `thoracic_convex` à 1, `lumbar_geometry_constant` à 3 et le
+touch-and-go à 2 ; les trois ont été remis le même soir sur les décisions documentées plus
+bas (3/3 assumé, descriptif, 3/3).
+
+**Rien n'est encore mesuré avec ces questions.** Les 21 runs stockés portent les anciennes
+clés et ne se rejouent pas dessus ; la première passe sur `pr_160` et
+`conventionnal_deadlift_12` reste à faire, deux fois chacune (voir `rapporter-un-defaut`).
 
 ## La pose ne note plus rien (2026-09-09)
 
@@ -103,15 +128,15 @@ Un critère a **deux métiers**, et l'ancienne liste n'en faisait qu'un :
 2. **Désigner quoi corriger.** Ce métier n'est PAS porté par la liste : il est porté par l'ordre
    du dict, qui est causal, et par `ENCHAINEMENTS`.
 
-| clé | libellé | poids | indicateurs |
+| clé | libellé | poids | indicateurs (noms du 2026-09-11 soir) |
 |---|---|---|---|
-| `start_position` | Start position | 1,5 | hip_height, shoulders_over_bar, bar_over_midfoot, arms_long |
-| `slack_and_brace` | Slack and brace | 1,0 | slack_pull, jerky_start (`brace` retiré le 2026-09-11, le libellé et la pédagogie restent) |
-| `leg_drive` | Leg drive off the floor | 1,5 | hip_vs_shoulder_rise |
-| `bar_path` | Bar against the body | 1,5 | past_the_knees, bar_leg_contact |
-| `finish_position` | Finish position | 1,0 | lockout_completion, lean_back, hitch, shrug |
-| `reset` | Reset between reps | 0,5 | descent_control, rep_transition |
-| `structure` | Structure under load | 2,0 | lumbar_at_setup, thoracic_at_setup, lumbar_under_load, thoracic_under_load, knee_valgus, asymmetry |
+| `start_position` | Start position | 1,5 | bar_over_midfoot_topology, shoulders_over_bar_gravity, hip_height_via_femur |
+| `slack_and_brace` | Slack and brace | 1,0 | arms_tension_at_setup |
+| `leg_drive` | Leg drive off the floor | 1,5 | initiation_sequence |
+| `bar_path` | Bar against the body | 1,5 | bar_path_at_knees_topology, bar_leg_daylight |
+| `finish_position` | Finish position | 1,0 | lockout_extension, sagittal_torso_angle, vertical_velocity_hitch, shoulder_elevation_delta |
+| `reset` | Reset between reps | 0,5 | descent_hand_contact, rep_transition_velocity |
+| `structure` | Structure under load | 2,0 | lumbar_at_setup, thoracic_at_setup, lumbar_geometry_delta, knee_valgus_tracking |
 
 Trois fusions le même jour, toutes contre la règle « le même événement physique ne doit peser
 qu'une fois » : `P10 elbow_flexion` → `S06 arms_long` (même faute au setup et à la tirée),

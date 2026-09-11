@@ -194,6 +194,7 @@ class Indicateur:
     mesure: str | None = None     # POSE : nom de la grandeur rendue par pose_analysis
     seuils: tuple[tuple[float, str], ...] = ()   # POSE : (borne superieure exclue, cle)
     note_source: str = ""         # pourquoi cette source, et quoi mesurer pour trancher
+    non_visible: str = ""         # LLM : ce qui, precisement, empeche de repondre ici
 
     @property
     def plausible(self) -> tuple[float, float] | None:
@@ -205,6 +206,11 @@ class Indicateur:
         """Les etats declares, plus `not_visible` pour ceux que le modele juge."""
         if self.source is Source.POSE:
             return self.etats
+        # La cle reste `not_visible` (rules.py la reconnait) ; seul le texte est propre
+        # au champ, pour dire ce qui bloque : les disques cachent le pied, la vue est de
+        # profil... Le texte generique ne sert que si l'indicateur n'en donne pas.
+        if self.non_visible:
+            return self.etats + (Etat(NON_VISIBLE.cle, self.non_visible),)
         return self.etats + (NON_VISIBLE,)
 
     def etat(self, cle) -> Etat | None:
@@ -331,202 +337,176 @@ C05 = Indicateur(
                 "des reperes de Pose). Descriptif : n'entre dans aucune note.",
 )
 
-
 # =============================================================================
-# SETUP — avant que la barre quitte le sol
+# Les criteres, reecrits le 2026-09-11 (soir) sur une regle : des FRONTIERES, pas
+# des intensites.
 # =============================================================================
-
-# Reecrit le 2026-09-11. L'etat du milieu s'appelait `between_knees_and_shoulders` et
-# se decrivait "the hips sit between the knees and the shoulders" : c'est vrai de
-# presque tout depart, y compris de pr_160 ou les hanches sont a hauteur d'epaules et
-# le dos quasi horizontal — le modele l'a pris a 3/3 sur 17 runs. C'est la forme A du
-# recensement (le milieu encadre) : l'etat gratuit etait une bande entre deux extremes,
-# et rien ne l'interdisait au clip fautif.
 #
-# Maintenant la question COMPARE deux distances sur une image nommee, et le milieu
-# exige que les deux soient du meme ordre : sur pr_160, "les deux distances sont du
-# meme ordre" est faux, et c'est ce qui ferme la porte. Les cles `too_high` / `too_low`
-# ne changent pas (CONSEILS et ENCHAINEMENTS les portent) ; seul le milieu est renomme,
-# parce que son ancien nom ETAIT la formule gratuite.
-S01 = Indicateur(
-    id="S01", nom="hip_height", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
-    critere="start_position", vue=Vue.PROFIL,
-    question="Freeze the frame where the plates leave the floor. On that frame, compare "
-             "two vertical distances: hips-to-shoulders and hips-to-knees.",
-    etats=(Etat("too_high", "The hips are at, or nearly at, shoulder height: the "
-                            "hips-to-shoulders distance is far smaller than the "
-                            "hips-to-knees distance. The back is close to horizontal and "
-                            "the knees are nearly straight.", 2),
-           Etat("midway", "The hips sit well below the shoulders AND well above the knees: "
-                          "the two distances are of the same order, the back is clearly "
-                          "inclined upward and the knees are clearly bent.", 3),
-           Etat("too_low", "The hips are close to knee height: the hips-to-knees distance "
-                           "is far smaller than the hips-to-shoulders distance, the shins "
-                           "push forward and the knees sit over the bar.", 2,
-                persona="The Squatter")),
-    note_source="Etait POSE (hip_ratio) jusqu'au 2026-09-09, retire avec les 16 autres. "
-                "Revient en LLM le 2026-09-09 : c'est la premiere mecanique enseignable "
-                "du geste, et une hauteur de hanche est justement le genre de chose "
-                "grossiere qu'un modele lit bien sur une image de profil. La mesure "
-                "n'est PAS restauree — on repose la question, on ne rebranche pas le "
-                "ratio. A confronter aux annotations humaines avant de faire confiance.",
-)
+# Le catalogue precedent demandait "un peu", "nettement", "presque" — des seuils
+# subjectifs invisibles. Mesure sur 260 reponses : zero etat a 2/3, le modele se
+# rabattait sur l'etat par defaut des qu'il fallait trancher une gradation. Les
+# questions ci-dessous (voir AGENTS.md, regles 2.1 et 2.2) remplacent chaque
+# gradation par une geometrie binaire : une ligne est coupee ou ne l'est pas, un angle
+# vaut 180 ou non, une distance change ou ne change pas. Elles nomment une IMAGE
+# precise ("the exact frame immediately preceding the first upward movement") et une
+# seule affirmation verifiable dessus — le point commun des huit champs propres de
+# l'audit de pr_160.
+#
+# Les noms de champs, les questions, les etats et les notes sont ceux de la liste
+# humaine, tels quels. Ce qui vient du code d'avant : les personas, reportes sur
+# l'etat equivalent ; le critere de rattachement ; CONSEILS ; ENCHAINEMENTS.
+#
+# Disparus avec cette passe : `arms_long` + `slack_pull` + `jerky_start` (fondus dans
+# `arms_tension_at_setup` : un coude qui se tend AU moment du decollage EST le slack
+# arrache), `thoracic_under_load` et `asymmetry` (pas de question equivalente). Les
+# personas The T-Rex et The Helicopter partent avec eux.
+#
+# Chaque champ porte son propre texte `not_visible` : il dit precisement ce qui
+# empeche de repondre (les disques cachent le pied, la vue est de profil...) au lieu
+# du texte generique.
 
-S02 = Indicateur(
-    id="S02", nom="shoulders_over_bar", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
-    critere="start_position", vue=Vue.PROFIL,
-    question="Where are the shoulders relative to the bar at the start?",
-    etats=(Etat("behind_bar", "The shoulders start behind the bar, which sends the bar forward "
-                            "as soon as it leaves the floor.", 2),
-           Etat("over_bar", "The shoulders are stacked over or just ahead of the bar.", 3),
-           Etat("far_ahead", "The shoulders are far ahead of the bar, lengthening the "
-                              "lever on the lower back.", 2)),
-    note_source="Etait POSE (shoulder_bar_offset) jusqu'au 2026-09-09. Revient en LLM : "
-                "la position des epaules PAR RAPPORT A LA BARRE demande de voir la barre, "
-                "ce que la pose ne fait pas — elle lisait le poignet. Meme reserve que "
-                "S01 : a mesurer contre les annotations avant d'y croire.",
-)
 
-S03 = Indicateur(
-    id="S03", nom="shin_angle", phase=Phase.SETUP, source=Source.POSE, portee=Portee.REP,
-    critere="start_position", vue=Vue.PROFIL, variantes=("sumo",),
-    question="How vertical are the shins at the start? (sumo)",
-    etats=(Etat("vertical", "The shins are vertical or nearly so: the wedge is in place.", 3),
-           Etat("angled", "The shins lean forward, pushing the knees over the bar.", 2)),
-    mesure="shin_deg", seuils=((20.0, "vertical"), (INF, "angled")),
-    note_source="Angle du segment cheville-genou par rapport a la verticale de l'image. "
-                "Sumo seulement : en conventionnel un tibia incline est normal.",
-)
+# -----------------------------------------------------------------------------
+# PHASE 1 — le setup, sur l'image qui precede le premier mouvement vers le haut
+# -----------------------------------------------------------------------------
 
-# Reecrit le 2026-09-11. `against_the_shins` (3/3) est supprime : sur pr_160 le modele
-# le choisissait avec une description qui ne parlait jamais du pied — "the barbell is
-# positioned directly against the shins, with no visible gap". C'est une reponse a une
-# AUTRE question (le contact tibia, que `bar_leg_contact` pose deja), et elle valait 3.
-# La question devient une projection verticale sur le pied, sur une image nommee, et
-# dit dans quelle vue elle est repondable — meme precedent que `knee_valgus`.
 S04 = Indicateur(
-    id="S04", nom="bar_over_midfoot", phase=Phase.SETUP, source=Source.A_TESTER, portee=Portee.REP,
-    critere="start_position", vue=Vue.PROFIL,
-    question="On the last frame before the plates leave the floor, drop a vertical line "
-             "from the bar down to the floor. Where does it hit the foot? This is only "
-             "answerable when the foot is seen from the side: from the front or "
-             "three-quarter view, answer 'not_visible'.",
-    etats=(Etat("over_midfoot", "The line hits the foot between the ankle and the base of "
-                                "the toes, roughly over the laces.", 3),
-           Etat("ahead_of_midfoot", "The line hits the toes or the floor in front of the "
-                                    "foot: there is daylight between the bar and the "
-                                    "shins.", 2)),
+    id="S04", nom="bar_over_midfoot_topology", phase=Phase.SETUP, source=Source.A_TESTER,
+    portee=Portee.REP, critere="start_position", vue=Vue.PROFIL,
+    question="Pause the video at the exact frame immediately preceding the first upward "
+             "movement of the lifter's body. Look vertically down from the barbell to the "
+             "lifter's shoe. Which specific part of the shoe is physically located directly "
+             "underneath the barbell sleeve/shaft?",
+    etats=(Etat("bar_over_ankle_or_shin", "The barbell is positioned over the ankle joint "
+                                          "or is pressed hard against the shin, fully "
+                                          "exposing the laces and toes in front of it.", 1),
+           Etat("bar_over_laces", "The barbell is positioned directly over the tongue/laces "
+                                  "of the shoe (the midfoot).", 3),
+           Etat("bar_over_toes_or_floor", "The barbell is positioned over the toe box of the "
+                                          "shoe, or completely in front of the shoe over the "
+                                          "empty floor.", 2)),
+    non_visible="The plates completely block the view of the shoe.",
     note_source="A TESTER : au setup la main tient la barre, donc x_poignet est un proxy "
                 "bien meilleur que pendant la tiree. Mais le poignet n'est pas le centre de "
                 "la barre, et le milieu du pied demande cheville ET orteil visibles. "
                 "A mesurer contre une annotation image avant de basculer en POSE.",
 )
 
+S02 = Indicateur(
+    id="S02", nom="shoulders_over_bar_gravity", phase=Phase.SETUP, source=Source.LLM,
+    portee=Portee.REP, critere="start_position", vue=Vue.PROFIL,
+    question="Pause the video at the exact frame immediately preceding the first upward "
+             "movement of the lifter's body. Focus ONLY on the lifter's arm (from the "
+             "shoulder joint to the hand holding the bar). Analyze the angle of the arm "
+             "relative to the floor in 3D space, acting as a plumb line.",
+    # Le bras est le fil a plomb : epaule derriere la main = epaules derriere la barre.
+    etats=(Etat("arm_angled_forward", "The shoulder joint is closer to the lifter's heels "
+                                      "than the hand is. The arm creates a diagonal line "
+                                      "pointing forward towards the bar.", 1),
+           Etat("arm_perfectly_vertical", "The arm acts as a perfect vertical plumb line, "
+                                          "strictly perpendicular to the floor (90 degrees). "
+                                          "The shoulder joint is stacked exactly above the "
+                                          "hand.", 3),
+           Etat("arm_angled_backward", "The shoulder joint is closer to the lifter's toes "
+                                       "than the hand is. The arm creates a diagonal line "
+                                       "pointing backward towards the lifter's body.", 2)),
+    non_visible="The arm is obscured.",
+    note_source="Etait POSE (shoulder_bar_offset) jusqu'au 2026-09-09. Revient en LLM : "
+                "la position des epaules PAR RAPPORT A LA BARRE demande de voir la barre, "
+                "ce que la pose ne fait pas — elle lisait le poignet.",
+)
+
+S01 = Indicateur(
+    id="S01", nom="hip_height_via_femur", phase=Phase.SETUP, source=Source.LLM,
+    portee=Portee.REP, critere="start_position", vue=Vue.PROFIL,
+    question="Pause the video at the exact frame immediately preceding the first upward "
+             "movement of the lifter's body. Focus strictly on the lifter's femur (the "
+             "thigh bone connecting the knee to the hip). Analyze the physical inclination "
+             "of the femur relative to the floor.",
+    # Le femur remplace la comparaison de distances : un os rigide, une pente, une image.
+    etats=(Etat("femur_angled_upward", "The femur creates a clear upward diagonal line from "
+                                       "the knee to the hip, AND the torso also creates a "
+                                       "diagonal line.", 3),
+           Etat("femur_parallel_or_downward", "The femur is exactly parallel to the floor, "
+                                              "or the hip joint sits strictly lower than the "
+                                              "knee joint (downward angle).", 1,
+                persona="The Squatter"),
+           Etat("torso_parallel_to_floor", "The hip joint is positioned so high that the "
+                                           "torso is parallel to the floor, and the femurs "
+                                           "are nearly vertical (knees locked or almost "
+                                           "locked).", 2)),
+    non_visible="The thighs are obscured.",
+    note_source="Etait POSE (hip_ratio) jusqu'au 2026-09-09, retire avec les 16 autres. "
+                "Revient en LLM : c'est la premiere mecanique enseignable du geste. La "
+                "mesure n'est PAS restauree — on repose la question, on ne rebranche pas "
+                "le ratio.",
+)
+
 # Le dos se demande en DEUX questions, une par segment, et non en un choix exclusif.
-#
-# Mesure du 2026-09-10 sur pr_160 : interroge en TEXTE LIBRE sur les memes images, le
-# modele decrit "the lumbar spine starts in a state of mild flexion, rounding slightly
-# outward from the pelvis" ET "the thoracic spine exhibits a more pronounced, moderate
-# flexion". Il voit les deux segments, separement, correctement. Somme de choisir UN etat
-# dans l'ancienne liste flat / upper_back_rounded / lower_back_rounded, il repondait
-# `flat` (13 runs) ou au mieux `upper_back_rounded` avec un prompt severe.
-#
-# La liste imposait un OU EXCLUSIF a une realite qui est un ET : sommé de designer un seul
-# segment, il nommait le dominant — le thoracique — qui vaut 3/3. Ce n'etait pas de la
-# complaisance, c'etait fidele a sa perception et la question etait mal decoupee.
+# Mesure du 2026-09-10 sur pr_160 : en texte libre le modele decrit les deux segments
+# separement et correctement ; somme de designer UN segment il nommait le dominant.
 S05 = Indicateur(
     id="S05", nom="lumbar_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
-    question="Look ONLY at the lower back, between the pelvis and the bottom of the ribs, "
-             "before the bar moves. Ignore the upper back entirely: it is asked separately.",
-    etats=(Etat("neutral", "The lower back keeps its natural inward curve at the setup.", 3),
-           Etat("flexed", "The lower back is rounded outward at the setup.", 2,
+    question="Pause the video at the exact frame immediately preceding the first upward "
+             "movement of the lifter's body. Draw an imaginary line connecting the lifter's "
+             "pelvis (sacrum) to the bottom of their rib cage. Analyze the geometric shape "
+             "of this lower back segment.",
+    etats=(Etat("lumbar_straight_or_concave", "The line forms a straight plane or a visible "
+                                              "inward curve (extension/neutral).", 3),
+           Etat("lumbar_convex", "The line forms a strict outward curve (flexion/rounded) "
+                                 "pointing away from the torso.", 1,
                 persona="The Fishing Rod")),
+    non_visible="Clothing or angle prevents a clear view of the lower back contour.",
     note_source="LIMITE DURE : aucun repere entre epaules et hanches. Le tronc est un "
-                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici.\n"
-                "Separe du thoracique le 2026-09-10 : voir le commentaire au-dessus.",
+                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici.",
 )
 
 S10 = Indicateur(
     id="S10", nom="thoracic_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
-    question="Look ONLY at the upper back, between the bottom of the ribs and the neck, "
-             "before the bar moves. Ignore the lower back entirely: it is asked separately.",
-    etats=(Etat("neutral", "The upper back is flat before the bar moves.", 3),
-           Etat("rounded", "The upper back is rounded before the bar moves.", 3)),
-    note_source="Les DEUX etats valent 3 : un haut du dos arrondi et fige des le depart est "
-                "une technique assumee, pas une faute. L'indicateur ne note donc rien — il "
-                "EXISTE pour que le modele puisse dire ce qu'il voit du thoracique sans que "
-                "ce soit sa reponse a la question lombaire. C'est ce qui retire la porte de "
-                "sortie gratuite : il ne peut plus reconnaitre l'arrondi ici pour eviter de "
-                "repondre la-bas.",
+    question="Pause the video at the exact frame immediately preceding the first upward "
+             "movement of the lifter's body. Draw an imaginary line connecting the bottom of "
+             "the lifter's rib cage to the base of their neck. Analyze the geometric shape "
+             "of this upper back segment.",
+    # Les DEUX etats valent 3 : un haut du dos arrondi et fige des le depart est une
+    # technique assumee, pas une faute. L'indicateur EXISTE pour que le modele puisse
+    # dire ce qu'il voit du thoracique sans que ce soit sa reponse a la question
+    # lombaire. (La liste humaine du 2026-09-11 soir le mettait a 1 ; remis a 3 le
+    # meme soir, avec un poids de 2 sur `structure` ca sortait en bandeau "stop" un
+    # lifter qui tire volontairement le haut du dos rond.)
+    etats=(Etat("thoracic_straight_or_concave", "The line forms a straight plane or an "
+                                                "inward curve.", 3),
+           Etat("thoracic_convex", "The line forms a strict outward curve (rounded "
+                                   "shoulders/flexion).", 3)),
+    non_visible="Clothing or angle prevents a clear view of the upper back contour.",
+    note_source="Meme limite dure que S05. Separe du lombaire le 2026-09-10 pour que "
+                "reconnaitre l'arrondi ici ne soit plus la reponse a la question lombaire.",
 )
 
 S06 = Indicateur(
-    id="S06", nom="arms_long", phase=Phase.SETUP, source=Source.A_TESTER, portee=Portee.REP,
-    critere="start_position",
-    question="From the floor to lockout, look at the line shoulder -> elbow -> hand on the "
-             "arm closest to the camera. Is it one straight line on every frame, or is "
-             "there an angle at the elbow at some moment?",
-    etats=(Etat("straight", "One straight line from the shoulder to the hand on every "
-                            "frame: the elbow never makes an angle.", 3),
-           # Ajoute le 2026-09-11 : le cran 2/3 manquant. Avec `straight` / `bent` seuls,
-           # signaler une legere flexion obligeait a declarer The T-Rex a 1/3 — le
-           # modele repondait `straight` sur pr_160, ou l'humain voit un coude qui
-           # n'est pas tout a fait tendu.
-           Etat("slightly_bent", "A small but visible angle at the elbow on some frames: "
-                                 "the arm is not one straight line, but the forearm does "
-                                 "not fold up.", 2),
-           Etat("bent", "A clear angle at the elbow: the forearm folds and the biceps pulls "
-                        "the bar.", 1, persona="The T-Rex")),
-    note_source="2026-09-09 : fusion de l'ancien S06 (arms_straight, au setup) et de P10 "
-                "(elbow_flexion, pendant la tiree). C'etait la MEME faute physique posee "
-                "deux fois, ce que l'en-tete de CRITERES interdit — et avec la regle du "
-                "minimum ca ne changeait pas la note quand la faute etait la, ca doublait "
-                "seulement la chance qu'un faux positif du modele plombe le critere. "
-                "A TESTER cote pose, meme raison qu'avant : l'angle epaule-coude-poignet "
-                "est calculable mais une flexion de 10-15 deg est dans le bruit de la "
-                "projection, et le bras oppose est souvent occulte.",
-)
-
-S07 = Indicateur(
-    id="S07", nom="slack_pull", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
-    critere="slack_and_brace",
-    question="Does the lifter take the slack out before the bar leaves the floor?",
-    etats=(Etat("progressive", "The arms pull taut and the bar or plates visibly load "
-                               "before anything moves.", 3),
-           Etat("partial", "Some tension is taken but it is lost as the bar breaks the floor.", 2),
-           Etat("yanked", "No pre-tension at all: the lifter yanks the bar off the floor "
-                          "from a loose position.", 1, persona="The Grip & Rip")),
-    note_source="Se lit sur la barre et les disques, que la pose ne voit pas. "
-                "Attention : une barre qui ne flechit pas visiblement ne prouve pas "
-                "l'absence de tension.",
-)
-
-S09 = Indicateur(
-    id="S09", nom="brace", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
-    critere="slack_and_brace",
-    question="Does the lifter brace before pulling? Look for the breath taken and held at "
-             "the bottom, the belly and ribcage expanding and staying expanded, and a "
-             "still moment before the bar moves.",
-    etats=(Etat("braced", "A breath is taken at the bottom and held: the midsection stays "
-                          "expanded and rigid through the pull.", 3),
-           Etat("partial", "Some air is taken but the midsection gives during the pull, or "
-                           "the breath is let go before lockout.", 2),
-           Etat("none", "No visible brace: the lifter reaches down and pulls on a soft "
-                        "midsection.", 1, persona="The Deflator")),
-    note_source="RETIRE DU SCHEMA le 2026-09-11 (absent de INDICATEURS, la definition "
-                "reste pour le rebrancher). Decision humaine sur pr_160 : impossible a "
-                "voir franchement. Le modele y decrivait 'the abdominal wall expanding "
-                "against the lifting belt' sur un lifter en t-shirt, sans ceinture — "
-                "il rapportait l'inobservable. Le critere `slack_and_brace` garde son "
-                "nom et sa pedagogie ; seule la notation du gainage s'arrete.\n"
-                "NOUVEAU le 2026-09-09, et le PLUS INCERTAIN du catalogue : le gainage est "
-                "a peine visible sur une video — on voit la respiration, l'expansion du "
-                "ventre, la pause avant la tiree, jamais la pression intra-abdominale. Il "
-                "ne reste que s'il bat le hasard contre les annotations humaines ; sinon "
-                "on le retire et le critere redevient 'slack' seul. Ne jamais basculer en "
-                "POSE : MediaPipe n'a aucun repere de tronc.",
+    id="S06", nom="arms_tension_at_setup", phase=Phase.SETUP, source=Source.A_TESTER,
+    portee=Portee.REP, critere="slack_and_brace",
+    question="Analyze the sequence leading up to the exact frame the plates leave the "
+             "floor. Look strictly at the angle formed by the shoulder, elbow, and wrist "
+             "joints. Does this geometric angle change exactly as the weight leaves the "
+             "floor?",
+    # Un seul champ pour ce qui etait trois (arms_long, slack_pull, jerky_start) : un
+    # coude qui se tend AU moment ou les disques decollent, c'est le slack arrache, et
+    # c'est le seul evenement observable de cette famille. D'ou le critere
+    # slack_and_brace et le persona The Grip & Rip, pas The T-Rex.
+    etats=(Etat("elbow_locked_prior", "The arm forms a strict 180-degree straight line "
+                                      "BEFORE the plates leave the floor, and this exact "
+                                      "180-degree angle remains static during liftoff.", 3),
+           Etat("elbow_angle_changes", "The elbow angle is less than 180 degrees (bent) "
+                                       "and/or visually straightens exactly AT or AFTER the "
+                                       "moment the plates leave the floor (yanking the "
+                                       "bar).", 1, persona="The Grip & Rip")),
+    non_visible="The arms are obscured.",
+    note_source="A TESTER : l'angle epaule-coude-poignet est calculable, mais une flexion "
+                "de 10-15 deg est dans le bruit de la projection, et le bras oppose est "
+                "souvent occulte. Le CHANGEMENT d'angle au decollage est plus robuste que "
+                "l'angle absolu — a mesurer sur une passe dense.",
 )
 
 S08 = Indicateur(
@@ -540,75 +520,40 @@ S08 = Indicateur(
 )
 
 
-# =============================================================================
-# DECOLLAGE — le premier tiers de la tiree
-# =============================================================================
+# -----------------------------------------------------------------------------
+# PHASE 2 — le decollage et la tiree
+# -----------------------------------------------------------------------------
 
 L01 = Indicateur(
-    id="L01", nom="hip_vs_shoulder_rise", phase=Phase.DECOLLAGE, source=Source.LLM,
+    id="L01", nom="initiation_sequence", phase=Phase.DECOLLAGE, source=Source.LLM,
     portee=Portee.REP, critere="leg_drive", vue=Vue.PROFIL,
-    question="From the frame where the plates leave the floor to the frame where the bar "
-             "reaches the knees, track the height of the hips and the height of the "
-             "shoulders separately. Which of the two gains height?",
-    etats=(Etat("together", "Both gain height at the same pace: the angle of the back is "
-                            "the same on the two frames.", 3),
-           # 3 -> 2 le 2026-09-11. "Un peu en avance" est un DEFAUT LEGER, pas un equivalent
-           # du manuel. C'etait le cran 2/3 manquant portant un badge 3/3 : le catalogue ne
-           # proposait aucun "un peu mauvais" ici, il fallait declarer la catastrophe
-           # (hips_shoot_up, 1/3) ou rien.
-           Etat("hips_slightly_ahead", "The hips gain height a little faster than the "
-                                       "shoulders: the back tilts somewhat more toward the "
-                                       "floor, then holds.", 2),
-           Etat("hips_shoot_up", "The hips rise sharply while the shoulders stay low: the "
-                                 "back ends up nearly horizontal and the legs are straight "
-                                 "before the bar reaches the knees.", 1, persona="The Crane"),
-           # Ajoute le 2026-09-11. Les trois etats ci-dessus decrivent tous des hanches qui
-           # montent AU MOINS autant que les epaules. Un depart hanches hautes donne
-           # l'inverse — le buste bascule autour de la hanche, les genoux ne bougent pas —
-           # et la liste n'avait aucune case pour ca : sur pr_160 le modele repondait
-           # `together` la ou l'humain voit les epaules monter beaucoup plus que les
-           # hanches. Pas de persona : la cause est en amont (hip_height:too_high, dans
+    question="Analyze the sequence from the exact frame the lifter initiates physical "
+             "effort (T0) to the exact frame the plates break physical contact with the "
+             "floor (T1). Focus ONLY on the angle of the torso relative to the floor. "
+             "Compare this angle at T0 and at T1.",
+    # Une seule grandeur (l'angle du buste), deux images nommees. Sur la run A, le
+    # modele repondait "hanches et epaules ensemble" dans la meme reponse que "buste
+    # horizontal au depart" : la question ne lui laisse plus deux grandeurs a concilier.
+    etats=(Etat("torso_angle_decreases", "The torso angle becomes visibly smaller (more "
+                                         "horizontal to the floor) between T0 and T1. The "
+                                         "hips rise at a faster rate than the shoulders "
+                                         "before the bar leaves the floor.", 1,
+                persona="The Crane"),
+           Etat("torso_angle_constant", "The torso angle remains strictly identical between "
+                                        "T0 and T1. The hips and shoulders rise at the exact "
+                                        "same rate to lift the bar.", 3),
+           # Pas de persona : la cause est en amont (hip_height_via_femur, dans
            # ENCHAINEMENTS), et c'est elle que l'epingle doit designer.
-           Etat("shoulders_only", "The shoulders gain height while the hips stay where they "
-                                  "started: the back swings up around the hips like a hinge "
-                                  "and the knee angle hardly changes, because the legs were "
-                                  "already nearly straight at the floor.", 1)),
-    note_source="Etait POSE (rise_ratio) jusqu'au 2026-09-09, ou il sortait sa sentinelle "
-                "9,99 sur une repetition dont la fenetre de phase etait POSTERIEURE au "
-                "verrouillage. Revient en LLM le 2026-09-09, et c'est l'indicateur qui "
-                "compte le plus du catalogue : c'est LE defaut n.1 du souleve de terre. "
-                "\n"
-                "Attention a ce qu'on en fait : 'les hanches decollent' n'est JAMAIS la "
-                "faute a rapporter telle quelle. C'est la CORRECTION d'un mauvais depart, "
-                "en cours de mouvement — le corps va chercher sous charge l'angle de dos "
-                "qu'il aurait du avoir des le debut. Dire 'ne laisse pas tes hanches "
-                "monter' est inapplicable. Le conseil est au depart, d'ou l'entree "
-                "ENCHAINEMENTS depuis hip_height.",
-)
-
-L02 = Indicateur(
-    id="L02", nom="torso_pitch", phase=Phase.DECOLLAGE, source=Source.POSE,
-    portee=Portee.REP, critere="leg_drive", vue=Vue.PROFIL,
-    question="Does the torso pitch further forward as the bar breaks the floor?",
-    etats=(Etat("held", "The torso angle holds as the bar leaves the floor.", 3),
-           Etat("pitches_forward", "The torso pitches further forward at liftoff: the hips win "
-                           "the race and the back takes the load.", 2)),
-    mesure="pitch_deg", seuils=((8.0, "held"), (INF, "pitches_forward")),
-    note_source="Variation de l'angle du segment epaule-hanche par rapport a la verticale, "
-                "entre le decollage et le premier tiers. On mesure l'inclinaison du buste, "
-                "jamais la flexion du rachis.",
-)
-
-L03 = Indicateur(
-    id="L03", nom="jerky_start", phase=Phase.DECOLLAGE, source=Source.A_TESTER,
-    portee=Portee.REP, critere="slack_and_brace",
-    question="Is the start smooth, or is the bar jerked off the floor?",
-    etats=(Etat("smooth", "The bar accelerates smoothly out of the floor.", 3),
-           Etat("jerked", "The bar is jerked and the lifter is pulled out of position.", 1,
-                persona="The Grip & Rip")),
-    note_source="A TESTER : une discontinuite de vitesse verticale est calculable, mais "
-                "a 6 im/s le pic d'acceleration tombe souvent entre deux images. "
-                "A mesurer sur une passe dense avant de basculer.",
+           Etat("torso_angle_increases", "The torso angle becomes visibly larger (more "
+                                         "vertical to the floor) between T0 and T1. The "
+                                         "shoulders rise at a faster rate than the hips "
+                                         "before the bar leaves the floor.", 2)),
+    non_visible="Lighting or framerate prevents a clear comparison.",
+    note_source="Etait POSE (rise_ratio) jusqu'au 2026-09-09. Revient en LLM : c'est LE "
+                "defaut n.1 du souleve de terre.\n"
+                "'Les hanches decollent' n'est JAMAIS la faute a rapporter telle quelle : "
+                "c'est la CORRECTION d'un mauvais depart, en cours de mouvement. Le conseil "
+                "est au depart, d'ou l'entree ENCHAINEMENTS depuis hip_height_via_femur.",
 )
 
 L04 = Indicateur(
@@ -628,10 +573,273 @@ L04 = Indicateur(
                 "phases non atteintes deviennent non applicables.",
 )
 
+P02 = Indicateur(
+    id="P02", nom="bar_path_at_knees_topology", phase=Phase.TIREE, source=Source.A_TESTER,
+    portee=Portee.REP, critere="bar_path", vue=Vue.PROFIL,
+    question="Play the video from liftoff until the barbell passes the lifter's knees. Look "
+             "strictly at the physical distance between the barbell shaft and the "
+             "kneecaps. Does the barbell physically loop forward to navigate around the "
+             "knees?",
+    etats=(Etat("bar_slides_past_knees", "The barbell maintains its trajectory without "
+                                         "creating any forward visual gap. It clears the "
+                                         "knees smoothly without horizontal forward "
+                                         "deviation.", 3),
+           Etat("bar_deviates_forward", "A visual horizontal gap opens up between the "
+                                        "trajectory of the bar and the shins/knees because "
+                                        "the bar moves forward (away from the lifter) to "
+                                        "avoid hitting the kneecaps.", 1)),
+    non_visible="The knees or the bar are obscured.",
+    note_source="A TESTER : la relation temporelle poignet/genou est calculable de profil, "
+                "mais la boucle se joue sur quelques centimetres de barre, pas de main.",
+)
+
+P03 = Indicateur(
+    id="P03", nom="bar_leg_daylight", phase=Phase.TIREE, source=Source.LLM,
+    portee=Portee.REP, critere="bar_path", vue=Vue.PROFIL,
+    question="Analyze the video from the moment the plates leave the floor until the "
+             "barbell reaches the hips. Look strictly at the physical space (daylight) "
+             "between the barbell and the lifter's legs, and project a vertical line from "
+             "the barbell to the floor.",
+    # Le cran du milieu est une frontiere (la verticale tombe dans la chaussure ou
+    # devant), pas une intensite ("brievement", "un peu").
+    etats=(Etat("zero_daylight", "There is absolutely zero visual daylight between the "
+                                 "barbell and the lifter's legs at any point. They maintain "
+                                 "physical contact.", 3),
+           Etat("daylight_over_shoe", "Daylight appears between the bar and the legs, BUT a "
+                                      "vertical line dropped from the barbell still lands "
+                                      "inside the footprint of the lifter's shoe.", 2),
+           Etat("daylight_beyond_shoe", "Daylight appears between the bar and the legs, AND "
+                                        "a vertical line dropped from the barbell lands "
+                                        "strictly in front of the lifter's shoe (on the "
+                                        "empty floor).", 1, persona="The Pendulum")),
+    non_visible="Plates or angle obscure the gap.",
+    note_source="Le contact barre-jambe n'est pas observable par la pose : il faut voir la "
+                "barre.",
+)
+
+P04 = Indicateur(
+    id="P04", nom="lumbar_geometry_delta", phase=Phase.TIREE, source=Source.LLM,
+    portee=Portee.REP, critere="structure",
+    question="Compare the exact frame just before liftoff (T0) to the exact frame where the "
+             "barbell reaches the kneecaps (T1). Look strictly at the lumbar spine segment "
+             "(pelvis to bottom ribs). Does the geometric shape of this segment change "
+             "between T0 and T1?",
+    # `lumbar_geometry_constant` est DESCRIPTIF (note None), comme l'ancien `unchanged`
+    # depuis le 2026-09-11 : "ca ne bouge pas" n'est pas un merite — une lombaire
+    # convexe au depart et qui le reste n'a pas a s'afficher avec un badge vert. Ce que
+    # la lombaire vaut au depart est dit par S05.
+    etats=(Etat("lumbar_geometry_constant", "The exact shape of the lumbar segment at T0 "
+                                            "remains strictly identical at T1."),
+           Etat("lumbar_becomes_convex", "The lumbar segment adds flexion between T0 and "
+                                         "T1, creating a new or more pronounced outward "
+                                         "curve (rounding under load).", 1,
+                persona="The Fishing Rod")),
+    non_visible="The lower back is obscured.",
+    note_source="LIMITE DURE, comme S05 : pas de repere rachidien. C'est le critere ou une "
+                "mauvaise note est une blessure et non un kilo perdu. Il reste au modele, "
+                "definitivement. Deux images nommees et non trois : decouper en trois "
+                "questions quasi identiques poussait a une reponse uniforme (mesure du "
+                "2026-09-11).",
+)
+
+P05 = Indicateur(
+    id="P05", nom="knee_valgus_tracking", phase=Phase.TIREE, source=Source.LLM,
+    portee=Portee.REP, critere="structure", vue=Vue.FACE,
+    question="Watch the pull from a front or 3/4 angle. Draw a strict vertical line upward "
+             "from the inner edge of the lifter's shoe (the side closest to the other "
+             "foot). Track the center of the kneecaps (patellas) during the ascent relative "
+             "to this line.",
+    etats=(Etat("knees_outside_line", "The center of both kneecaps remains strictly outside "
+                                      "(wider than) the vertical line from the inner edge of "
+                                      "the shoe.", 3),
+           Etat("knees_touch_line", "The center of one or both kneecaps moves inward and "
+                                    "touches the vertical line, but does not cross it.", 2),
+           Etat("knees_cross_inside_line", "The center of one or both kneecaps physically "
+                                           "crosses inside (narrower than) the vertical line "
+                                           "from the inner edge of the shoe.", 1,
+                persona="The X-Wing")),
+    non_visible="Pure side angle makes this tracking impossible.",
+    note_source="Etait POSE (valgus_ratio) jusqu'au 2026-09-09. Axe STRUCTURE : un genou "
+                "qui rentre n'est pas une etape qu'on execute mal, c'est une articulation "
+                "qui ne tient pas sous charge. Deux causes qu'aucune video ne separe "
+                "(rotation externe ou faiblesse) : le conseil nomme l'observation et donne "
+                "le test.",
+)
+
+P08 = Indicateur(
+    id="P08", nom="vertical_velocity_hitch", phase=Phase.TIREE, source=Source.A_TESTER,
+    portee=Portee.REP, critere="finish_position",
+    question="Track the upward movement of the barbell on the Y-axis from the floor to the "
+             "hips. Does the vertical upward velocity ever drop to zero or become negative "
+             "before the lockout?",
+    etats=(Etat("continuous_positive_velocity", "The barbell's Y-axis height strictly "
+                                                "increases on every single frame until "
+                                                "lockout.", 3),
+           Etat("velocity_hits_zero_or_negative", "The barbell's Y-axis height stops "
+                                                  "increasing (pauses) or decreases (drops "
+                                                  "slightly) while resting on the lifter's "
+                                                  "thighs (hitching).", 1,
+                persona="The Hitcher")),
+    non_visible="Framerate prevents tracking the bar's continuous height.",
+    note_source="A TESTER : une re-flexion du genou apres le passage des genoux est une "
+                "non-monotonie de l'extension, calculable sur le signal existant. Mais un "
+                "ralentissement n'est pas un hitch : annoter d'abord.",
+)
+
+
+# -----------------------------------------------------------------------------
+# PHASE 3 — le verrouillage
+# -----------------------------------------------------------------------------
+
+K07 = Indicateur(
+    id="K07", nom="lockout_extension", phase=Phase.LOCKOUT, source=Source.LLM,
+    portee=Portee.REP, critere="finish_position", vue=Vue.PROFIL,
+    question="Pause the video at the exact frame of maximum upward completion (the "
+             "lockout). Look strictly at the angle of the knee joint and the hip joint.",
+    etats=(Etat("full_180_extension", "Both the knee joint and the hip joint form a strict "
+                                      "180-degree straight line.", 3),
+           Etat("hip_angle_under_180", "The knee joint is at 180 degrees, but the hip joint "
+                                       "angle remains visibly less than 180 degrees (torso "
+                                       "leaning forward).", 2, persona="The Soft-Lock"),
+           Etat("knee_angle_under_180", "The knee joint angle remains visibly less than "
+                                        "180 degrees (knees bent).", 1,
+                persona="The Soft-Lock")),
+    non_visible="The joints are obscured.",
+    note_source="2026-09-09 : fusion de K01 (hip_lockout_deg) et K02 (knee_lockout_deg), "
+                "tous deux POSE et retires le meme jour. C'est la mecanique 'position "
+                "d'arrivee'.",
+)
+
+K03 = Indicateur(
+    id="K03", nom="sagittal_torso_angle", phase=Phase.LOCKOUT, source=Source.LLM,
+    portee=Portee.REP, critere="finish_position", vue=Vue.PROFIL,
+    question="Pause the video at the exact frame of maximum upward completion (the "
+             "lockout). Analyze the angle of the lifter's torso relative to the floor in "
+             "3D space.",
+    etats=(Etat("torso_perpendicular", "The torso is perfectly perpendicular to the floor "
+                                       "(90 degrees).", 3),
+           Etat("torso_obtuse_angle", "The torso forms an obtuse angle relative to the floor "
+                                      "in front of the lifter. The lifter is leaning "
+                                      "backward away from the barbell (lumbar "
+                                      "hyperextension).", 1, persona="The Over-Extender")),
+    non_visible="The torso is obscured.",
+    note_source="Etait POSE (lean_back_deg) jusqu'au 2026-09-09. Revient en LLM. Absorbe "
+                "K05 `lockout_balance` : 'le poids part derriere les talons' et "
+                "'hyperextension lombaire en haut' decrivaient le meme instant.",
+)
+
+K04 = Indicateur(
+    id="K04", nom="shoulder_elevation_delta", phase=Phase.LOCKOUT, source=Source.A_TESTER,
+    portee=Portee.REP, critere="finish_position",
+    question="Compare the vertical physical distance between the lifter's shoulder joint "
+             "and their ear lobe at two moments: when the barbell is at the knees (T1), and "
+             "at the final lockout (T2).",
+    etats=(Etat("distance_remains_constant", "The vertical distance between the shoulder "
+                                             "and the ear is strictly identical at T1 and "
+                                             "T2.", 3),
+           Etat("distance_decreases", "The vertical distance between the shoulder and the "
+                                      "ear visibly decreases at T2 (the shoulders move "
+                                      "closer to the ears/shrugging).", 1,
+                persona="The Shrugger")),
+    non_visible="The neck/shoulder area is obscured.",
+    note_source="A TESTER : l'elevation de l'epaule par rapport a l'oreille est calculable, "
+                "mais elle se confond avec un simple redressement du cou. A annoter.",
+)
+
+
+# -----------------------------------------------------------------------------
+# PHASE 4 — la descente et la transition
+# -----------------------------------------------------------------------------
+
+E02 = Indicateur(
+    id="E02", nom="descent_hand_contact", phase=Phase.DESCENTE, source=Source.LLM,
+    portee=Portee.REP, critere="reset",
+    question="Analyze the sequence from the final lockout until the plates physically "
+             "touch the floor again. Look strictly at the lifter's hands.",
+    # "Controlee" / "rapide mais controlee" etaient des intensites. Ce qui se voit, c'est
+    # si les mains lachent la barre avant que les disques touchent — rien d'autre.
+    etats=(Etat("hands_maintain_contact", "The lifter's fingers remain wrapped around or in "
+                                          "physical contact with the barbell until the exact "
+                                          "frame the plates hit the floor.", 3),
+           Etat("hands_break_contact", "Visual space appears between the lifter's hands and "
+                                       "the barbell BEFORE the plates touch the floor (the "
+                                       "bar is dropped).", 1)),
+    # Remplace l'ancien etat `cut_off` : une descente coupee par la fin de la video est
+    # une descente qu'on n'a pas vue.
+    non_visible="The hands leave the video frame during the descent.",
+    note_source="Il faut voir la barre et le sol : la pose ne voit ni l'un ni l'autre.",
+)
+
+E03 = Indicateur(
+    id="E03", nom="rep_transition_velocity", phase=Phase.DESCENTE, source=Source.LLM,
+    portee=Portee.REP, critere="reset",
+    question="Observe the exact moment the barbell touches the floor between two "
+             "repetitions. Track the barbell's movement on the Y-axis. How long does the "
+             "Y-axis velocity remain exactly at zero?",
+    # Le touch-and-go reste a 3 : c'est un style, pas une faute. Seul le rebond descend
+    # a 1, parce qu'il remplace la reconstruction du placement par de l'elastique.
+    etats=(Etat("zero_velocity_maintained", "The barbell's Y-axis velocity reaches zero and "
+                                            "remains exactly at zero for at least 0.5 "
+                                            "seconds before the next pull begins (dead "
+                                            "stop).", 3),
+           Etat("immediate_positive_velocity", "The barbell touches the floor and its Y-axis "
+                                               "velocity becomes positive again instantly "
+                                               "(under 0.5 seconds), but the plates do not "
+                                               "physically bounce off the floor (touch and "
+                                               "go).", 3),
+           Etat("impact_rebound", "The plates strike the floor and visibly rebound, causing "
+                                  "the bar to bounce upward using momentum.", 1,
+                persona="The Trampolinist")),
+    # L'ancien `last_rep` (descriptif) est fondu dans le non-visible : sur une serie
+    # d'une seule rep le critere sort entier du denominateur, comme avant.
+    non_visible="The video ends, this is the final repetition, or the floor contact is "
+                "cut off.",
+    note_source="2026-09-09 : devient la mecanique 'reset', la version enseignable de "
+                "'est-ce que ta serie a tenu'.",
+)
+
 
 # =============================================================================
-# TIREE — du sol au verrouillage
+# Mesures de pose, HORS SCHEMA — definies pour pouvoir etre rebranchees
 # =============================================================================
+#
+# AUCUN indicateur `Source.POSE` n'est note depuis le 2026-09-09 (instruction de
+# conventionnal_deadlift_12 : un lift propre note 19/20 sur deux mesures fausses). La
+# pose reste indispensable ailleurs — cascade sumo/conventionnel 39/39, detection des
+# repetitions 142/146. Pour rebrancher l'un d'eux : le remettre dans INDICATEURS avec
+# ses entrees dans CONSEILS.
+
+S03 = Indicateur(
+    id="S03", nom="shin_angle", phase=Phase.SETUP, source=Source.POSE, portee=Portee.REP,
+    critere="start_position", vue=Vue.PROFIL, variantes=("sumo",),
+    question="How vertical are the shins at the start? (sumo)",
+    etats=(Etat("vertical", "The shins are vertical or nearly so: the wedge is in place.", 3),
+           Etat("angled", "The shins lean forward, pushing the knees over the bar.", 2)),
+    mesure="shin_deg", seuils=((20.0, "vertical"), (INF, "angled")),
+    note_source="Angle du segment cheville-genou par rapport a la verticale de l'image. "
+                "Sumo seulement : en conventionnel un tibia incline est normal.",
+)
+
+# Reecrit le 2026-09-11. `against_the_shins` (3/3) est supprime : sur pr_160 le modele
+# le choisissait avec une description qui ne parlait jamais du pied — "the barbell is
+# positioned directly against the shins, with no visible gap". C'est une reponse a une
+# AUTRE question (le contact tibia, que `bar_leg_contact` pose deja), et elle valait 3.
+# La question devient une projection verticale sur le pied, sur une image nommee, et
+# dit dans quelle vue elle est repondable — meme precedent que `knee_valgus`.
+
+L02 = Indicateur(
+    id="L02", nom="torso_pitch", phase=Phase.DECOLLAGE, source=Source.POSE,
+    portee=Portee.REP, critere="leg_drive", vue=Vue.PROFIL,
+    question="Does the torso pitch further forward as the bar breaks the floor?",
+    etats=(Etat("held", "The torso angle holds as the bar leaves the floor.", 3),
+           Etat("pitches_forward", "The torso pitches further forward at liftoff: the hips win "
+                           "the race and the back takes the load.", 2)),
+    mesure="pitch_deg", seuils=((8.0, "held"), (INF, "pitches_forward")),
+    note_source="Variation de l'angle du segment epaule-hanche par rapport a la verticale, "
+                "entre le decollage et le premier tiers. On mesure l'inclinaison du buste, "
+                "jamais la flexion du rachis.",
+)
+
 
 P01 = Indicateur(
     id="P01", nom="hand_drift", phase=Phase.TIREE, source=Source.POSE,
@@ -648,88 +856,6 @@ P01 = Indicateur(
                 "ATTENTION : c'est la main, pas la barre. Le nom du champ le dit.",
 )
 
-P02 = Indicateur(
-    id="P02", nom="past_the_knees", phase=Phase.TIREE, source=Source.A_TESTER,
-    portee=Portee.REP, critere="bar_path",
-    question="How does the bar get past the knees?",
-    etats=(Etat("clean", "The bar passes the knees close to the legs, in one line.", 3),
-           Etat("loops", "The bar loops forward around the knees before coming back in.", 2),
-           Etat("catches", "The bar catches on the knees and the lifter has to work "
-                             "around them.", 1)),
-    note_source="A TESTER : la relation temporelle poignet/genou est calculable de profil, "
-                "mais la boucle se joue sur quelques centimetres de barre, pas de main. "
-                "A confronter a une annotation image avant de basculer.",
-)
-
-P03 = Indicateur(
-    id="P03", nom="bar_leg_contact", phase=Phase.TIREE, source=Source.LLM,
-    portee=Portee.REP, critere="bar_path",
-    question="Does the bar stay in contact with, or very close to, the legs?",
-    etats=(Etat("in_contact", "The bar stays against or within a few centimetres of the legs "
-                           "the whole way up.", 3),
-           Etat("brief_loss", "Contact is briefly lost, then the bar comes back to the legs.", 2),
-           Etat("away_from_legs", "The bar travels visibly away from the legs.", 1,
-                persona="The Pendulum")),
-    note_source="Le contact barre-jambe n'est pas observable par la pose : il faut voir la "
-                "barre. Ne pas exiger de racler les tibias, ce n'est pas un objectif.",
-)
-
-# Meme decoupage qu'au setup, et pour la meme raison. `stable_rounding` a disparu : il
-# valait 3/3 et disait "je le vois mais je ne te le compte pas". Ce que cet etat portait de
-# vrai — un arrondi present des le depart et qui n'empire pas — est maintenant dit par
-# thoracic_at_setup=rounded PLUS lumbar_under_load=unchanged, sans porte de sortie.
-P04 = Indicateur(
-    id="P04", nom="lumbar_under_load", phase=Phase.TIREE, source=Source.LLM,
-    portee=Portee.REP, critere="structure",
-    question="Look ONLY at the lower back. Compare its shape at the floor, at knee height "
-             "and at lockout. Does flexion get ADDED there during the pull?",
-    # `unchanged` ne vaut plus 3 depuis le 2026-09-11 : il est DESCRIPTIF (note None).
-    # "Ca ne bouge pas" n'est pas un merite — sur pr_160 la lombaire est flechie au
-    # depart et le reste, et la page affichait "keeps the same shape" avec un badge
-    # vert. Avec la regle du minimum, un 3 ne faisait deja rien gagner au critere ; ce
-    # qui change, c'est qu'il ne peut plus, seul, tenir `structure` a 3/3, et qu'il
-    # s'affiche sans note. Ce que la lombaire vaut au depart est dit par S05.
-    etats=(Etat("unchanged", "The lower back keeps the same shape from the floor to lockout."),
-           Etat("flexion_appears", "The lower back rounds further during the pull than it "
-                                   "was at the start.", 2),
-           Etat("collapses", "The lower back rounds hard and keeps rounding as the bar "
-                             "rises.", 1, persona="The Fishing Rod")),
-    note_source="LIMITE DURE, comme S05 : pas de repere rachidien. C'est le critere ou une "
-                "mauvaise note est une blessure et non un kilo perdu, et c'est precisement "
-                "celui que la pose ne verra jamais. Il reste au modele, definitivement.",
-)
-
-P10 = Indicateur(
-    id="P10", nom="thoracic_under_load", phase=Phase.TIREE, source=Source.LLM,
-    portee=Portee.REP, critere="structure",
-    question="Look ONLY at the upper back. Compare its shape at the floor, at knee height "
-             "and at lockout. Does flexion get ADDED there during the pull?",
-    # Meme regle que P04 : `unchanged` est descriptif, sans note.
-    etats=(Etat("unchanged", "The upper back keeps the same shape from the floor to lockout."),
-           Etat("flexion_appears", "The upper back rounds further during the pull than it "
-                                   "was at the start.", 2)),
-    note_source="Un thoracique qui S'AGGRAVE sous charge n'est plus la technique assumee de "
-                "S10 : c'est le dos qui cede. D'ou 2, la ou l'arrondi fige vaut 3.",
-)
-
-P05 = Indicateur(
-    id="P05", nom="knee_valgus", phase=Phase.TIREE, source=Source.LLM,
-    portee=Portee.REP, critere="structure", vue=Vue.FACE,
-    question="Do the knees stay out over the feet, or do they collapse inward? This is only "
-             "answerable from the front or three-quarter view: from the side a knee coming "
-             "in is indistinguishable from a knee coming forward, so answer 'not_visible'.",
-    etats=(Etat("tracks_out", "The knees track outward over the feet throughout.", 3),
-           Etat("slight", "The knees waver inward at the hardest point but never collapse.", 2),
-           Etat("collapses_in", "The knees collapse inward off the floor.", 1, persona="The X-Wing")),
-    note_source="Etait POSE (valgus_ratio) jusqu'au 2026-09-09. Revient en LLM, et il "
-                "rejoint l'axe STRUCTURE et non une mecanique : un genou qui rentre n'est "
-                "pas une etape qu'on execute mal, c'est une articulation qui ne tient pas "
-                "sa position sous charge — meme famille que le dos qui s'enroule. "
-                "Comme les hanches hautes, il a deux causes qu'aucune video ne separe : "
-                "manque de rotation externe au placement (un repere suffit) ou vraie "
-                "faiblesse (rien a faire ici). Le conseil nomme donc l'observation et "
-                "donne le test, il ne devine pas la cause.",
-)
 
 P06 = Indicateur(
     id="P06", nom="sticking_point", phase=Phase.TIREE, source=Source.POSE,
@@ -745,6 +871,7 @@ P06 = Indicateur(
                 "Sert a localiser l'echec dans le conseil.",
 )
 
+
 P07 = Indicateur(
     id="P07", nom="pull_duration", phase=Phase.TIREE, source=Source.POSE,
     portee=Portee.REP, critere=None,
@@ -758,91 +885,6 @@ P07 = Indicateur(
                 "C'est en revanche la mesure OBJECTIVE de la tenue du set (voir rules.py).",
 )
 
-P08 = Indicateur(
-    id="P08", nom="hitch", phase=Phase.TIREE, source=Source.A_TESTER,
-    portee=Portee.REP, critere="finish_position",
-    question="Does the lifter ratchet the bar up the thighs?",
-    etats=(Etat("no", "The bar rises in one continuous motion.", 3),
-           Etat("yes", "The lifter re-flexes the knees and rests the bar on the thighs to "
-                       "ratchet it up.", 1, persona="The Hitcher")),
-    note_source="A TESTER : une re-flexion du genou apres le passage des genoux est une "
-                "non-monotonie de l'extension, calculable sur le signal existant. C'est "
-                "la piste POSE la plus prometteuse du catalogue. Mais un ralentissement "
-                "n'est pas un hitch et le contact cuisse-barre n'est pas un appui : "
-                "annoter d'abord.",
-)
-
-P09 = Indicateur(
-    id="P09", nom="asymmetry", phase=Phase.TIREE, source=Source.A_TESTER,
-    portee=Portee.REP, critere="structure", vue=Vue.FACE,
-    question="Does one side of the bar rise ahead of the other?",
-    etats=(Etat("even", "Both sides rise together.", 3),
-           Etat("uneven", "One side finishes ahead of the other and the bar rotates.", 2,
-                persona="The Helicopter")),
-    note_source="A TESTER : la difference de hauteur des deux poignets est calculable de "
-                "face. Mais perspective, prise mixte et flexion de barre imitent une "
-                "asymetrie. Confirmer sur une seconde vue avant de conclure.",
-)
-
-# P10 elbow_flexion : SUPPRIME le 2026-09-09, fusionne dans S06 `arms_long`. "Bras
-# tendus au setup" et "coudes qui plient a la tiree" sont la meme faute physique a deux
-# instants ; S06 porte desormais la question sur toute la repetition.
-
-
-# =============================================================================
-# LOCKOUT
-# =============================================================================
-
-# K01 hip_extension + K02 knee_extension : fusionnes le 2026-09-09 dans K07
-# `lockout_completion`. Les deux posaient la meme question — "est-ce que le lift est
-# fini ?" — et la regle du minimum les rendait indissociables a l'affichage.
-
-K07 = Indicateur(
-    id="K07", nom="lockout_completion", phase=Phase.LOCKOUT, source=Source.LLM,
-    portee=Portee.REP, critere="finish_position", vue=Vue.PROFIL,
-    question="Is the lift actually finished at the top: hips and knees both locked, the "
-             "lifter standing tall?",
-    etats=(Etat("locked", "Hips and knees both reach full extension: the lifter stands tall "
-                          "and the rep is finished.", 3),
-           Etat("soft_knees", "The knees stay visibly soft at the top.", 1,
-                persona="The Soft-Lock"),
-           Etat("hips_short", "The hips stay visibly bent at the top: the lifter never comes "
-                              "all the way through.", 1, persona="The Soft-Lock")),
-    note_source="2026-09-09 : fusion de K01 (hip_lockout_deg) et K02 (knee_lockout_deg), "
-                "tous deux POSE et retires le meme jour. C'est la mecanique 'position "
-                "d'arrivee', qui n'existait pas : l'ancien critere `lockout` ne contenait "
-                "que du hitch, du shrug, de l'asymetrie et de la bascule — des controles "
-                "de LEGALITE en competition, pas la mecanique de finir debout.",
-)
-
-K03 = Indicateur(
-    id="K03", nom="lean_back", phase=Phase.LOCKOUT, source=Source.LLM,
-    portee=Portee.REP, critere="finish_position", vue=Vue.PROFIL,
-    question="Does the lifter lean back at the top?",
-    etats=(Etat("upright", "The lifter finishes upright and neutral.", 3),
-           Etat("slight", "A slight lean back at the top.", 2),
-           Etat("hyperextension", "Marked lumbar hyperextension at the top instead of "
-                                  "finishing with the glutes.", 1, persona="The Over-Extender")),
-    note_source="Etait POSE (lean_back_deg) jusqu'au 2026-09-09. Revient en LLM. Il absorbe "
-                "K05 `lockout_balance`, supprime le meme jour : 'le poids part derriere les "
-                "talons' et 'hyperextension lombaire en haut' decrivaient le meme instant.",
-)
-
-K04 = Indicateur(
-    id="K04", nom="shrug", phase=Phase.LOCKOUT, source=Source.A_TESTER,
-    portee=Portee.REP, critere="finish_position",
-    question="Does the lifter shrug the shoulders to finish?",
-    etats=(Etat("no", "The lift finishes with hip extension alone.", 3),
-           Etat("yes", "The lifter shrugs the shoulders at the top: the shrug adds no "
-                       "height to the bar and abandons the lat position.", 2,
-                persona="The Shrugger")),
-    note_source="A TESTER : l'elevation de l'epaule par rapport a l'oreille est calculable, "
-                "mais elle se confond avec un simple redressement du cou. A annoter.",
-)
-
-# K05 lockout_balance : SUPPRIME le 2026-09-09, redondant avec K03 `lean_back`. Se
-# coucher en arriere en haut et laisser le poids partir derriere les talons sont le meme
-# instant vu deux fois ; K03 le porte, et le persona "The Heel Tipper" disparait avec.
 
 K06 = Indicateur(
     id="K06", nom="lockout_duration", phase=Phase.LOCKOUT, source=Source.POSE,
@@ -856,8 +898,6 @@ K06 = Indicateur(
 )
 
 
-# =============================================================================
-# DESCENTE
 # =============================================================================
 
 E01 = Indicateur(
@@ -874,83 +914,30 @@ E01 = Indicateur(
                 "apres le verrouillage. Deja en production.",
 )
 
-E02 = Indicateur(
-    id="E02", nom="descent_control", phase=Phase.DESCENTE, source=Source.LLM,
-    portee=Portee.REP, critere="reset",
-    question="How does the bar get back to the floor? If each rep is reset on the floor, "
-             "only a dropped or uncontrolled bar is a fault: a deliberately fast but "
-             "accompanied lowering is not.",
-    etats=(Etat("controlled", "The bar is lowered under control, the lifter staying with it.", 3),
-           Etat("fast_but_controlled", "The descent is quick but the hands stay with the bar "
-                                      "all the way down.", 2),
-           Etat("dropped", "The bar is dropped or crashes to the floor.", 1),
-           Etat("cut_off", "The lowering is cut off by the end of the video.", None)),
-    note_source="Il faut voir la barre et le sol : la pose ne voit ni l'un ni l'autre. "
-                "L'etat 'cut_off' est distinct de 'not_visible' : la video s'arrete, "
-                "ce n'est pas un probleme de cadrage.",
-)
 
-E03 = Indicateur(
-    id="E03", nom="rep_transition", phase=Phase.DESCENTE, source=Source.LLM,
-    portee=Portee.REP, critere="reset",
-    question="How does this rep connect to the next one?",
-    etats=(Etat("reset", "The bar comes to a full stop on the floor and the lifter rebuilds "
-                         "the setup before the next rep.", 3),
-           Etat("touch_and_go", "The bar touches and is immediately pulled again, but the "
-                                "position is still under control.", 3),
-           Etat("bounce", "The plates bounce off the floor and the bounce is used to start "
-                          "the next rep.", 2, persona="The Trampolinist"),
-           Etat("last_rep", "This is the last rep of the set.", None)),
-    note_source="2026-09-09 : passe de descriptif a NOTE, et devient la mecanique 'reset'. "
-                "C'est la version enseignable de la question 'est-ce que ta serie a tenu' : "
-                "reconstruire le placement a chaque rep, ou enchainer sur un placement qui "
-                "se degrade. "
-                "Le touch-and-go reste a 3 : c'est un style, pas une faute. Seul le rebond "
-                "descend a 2, parce qu'il remplace la reconstruction par de l'elastique. "
-                "'last_rep' n'est pas notable — sur une serie d'une seule rep le critere "
-                "sort entier du denominateur, ce qui est le comportement voulu.",
-)
 
 
 # =============================================================================
 # La liste. Tout le reste du code lit ceci.
 # =============================================================================
 
-# AUCUN indicateur `Source.POSE` n'est note. Les 17 ont ete retires le 2026-09-09,
-# apres l'instruction de conventionnal_deadlift_12 : un lift propre que le systeme
-# notait 19/20 avec deux conseils correctifs, les deux issus de mesures fausses
-# (P01 hand_drift lisait un poignet a 0,05 de visibilite ; L01 sortait sa sentinelle
-# 9,99 sur une fenetre posterieure au verrouillage). La pose reste indispensable
-# ailleurs — cascade sumo/conventionnel 39/39, detection des repetitions 142/146 —
-# c'est la NOTATION par la pose qui s'est arretee.
-#
-# 2026-09-09, meme jour, refonte des criteres : quatre de ces questions REVIENNENT,
-# posees au modele et non mesurees. S01 hip_height, S02 shoulders_over_bar,
-# L01 hip_vs_shoulder_rise, P05 knee_valgus, plus K01+K02 fusionnes en K07 et K03
-# lean_back. Ce n'est pas un retour en arriere : on ne rebranche aucun ratio, on pose
-# la question a la seule source qui voit la barre et le rachis. Rien ne prouve encore
-# que le modele y repond bien — c'est le risque principal de la refonte, et il se
-# mesure contre les annotations humaines avant qu'on fasse confiance a ces six-la.
 INDICATEURS: tuple[Indicateur, ...] = (
     C04, C05,
-    S01, S02, S04, S05, S10, S06, S07, S08,
-    L01, L03, L04,
-    P02, P03, P04, P10, P05, P08, P09,
-    K03, K04, K07,
+    S04, S02, S01, S05, S10, S06, S08,
+    L01, L04,
+    P02, P03, P04, P05, P08,
+    K07, K03, K04,
     E02, E03,
-    # --- retire le 2026-09-11, pas assez visible pour etre note : voir S09 -----------
-    # slack_and_brace : S09 brace (ses CONSEILS et ENCHAINEMENTS sont commentes plus bas)
-    # --- toujours retires, mesures par la pose et jamais rebranches ------------------
+    # --- mesures par la pose, jamais rebranchees depuis le 2026-09-09 ---------------
     # contexte  : C01 variant, C02 camera_view, C03 pose_quality
     # setup     : S03 shin_angle
     # leg_drive : L02 torso_pitch
     # bar_path  : P01 hand_drift
     # descent   : E01 descent_initiation
     # non notes : P06 sticking_point, P07 pull_duration, K06 lockout_duration
-    # --- fusionnes ou supprimes le 2026-09-09 ---------------------------------------
-    # P10 elbow_flexion  -> S06 arms_long
-    # K01 + K02          -> K07 lockout_completion
-    # K05 lockout_balance-> K03 lean_back
+    # --- supprimes le 2026-09-11 soir, avec la reecriture en frontieres --------------
+    # arms_long + slack_pull + jerky_start -> S06 arms_tension_at_setup
+    # thoracic_under_load, asymmetry, brace : plus de question equivalente
 )
 
 # L'action a essayer pour chaque etat fautif, en une consigne.
@@ -960,60 +947,52 @@ INDICATEURS: tuple[Indicateur, ...] = (
 # consigne peut aider sans prouver quoi que ce soit. Les etats sans entree ici ne
 # produisent aucun conseil : c'est le cas normal d'un etat correct ou descriptif.
 CONSEILS = {
-    # --- mecanique 1-2 : le placement et la position de depart ----------------------
-    "bar_over_midfoot:ahead_of_midfoot": "Set the bar over the middle of your foot, close to the shins.",
+    # --- mecanique 1 : la position de depart ----------------------------------------
+    "bar_over_midfoot_topology:bar_over_ankle_or_shin": "Bring the bar forward over the laces: pressed against the shins it has to travel forward to clear the knees.",
+    "bar_over_midfoot_topology:bar_over_toes_or_floor": "Set the bar over the middle of your foot, close to the shins.",
     # Deux personnes differentes ont les hanches hautes : celle qui se place comme ca,
     # et celle qui NE PEUT PAS tenir plus bas (chevilles, hanches, quadriceps). Aucune
     # video ne les separe. Le conseil nomme donc l'observation et donne le test, il ne
     # devine pas la cause — et le lifter apprend au passage la difference entre un
     # defaut de geste et une limite de corps.
-    "hip_height:too_high": "Drop the hips until your shoulders sit over the bar. If you cannot hold it there, that is mobility, not technique.",
-    "hip_height:too_low": "Raise the hips until your shoulders sit just ahead of the bar: squatting the setup gives the bar nowhere to go.",
-    "shoulders_over_bar:behind_bar": "Set the shoulders over or just ahead of the bar before you pull.",
-    "shoulders_over_bar:far_ahead": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
-    "arms_long:slightly_bent": "Let the arms hang like ropes: no pulling with the elbows, the legs move the bar.",
-    "arms_long:bent": "Keep the arms long from the floor to the top and let the legs do the work.",
+    "hip_height_via_femur:torso_parallel_to_floor": "Drop the hips until your shoulders sit over the bar. If you cannot hold it there, that is mobility, not technique.",
+    "hip_height_via_femur:femur_parallel_or_downward": "Raise the hips until your shoulders sit just ahead of the bar: squatting the setup gives the bar nowhere to go.",
+    "shoulders_over_bar_gravity:arm_angled_forward": "Set the shoulders over or just ahead of the bar before you pull.",
+    "shoulders_over_bar_gravity:arm_angled_backward": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
 
-    # --- mecanique 3 : le slack et le gainage ---------------------------------------
-    "slack_pull:partial": "Pull the slack out until you feel the bar load, then push the floor away.",
-    "slack_pull:yanked": "Take the slack out of the bar before you pull instead of yanking it.",
-    "jerky_start:jerked": "Build tension against the bar, then accelerate: do not snatch it off the floor.",
-    # S09 brace est hors schema depuis le 2026-09-11 ; `_verifie()` refuse un conseil vers
-    # un etat inexistant, d'ou le commentaire plutot que la suppression.
-    # "brace:partial": "Take the same breath every rep and hold it all the way to lockout.",
-    # "brace:none": "Take a big breath at the bottom, push it into your belly, and hold it until the bar is down.",
+    # --- mecanique 2 : le slack ---------------------------------------------------
+    "arms_tension_at_setup:elbow_angle_changes": "Straighten the arms and pull the slack out until you feel the bar load, then push the floor away: the elbows are locked before anything moves.",
 
-    # --- mecanique 4 : le leg drive --------------------------------------------------
+    # --- mecanique 3 : le leg drive --------------------------------------------------
     # "Ne laisse pas tes hanches monter" est INAPPLICABLE : la montee des hanches est
     # ce qui rend la barre soulevable depuis une mauvaise position. Le conseil porte
     # donc sur ce qu'on peut faire — pousser le sol — et ENCHAINEMENTS rattache ce
     # defaut a la position de depart quand c'est elle qui l'a cause.
-    "hip_vs_shoulder_rise:hips_shoot_up": "Push the floor away with your legs and hold your chest angle through the first third of the pull.",
+    "initiation_sequence:torso_angle_decreases": "Push the floor away with your legs and hold your chest angle until the plates leave the floor.",
+    "initiation_sequence:torso_angle_increases": "Keep the chest angle as the plates leave the floor: hips and shoulders rise together, the legs do the first push.",
 
-    # --- mecanique 5 : la barre contre le corps --------------------------------------
-    "bar_leg_contact:away_from_legs": "Keep the bar in contact with the legs the whole way up.",
-    "past_the_knees:loops": "Let the hips come through as the bar reaches the knees so it passes close.",
-    "past_the_knees:catches": "Sit the hips back a touch at the knees so the bar has a path.",
+    # --- mecanique 4 : la barre contre le corps --------------------------------------
+    "bar_leg_daylight:daylight_over_shoe": "Keep the bar on the legs the whole way up: let it brush the shins and thighs.",
+    "bar_leg_daylight:daylight_beyond_shoe": "Keep the bar in contact with the legs the whole way up.",
+    "bar_path_at_knees_topology:bar_deviates_forward": "Let the hips come through as the bar reaches the knees so it passes close.",
 
-    # --- mecanique 6 : la position d'arrivee -----------------------------------------
-    "lockout_completion:hips_short": "Finish standing tall: drive the hips all the way through and squeeze the glutes.",
-    "lockout_completion:soft_knees": "Lock the knees at the top instead of leaving them soft.",
-    "lean_back:hyperextension": "Finish tall by squeezing the glutes, not by leaning back.",
-    "hitch:yes": "Finish with one continuous hip extension instead of ratcheting the bar up the thighs.",
-    "shrug:yes": "Finish with the hips: the shrug adds no height to the bar.",
+    # --- mecanique 5 : la position d'arrivee -----------------------------------------
+    "lockout_extension:hip_angle_under_180": "Finish standing tall: drive the hips all the way through and squeeze the glutes.",
+    "lockout_extension:knee_angle_under_180": "Lock the knees at the top instead of leaving them soft.",
+    "sagittal_torso_angle:torso_obtuse_angle": "Finish tall by squeezing the glutes, not by leaning back.",
+    "vertical_velocity_hitch:velocity_hits_zero_or_negative": "Finish with one continuous hip extension instead of ratcheting the bar up the thighs.",
+    "shoulder_elevation_delta:distance_decreases": "Finish with the hips: the shrug adds no height to the bar.",
 
-    # --- mecanique 7 : le reset -------------------------------------------------------
-    "descent_control:dropped": "Stay with the bar on the way down instead of dropping it.",
-    "rep_transition:bounce": "Let the plates settle and rebuild your setup instead of riding the bounce.",
+    # --- mecanique 6 : le reset -------------------------------------------------------
+    "descent_hand_contact:hands_break_contact": "Stay with the bar on the way down instead of dropping it.",
+    "rep_transition_velocity:impact_rebound": "Let the plates settle and rebuild your setup instead of riding the bounce.",
 
     # --- axe structure ---------------------------------------------------------------
     # Ces conseils ne servent JAMAIS d'epingle : ils accompagnent le bandeau d'urgence.
-    "lumbar_at_setup:flexed": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
-    "lumbar_under_load:flexion_appears": "Brace before you pull, and end the set when the shape starts to change.",
-    "thoracic_under_load:flexion_appears": "Set the upper back before the pull and hold that shape; stop the set when it starts to give.",
-    "lumbar_under_load:collapses": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
-    "knee_valgus:collapses_in": "Screw your feet into the floor and push the knees out over your toes as you drive.",
-    "asymmetry:uneven": "Film a front view and check whether one side is leading before changing anything.",
+    "lumbar_at_setup:lumbar_convex": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
+    "lumbar_geometry_delta:lumbar_becomes_convex": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
+    "knee_valgus_tracking:knees_touch_line": "Push the knees out over your toes as you drive: they should never reach the line of the inner foot.",
+    "knee_valgus_tracking:knees_cross_inside_line": "Screw your feet into the floor and push the knees out over your toes as you drive.",
 }
 
 
@@ -1032,27 +1011,32 @@ CONSEILS = {
 ENCHAINEMENTS: dict[str, tuple[str, ...]] = {
     # Des hanches trop basses forcent le corps a les remonter sous charge pour aller
     # chercher l'angle de dos qu'il aurait fallu avoir des le depart.
-    "hip_height:too_low": ("hip_vs_shoulder_rise", "shoulders_over_bar", "past_the_knees"),
+    "hip_height_via_femur:femur_parallel_or_downward": (
+        "initiation_sequence", "shoulders_over_bar_gravity", "bar_path_at_knees_topology"),
     # Des hanches trop hautes, c'est deja un souleve jambes tendues : plus de leg drive
-    # disponible, et la lombaire prend ce que les jambes ne donnent pas.
-    "hip_height:too_high": ("hip_vs_shoulder_rise", "lumbar_under_load", "lockout_completion"),
-    "shoulders_over_bar:behind_bar": ("bar_leg_contact", "past_the_knees"),
-    "shoulders_over_bar:far_ahead": ("lumbar_under_load",),
+    # disponible (les epaules montent seules), et la lombaire prend ce que les jambes
+    # ne donnent pas.
+    "hip_height_via_femur:torso_parallel_to_floor": (
+        "initiation_sequence", "lumbar_geometry_delta", "lockout_extension"),
+    # Une barre contre les tibias doit partir en avant pour passer les genoux.
+    "bar_over_midfoot_topology:bar_over_ankle_or_shin": ("bar_path_at_knees_topology",),
+    # Une barre devant le pied, c'est de la lumiere entre la barre et les jambes des
+    # le premier centimetre.
+    "bar_over_midfoot_topology:bar_over_toes_or_floor": ("bar_leg_daylight",),
+    "shoulders_over_bar_gravity:arm_angled_forward": (
+        "bar_leg_daylight", "bar_path_at_knees_topology"),
+    "shoulders_over_bar_gravity:arm_angled_backward": ("lumbar_geometry_delta",),
     # Le decollage des hanches fait plonger la poitrine, et la barre part en avant.
-    "hip_vs_shoulder_rise:hips_shoot_up": ("bar_leg_contact", "past_the_knees",
-                                           "lumbar_under_load", "hitch"),
-    # Partir sans tension arrache le lifter de sa position avant meme la tiree. La
-    # tension seulement PARTIELLE compte autant : elle est prise puis perdue quand la
-    # barre casse le sol, et c'est exactement le moment ou les hanches gagnent.
-    "slack_pull:yanked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
-    "slack_pull:partial": ("hip_vs_shoulder_rise",),
-    "jerky_start:jerked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
-    # S09 brace hors schema depuis le 2026-09-11, voir INDICATEURS.
-    # "brace:none": ("lumbar_under_load",),
-    # "brace:partial": ("lumbar_under_load",),
+    "initiation_sequence:torso_angle_decreases": (
+        "bar_leg_daylight", "bar_path_at_knees_topology", "lumbar_geometry_delta",
+        "vertical_velocity_hitch"),
+    # Partir sans tension arrache le lifter de sa position avant meme la tiree.
+    "arms_tension_at_setup:elbow_angle_changes": (
+        "initiation_sequence", "lumbar_geometry_delta"),
     # Une barre loin du corps allonge le bras de levier : le verrouillage se paie.
-    "bar_leg_contact:away_from_legs": ("hitch", "lockout_completion", "lean_back"),
-    "past_the_knees:loops": ("hitch",),
+    "bar_leg_daylight:daylight_beyond_shoe": (
+        "vertical_velocity_hitch", "lockout_extension", "sagittal_torso_angle"),
+    "bar_path_at_knees_topology:bar_deviates_forward": ("vertical_velocity_hitch",),
 }
 
 PAR_NOM = {i.nom: i for i in INDICATEURS}

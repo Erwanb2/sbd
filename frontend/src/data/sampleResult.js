@@ -44,10 +44,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S01",
+              "indicateur": "S04",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+              "source": "a_tester",
+              "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
               "note": 3,
               "visible": true
             },
@@ -55,23 +55,15 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The shoulders are stacked over or just ahead of the bar.",
+              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
               "note": 3,
               "visible": true
             },
             {
-              "indicateur": "S04",
+              "indicateur": "S01",
               "phase": "setup",
-              "source": "a_tester",
-              "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "S06",
-              "phase": "setup",
-              "source": "a_tester",
-              "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+              "source": "llm",
+              "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
               "note": 3,
               "visible": true
             }
@@ -83,18 +75,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S07",
+              "indicateur": "S06",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "L03",
-              "phase": "decollage",
               "source": "a_tester",
-              "fait": "The bar accelerates smoothly out of the floor.",
+              "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
               "note": 3,
               "visible": true
             }
@@ -109,7 +93,7 @@ export const sampleResult =
               "indicateur": "L01",
               "phase": "decollage",
               "source": "llm",
-              "fait": "Both gain height at the same pace: the angle of the back is the same on the two frames.",
+              "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
               "note": 3,
               "visible": true
             }
@@ -124,7 +108,7 @@ export const sampleResult =
               "indicateur": "P02",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar passes the knees close to the legs, in one line.",
+              "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
               "note": 3,
               "visible": true
             },
@@ -132,7 +116,7 @@ export const sampleResult =
               "indicateur": "P03",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+              "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
               "note": 3,
               "visible": true
             }
@@ -147,23 +131,7 @@ export const sampleResult =
               "indicateur": "P08",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "llm",
-              "fait": "The lifter finishes upright and neutral.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
+              "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
               "note": 3,
               "visible": true
             },
@@ -171,7 +139,23 @@ export const sampleResult =
               "indicateur": "K07",
               "phase": "lockout",
               "source": "llm",
-              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
               "note": 3,
               "visible": true
             }
@@ -186,7 +170,7 @@ export const sampleResult =
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
               "note": 3,
               "visible": true
             },
@@ -194,7 +178,7 @@ export const sampleResult =
               "indicateur": "E03",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
               "note": 3,
               "visible": true
             }
@@ -209,7 +193,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
               "note": 3,
               "visible": true
             },
@@ -217,7 +201,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The upper back is rounded before the bar moves.",
+              "fait": "The line forms a straight plane or an inward curve.",
               "note": 3,
               "visible": true
             },
@@ -225,15 +209,7 @@ export const sampleResult =
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The lower back keeps the same shape from the floor to lockout.",
-              "note": null,
-              "visible": true
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The upper back keeps the same shape from the floor to lockout.",
+              "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
               "note": null,
               "visible": true
             },
@@ -241,17 +217,9 @@ export const sampleResult =
               "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "fait": "Pure side angle makes this tracking impossible.",
               "note": null,
               "visible": false
-            },
-            {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3,
-              "visible": true
             }
           ]
         }
@@ -268,9 +236,9 @@ export const sampleResult =
       "resume": "Textbook first pull, everything stacked.",
       "observations": {
         "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
-        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
-        "hip_vs_shoulder_rise": "Hips and shoulders leave the floor at the same rate.",
-        "lumbar_under_load": "The lower back holds its shape to lockout."
+        "thoracic_at_setup": "The upper back is flat and set before the bar moves.",
+        "initiation_sequence": "The torso angle is the same when the plates leave the floor.",
+        "lumbar_geometry_delta": "The lower back holds its shape from the floor to the knees."
       }
     },
     {
@@ -285,10 +253,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S01",
+              "indicateur": "S04",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+              "source": "a_tester",
+              "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
               "note": 3,
               "visible": true
             },
@@ -296,23 +264,15 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The shoulders are stacked over or just ahead of the bar.",
+              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
               "note": 3,
               "visible": true
             },
             {
-              "indicateur": "S04",
+              "indicateur": "S01",
               "phase": "setup",
-              "source": "a_tester",
-              "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "S06",
-              "phase": "setup",
-              "source": "a_tester",
-              "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+              "source": "llm",
+              "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
               "note": 3,
               "visible": true
             }
@@ -324,18 +284,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S07",
+              "indicateur": "S06",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "L03",
-              "phase": "decollage",
               "source": "a_tester",
-              "fait": "The bar accelerates smoothly out of the floor.",
+              "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
               "note": 3,
               "visible": true
             }
@@ -350,7 +302,7 @@ export const sampleResult =
               "indicateur": "L01",
               "phase": "decollage",
               "source": "llm",
-              "fait": "Both gain height at the same pace: the angle of the back is the same on the two frames.",
+              "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
               "note": 3,
               "visible": true
             }
@@ -365,7 +317,7 @@ export const sampleResult =
               "indicateur": "P02",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar passes the knees close to the legs, in one line.",
+              "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
               "note": 3,
               "visible": true
             },
@@ -373,7 +325,7 @@ export const sampleResult =
               "indicateur": "P03",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+              "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
               "note": 3,
               "visible": true
             }
@@ -388,23 +340,7 @@ export const sampleResult =
               "indicateur": "P08",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "llm",
-              "fait": "The lifter finishes upright and neutral.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
+              "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
               "note": 3,
               "visible": true
             },
@@ -412,7 +348,23 @@ export const sampleResult =
               "indicateur": "K07",
               "phase": "lockout",
               "source": "llm",
-              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
               "note": 3,
               "visible": true
             }
@@ -427,7 +379,7 @@ export const sampleResult =
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
               "note": 3,
               "visible": true
             },
@@ -435,7 +387,7 @@ export const sampleResult =
               "indicateur": "E03",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
               "note": 3,
               "visible": true
             }
@@ -450,7 +402,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
               "note": 3,
               "visible": true
             },
@@ -458,7 +410,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The upper back is rounded before the bar moves.",
+              "fait": "The line forms a straight plane or an inward curve.",
               "note": 3,
               "visible": true
             },
@@ -466,15 +418,7 @@ export const sampleResult =
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The lower back keeps the same shape from the floor to lockout.",
-              "note": null,
-              "visible": true
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The upper back keeps the same shape from the floor to lockout.",
+              "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
               "note": null,
               "visible": true
             },
@@ -482,17 +426,9 @@ export const sampleResult =
               "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "fait": "Pure side angle makes this tracking impossible.",
               "note": null,
               "visible": false
-            },
-            {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3,
-              "visible": true
             }
           ]
         }
@@ -509,9 +445,9 @@ export const sampleResult =
       "resume": "Still tight, the bar drifts a touch more.",
       "observations": {
         "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
-        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
-        "hip_vs_shoulder_rise": "Hips and shoulders leave the floor at the same rate.",
-        "lumbar_under_load": "The lower back holds its shape to lockout."
+        "thoracic_at_setup": "The upper back is flat and set before the bar moves.",
+        "initiation_sequence": "The torso angle is the same when the plates leave the floor.",
+        "lumbar_geometry_delta": "The lower back holds its shape from the floor to the knees."
       }
     },
     {
@@ -526,10 +462,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S01",
+              "indicateur": "S04",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+              "source": "a_tester",
+              "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
               "note": 3,
               "visible": true
             },
@@ -537,23 +473,15 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The shoulders are stacked over or just ahead of the bar.",
+              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
               "note": 3,
               "visible": true
             },
             {
-              "indicateur": "S04",
+              "indicateur": "S01",
               "phase": "setup",
-              "source": "a_tester",
-              "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "S06",
-              "phase": "setup",
-              "source": "a_tester",
-              "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+              "source": "llm",
+              "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
               "note": 3,
               "visible": true
             }
@@ -561,22 +489,14 @@ export const sampleResult =
         },
         "slack_and_brace": {
           "libelle": "Slack and brace",
-          "note": 2,
+          "note": 3,
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S07",
+              "indicateur": "S06",
               "phase": "setup",
-              "source": "llm",
-              "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-              "note": 2,
-              "visible": true
-            },
-            {
-              "indicateur": "L03",
-              "phase": "decollage",
               "source": "a_tester",
-              "fait": "The bar accelerates smoothly out of the floor.",
+              "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
               "note": 3,
               "visible": true
             }
@@ -591,7 +511,7 @@ export const sampleResult =
               "indicateur": "L01",
               "phase": "decollage",
               "source": "llm",
-              "fait": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
+              "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
               "note": 1,
               "visible": true
             }
@@ -606,15 +526,15 @@ export const sampleResult =
               "indicateur": "P02",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar loops forward around the knees before coming back in.",
-              "note": 2,
+              "fait": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
+              "note": 1,
               "visible": true
             },
             {
               "indicateur": "P03",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The bar travels visibly away from the legs.",
+              "fait": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
               "note": 1,
               "visible": true
             }
@@ -629,23 +549,7 @@ export const sampleResult =
               "indicateur": "P08",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "llm",
-              "fait": "The lifter finishes upright and neutral.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
+              "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
               "note": 3,
               "visible": true
             },
@@ -653,7 +557,23 @@ export const sampleResult =
               "indicateur": "K07",
               "phase": "lockout",
               "source": "llm",
-              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
               "note": 3,
               "visible": true
             }
@@ -668,7 +588,7 @@ export const sampleResult =
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
               "note": 3,
               "visible": true
             },
@@ -676,7 +596,7 @@ export const sampleResult =
               "indicateur": "E03",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+              "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
               "note": 3,
               "visible": true
             }
@@ -684,14 +604,14 @@ export const sampleResult =
         },
         "structure": {
           "libelle": "Structure under load",
-          "note": 2,
+          "note": 3,
           "statut": "note",
           "faits": [
             {
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
               "note": 3,
               "visible": true
             },
@@ -699,7 +619,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The upper back is rounded before the bar moves.",
+              "fait": "The line forms a straight plane or an inward curve.",
               "note": 3,
               "visible": true
             },
@@ -707,15 +627,7 @@ export const sampleResult =
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The lower back rounds further during the pull than it was at the start.",
-              "note": 2,
-              "visible": true
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The upper back keeps the same shape from the floor to lockout.",
+              "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
               "note": null,
               "visible": true
             },
@@ -723,23 +635,15 @@ export const sampleResult =
               "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "fait": "Pure side angle makes this tracking impossible.",
               "note": null,
               "visible": false
-            },
-            {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3,
-              "visible": true
             }
           ]
         }
       },
       "note": 2,
-      "note_precise": 2.14,
+      "note_precise": 2.43,
       "sur": 3,
       "non_evaluables": 0,
       "temps": {
@@ -750,9 +654,9 @@ export const sampleResult =
       "resume": "The hips beat the shoulders out of the floor.",
       "observations": {
         "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
-        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
-        "hip_vs_shoulder_rise": "The hips rise first; the torso stays inclined past the knees.",
-        "lumbar_under_load": "The lower back rounds further as the bar passes the knees."
+        "thoracic_at_setup": "The upper back is flat and set before the bar moves.",
+        "initiation_sequence": "The hips rise before the plates leave the floor; the torso tilts toward horizontal.",
+        "lumbar_geometry_delta": "The lower back holds its shape from the floor to the knees."
       }
     },
     {
@@ -767,10 +671,10 @@ export const sampleResult =
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S01",
+              "indicateur": "S04",
               "phase": "setup",
-              "source": "llm",
-              "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+              "source": "a_tester",
+              "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
               "note": 3,
               "visible": true
             },
@@ -778,23 +682,15 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The shoulders are stacked over or just ahead of the bar.",
+              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
               "note": 3,
               "visible": true
             },
             {
-              "indicateur": "S04",
+              "indicateur": "S01",
               "phase": "setup",
-              "source": "a_tester",
-              "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "S06",
-              "phase": "setup",
-              "source": "a_tester",
-              "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+              "source": "llm",
+              "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
               "note": 3,
               "visible": true
             }
@@ -802,22 +698,14 @@ export const sampleResult =
         },
         "slack_and_brace": {
           "libelle": "Slack and brace",
-          "note": 2,
+          "note": 3,
           "statut": "note",
           "faits": [
             {
-              "indicateur": "S07",
+              "indicateur": "S06",
               "phase": "setup",
-              "source": "llm",
-              "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-              "note": 2,
-              "visible": true
-            },
-            {
-              "indicateur": "L03",
-              "phase": "decollage",
               "source": "a_tester",
-              "fait": "The bar accelerates smoothly out of the floor.",
+              "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
               "note": 3,
               "visible": true
             }
@@ -832,7 +720,7 @@ export const sampleResult =
               "indicateur": "L01",
               "phase": "decollage",
               "source": "llm",
-              "fait": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
+              "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
               "note": 1,
               "visible": true
             }
@@ -847,15 +735,15 @@ export const sampleResult =
               "indicateur": "P02",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar loops forward around the knees before coming back in.",
-              "note": 2,
+              "fait": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
+              "note": 1,
               "visible": true
             },
             {
               "indicateur": "P03",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The bar travels visibly away from the legs.",
+              "fait": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
               "note": 1,
               "visible": true
             }
@@ -870,23 +758,7 @@ export const sampleResult =
               "indicateur": "P08",
               "phase": "tiree",
               "source": "a_tester",
-              "fait": "The bar rises in one continuous motion.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K03",
-              "phase": "lockout",
-              "source": "llm",
-              "fait": "The lifter finishes upright and neutral.",
-              "note": 3,
-              "visible": true
-            },
-            {
-              "indicateur": "K04",
-              "phase": "lockout",
-              "source": "a_tester",
-              "fait": "The lift finishes with hip extension alone.",
+              "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
               "note": 3,
               "visible": true
             },
@@ -894,7 +766,23 @@ export const sampleResult =
               "indicateur": "K07",
               "phase": "lockout",
               "source": "llm",
-              "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+              "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
               "note": 3,
               "visible": true
             }
@@ -909,7 +797,7 @@ export const sampleResult =
               "indicateur": "E02",
               "phase": "descente",
               "source": "llm",
-              "fait": "The bar is lowered under control, the lifter staying with it.",
+              "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
               "note": 3,
               "visible": true
             },
@@ -917,9 +805,9 @@ export const sampleResult =
               "indicateur": "E03",
               "phase": "descente",
               "source": "llm",
-              "fait": "This is the last rep of the set.",
+              "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
               "note": null,
-              "visible": true
+              "visible": false
             }
           ]
         },
@@ -932,7 +820,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The lower back keeps its natural inward curve at the setup.",
+              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
               "note": 3,
               "visible": true
             },
@@ -940,7 +828,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The upper back is rounded before the bar moves.",
+              "fait": "The line forms a straight plane or an inward curve.",
               "note": 3,
               "visible": true
             },
@@ -948,39 +836,23 @@ export const sampleResult =
               "indicateur": "P04",
               "phase": "tiree",
               "source": "llm",
-              "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
+              "fait": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
               "note": 1,
-              "visible": true
-            },
-            {
-              "indicateur": "P10",
-              "phase": "tiree",
-              "source": "llm",
-              "fait": "The upper back rounds further during the pull than it was at the start.",
-              "note": 2,
               "visible": true
             },
             {
               "indicateur": "P05",
               "phase": "tiree",
               "source": "llm",
-              "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+              "fait": "Pure side angle makes this tracking impossible.",
               "note": null,
               "visible": false
-            },
-            {
-              "indicateur": "P09",
-              "phase": "tiree",
-              "source": "a_tester",
-              "fait": "Both sides rise together.",
-              "note": 3,
-              "visible": true
             }
           ]
         }
       },
       "note": 2,
-      "note_precise": 2.0,
+      "note_precise": 2.14,
       "sur": 3,
       "non_evaluables": 0,
       "temps": {
@@ -991,9 +863,9 @@ export const sampleResult =
       "resume": "Last rep: the back rounds and the bar swings out.",
       "observations": {
         "lumbar_at_setup": "The lower back keeps its inward curve at the setup.",
-        "thoracic_at_setup": "The upper back is rounded and already set before the bar moves.",
-        "hip_vs_shoulder_rise": "The hips rise first; the torso stays inclined past the knees.",
-        "lumbar_under_load": "The lower back rounds further as the bar passes the knees."
+        "thoracic_at_setup": "The upper back is flat and set before the bar moves.",
+        "initiation_sequence": "The hips rise before the plates leave the floor; the torso tilts toward horizontal.",
+        "lumbar_geometry_delta": "The lower back rounds further as the bar passes the knees."
       }
     }
   ],
@@ -1010,10 +882,10 @@ export const sampleResult =
       ],
       "faits": [
         {
-          "indicateur": "S01",
+          "indicateur": "S04",
           "phase": "setup",
-          "source": "llm",
-          "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+          "source": "a_tester",
+          "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1027,7 +899,7 @@ export const sampleResult =
           "indicateur": "S02",
           "phase": "setup",
           "source": "llm",
-          "fait": "The shoulders are stacked over or just ahead of the bar.",
+          "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1038,24 +910,10 @@ export const sampleResult =
           ]
         },
         {
-          "indicateur": "S04",
+          "indicateur": "S01",
           "phase": "setup",
-          "source": "a_tester",
-          "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
-          "note": 3,
-          "visible": true,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "S06",
-          "phase": "setup",
-          "source": "a_tester",
-          "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+          "source": "llm",
+          "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1069,44 +927,20 @@ export const sampleResult =
     },
     "slack_and_brace": {
       "libelle": "Slack and brace",
-      "note": 2,
+      "note": 3,
       "poids": 1.0,
       "notes_par_rep": [
         3,
         3,
-        2,
-        2
+        3,
+        3
       ],
       "faits": [
         {
-          "indicateur": "S07",
+          "indicateur": "S06",
           "phase": "setup",
-          "source": "llm",
-          "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-          "note": 2,
-          "visible": true,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "S07",
-          "phase": "setup",
-          "source": "llm",
-          "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
-          "note": 3,
-          "visible": true,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "L03",
-          "phase": "decollage",
           "source": "a_tester",
-          "fait": "The bar accelerates smoothly out of the floor.",
+          "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1133,7 +967,7 @@ export const sampleResult =
           "indicateur": "L01",
           "phase": "decollage",
           "source": "llm",
-          "fait": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
+          "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
           "note": 1,
           "visible": true,
           "reps": [
@@ -1145,7 +979,7 @@ export const sampleResult =
           "indicateur": "L01",
           "phase": "decollage",
           "source": "llm",
-          "fait": "Both gain height at the same pace: the angle of the back is the same on the two frames.",
+          "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1167,10 +1001,22 @@ export const sampleResult =
       ],
       "faits": [
         {
+          "indicateur": "P02",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
+          "note": 1,
+          "visible": true,
+          "reps": [
+            3,
+            4
+          ]
+        },
+        {
           "indicateur": "P03",
           "phase": "tiree",
           "source": "llm",
-          "fait": "The bar travels visibly away from the legs.",
+          "fait": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
           "note": 1,
           "visible": true,
           "reps": [
@@ -1182,19 +1028,7 @@ export const sampleResult =
           "indicateur": "P02",
           "phase": "tiree",
           "source": "a_tester",
-          "fait": "The bar loops forward around the knees before coming back in.",
-          "note": 2,
-          "visible": true,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "P02",
-          "phase": "tiree",
-          "source": "a_tester",
-          "fait": "The bar passes the knees close to the legs, in one line.",
+          "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1206,7 +1040,7 @@ export const sampleResult =
           "indicateur": "P03",
           "phase": "tiree",
           "source": "llm",
-          "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+          "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1231,35 +1065,7 @@ export const sampleResult =
           "indicateur": "P08",
           "phase": "tiree",
           "source": "a_tester",
-          "fait": "The bar rises in one continuous motion.",
-          "note": 3,
-          "visible": true,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K03",
-          "phase": "lockout",
-          "source": "llm",
-          "fait": "The lifter finishes upright and neutral.",
-          "note": 3,
-          "visible": true,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "K04",
-          "phase": "lockout",
-          "source": "a_tester",
-          "fait": "The lift finishes with hip extension alone.",
+          "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1273,7 +1079,35 @@ export const sampleResult =
           "indicateur": "K07",
           "phase": "lockout",
           "source": "llm",
-          "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+          "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "K03",
+          "phase": "lockout",
+          "source": "llm",
+          "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "indicateur": "K04",
+          "phase": "lockout",
+          "source": "a_tester",
+          "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1300,7 +1134,7 @@ export const sampleResult =
           "indicateur": "E02",
           "phase": "descente",
           "source": "llm",
-          "fait": "The bar is lowered under control, the lifter staying with it.",
+          "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1314,7 +1148,7 @@ export const sampleResult =
           "indicateur": "E03",
           "phase": "descente",
           "source": "llm",
-          "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
+          "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1327,9 +1161,9 @@ export const sampleResult =
           "indicateur": "E03",
           "phase": "descente",
           "source": "llm",
-          "fait": "This is the last rep of the set.",
+          "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
           "note": null,
-          "visible": true,
+          "visible": false,
           "reps": [
             4
           ]
@@ -1343,7 +1177,7 @@ export const sampleResult =
       "notes_par_rep": [
         3,
         3,
-        2,
+        3,
         1
       ],
       "faits": [
@@ -1351,30 +1185,8 @@ export const sampleResult =
           "indicateur": "P04",
           "phase": "tiree",
           "source": "llm",
-          "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
+          "fait": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
           "note": 1,
-          "visible": true,
-          "reps": [
-            4
-          ]
-        },
-        {
-          "indicateur": "P04",
-          "phase": "tiree",
-          "source": "llm",
-          "fait": "The lower back rounds further during the pull than it was at the start.",
-          "note": 2,
-          "visible": true,
-          "reps": [
-            3
-          ]
-        },
-        {
-          "indicateur": "P10",
-          "phase": "tiree",
-          "source": "llm",
-          "fait": "The upper back rounds further during the pull than it was at the start.",
-          "note": 2,
           "visible": true,
           "reps": [
             4
@@ -1384,7 +1196,7 @@ export const sampleResult =
           "indicateur": "S05",
           "phase": "setup",
           "source": "llm",
-          "fait": "The lower back keeps its natural inward curve at the setup.",
+          "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1398,21 +1210,7 @@ export const sampleResult =
           "indicateur": "S10",
           "phase": "setup",
           "source": "llm",
-          "fait": "The upper back is rounded before the bar moves.",
-          "note": 3,
-          "visible": true,
-          "reps": [
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        {
-          "indicateur": "P09",
-          "phase": "tiree",
-          "source": "a_tester",
-          "fait": "Both sides rise together.",
+          "fait": "The line forms a straight plane or an inward curve.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1426,19 +1224,7 @@ export const sampleResult =
           "indicateur": "P04",
           "phase": "tiree",
           "source": "llm",
-          "fait": "The lower back keeps the same shape from the floor to lockout.",
-          "note": null,
-          "visible": true,
-          "reps": [
-            1,
-            2
-          ]
-        },
-        {
-          "indicateur": "P10",
-          "phase": "tiree",
-          "source": "llm",
-          "fait": "The upper back keeps the same shape from the floor to lockout.",
+          "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
           "note": null,
           "visible": true,
           "reps": [
@@ -1451,7 +1237,7 @@ export const sampleResult =
           "indicateur": "P05",
           "phase": "tiree",
           "source": "llm",
-          "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+          "fait": "Pure side angle makes this tracking impossible.",
           "note": null,
           "visible": false,
           "reps": [
@@ -1479,25 +1265,12 @@ export const sampleResult =
     "defauts": [
       {
         "indicateur": "P04",
-        "nom": "lumbar_under_load",
+        "nom": "lumbar_geometry_delta",
         "critere": "structure",
-        "constat": "The lower back rounds hard and keeps rounding as the bar rises.",
+        "constat": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
         "a_essayer": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
-        "etat": "collapses",
+        "etat": "lumbar_becomes_convex",
         "note": 1,
-        "reps": [
-          3,
-          4
-        ]
-      },
-      {
-        "indicateur": "P10",
-        "nom": "thoracic_under_load",
-        "critere": "structure",
-        "constat": "The upper back rounds further during the pull than it was at the start.",
-        "a_essayer": "Set the upper back before the pull and hold that shape; stop the set when it starts to give.",
-        "etat": "flexion_appears",
-        "note": 2,
         "reps": [
           4
         ]
@@ -1505,38 +1278,25 @@ export const sampleResult =
     ]
   },
   "epingle": {
-    "indicateur": "S07",
-    "nom": "slack_pull",
-    "critere": "slack_and_brace",
-    "constat": "Some tension is taken but it is lost as the bar breaks the floor.",
-    "a_essayer": "Pull the slack out until you feel the bar load, then push the floor away.",
-    "etat": "partial",
-    "note": 2,
+    "indicateur": "L01",
+    "nom": "initiation_sequence",
+    "critere": "leg_drive",
+    "constat": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
+    "a_essayer": "Push the floor away with your legs and hold your chest angle until the plates leave the floor.",
+    "etat": "torso_angle_decreases",
+    "note": 1,
     "reps": [
       3,
       4
     ],
     "consequences": [
       {
-        "indicateur": "L01",
-        "nom": "hip_vs_shoulder_rise",
-        "critere": "leg_drive",
-        "constat": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
-        "a_essayer": "Push the floor away with your legs and hold your chest angle through the first third of the pull.",
-        "etat": "hips_shoot_up",
-        "note": 1,
-        "reps": [
-          3,
-          4
-        ]
-      },
-      {
         "indicateur": "P03",
-        "nom": "bar_leg_contact",
+        "nom": "bar_leg_daylight",
         "critere": "bar_path",
-        "constat": "The bar travels visibly away from the legs.",
+        "constat": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
         "a_essayer": "Keep the bar in contact with the legs the whole way up.",
-        "etat": "away_from_legs",
+        "etat": "daylight_beyond_shoe",
         "note": 1,
         "reps": [
           3,
@@ -1545,12 +1305,12 @@ export const sampleResult =
       },
       {
         "indicateur": "P02",
-        "nom": "past_the_knees",
+        "nom": "bar_path_at_knees_topology",
         "critere": "bar_path",
-        "constat": "The bar loops forward around the knees before coming back in.",
+        "constat": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
         "a_essayer": "Let the hips come through as the bar reaches the knees so it passes close.",
-        "etat": "loops",
-        "note": 2,
+        "etat": "bar_deviates_forward",
+        "note": 1,
         "reps": [
           3,
           4
@@ -1559,7 +1319,7 @@ export const sampleResult =
     ],
     "autres": []
   },
-  "note_sur_20": 16,
+  "note_sur_20": 17,
   "nb_reps": 4,
   "segments_ecartes": [],
   "tenue_du_set": {
@@ -1571,38 +1331,25 @@ export const sampleResult =
   },
   "conseils": [
     {
-      "indicateur": "S07",
-      "nom": "slack_pull",
-      "critere": "slack_and_brace",
-      "constat": "Some tension is taken but it is lost as the bar breaks the floor.",
-      "a_essayer": "Pull the slack out until you feel the bar load, then push the floor away.",
-      "etat": "partial",
-      "note": 2,
+      "indicateur": "L01",
+      "nom": "initiation_sequence",
+      "critere": "leg_drive",
+      "constat": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
+      "a_essayer": "Push the floor away with your legs and hold your chest angle until the plates leave the floor.",
+      "etat": "torso_angle_decreases",
+      "note": 1,
       "reps": [
         3,
         4
       ],
       "consequences": [
         {
-          "indicateur": "L01",
-          "nom": "hip_vs_shoulder_rise",
-          "critere": "leg_drive",
-          "constat": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
-          "a_essayer": "Push the floor away with your legs and hold your chest angle through the first third of the pull.",
-          "etat": "hips_shoot_up",
-          "note": 1,
-          "reps": [
-            3,
-            4
-          ]
-        },
-        {
           "indicateur": "P03",
-          "nom": "bar_leg_contact",
+          "nom": "bar_leg_daylight",
           "critere": "bar_path",
-          "constat": "The bar travels visibly away from the legs.",
+          "constat": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
           "a_essayer": "Keep the bar in contact with the legs the whole way up.",
-          "etat": "away_from_legs",
+          "etat": "daylight_beyond_shoe",
           "note": 1,
           "reps": [
             3,
@@ -1611,12 +1358,12 @@ export const sampleResult =
         },
         {
           "indicateur": "P02",
-          "nom": "past_the_knees",
+          "nom": "bar_path_at_knees_topology",
           "critere": "bar_path",
-          "constat": "The bar loops forward around the knees before coming back in.",
+          "constat": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
           "a_essayer": "Let the hips come through as the bar reaches the knees so it passes close.",
-          "etat": "loops",
-          "note": 2,
+          "etat": "bar_deviates_forward",
+          "note": 1,
           "reps": [
             3,
             4
@@ -1628,7 +1375,7 @@ export const sampleResult =
   ],
   "persona": {
     "nom": "The Fishing Rod",
-    "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
+    "fait": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
     "rep": 4,
     "indicateur": "P04"
   },
@@ -1641,212 +1388,201 @@ export const sampleResult =
       "reps": [
         {
           "rep_index": 1,
-          "bar_over_midfoot": "over_midfoot",
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "progressive",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "hip_height_via_femur": "femur_angled_upward",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
-          "hip_vs_shoulder_rise": "together",
-          "past_the_knees": "clean",
-          "bar_leg_contact": "in_contact",
-          "lumbar_under_load": "unchanged",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "asymmetry": "even",
-          "hitch": "no",
-          "shrug": "no",
-          "lean_back": "upright",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset",
+          "initiation_sequence": "torso_angle_constant",
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "lockout_extension": "full_180_extension",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained",
           "summary": "Textbook first pull, everything stacked.",
           "lumbar_at_setup_observed": "The lower back keeps its inward curve at the setup.",
-          "thoracic_at_setup_observed": "The upper back is rounded and already set before the bar moves.",
-          "lumbar_under_load_observed": "The lower back holds its shape to lockout.",
-          "hip_vs_shoulder_rise_observed": "Hips and shoulders leave the floor at the same rate."
+          "thoracic_at_setup_observed": "The upper back is flat and set before the bar moves.",
+          "lumbar_geometry_delta_observed": "The lower back holds its shape from the floor to the knees.",
+          "initiation_sequence_observed": "The torso angle is the same when the plates leave the floor."
         },
         {
           "rep_index": 2,
-          "bar_over_midfoot": "over_midfoot",
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "progressive",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "hip_height_via_femur": "femur_angled_upward",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
-          "hip_vs_shoulder_rise": "together",
-          "past_the_knees": "clean",
-          "bar_leg_contact": "in_contact",
-          "lumbar_under_load": "unchanged",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "asymmetry": "even",
-          "hitch": "no",
-          "shrug": "no",
-          "lean_back": "upright",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset",
+          "initiation_sequence": "torso_angle_constant",
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "lockout_extension": "full_180_extension",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained",
           "summary": "Still tight, the bar drifts a touch more.",
           "lumbar_at_setup_observed": "The lower back keeps its inward curve at the setup.",
-          "thoracic_at_setup_observed": "The upper back is rounded and already set before the bar moves.",
-          "lumbar_under_load_observed": "The lower back holds its shape to lockout.",
-          "hip_vs_shoulder_rise_observed": "Hips and shoulders leave the floor at the same rate."
+          "thoracic_at_setup_observed": "The upper back is flat and set before the bar moves.",
+          "lumbar_geometry_delta_observed": "The lower back holds its shape from the floor to the knees.",
+          "initiation_sequence_observed": "The torso angle is the same when the plates leave the floor."
         },
         {
           "rep_index": 3,
-          "bar_over_midfoot": "over_midfoot",
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "partial",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "hip_height_via_femur": "femur_angled_upward",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
-          "hip_vs_shoulder_rise": "hips_shoot_up",
-          "past_the_knees": "loops",
-          "bar_leg_contact": "away_from_legs",
-          "lumbar_under_load": "flexion_appears",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "asymmetry": "even",
-          "hitch": "no",
-          "shrug": "no",
-          "lean_back": "upright",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset",
+          "initiation_sequence": "torso_angle_decreases",
+          "bar_path_at_knees_topology": "bar_deviates_forward",
+          "bar_leg_daylight": "daylight_beyond_shoe",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "lockout_extension": "full_180_extension",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained",
           "summary": "The hips beat the shoulders out of the floor.",
           "lumbar_at_setup_observed": "The lower back keeps its inward curve at the setup.",
-          "thoracic_at_setup_observed": "The upper back is rounded and already set before the bar moves.",
-          "lumbar_under_load_observed": "The lower back rounds further as the bar passes the knees.",
-          "hip_vs_shoulder_rise_observed": "The hips rise first; the torso stays inclined past the knees."
+          "thoracic_at_setup_observed": "The upper back is flat and set before the bar moves.",
+          "lumbar_geometry_delta_observed": "The lower back holds its shape from the floor to the knees.",
+          "initiation_sequence_observed": "The hips rise before the plates leave the floor; the torso tilts toward horizontal."
         },
         {
           "rep_index": 4,
-          "bar_over_midfoot": "over_midfoot",
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "partial",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "hip_height_via_femur": "femur_angled_upward",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
-          "hip_vs_shoulder_rise": "hips_shoot_up",
-          "past_the_knees": "loops",
-          "bar_leg_contact": "away_from_legs",
-          "lumbar_under_load": "collapses",
-          "thoracic_under_load": "flexion_appears",
-          "knee_valgus": "not_visible",
-          "asymmetry": "even",
-          "hitch": "no",
-          "shrug": "no",
-          "lean_back": "upright",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "last_rep",
+          "initiation_sequence": "torso_angle_decreases",
+          "bar_path_at_knees_topology": "bar_deviates_forward",
+          "bar_leg_daylight": "daylight_beyond_shoe",
+          "lumbar_geometry_delta": "lumbar_becomes_convex",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "lockout_extension": "full_180_extension",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "not_visible",
           "summary": "Last rep: the back rounds and the bar swings out.",
           "lumbar_at_setup_observed": "The lower back keeps its inward curve at the setup.",
-          "thoracic_at_setup_observed": "The upper back is rounded and already set before the bar moves.",
-          "lumbar_under_load_observed": "The lower back rounds further as the bar passes the knees.",
-          "hip_vs_shoulder_rise_observed": "The hips rise first; the torso stays inclined past the knees."
+          "thoracic_at_setup_observed": "The upper back is flat and set before the bar moves.",
+          "lumbar_geometry_delta_observed": "The lower back rounds further as the bar passes the knees.",
+          "initiation_sequence_observed": "The hips rise before the plates leave the floor; the torso tilts toward horizontal."
         }
       ]
     },
     "catalogue": {
-      "hip_height": {
-        "id": "S01",
-        "critere": "start_position",
-        "phase": "setup",
-        "source": "llm",
-        "vue": "side",
-        "portee": "rep",
-        "question": "Freeze the frame where the plates leave the floor. On that frame, compare two vertical distances: hips-to-shoulders and hips-to-knees.",
-        "etats": [
-          {
-            "cle": "too_high",
-            "note": 2,
-            "description": "The hips are at, or nearly at, shoulder height: the hips-to-shoulders distance is far smaller than the hips-to-knees distance. The back is close to horizontal and the knees are nearly straight."
-          },
-          {
-            "cle": "midway",
-            "note": 3,
-            "description": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent."
-          },
-          {
-            "cle": "too_low",
-            "note": 2,
-            "description": "The hips are close to knee height: the hips-to-knees distance is far smaller than the hips-to-shoulders distance, the shins push forward and the knees sit over the bar."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "shoulders_over_bar": {
-        "id": "S02",
-        "critere": "start_position",
-        "phase": "setup",
-        "source": "llm",
-        "vue": "side",
-        "portee": "rep",
-        "question": "Where are the shoulders relative to the bar at the start?",
-        "etats": [
-          {
-            "cle": "behind_bar",
-            "note": 2,
-            "description": "The shoulders start behind the bar, which sends the bar forward as soon as it leaves the floor."
-          },
-          {
-            "cle": "over_bar",
-            "note": 3,
-            "description": "The shoulders are stacked over or just ahead of the bar."
-          },
-          {
-            "cle": "far_ahead",
-            "note": 2,
-            "description": "The shoulders are far ahead of the bar, lengthening the lever on the lower back."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "bar_over_midfoot": {
+      "bar_over_midfoot_topology": {
         "id": "S04",
         "critere": "start_position",
         "phase": "setup",
         "source": "a_tester",
         "vue": "side",
         "portee": "rep",
-        "question": "On the last frame before the plates leave the floor, drop a vertical line from the bar down to the floor. Where does it hit the foot? This is only answerable when the foot is seen from the side: from the front or three-quarter view, answer 'not_visible'.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Look vertically down from the barbell to the lifter's shoe. Which specific part of the shoe is physically located directly underneath the barbell sleeve/shaft?",
         "etats": [
           {
-            "cle": "over_midfoot",
-            "note": 3,
-            "description": "The line hits the foot between the ankle and the base of the toes, roughly over the laces."
+            "cle": "bar_over_ankle_or_shin",
+            "note": 1,
+            "description": "The barbell is positioned over the ankle joint or is pressed hard against the shin, fully exposing the laces and toes in front of it."
           },
           {
-            "cle": "ahead_of_midfoot",
+            "cle": "bar_over_laces",
+            "note": 3,
+            "description": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot)."
+          },
+          {
+            "cle": "bar_over_toes_or_floor",
             "note": 2,
-            "description": "The line hits the toes or the floor in front of the foot: there is daylight between the bar and the shins."
+            "description": "The barbell is positioned over the toe box of the shoe, or completely in front of the shoe over the empty floor."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The plates completely block the view of the shoe."
+          }
+        ]
+      },
+      "shoulders_over_bar_gravity": {
+        "id": "S02",
+        "critere": "start_position",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Focus ONLY on the lifter's arm (from the shoulder joint to the hand holding the bar). Analyze the angle of the arm relative to the floor in 3D space, acting as a plumb line.",
+        "etats": [
+          {
+            "cle": "arm_angled_forward",
+            "note": 1,
+            "description": "The shoulder joint is closer to the lifter's heels than the hand is. The arm creates a diagonal line pointing forward towards the bar."
+          },
+          {
+            "cle": "arm_perfectly_vertical",
+            "note": 3,
+            "description": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand."
+          },
+          {
+            "cle": "arm_angled_backward",
+            "note": 2,
+            "description": "The shoulder joint is closer to the lifter's toes than the hand is. The arm creates a diagonal line pointing backward towards the lifter's body."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The arm is obscured."
+          }
+        ]
+      },
+      "hip_height_via_femur": {
+        "id": "S01",
+        "critere": "start_position",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Focus strictly on the lifter's femur (the thigh bone connecting the knee to the hip). Analyze the physical inclination of the femur relative to the floor.",
+        "etats": [
+          {
+            "cle": "femur_angled_upward",
+            "note": 3,
+            "description": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line."
+          },
+          {
+            "cle": "femur_parallel_or_downward",
+            "note": 1,
+            "description": "The femur is exactly parallel to the floor, or the hip joint sits strictly lower than the knee joint (downward angle)."
+          },
+          {
+            "cle": "torso_parallel_to_floor",
+            "note": 2,
+            "description": "The hip joint is positioned so high that the torso is parallel to the floor, and the femurs are nearly vertical (knees locked or almost locked)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The thighs are obscured."
           }
         ]
       },
@@ -1857,22 +1593,22 @@ export const sampleResult =
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Look ONLY at the lower back, between the pelvis and the bottom of the ribs, before the bar moves. Ignore the upper back entirely: it is asked separately.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw an imaginary line connecting the lifter's pelvis (sacrum) to the bottom of their rib cage. Analyze the geometric shape of this lower back segment.",
         "etats": [
           {
-            "cle": "neutral",
+            "cle": "lumbar_straight_or_concave",
             "note": 3,
-            "description": "The lower back keeps its natural inward curve at the setup."
+            "description": "The line forms a straight plane or a visible inward curve (extension/neutral)."
           },
           {
-            "cle": "flexed",
-            "note": 2,
-            "description": "The lower back is rounded outward at the setup."
+            "cle": "lumbar_convex",
+            "note": 1,
+            "description": "The line forms a strict outward curve (flexion/rounded) pointing away from the torso."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Clothing or angle prevents a clear view of the lower back contour."
           }
         ]
       },
@@ -1883,146 +1619,79 @@ export const sampleResult =
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Look ONLY at the upper back, between the bottom of the ribs and the neck, before the bar moves. Ignore the lower back entirely: it is asked separately.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw an imaginary line connecting the bottom of the lifter's rib cage to the base of their neck. Analyze the geometric shape of this upper back segment.",
         "etats": [
           {
-            "cle": "neutral",
+            "cle": "thoracic_straight_or_concave",
             "note": 3,
-            "description": "The upper back is flat before the bar moves."
+            "description": "The line forms a straight plane or an inward curve."
           },
           {
-            "cle": "rounded",
+            "cle": "thoracic_convex",
             "note": 3,
-            "description": "The upper back is rounded before the bar moves."
+            "description": "The line forms a strict outward curve (rounded shoulders/flexion)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Clothing or angle prevents a clear view of the upper back contour."
           }
         ]
       },
-      "arms_long": {
+      "arms_tension_at_setup": {
         "id": "S06",
-        "critere": "start_position",
+        "critere": "slack_and_brace",
         "phase": "setup",
         "source": "a_tester",
         "vue": "toute",
         "portee": "rep",
-        "question": "From the floor to lockout, look at the line shoulder -> elbow -> hand on the arm closest to the camera. Is it one straight line on every frame, or is there an angle at the elbow at some moment?",
+        "question": "Analyze the sequence leading up to the exact frame the plates leave the floor. Look strictly at the angle formed by the shoulder, elbow, and wrist joints. Does this geometric angle change exactly as the weight leaves the floor?",
         "etats": [
           {
-            "cle": "straight",
+            "cle": "elbow_locked_prior",
             "note": 3,
-            "description": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle."
+            "description": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff."
           },
           {
-            "cle": "slightly_bent",
-            "note": 2,
-            "description": "A small but visible angle at the elbow on some frames: the arm is not one straight line, but the forearm does not fold up."
-          },
-          {
-            "cle": "bent",
+            "cle": "elbow_angle_changes",
             "note": 1,
-            "description": "A clear angle at the elbow: the forearm folds and the biceps pulls the bar."
+            "description": "The elbow angle is less than 180 degrees (bent) and/or visually straightens exactly AT or AFTER the moment the plates leave the floor (yanking the bar)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The arms are obscured."
           }
         ]
       },
-      "slack_pull": {
-        "id": "S07",
-        "critere": "slack_and_brace",
-        "phase": "setup",
-        "source": "llm",
-        "vue": "toute",
-        "portee": "rep",
-        "question": "Does the lifter take the slack out before the bar leaves the floor?",
-        "etats": [
-          {
-            "cle": "progressive",
-            "note": 3,
-            "description": "The arms pull taut and the bar or plates visibly load before anything moves."
-          },
-          {
-            "cle": "partial",
-            "note": 2,
-            "description": "Some tension is taken but it is lost as the bar breaks the floor."
-          },
-          {
-            "cle": "yanked",
-            "note": 1,
-            "description": "No pre-tension at all: the lifter yanks the bar off the floor from a loose position."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "hip_vs_shoulder_rise": {
+      "initiation_sequence": {
         "id": "L01",
         "critere": "leg_drive",
         "phase": "decollage",
         "source": "llm",
         "vue": "side",
         "portee": "rep",
-        "question": "From the frame where the plates leave the floor to the frame where the bar reaches the knees, track the height of the hips and the height of the shoulders separately. Which of the two gains height?",
+        "question": "Analyze the sequence from the exact frame the lifter initiates physical effort (T0) to the exact frame the plates break physical contact with the floor (T1). Focus ONLY on the angle of the torso relative to the floor. Compare this angle at T0 and at T1.",
         "etats": [
           {
-            "cle": "together",
-            "note": 3,
-            "description": "Both gain height at the same pace: the angle of the back is the same on the two frames."
+            "cle": "torso_angle_decreases",
+            "note": 1,
+            "description": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor."
           },
           {
-            "cle": "hips_slightly_ahead",
+            "cle": "torso_angle_constant",
+            "note": 3,
+            "description": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar."
+          },
+          {
+            "cle": "torso_angle_increases",
             "note": 2,
-            "description": "The hips gain height a little faster than the shoulders: the back tilts somewhat more toward the floor, then holds."
-          },
-          {
-            "cle": "hips_shoot_up",
-            "note": 1,
-            "description": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees."
-          },
-          {
-            "cle": "shoulders_only",
-            "note": 1,
-            "description": "The shoulders gain height while the hips stay where they started: the back swings up around the hips like a hinge and the knee angle hardly changes, because the legs were already nearly straight at the floor."
+            "description": "The torso angle becomes visibly larger (more vertical to the floor) between T0 and T1. The shoulders rise at a faster rate than the hips before the bar leaves the floor."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "jerky_start": {
-        "id": "L03",
-        "critere": "slack_and_brace",
-        "phase": "decollage",
-        "source": "a_tester",
-        "vue": "toute",
-        "portee": "rep",
-        "question": "Is the start smooth, or is the bar jerked off the floor?",
-        "etats": [
-          {
-            "cle": "smooth",
-            "note": 3,
-            "description": "The bar accelerates smoothly out of the floor."
-          },
-          {
-            "cle": "jerked",
-            "note": 1,
-            "description": "The bar is jerked and the lifter is pulled out of position."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Lighting or framerate prevents a clear comparison."
           }
         ]
       },
@@ -2057,365 +1726,283 @@ export const sampleResult =
           }
         ]
       },
-      "past_the_knees": {
+      "bar_path_at_knees_topology": {
         "id": "P02",
         "critere": "bar_path",
         "phase": "tiree",
         "source": "a_tester",
-        "vue": "toute",
+        "vue": "side",
         "portee": "rep",
-        "question": "How does the bar get past the knees?",
+        "question": "Play the video from liftoff until the barbell passes the lifter's knees. Look strictly at the physical distance between the barbell shaft and the kneecaps. Does the barbell physically loop forward to navigate around the knees?",
         "etats": [
           {
-            "cle": "clean",
+            "cle": "bar_slides_past_knees",
             "note": 3,
-            "description": "The bar passes the knees close to the legs, in one line."
+            "description": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation."
           },
           {
-            "cle": "loops",
-            "note": 2,
-            "description": "The bar loops forward around the knees before coming back in."
-          },
-          {
-            "cle": "catches",
+            "cle": "bar_deviates_forward",
             "note": 1,
-            "description": "The bar catches on the knees and the lifter has to work around them."
+            "description": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The knees or the bar are obscured."
           }
         ]
       },
-      "bar_leg_contact": {
+      "bar_leg_daylight": {
         "id": "P03",
         "critere": "bar_path",
         "phase": "tiree",
         "source": "llm",
-        "vue": "toute",
+        "vue": "side",
         "portee": "rep",
-        "question": "Does the bar stay in contact with, or very close to, the legs?",
+        "question": "Analyze the video from the moment the plates leave the floor until the barbell reaches the hips. Look strictly at the physical space (daylight) between the barbell and the lifter's legs, and project a vertical line from the barbell to the floor.",
         "etats": [
           {
-            "cle": "in_contact",
+            "cle": "zero_daylight",
             "note": 3,
-            "description": "The bar stays against or within a few centimetres of the legs the whole way up."
+            "description": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact."
           },
           {
-            "cle": "brief_loss",
+            "cle": "daylight_over_shoe",
             "note": 2,
-            "description": "Contact is briefly lost, then the bar comes back to the legs."
+            "description": "Daylight appears between the bar and the legs, BUT a vertical line dropped from the barbell still lands inside the footprint of the lifter's shoe."
           },
           {
-            "cle": "away_from_legs",
+            "cle": "daylight_beyond_shoe",
             "note": 1,
-            "description": "The bar travels visibly away from the legs."
+            "description": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Plates or angle obscure the gap."
           }
         ]
       },
-      "lumbar_under_load": {
+      "lumbar_geometry_delta": {
         "id": "P04",
         "critere": "structure",
         "phase": "tiree",
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Look ONLY at the lower back. Compare its shape at the floor, at knee height and at lockout. Does flexion get ADDED there during the pull?",
+        "question": "Compare the exact frame just before liftoff (T0) to the exact frame where the barbell reaches the kneecaps (T1). Look strictly at the lumbar spine segment (pelvis to bottom ribs). Does the geometric shape of this segment change between T0 and T1?",
         "etats": [
           {
-            "cle": "unchanged",
+            "cle": "lumbar_geometry_constant",
             "note": null,
-            "description": "The lower back keeps the same shape from the floor to lockout."
+            "description": "The exact shape of the lumbar segment at T0 remains strictly identical at T1."
           },
           {
-            "cle": "flexion_appears",
-            "note": 2,
-            "description": "The lower back rounds further during the pull than it was at the start."
-          },
-          {
-            "cle": "collapses",
+            "cle": "lumbar_becomes_convex",
             "note": 1,
-            "description": "The lower back rounds hard and keeps rounding as the bar rises."
+            "description": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The lower back is obscured."
           }
         ]
       },
-      "thoracic_under_load": {
-        "id": "P10",
-        "critere": "structure",
-        "phase": "tiree",
-        "source": "llm",
-        "vue": "toute",
-        "portee": "rep",
-        "question": "Look ONLY at the upper back. Compare its shape at the floor, at knee height and at lockout. Does flexion get ADDED there during the pull?",
-        "etats": [
-          {
-            "cle": "unchanged",
-            "note": null,
-            "description": "The upper back keeps the same shape from the floor to lockout."
-          },
-          {
-            "cle": "flexion_appears",
-            "note": 2,
-            "description": "The upper back rounds further during the pull than it was at the start."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "knee_valgus": {
+      "knee_valgus_tracking": {
         "id": "P05",
         "critere": "structure",
         "phase": "tiree",
         "source": "llm",
         "vue": "front",
         "portee": "rep",
-        "question": "Do the knees stay out over the feet, or do they collapse inward? This is only answerable from the front or three-quarter view: from the side a knee coming in is indistinguishable from a knee coming forward, so answer 'not_visible'.",
+        "question": "Watch the pull from a front or 3/4 angle. Draw a strict vertical line upward from the inner edge of the lifter's shoe (the side closest to the other foot). Track the center of the kneecaps (patellas) during the ascent relative to this line.",
         "etats": [
           {
-            "cle": "tracks_out",
+            "cle": "knees_outside_line",
             "note": 3,
-            "description": "The knees track outward over the feet throughout."
+            "description": "The center of both kneecaps remains strictly outside (wider than) the vertical line from the inner edge of the shoe."
           },
           {
-            "cle": "slight",
+            "cle": "knees_touch_line",
             "note": 2,
-            "description": "The knees waver inward at the hardest point but never collapse."
+            "description": "The center of one or both kneecaps moves inward and touches the vertical line, but does not cross it."
           },
           {
-            "cle": "collapses_in",
+            "cle": "knees_cross_inside_line",
             "note": 1,
-            "description": "The knees collapse inward off the floor."
+            "description": "The center of one or both kneecaps physically crosses inside (narrower than) the vertical line from the inner edge of the shoe."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Pure side angle makes this tracking impossible."
           }
         ]
       },
-      "hitch": {
+      "vertical_velocity_hitch": {
         "id": "P08",
         "critere": "finish_position",
         "phase": "tiree",
         "source": "a_tester",
         "vue": "toute",
         "portee": "rep",
-        "question": "Does the lifter ratchet the bar up the thighs?",
+        "question": "Track the upward movement of the barbell on the Y-axis from the floor to the hips. Does the vertical upward velocity ever drop to zero or become negative before the lockout?",
         "etats": [
           {
-            "cle": "no",
+            "cle": "continuous_positive_velocity",
             "note": 3,
-            "description": "The bar rises in one continuous motion."
+            "description": "The barbell's Y-axis height strictly increases on every single frame until lockout."
           },
           {
-            "cle": "yes",
+            "cle": "velocity_hits_zero_or_negative",
             "note": 1,
-            "description": "The lifter re-flexes the knees and rests the bar on the thighs to ratchet it up."
+            "description": "The barbell's Y-axis height stops increasing (pauses) or decreases (drops slightly) while resting on the lifter's thighs (hitching)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "Framerate prevents tracking the bar's continuous height."
           }
         ]
       },
-      "asymmetry": {
-        "id": "P09",
-        "critere": "structure",
-        "phase": "tiree",
-        "source": "a_tester",
-        "vue": "front",
-        "portee": "rep",
-        "question": "Does one side of the bar rise ahead of the other?",
-        "etats": [
-          {
-            "cle": "even",
-            "note": 3,
-            "description": "Both sides rise together."
-          },
-          {
-            "cle": "uneven",
-            "note": 2,
-            "description": "One side finishes ahead of the other and the bar rotates."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "lean_back": {
-        "id": "K03",
-        "critere": "finish_position",
-        "phase": "lockout",
-        "source": "llm",
-        "vue": "side",
-        "portee": "rep",
-        "question": "Does the lifter lean back at the top?",
-        "etats": [
-          {
-            "cle": "upright",
-            "note": 3,
-            "description": "The lifter finishes upright and neutral."
-          },
-          {
-            "cle": "slight",
-            "note": 2,
-            "description": "A slight lean back at the top."
-          },
-          {
-            "cle": "hyperextension",
-            "note": 1,
-            "description": "Marked lumbar hyperextension at the top instead of finishing with the glutes."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "shrug": {
-        "id": "K04",
-        "critere": "finish_position",
-        "phase": "lockout",
-        "source": "a_tester",
-        "vue": "toute",
-        "portee": "rep",
-        "question": "Does the lifter shrug the shoulders to finish?",
-        "etats": [
-          {
-            "cle": "no",
-            "note": 3,
-            "description": "The lift finishes with hip extension alone."
-          },
-          {
-            "cle": "yes",
-            "note": 2,
-            "description": "The lifter shrugs the shoulders at the top: the shrug adds no height to the bar and abandons the lat position."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
-      },
-      "lockout_completion": {
+      "lockout_extension": {
         "id": "K07",
         "critere": "finish_position",
         "phase": "lockout",
         "source": "llm",
         "vue": "side",
         "portee": "rep",
-        "question": "Is the lift actually finished at the top: hips and knees both locked, the lifter standing tall?",
+        "question": "Pause the video at the exact frame of maximum upward completion (the lockout). Look strictly at the angle of the knee joint and the hip joint.",
         "etats": [
           {
-            "cle": "locked",
+            "cle": "full_180_extension",
             "note": 3,
-            "description": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished."
+            "description": "Both the knee joint and the hip joint form a strict 180-degree straight line."
           },
           {
-            "cle": "soft_knees",
-            "note": 1,
-            "description": "The knees stay visibly soft at the top."
+            "cle": "hip_angle_under_180",
+            "note": 2,
+            "description": "The knee joint is at 180 degrees, but the hip joint angle remains visibly less than 180 degrees (torso leaning forward)."
           },
           {
-            "cle": "hips_short",
+            "cle": "knee_angle_under_180",
             "note": 1,
-            "description": "The hips stay visibly bent at the top: the lifter never comes all the way through."
+            "description": "The knee joint angle remains visibly less than 180 degrees (knees bent)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The joints are obscured."
           }
         ]
       },
-      "descent_control": {
+      "sagittal_torso_angle": {
+        "id": "K03",
+        "critere": "finish_position",
+        "phase": "lockout",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame of maximum upward completion (the lockout). Analyze the angle of the lifter's torso relative to the floor in 3D space.",
+        "etats": [
+          {
+            "cle": "torso_perpendicular",
+            "note": 3,
+            "description": "The torso is perfectly perpendicular to the floor (90 degrees)."
+          },
+          {
+            "cle": "torso_obtuse_angle",
+            "note": 1,
+            "description": "The torso forms an obtuse angle relative to the floor in front of the lifter. The lifter is leaning backward away from the barbell (lumbar hyperextension)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The torso is obscured."
+          }
+        ]
+      },
+      "shoulder_elevation_delta": {
+        "id": "K04",
+        "critere": "finish_position",
+        "phase": "lockout",
+        "source": "a_tester",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Compare the vertical physical distance between the lifter's shoulder joint and their ear lobe at two moments: when the barbell is at the knees (T1), and at the final lockout (T2).",
+        "etats": [
+          {
+            "cle": "distance_remains_constant",
+            "note": 3,
+            "description": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2."
+          },
+          {
+            "cle": "distance_decreases",
+            "note": 1,
+            "description": "The vertical distance between the shoulder and the ear visibly decreases at T2 (the shoulders move closer to the ears/shrugging)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The neck/shoulder area is obscured."
+          }
+        ]
+      },
+      "descent_hand_contact": {
         "id": "E02",
         "critere": "reset",
         "phase": "descente",
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "How does the bar get back to the floor? If each rep is reset on the floor, only a dropped or uncontrolled bar is a fault: a deliberately fast but accompanied lowering is not.",
+        "question": "Analyze the sequence from the final lockout until the plates physically touch the floor again. Look strictly at the lifter's hands.",
         "etats": [
           {
-            "cle": "controlled",
+            "cle": "hands_maintain_contact",
             "note": 3,
-            "description": "The bar is lowered under control, the lifter staying with it."
+            "description": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor."
           },
           {
-            "cle": "fast_but_controlled",
-            "note": 2,
-            "description": "The descent is quick but the hands stay with the bar all the way down."
-          },
-          {
-            "cle": "dropped",
+            "cle": "hands_break_contact",
             "note": 1,
-            "description": "The bar is dropped or crashes to the floor."
-          },
-          {
-            "cle": "cut_off",
-            "note": null,
-            "description": "The lowering is cut off by the end of the video."
+            "description": "Visual space appears between the lifter's hands and the barbell BEFORE the plates touch the floor (the bar is dropped)."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The hands leave the video frame during the descent."
           }
         ]
       },
-      "rep_transition": {
+      "rep_transition_velocity": {
         "id": "E03",
         "critere": "reset",
         "phase": "descente",
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "How does this rep connect to the next one?",
+        "question": "Observe the exact moment the barbell touches the floor between two repetitions. Track the barbell's movement on the Y-axis. How long does the Y-axis velocity remain exactly at zero?",
         "etats": [
           {
-            "cle": "reset",
+            "cle": "zero_velocity_maintained",
             "note": 3,
-            "description": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep."
+            "description": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop)."
           },
           {
-            "cle": "touch_and_go",
+            "cle": "immediate_positive_velocity",
             "note": 3,
-            "description": "The bar touches and is immediately pulled again, but the position is still under control."
+            "description": "The barbell touches the floor and its Y-axis velocity becomes positive again instantly (under 0.5 seconds), but the plates do not physically bounce off the floor (touch and go)."
           },
           {
-            "cle": "bounce",
-            "note": 2,
-            "description": "The plates bounce off the floor and the bounce is used to start the next rep."
-          },
-          {
-            "cle": "last_rep",
-            "note": null,
-            "description": "This is the last rep of the set."
+            "cle": "impact_rebound",
+            "note": 1,
+            "description": "The plates strike the floor and visibly rebound, causing the bar to bounce upward using momentum."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+            "description": "The video ends, this is the final repetition, or the floor contact is cut off."
           }
         ]
       },
@@ -2521,28 +2108,24 @@ export const sampleResult =
         "fin_s": 5.4,
         "statut": "complete",
         "etats": {
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "bar_over_midfoot": "over_midfoot",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "progressive",
-          "hip_vs_shoulder_rise": "together",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence": "torso_angle_constant",
           "bar_left_floor": "yes",
-          "past_the_knees": "clean",
-          "bar_leg_contact": "in_contact",
-          "lumbar_under_load": "unchanged",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "hitch": "no",
-          "asymmetry": "even",
-          "lean_back": "upright",
-          "shrug": "no",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset"
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained"
         },
         "notes": {
           "start_position": 3,
@@ -2555,76 +2138,60 @@ export const sampleResult =
         },
         "indicateurs": [
           {
-            "nom": "hip_height",
-            "etat": "midway",
-            "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+            "nom": "bar_over_midfoot_topology",
+            "etat": "bar_over_laces",
+            "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "midway"
+            "reponse_brute": "bar_over_laces"
           },
           {
-            "nom": "shoulders_over_bar",
-            "etat": "over_bar",
-            "fait": "The shoulders are stacked over or just ahead of the bar.",
+            "nom": "shoulders_over_bar_gravity",
+            "etat": "arm_perfectly_vertical",
+            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_bar"
+            "reponse_brute": "arm_perfectly_vertical"
           },
           {
-            "nom": "bar_over_midfoot",
-            "etat": "over_midfoot",
-            "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
+            "nom": "hip_height_via_femur",
+            "etat": "femur_angled_upward",
+            "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_midfoot"
+            "reponse_brute": "femur_angled_upward"
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "neutral",
-            "fait": "The lower back keeps its natural inward curve at the setup.",
+            "etat": "lumbar_straight_or_concave",
+            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "neutral"
+            "reponse_brute": "lumbar_straight_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "rounded",
-            "fait": "The upper back is rounded before the bar moves.",
+            "etat": "thoracic_straight_or_concave",
+            "fait": "The line forms a straight plane or an inward curve.",
             "note": 3,
-            "observation": "The upper back is rounded and already set before the bar moves.",
-            "reponse_brute": "rounded"
+            "observation": "The upper back is flat and set before the bar moves.",
+            "reponse_brute": "thoracic_straight_or_concave"
           },
           {
-            "nom": "arms_long",
-            "etat": "straight",
-            "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+            "nom": "arms_tension_at_setup",
+            "etat": "elbow_locked_prior",
+            "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "straight"
+            "reponse_brute": "elbow_locked_prior"
           },
           {
-            "nom": "slack_pull",
-            "etat": "progressive",
-            "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+            "nom": "initiation_sequence",
+            "etat": "torso_angle_constant",
+            "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
             "note": 3,
-            "observation": null,
-            "reponse_brute": "progressive"
-          },
-          {
-            "nom": "hip_vs_shoulder_rise",
-            "etat": "together",
-            "fait": "Both gain height at the same pace: the angle of the back is the same on the two frames.",
-            "note": 3,
-            "observation": "Hips and shoulders leave the floor at the same rate.",
-            "reponse_brute": "together"
-          },
-          {
-            "nom": "jerky_start",
-            "etat": "smooth",
-            "fait": "The bar accelerates smoothly out of the floor.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "smooth"
+            "observation": "The torso angle is the same when the plates leave the floor.",
+            "reponse_brute": "torso_angle_constant"
           },
           {
             "nom": "bar_left_floor",
@@ -2635,100 +2202,84 @@ export const sampleResult =
             "reponse_brute": "yes"
           },
           {
-            "nom": "past_the_knees",
-            "etat": "clean",
-            "fait": "The bar passes the knees close to the legs, in one line.",
+            "nom": "bar_path_at_knees_topology",
+            "etat": "bar_slides_past_knees",
+            "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "clean"
+            "reponse_brute": "bar_slides_past_knees"
           },
           {
-            "nom": "bar_leg_contact",
-            "etat": "in_contact",
-            "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+            "nom": "bar_leg_daylight",
+            "etat": "zero_daylight",
+            "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "in_contact"
+            "reponse_brute": "zero_daylight"
           },
           {
-            "nom": "lumbar_under_load",
-            "etat": "unchanged",
-            "fait": "The lower back keeps the same shape from the floor to lockout.",
+            "nom": "lumbar_geometry_delta",
+            "etat": "lumbar_geometry_constant",
+            "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
             "note": null,
-            "observation": "The lower back holds its shape to lockout.",
-            "reponse_brute": "unchanged"
+            "observation": "The lower back holds its shape from the floor to the knees.",
+            "reponse_brute": "lumbar_geometry_constant"
           },
           {
-            "nom": "thoracic_under_load",
-            "etat": "unchanged",
-            "fait": "The upper back keeps the same shape from the floor to lockout.",
-            "note": null,
-            "observation": null,
-            "reponse_brute": "unchanged"
-          },
-          {
-            "nom": "knee_valgus",
+            "nom": "knee_valgus_tracking",
             "etat": "not_visible",
-            "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+            "fait": "Pure side angle makes this tracking impossible.",
             "note": null,
             "observation": null,
             "reponse_brute": "not_visible"
           },
           {
-            "nom": "hitch",
-            "etat": "no",
-            "fait": "The bar rises in one continuous motion.",
+            "nom": "vertical_velocity_hitch",
+            "etat": "continuous_positive_velocity",
+            "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "continuous_positive_velocity"
           },
           {
-            "nom": "asymmetry",
-            "etat": "even",
-            "fait": "Both sides rise together.",
+            "nom": "lockout_extension",
+            "etat": "full_180_extension",
+            "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "even"
+            "reponse_brute": "full_180_extension"
           },
           {
-            "nom": "lean_back",
-            "etat": "upright",
-            "fait": "The lifter finishes upright and neutral.",
+            "nom": "sagittal_torso_angle",
+            "etat": "torso_perpendicular",
+            "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "upright"
+            "reponse_brute": "torso_perpendicular"
           },
           {
-            "nom": "shrug",
-            "etat": "no",
-            "fait": "The lift finishes with hip extension alone.",
+            "nom": "shoulder_elevation_delta",
+            "etat": "distance_remains_constant",
+            "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "distance_remains_constant"
           },
           {
-            "nom": "lockout_completion",
-            "etat": "locked",
-            "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+            "nom": "descent_hand_contact",
+            "etat": "hands_maintain_contact",
+            "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "locked"
+            "reponse_brute": "hands_maintain_contact"
           },
           {
-            "nom": "descent_control",
-            "etat": "controlled",
-            "fait": "The bar is lowered under control, the lifter staying with it.",
+            "nom": "rep_transition_velocity",
+            "etat": "zero_velocity_maintained",
+            "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "controlled"
-          },
-          {
-            "nom": "rep_transition",
-            "etat": "reset",
-            "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "reset"
+            "reponse_brute": "zero_velocity_maintained"
           }
         ],
         "summary": "Textbook first pull, everything stacked.",
@@ -2741,28 +2292,24 @@ export const sampleResult =
         "fin_s": 10.4,
         "statut": "complete",
         "etats": {
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "bar_over_midfoot": "over_midfoot",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "progressive",
-          "hip_vs_shoulder_rise": "together",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence": "torso_angle_constant",
           "bar_left_floor": "yes",
-          "past_the_knees": "clean",
-          "bar_leg_contact": "in_contact",
-          "lumbar_under_load": "unchanged",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "hitch": "no",
-          "asymmetry": "even",
-          "lean_back": "upright",
-          "shrug": "no",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset"
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained"
         },
         "notes": {
           "start_position": 3,
@@ -2775,76 +2322,60 @@ export const sampleResult =
         },
         "indicateurs": [
           {
-            "nom": "hip_height",
-            "etat": "midway",
-            "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+            "nom": "bar_over_midfoot_topology",
+            "etat": "bar_over_laces",
+            "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "midway"
+            "reponse_brute": "bar_over_laces"
           },
           {
-            "nom": "shoulders_over_bar",
-            "etat": "over_bar",
-            "fait": "The shoulders are stacked over or just ahead of the bar.",
+            "nom": "shoulders_over_bar_gravity",
+            "etat": "arm_perfectly_vertical",
+            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_bar"
+            "reponse_brute": "arm_perfectly_vertical"
           },
           {
-            "nom": "bar_over_midfoot",
-            "etat": "over_midfoot",
-            "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
+            "nom": "hip_height_via_femur",
+            "etat": "femur_angled_upward",
+            "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_midfoot"
+            "reponse_brute": "femur_angled_upward"
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "neutral",
-            "fait": "The lower back keeps its natural inward curve at the setup.",
+            "etat": "lumbar_straight_or_concave",
+            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "neutral"
+            "reponse_brute": "lumbar_straight_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "rounded",
-            "fait": "The upper back is rounded before the bar moves.",
+            "etat": "thoracic_straight_or_concave",
+            "fait": "The line forms a straight plane or an inward curve.",
             "note": 3,
-            "observation": "The upper back is rounded and already set before the bar moves.",
-            "reponse_brute": "rounded"
+            "observation": "The upper back is flat and set before the bar moves.",
+            "reponse_brute": "thoracic_straight_or_concave"
           },
           {
-            "nom": "arms_long",
-            "etat": "straight",
-            "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+            "nom": "arms_tension_at_setup",
+            "etat": "elbow_locked_prior",
+            "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "straight"
+            "reponse_brute": "elbow_locked_prior"
           },
           {
-            "nom": "slack_pull",
-            "etat": "progressive",
-            "fait": "The arms pull taut and the bar or plates visibly load before anything moves.",
+            "nom": "initiation_sequence",
+            "etat": "torso_angle_constant",
+            "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
             "note": 3,
-            "observation": null,
-            "reponse_brute": "progressive"
-          },
-          {
-            "nom": "hip_vs_shoulder_rise",
-            "etat": "together",
-            "fait": "Both gain height at the same pace: the angle of the back is the same on the two frames.",
-            "note": 3,
-            "observation": "Hips and shoulders leave the floor at the same rate.",
-            "reponse_brute": "together"
-          },
-          {
-            "nom": "jerky_start",
-            "etat": "smooth",
-            "fait": "The bar accelerates smoothly out of the floor.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "smooth"
+            "observation": "The torso angle is the same when the plates leave the floor.",
+            "reponse_brute": "torso_angle_constant"
           },
           {
             "nom": "bar_left_floor",
@@ -2855,100 +2386,84 @@ export const sampleResult =
             "reponse_brute": "yes"
           },
           {
-            "nom": "past_the_knees",
-            "etat": "clean",
-            "fait": "The bar passes the knees close to the legs, in one line.",
+            "nom": "bar_path_at_knees_topology",
+            "etat": "bar_slides_past_knees",
+            "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "clean"
+            "reponse_brute": "bar_slides_past_knees"
           },
           {
-            "nom": "bar_leg_contact",
-            "etat": "in_contact",
-            "fait": "The bar stays against or within a few centimetres of the legs the whole way up.",
+            "nom": "bar_leg_daylight",
+            "etat": "zero_daylight",
+            "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "in_contact"
+            "reponse_brute": "zero_daylight"
           },
           {
-            "nom": "lumbar_under_load",
-            "etat": "unchanged",
-            "fait": "The lower back keeps the same shape from the floor to lockout.",
+            "nom": "lumbar_geometry_delta",
+            "etat": "lumbar_geometry_constant",
+            "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
             "note": null,
-            "observation": "The lower back holds its shape to lockout.",
-            "reponse_brute": "unchanged"
+            "observation": "The lower back holds its shape from the floor to the knees.",
+            "reponse_brute": "lumbar_geometry_constant"
           },
           {
-            "nom": "thoracic_under_load",
-            "etat": "unchanged",
-            "fait": "The upper back keeps the same shape from the floor to lockout.",
-            "note": null,
-            "observation": null,
-            "reponse_brute": "unchanged"
-          },
-          {
-            "nom": "knee_valgus",
+            "nom": "knee_valgus_tracking",
             "etat": "not_visible",
-            "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+            "fait": "Pure side angle makes this tracking impossible.",
             "note": null,
             "observation": null,
             "reponse_brute": "not_visible"
           },
           {
-            "nom": "hitch",
-            "etat": "no",
-            "fait": "The bar rises in one continuous motion.",
+            "nom": "vertical_velocity_hitch",
+            "etat": "continuous_positive_velocity",
+            "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "continuous_positive_velocity"
           },
           {
-            "nom": "asymmetry",
-            "etat": "even",
-            "fait": "Both sides rise together.",
+            "nom": "lockout_extension",
+            "etat": "full_180_extension",
+            "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "even"
+            "reponse_brute": "full_180_extension"
           },
           {
-            "nom": "lean_back",
-            "etat": "upright",
-            "fait": "The lifter finishes upright and neutral.",
+            "nom": "sagittal_torso_angle",
+            "etat": "torso_perpendicular",
+            "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "upright"
+            "reponse_brute": "torso_perpendicular"
           },
           {
-            "nom": "shrug",
-            "etat": "no",
-            "fait": "The lift finishes with hip extension alone.",
+            "nom": "shoulder_elevation_delta",
+            "etat": "distance_remains_constant",
+            "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "distance_remains_constant"
           },
           {
-            "nom": "lockout_completion",
-            "etat": "locked",
-            "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+            "nom": "descent_hand_contact",
+            "etat": "hands_maintain_contact",
+            "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "locked"
+            "reponse_brute": "hands_maintain_contact"
           },
           {
-            "nom": "descent_control",
-            "etat": "controlled",
-            "fait": "The bar is lowered under control, the lifter staying with it.",
+            "nom": "rep_transition_velocity",
+            "etat": "zero_velocity_maintained",
+            "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "controlled"
-          },
-          {
-            "nom": "rep_transition",
-            "etat": "reset",
-            "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "reset"
+            "reponse_brute": "zero_velocity_maintained"
           }
         ],
         "summary": "Still tight, the bar drifts a touch more.",
@@ -2961,110 +2476,90 @@ export const sampleResult =
         "fin_s": 15.4,
         "statut": "complete",
         "etats": {
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "bar_over_midfoot": "over_midfoot",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "partial",
-          "hip_vs_shoulder_rise": "hips_shoot_up",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence": "torso_angle_decreases",
           "bar_left_floor": "yes",
-          "past_the_knees": "loops",
-          "bar_leg_contact": "away_from_legs",
-          "lumbar_under_load": "flexion_appears",
-          "thoracic_under_load": "unchanged",
-          "knee_valgus": "not_visible",
-          "hitch": "no",
-          "asymmetry": "even",
-          "lean_back": "upright",
-          "shrug": "no",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "reset"
+          "bar_path_at_knees_topology": "bar_deviates_forward",
+          "bar_leg_daylight": "daylight_beyond_shoe",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "zero_velocity_maintained"
         },
         "notes": {
           "start_position": 3,
-          "slack_and_brace": 2,
+          "slack_and_brace": 3,
           "leg_drive": 1,
           "bar_path": 1,
           "finish_position": 3,
           "reset": 3,
-          "structure": 2
+          "structure": 3
         },
         "indicateurs": [
           {
-            "nom": "hip_height",
-            "etat": "midway",
-            "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+            "nom": "bar_over_midfoot_topology",
+            "etat": "bar_over_laces",
+            "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "midway"
+            "reponse_brute": "bar_over_laces"
           },
           {
-            "nom": "shoulders_over_bar",
-            "etat": "over_bar",
-            "fait": "The shoulders are stacked over or just ahead of the bar.",
+            "nom": "shoulders_over_bar_gravity",
+            "etat": "arm_perfectly_vertical",
+            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_bar"
+            "reponse_brute": "arm_perfectly_vertical"
           },
           {
-            "nom": "bar_over_midfoot",
-            "etat": "over_midfoot",
-            "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
+            "nom": "hip_height_via_femur",
+            "etat": "femur_angled_upward",
+            "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_midfoot"
+            "reponse_brute": "femur_angled_upward"
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "neutral",
-            "fait": "The lower back keeps its natural inward curve at the setup.",
+            "etat": "lumbar_straight_or_concave",
+            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "neutral"
+            "reponse_brute": "lumbar_straight_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "rounded",
-            "fait": "The upper back is rounded before the bar moves.",
+            "etat": "thoracic_straight_or_concave",
+            "fait": "The line forms a straight plane or an inward curve.",
             "note": 3,
-            "observation": "The upper back is rounded and already set before the bar moves.",
-            "reponse_brute": "rounded"
+            "observation": "The upper back is flat and set before the bar moves.",
+            "reponse_brute": "thoracic_straight_or_concave"
           },
           {
-            "nom": "arms_long",
-            "etat": "straight",
-            "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+            "nom": "arms_tension_at_setup",
+            "etat": "elbow_locked_prior",
+            "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "straight"
+            "reponse_brute": "elbow_locked_prior"
           },
           {
-            "nom": "slack_pull",
-            "etat": "partial",
-            "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-            "note": 2,
-            "observation": null,
-            "reponse_brute": "partial"
-          },
-          {
-            "nom": "hip_vs_shoulder_rise",
-            "etat": "hips_shoot_up",
-            "fait": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
+            "nom": "initiation_sequence",
+            "etat": "torso_angle_decreases",
+            "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
             "note": 1,
-            "observation": "The hips rise first; the torso stays inclined past the knees.",
-            "reponse_brute": "hips_shoot_up"
-          },
-          {
-            "nom": "jerky_start",
-            "etat": "smooth",
-            "fait": "The bar accelerates smoothly out of the floor.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "smooth"
+            "observation": "The hips rise before the plates leave the floor; the torso tilts toward horizontal.",
+            "reponse_brute": "torso_angle_decreases"
           },
           {
             "nom": "bar_left_floor",
@@ -3075,100 +2570,84 @@ export const sampleResult =
             "reponse_brute": "yes"
           },
           {
-            "nom": "past_the_knees",
-            "etat": "loops",
-            "fait": "The bar loops forward around the knees before coming back in.",
-            "note": 2,
-            "observation": null,
-            "reponse_brute": "loops"
-          },
-          {
-            "nom": "bar_leg_contact",
-            "etat": "away_from_legs",
-            "fait": "The bar travels visibly away from the legs.",
+            "nom": "bar_path_at_knees_topology",
+            "etat": "bar_deviates_forward",
+            "fait": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
             "note": 1,
             "observation": null,
-            "reponse_brute": "away_from_legs"
+            "reponse_brute": "bar_deviates_forward"
           },
           {
-            "nom": "lumbar_under_load",
-            "etat": "flexion_appears",
-            "fait": "The lower back rounds further during the pull than it was at the start.",
-            "note": 2,
-            "observation": "The lower back rounds further as the bar passes the knees.",
-            "reponse_brute": "flexion_appears"
-          },
-          {
-            "nom": "thoracic_under_load",
-            "etat": "unchanged",
-            "fait": "The upper back keeps the same shape from the floor to lockout.",
-            "note": null,
+            "nom": "bar_leg_daylight",
+            "etat": "daylight_beyond_shoe",
+            "fait": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
+            "note": 1,
             "observation": null,
-            "reponse_brute": "unchanged"
+            "reponse_brute": "daylight_beyond_shoe"
           },
           {
-            "nom": "knee_valgus",
+            "nom": "lumbar_geometry_delta",
+            "etat": "lumbar_geometry_constant",
+            "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
+            "note": null,
+            "observation": "The lower back holds its shape from the floor to the knees.",
+            "reponse_brute": "lumbar_geometry_constant"
+          },
+          {
+            "nom": "knee_valgus_tracking",
             "etat": "not_visible",
-            "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+            "fait": "Pure side angle makes this tracking impossible.",
             "note": null,
             "observation": null,
             "reponse_brute": "not_visible"
           },
           {
-            "nom": "hitch",
-            "etat": "no",
-            "fait": "The bar rises in one continuous motion.",
+            "nom": "vertical_velocity_hitch",
+            "etat": "continuous_positive_velocity",
+            "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "continuous_positive_velocity"
           },
           {
-            "nom": "asymmetry",
-            "etat": "even",
-            "fait": "Both sides rise together.",
+            "nom": "lockout_extension",
+            "etat": "full_180_extension",
+            "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "even"
+            "reponse_brute": "full_180_extension"
           },
           {
-            "nom": "lean_back",
-            "etat": "upright",
-            "fait": "The lifter finishes upright and neutral.",
+            "nom": "sagittal_torso_angle",
+            "etat": "torso_perpendicular",
+            "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "upright"
+            "reponse_brute": "torso_perpendicular"
           },
           {
-            "nom": "shrug",
-            "etat": "no",
-            "fait": "The lift finishes with hip extension alone.",
+            "nom": "shoulder_elevation_delta",
+            "etat": "distance_remains_constant",
+            "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "distance_remains_constant"
           },
           {
-            "nom": "lockout_completion",
-            "etat": "locked",
-            "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+            "nom": "descent_hand_contact",
+            "etat": "hands_maintain_contact",
+            "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "locked"
+            "reponse_brute": "hands_maintain_contact"
           },
           {
-            "nom": "descent_control",
-            "etat": "controlled",
-            "fait": "The bar is lowered under control, the lifter staying with it.",
+            "nom": "rep_transition_velocity",
+            "etat": "zero_velocity_maintained",
+            "fait": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "controlled"
-          },
-          {
-            "nom": "rep_transition",
-            "etat": "reset",
-            "fait": "The bar comes to a full stop on the floor and the lifter rebuilds the setup before the next rep.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "reset"
+            "reponse_brute": "zero_velocity_maintained"
           }
         ],
         "summary": "The hips beat the shoulders out of the floor.",
@@ -3181,32 +2660,28 @@ export const sampleResult =
         "fin_s": 20.4,
         "statut": "complete",
         "etats": {
-          "hip_height": "midway",
-          "shoulders_over_bar": "over_bar",
-          "bar_over_midfoot": "over_midfoot",
-          "lumbar_at_setup": "neutral",
-          "thoracic_at_setup": "rounded",
-          "arms_long": "straight",
-          "slack_pull": "partial",
-          "hip_vs_shoulder_rise": "hips_shoot_up",
-          "jerky_start": "smooth",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup": "lumbar_straight_or_concave",
+          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence": "torso_angle_decreases",
           "bar_left_floor": "yes",
-          "past_the_knees": "loops",
-          "bar_leg_contact": "away_from_legs",
-          "lumbar_under_load": "collapses",
-          "thoracic_under_load": "flexion_appears",
-          "knee_valgus": "not_visible",
-          "hitch": "no",
-          "asymmetry": "even",
-          "lean_back": "upright",
-          "shrug": "no",
-          "lockout_completion": "locked",
-          "descent_control": "controlled",
-          "rep_transition": "last_rep"
+          "bar_path_at_knees_topology": "bar_deviates_forward",
+          "bar_leg_daylight": "daylight_beyond_shoe",
+          "lumbar_geometry_delta": "lumbar_becomes_convex",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact": "hands_maintain_contact",
+          "rep_transition_velocity": "not_visible"
         },
         "notes": {
           "start_position": 3,
-          "slack_and_brace": 2,
+          "slack_and_brace": 3,
           "leg_drive": 1,
           "bar_path": 1,
           "finish_position": 3,
@@ -3215,76 +2690,60 @@ export const sampleResult =
         },
         "indicateurs": [
           {
-            "nom": "hip_height",
-            "etat": "midway",
-            "fait": "The hips sit well below the shoulders AND well above the knees: the two distances are of the same order, the back is clearly inclined upward and the knees are clearly bent.",
+            "nom": "bar_over_midfoot_topology",
+            "etat": "bar_over_laces",
+            "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "midway"
+            "reponse_brute": "bar_over_laces"
           },
           {
-            "nom": "shoulders_over_bar",
-            "etat": "over_bar",
-            "fait": "The shoulders are stacked over or just ahead of the bar.",
+            "nom": "shoulders_over_bar_gravity",
+            "etat": "arm_perfectly_vertical",
+            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_bar"
+            "reponse_brute": "arm_perfectly_vertical"
           },
           {
-            "nom": "bar_over_midfoot",
-            "etat": "over_midfoot",
-            "fait": "The line hits the foot between the ankle and the base of the toes, roughly over the laces.",
+            "nom": "hip_height_via_femur",
+            "etat": "femur_angled_upward",
+            "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "over_midfoot"
+            "reponse_brute": "femur_angled_upward"
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "neutral",
-            "fait": "The lower back keeps its natural inward curve at the setup.",
+            "etat": "lumbar_straight_or_concave",
+            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "neutral"
+            "reponse_brute": "lumbar_straight_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "rounded",
-            "fait": "The upper back is rounded before the bar moves.",
+            "etat": "thoracic_straight_or_concave",
+            "fait": "The line forms a straight plane or an inward curve.",
             "note": 3,
-            "observation": "The upper back is rounded and already set before the bar moves.",
-            "reponse_brute": "rounded"
+            "observation": "The upper back is flat and set before the bar moves.",
+            "reponse_brute": "thoracic_straight_or_concave"
           },
           {
-            "nom": "arms_long",
-            "etat": "straight",
-            "fait": "One straight line from the shoulder to the hand on every frame: the elbow never makes an angle.",
+            "nom": "arms_tension_at_setup",
+            "etat": "elbow_locked_prior",
+            "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "straight"
+            "reponse_brute": "elbow_locked_prior"
           },
           {
-            "nom": "slack_pull",
-            "etat": "partial",
-            "fait": "Some tension is taken but it is lost as the bar breaks the floor.",
-            "note": 2,
-            "observation": null,
-            "reponse_brute": "partial"
-          },
-          {
-            "nom": "hip_vs_shoulder_rise",
-            "etat": "hips_shoot_up",
-            "fait": "The hips rise sharply while the shoulders stay low: the back ends up nearly horizontal and the legs are straight before the bar reaches the knees.",
+            "nom": "initiation_sequence",
+            "etat": "torso_angle_decreases",
+            "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
             "note": 1,
-            "observation": "The hips rise first; the torso stays inclined past the knees.",
-            "reponse_brute": "hips_shoot_up"
-          },
-          {
-            "nom": "jerky_start",
-            "etat": "smooth",
-            "fait": "The bar accelerates smoothly out of the floor.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "smooth"
+            "observation": "The hips rise before the plates leave the floor; the torso tilts toward horizontal.",
+            "reponse_brute": "torso_angle_decreases"
           },
           {
             "nom": "bar_left_floor",
@@ -3295,100 +2754,84 @@ export const sampleResult =
             "reponse_brute": "yes"
           },
           {
-            "nom": "past_the_knees",
-            "etat": "loops",
-            "fait": "The bar loops forward around the knees before coming back in.",
-            "note": 2,
-            "observation": null,
-            "reponse_brute": "loops"
-          },
-          {
-            "nom": "bar_leg_contact",
-            "etat": "away_from_legs",
-            "fait": "The bar travels visibly away from the legs.",
+            "nom": "bar_path_at_knees_topology",
+            "etat": "bar_deviates_forward",
+            "fait": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps.",
             "note": 1,
             "observation": null,
-            "reponse_brute": "away_from_legs"
+            "reponse_brute": "bar_deviates_forward"
           },
           {
-            "nom": "lumbar_under_load",
-            "etat": "collapses",
-            "fait": "The lower back rounds hard and keeps rounding as the bar rises.",
+            "nom": "bar_leg_daylight",
+            "etat": "daylight_beyond_shoe",
+            "fait": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor).",
+            "note": 1,
+            "observation": null,
+            "reponse_brute": "daylight_beyond_shoe"
+          },
+          {
+            "nom": "lumbar_geometry_delta",
+            "etat": "lumbar_becomes_convex",
+            "fait": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
             "note": 1,
             "observation": "The lower back rounds further as the bar passes the knees.",
-            "reponse_brute": "collapses"
+            "reponse_brute": "lumbar_becomes_convex"
           },
           {
-            "nom": "thoracic_under_load",
-            "etat": "flexion_appears",
-            "fait": "The upper back rounds further during the pull than it was at the start.",
-            "note": 2,
-            "observation": null,
-            "reponse_brute": "flexion_appears"
-          },
-          {
-            "nom": "knee_valgus",
+            "nom": "knee_valgus_tracking",
             "etat": "not_visible",
-            "fait": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked.",
+            "fait": "Pure side angle makes this tracking impossible.",
             "note": null,
             "observation": null,
             "reponse_brute": "not_visible"
           },
           {
-            "nom": "hitch",
-            "etat": "no",
-            "fait": "The bar rises in one continuous motion.",
+            "nom": "vertical_velocity_hitch",
+            "etat": "continuous_positive_velocity",
+            "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "continuous_positive_velocity"
           },
           {
-            "nom": "asymmetry",
-            "etat": "even",
-            "fait": "Both sides rise together.",
+            "nom": "lockout_extension",
+            "etat": "full_180_extension",
+            "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "even"
+            "reponse_brute": "full_180_extension"
           },
           {
-            "nom": "lean_back",
-            "etat": "upright",
-            "fait": "The lifter finishes upright and neutral.",
+            "nom": "sagittal_torso_angle",
+            "etat": "torso_perpendicular",
+            "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "upright"
+            "reponse_brute": "torso_perpendicular"
           },
           {
-            "nom": "shrug",
-            "etat": "no",
-            "fait": "The lift finishes with hip extension alone.",
+            "nom": "shoulder_elevation_delta",
+            "etat": "distance_remains_constant",
+            "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "no"
+            "reponse_brute": "distance_remains_constant"
           },
           {
-            "nom": "lockout_completion",
-            "etat": "locked",
-            "fait": "Hips and knees both reach full extension: the lifter stands tall and the rep is finished.",
+            "nom": "descent_hand_contact",
+            "etat": "hands_maintain_contact",
+            "fait": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor.",
             "note": 3,
             "observation": null,
-            "reponse_brute": "locked"
+            "reponse_brute": "hands_maintain_contact"
           },
           {
-            "nom": "descent_control",
-            "etat": "controlled",
-            "fait": "The bar is lowered under control, the lifter staying with it.",
-            "note": 3,
-            "observation": null,
-            "reponse_brute": "controlled"
-          },
-          {
-            "nom": "rep_transition",
-            "etat": "last_rep",
-            "fait": "This is the last rep of the set.",
+            "nom": "rep_transition_velocity",
+            "etat": "not_visible",
+            "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
             "note": null,
             "observation": null,
-            "reponse_brute": "last_rep"
+            "reponse_brute": "not_visible"
           }
         ],
         "summary": "Last rep: the back rounds and the bar swings out.",
@@ -3424,4 +2867,5 @@ export const sampleResult =
     ]
   },
   "modele": "gemini-3.5-flash"
-};
+}
+;

@@ -176,6 +176,11 @@ des deux avait casse quoi.
 
 ## Le prochain candidat
 
+> 2026-09-11 soir : le catalogue a été réécrit en frontières binaires (voir
+> `sbd-grading-changes`). Les noms ci-dessous sont les anciens ; `hip_vs_shoulder_rise`
+> s'appelle maintenant `initiation_sequence`, sans cran « un peu ». Le test proposé
+> reste le bon.
+
 `hip_vs_shoulder_rise` : `hips_slightly_ahead` y joue exactement le role qu'avait
 `upper_back_rounded`. Il vaut 2/3 depuis le 2026-09-11, donc la porte est a moitie fermee,
 mais il n'a jamais ete choisi. **A tester sur un clip de profil ou les hanches partent
