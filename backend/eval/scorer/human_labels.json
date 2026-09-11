@@ -1,802 +1,826 @@
 {
- "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "hip_hinge_mechanics": 2,
-   "leg_drive_activation": 1,
-   "core_bracing_and_spine_neutrality": "NA",
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2,
-   "slack_pull_and_lat_engagement": 1
+  "230 kg 5 Reps Training increase ur maximum no of Deadlift.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "hip_hinge_mechanics": 2,
+      "leg_drive_activation": 1,
+      "core_bracing_and_spine_neutrality": "NA",
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2,
+      "slack_pull_and_lat_engagement": 1
+    },
+    "comment": "De face donc difficile de voir le dos arrondis même si j'ai l'impression que claude a raison sur ce point. Le mouvement est un peu squatty, les hanches vont pas assez en arrière",
+    "updated_at": "2026-09-05T20:36:46.425Z",
+    "persona": [
+      "The Squatter"
+    ]
   },
-  "comment": "De face donc difficile de voir le dos arrondis même si j'ai l'impression que claude a raison sur ce point. Le mouvement est un peu squatty, les hanches vont pas assez en arrière",
-  "updated_at": "2026-09-05T20:36:46.425Z",
-  "persona": [
-   "The Squatter"
-  ]
- },
- "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_wedge": 3,
-   "leg_drive_and_floor_spread": 2,
-   "hip_opening_and_knee_tracking": "NA",
-   "core_bracing_and_spine_neutrality": 3,
-   "eccentric_control_and_descent": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2
+  "700 lbs sumo deadlift 148 lbs body weight #deadlift #powerlifting #strength #deadlifting.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_wedge": 3,
+      "leg_drive_and_floor_spread": 2,
+      "hip_opening_and_knee_tracking": "NA",
+      "core_bracing_and_spine_neutrality": 3,
+      "eccentric_control_and_descent": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:39:10.276Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:39:10.276Z"
- },
- "Arthur Garrec Profil de coureur Strava.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": "NA",
-   "eccentric_control_and_descent": 3
+  "Arthur Garrec Profil de coureur Strava.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": "NA",
+      "eccentric_control_and_descent": 3
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "On voit clairement la position de départ contrairement  à ce que dit claude",
+    "updated_at": "2026-09-05T20:39:30.038Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "On voit clairement la position de départ contrairement  à ce que dit claude",
-  "updated_at": "2026-09-05T20:39:30.038Z"
- },
- "arthur_froler_fesse.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "arthur_froler_fesse.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "on voit même un léger shrug, je sais pas où le mettre",
+    "updated_at": "2026-09-05T20:40:03.860Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "on voit même un léger shrug, je sais pas où le mettre",
-  "updated_at": "2026-09-05T20:40:03.860Z"
- },
- "arthur_last.mp4": {
-  "scores": {
-   "starting_position": "NA",
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 2,
-   "eccentric_control_and_descent": 2,
-   "lockout_execution": 2,
-   "bar_path_and_proximity": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "hip_hinge_mechanics": 2
+  "arthur_last.mp4": {
+    "scores": {
+      "starting_position": "NA",
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 2,
+      "eccentric_control_and_descent": 2,
+      "lockout_execution": 2,
+      "bar_path_and_proximity": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "hip_hinge_mechanics": 2
+    },
+    "persona": [
+      "The T-Rex",
+      "The Shrugger"
+    ],
+    "comment": "les genoux rentre vachement à l'intérieur, j'ai l'impression aussi que les hanches sont trop hautes",
+    "updated_at": "2026-09-05T20:46:54.808Z"
   },
-  "persona": [
-   "The T-Rex",
-   "The Shrugger"
-  ],
-  "comment": "les genoux rentre vachement à l'intérieur, j'ai l'impression aussi que les hanches sont trop hautes",
-  "updated_at": "2026-09-05T20:46:54.808Z"
- },
- "conventionnal_deadlift_1.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_1.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "hip shoot up, la vidéo est très bien : le modèle dit n'importe quoi, on voit clairement la barre montée, le dos est légèrement arrondi",
+    "updated_at": "2026-09-05T20:47:13.188Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "hip shoot up, la vidéo est très bien : le modèle dit n'importe quoi, on voit clairement la barre montée, le dos est légèrement arrondi",
-  "updated_at": "2026-09-05T20:47:13.188Z"
- },
- "conventionnal_deadlift_10.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": "NA"
+  "conventionnal_deadlift_10.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "il monte tout avec les lombaires, une des pires vidéos",
+    "updated_at": "2026-09-05T20:41:51.121Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "il monte tout avec les lombaires, une des pires vidéos",
-  "updated_at": "2026-09-05T20:41:51.121Z"
- },
- "conventionnal_deadlift_11.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "bar_path_and_proximity": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 2,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_11.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "bar_path_and_proximity": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 3,
+      "core_bracing_and_spine_neutrality": 2,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "On n'a pas la même exigence sur une descente pour un 1rep et plusieurs reps, c'est fou, il faut bien cadrer ça. Pour cette vidéo c'est un DL intermédiaire, ça commence à être pas mal mais le dos est encore un peu arrondi, les hanches sont trop haute au départ",
+    "updated_at": "2026-09-05T20:42:01.579Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "On n'a pas la même exigence sur une descente pour un 1rep et plusieurs reps, c'est fou, il faut bien cadrer ça. Pour cette vidéo c'est un DL intermédiaire, ça commence à être pas mal mais le dos est encore un peu arrondi, les hanches sont trop haute au départ",
-  "updated_at": "2026-09-05T20:42:01.579Z"
- },
- "conventionnal_deadlift_12.mp4": {
-  "scores": {
-   "bar_path_and_proximity": "NA",
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 3,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "lockout_execution": "NA",
-   "eccentric_control_and_descent": 3
+  "conventionnal_deadlift_12.mp4": {
+    "scores": {
+      "bar_path_and_proximity": "NA",
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 3,
+      "hip_hinge_mechanics": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "lockout_execution": "NA",
+      "eccentric_control_and_descent": 3
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "très propre, on ne voit juste pas le bar proximity avec le poids",
+    "updated_at": "2026-09-05T20:42:53.480Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "très propre, on ne voit juste pas le bar proximity avec le poids",
-  "updated_at": "2026-09-05T20:42:53.480Z"
- },
- "conventionnal_deadlift_13.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 3,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": "NA",
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_13.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 3,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": "NA",
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "il redescend un peu trop en squat et pas de slack pull majeur mais le dos est droit et les hanches bien placées",
+    "updated_at": "2026-09-05T20:42:59.484Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "il redescend un peu trop en squat et pas de slack pull majeur mais le dos est droit et les hanches bien placées",
-  "updated_at": "2026-09-05T20:42:59.484Z"
- },
- "conventionnal_deadlift_14.mp4": {
-  "scores": {
-   "lockout_execution": "NA",
-   "eccentric_control_and_descent": "NA",
-   "bar_path_and_proximity": "NA",
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 1
+  "conventionnal_deadlift_14.mp4": {
+    "scores": {
+      "lockout_execution": "NA",
+      "eccentric_control_and_descent": "NA",
+      "bar_path_and_proximity": "NA",
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 1
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "hanches beaucoup trop hautes tout du long, dos beaucoup arrondi",
+    "updated_at": "2026-09-05T20:43:02.650Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "hanches beaucoup trop hautes tout du long, dos beaucoup arrondi",
-  "updated_at": "2026-09-05T20:43:02.650Z"
- },
- "conventionnal_deadlift_2.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_2.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "Descente pas très contrôlée mais c'est l'objectif ici est dead stop. Niveau intermédiaire mais pas hyper propre, dos un peu arrondi, hanche un peu mal placé au début. Le gars fait rouler la bar au début ce qui montre qu'il s'enfout du slack pull je pense",
+    "updated_at": "2026-09-05T20:46:00.224Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "Descente pas très contrôlée mais c'est l'objectif ici est dead stop. Niveau intermédiaire mais pas hyper propre, dos un peu arrondi, hanche un peu mal placé au début. Le gars fait rouler la bar au début ce qui montre qu'il s'enfout du slack pull je pense",
-  "updated_at": "2026-09-05T20:46:00.224Z"
- },
- "conventionnal_deadlift_3.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_3.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "il faut qu'il lève la poitrine lui au départ",
+    "updated_at": "2026-09-05T20:46:06.707Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "il faut qu'il lève la poitrine lui au départ",
-  "updated_at": "2026-09-05T20:46:06.707Z"
- },
- "conventionnal_deadlift_4.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "bar_path_and_proximity": "NA",
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": "NA"
+  "conventionnal_deadlift_4.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "bar_path_and_proximity": "NA",
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "la qualité de la vidéo est pas folle, y a bcp de machines autour. on voit quand même que la barre est proche et que le dos est fine même de face",
+    "updated_at": "2026-09-05T20:46:17.084Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "la qualité de la vidéo est pas folle, y a bcp de machines autour. on voit quand même que la barre est proche et que le dos est fine même de face",
-  "updated_at": "2026-09-05T20:46:17.084Z"
- },
- "conventionnal_deadlift_5.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "hip_hinge_mechanics": 1,
-   "leg_drive_activation": 2,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 1
+  "conventionnal_deadlift_5.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "hip_hinge_mechanics": 1,
+      "leg_drive_activation": 2,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 1
+    },
+    "persona": [
+      "The Hitcher",
+      "The Fishing Rod"
+    ],
+    "comment": "globalement c'est moche même si on sent de la puissance, tout vas dans le dos même si on voit pas très bien il prend un rebond et un squat en bas",
+    "updated_at": "2026-09-05T20:46:43.447Z"
   },
-  "persona": [
-   "The Hitcher",
-   "The Fishing Rod"
-  ],
-  "comment": "globalement c'est moche même si on sent de la puissance, tout vas dans le dos même si on voit pas très bien il prend un rebond et un squat en bas",
-  "updated_at": "2026-09-05T20:46:43.447Z"
- },
- "conventionnal_deadlift_6.mp4": {
-  "scores": {
-   "hip_hinge_mechanics": 3,
-   "leg_drive_activation": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "starting_position": 2,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_6.mp4": {
+    "scores": {
+      "hip_hinge_mechanics": 3,
+      "leg_drive_activation": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "starting_position": 2,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "pas mal du tout, la mise en place est un peu suspecte mais le dos est bien droit pendant la rep et le hip hinge semble ok",
+    "updated_at": "2026-09-05T20:47:24.225Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "pas mal du tout, la mise en place est un peu suspecte mais le dos est bien droit pendant la rep et le hip hinge semble ok",
-  "updated_at": "2026-09-05T20:47:24.225Z"
- },
- "conventionnal_deadlift_7.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "eccentric_control_and_descent": 2,
-   "lockout_execution": 2
+  "conventionnal_deadlift_7.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "eccentric_control_and_descent": 2,
+      "lockout_execution": 2
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "vraiment pas mal même si on voit pas de tirage slack, on sent que c'est bien appliqué",
+    "updated_at": "2026-09-05T20:49:02.202Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "vraiment pas mal même si on voit pas de tirage slack, on sent que c'est bien appliqué",
-  "updated_at": "2026-09-05T20:49:02.202Z"
- },
- "conventionnal_deadlift_8.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": "NA"
+  "conventionnal_deadlift_8.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "vraiment mauvaise technique, dos très très rond",
+    "updated_at": "2026-09-05T20:48:30.193Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "vraiment mauvaise technique, dos très très rond",
-  "updated_at": "2026-09-05T20:48:30.193Z"
- },
- "conventionnal_deadlift_9.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "conventionnal_deadlift_9.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "hip shoot up",
+    "updated_at": "2026-09-05T20:48:34.398Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "hip shoot up",
-  "updated_at": "2026-09-05T20:48:34.398Z"
- },
- "engueran_fail_deadlift.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_wedge": 1,
-   "leg_drive_and_floor_spread": 1,
-   "hip_opening_and_knee_tracking": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 1,
-   "lockout_execution": "NA",
-   "eccentric_control_and_descent": "NA"
+  "engueran_fail_deadlift.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_wedge": 1,
+      "leg_drive_and_floor_spread": 1,
+      "hip_opening_and_knee_tracking": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 1,
+      "lockout_execution": "NA",
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "The Fishing Rod",
+      "The Grip & Rip"
+    ],
+    "comment": "échec de l'athlète, la technique va pas",
+    "updated_at": "2026-09-05T20:50:08.861Z"
   },
-  "persona": [
-   "The Fishing Rod",
-   "The Grip & Rip"
-  ],
-  "comment": "échec de l'athlète, la technique va pas",
-  "updated_at": "2026-09-05T20:50:08.861Z"
- },
- "engueran_sumo.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_wedge": 1,
-   "leg_drive_and_floor_spread": 1,
-   "hip_opening_and_knee_tracking": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 1,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": "NA"
+  "engueran_sumo.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_wedge": 1,
+      "leg_drive_and_floor_spread": 1,
+      "hip_opening_and_knee_tracking": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 1,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "The Fishing Rod",
+      "The Grip & Rip"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:50:07.195Z"
   },
-  "persona": [
-   "The Fishing Rod",
-   "The Grip & Rip"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:50:07.195Z"
- },
- "erwan_bon_slack.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "erwan_bon_slack.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "les hanches sont trop hautes",
+    "updated_at": "2026-09-05T20:49:13.981Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "les hanches sont trop hautes",
-  "updated_at": "2026-09-05T20:49:13.981Z"
- },
- "erwan_last.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "erwan_last.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Soft-Lock"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:49:33.708Z"
   },
-  "persona": [
-   "The Soft-Lock"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:49:33.708Z"
- },
- "erwan_mauvais_slack.mp4": {
-  "scores": {
-   "hip_hinge_mechanics": 2,
-   "leg_drive_activation": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "starting_position": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "erwan_mauvais_slack.mp4": {
+    "scores": {
+      "hip_hinge_mechanics": 2,
+      "leg_drive_activation": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "starting_position": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "hip shoot up a lot",
+    "updated_at": "2026-09-05T20:49:37.859Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "hip shoot up a lot",
-  "updated_at": "2026-09-05T20:49:37.859Z"
- },
- "jeff_nippard_conv.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 3,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 3
+  "jeff_nippard_conv.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 3,
+      "hip_hinge_mechanics": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 3
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:49:42.447Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:49:42.447Z"
- },
- "jeff_nippard_sumo.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_wedge": 3,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 3,
-   "set_consistency": "NA"
+  "jeff_nippard_sumo.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_wedge": 3,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 3,
+      "set_consistency": "NA"
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-06T18:59:36.490Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-06T18:59:36.490Z"
- },
- "long_deadlift.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "long_deadlift.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "hanche trop haute et poitrine pas relevee",
+    "updated_at": "2026-09-05T20:49:48.218Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "hanche trop haute et poitrine pas relevee",
-  "updated_at": "2026-09-05T20:49:48.218Z"
- },
- "oscar_sumo.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_wedge": 3,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "oscar_sumo.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_wedge": 3,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "je pense qu'avec les hanches un poil haut ça serait mieux",
+    "updated_at": "2026-09-05T20:49:51.091Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "je pense qu'avec les hanches un poil haut ça serait mieux",
-  "updated_at": "2026-09-05T20:49:51.091Z"
- },
- "oscar_sumo_short.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_wedge": 3,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "oscar_sumo_short.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_wedge": 3,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:49:52.854Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:49:52.854Z"
- },
- "p_deadlift.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 3,
-   "hip_hinge_mechanics": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": "NA"
+  "p_deadlift.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 3,
+      "hip_hinge_mechanics": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": 3,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": "NA"
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:49:54.647Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:49:54.647Z"
- },
- "pas_poitrine_relevee.mp4": {
-  "scores": {
-   "leg_drive_activation": 1,
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "pas_poitrine_relevee.mp4": {
+    "scores": {
+      "leg_drive_activation": 1,
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:49:58.329Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:49:58.329Z"
- },
- "poitrine_relevee.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_lat_engagement": 3,
-   "leg_drive_activation": 2,
-   "hip_hinge_mechanics": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "poitrine_relevee.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_lat_engagement": 3,
+      "leg_drive_activation": 2,
+      "hip_hinge_mechanics": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:50:37.730Z"
   },
-  "persona": [
-   "The Crane"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:50:37.730Z"
- },
- "pr_160.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 1,
-   "eccentric_control_and_descent": 1
+  "pr_160.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 1,
+      "eccentric_control_and_descent": 1
+    },
+    "persona": [
+      "The Grip & Rip",
+      "The Fishing Rod",
+      "The Kneecapper"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:50:17.171Z"
   },
-  "persona": [
-   "The Grip & Rip",
-   "The Fishing Rod",
-   "The Kneecapper"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:50:17.171Z"
- },
- "sumo_deadlift_1.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_wedge": 2,
-   "leg_drive_and_floor_spread": 2,
-   "hip_opening_and_knee_tracking": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "sumo_deadlift_1.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_wedge": 2,
+      "leg_drive_and_floor_spread": 2,
+      "hip_opening_and_knee_tracking": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Crane",
+      "The Over-Extender"
+    ],
+    "comment": "petit hip shoot up dommage la position était géniale sinon, pas de slack pull excessif. Le dos s'arrondit juste avant de partir pour de vrai à chaque fois. Lockout un peu trop excessif en arrière",
+    "updated_at": "2026-09-06T16:59:38.097Z"
   },
-  "persona": [
-   "The Crane",
-   "The Over-Extender"
-  ],
-  "comment": "petit hip shoot up dommage la position était géniale sinon, pas de slack pull excessif. Le dos s'arrondit juste avant de partir pour de vrai à chaque fois. Lockout un peu trop excessif en arrière",
-  "updated_at": "2026-09-06T16:59:38.097Z"
- },
- "sumo_deadlift_10.mp4": {
-  "scores": {
-   "slack_pull_and_wedge": 2,
-   "starting_position": 2,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "sumo_deadlift_10.mp4": {
+    "scores": {
+      "slack_pull_and_wedge": 2,
+      "starting_position": 2,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Over-Extender"
+    ],
+    "comment": "légère hyperextension en fin de mouvement mais sinon le mouvement est bien clean. Le mouvement est poil trop décomposé en deux temps",
+    "updated_at": "2026-09-05T20:51:42.714Z"
   },
-  "persona": [
-   "The Over-Extender"
-  ],
-  "comment": "légère hyperextension en fin de mouvement mais sinon le mouvement est bien clean. Le mouvement est poil trop décomposé en deux temps",
-  "updated_at": "2026-09-05T20:51:42.714Z"
- },
- "sumo_deadlift_11.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_wedge": 2,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 3
+  "sumo_deadlift_11.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_wedge": 2,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 3
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:51:50.751Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:51:50.751Z"
- },
- "sumo_deadlift_12.mp4": {
-  "scores": {
-   "starting_position": 3,
-   "slack_pull_and_wedge": 3,
-   "lockout_execution": 2,
-   "bar_path_and_proximity": "NA",
-   "eccentric_control_and_descent": 2,
-   "core_bracing_and_spine_neutrality": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "leg_drive_and_floor_spread": 3
+  "sumo_deadlift_12.mp4": {
+    "scores": {
+      "starting_position": 3,
+      "slack_pull_and_wedge": 3,
+      "lockout_execution": 2,
+      "bar_path_and_proximity": "NA",
+      "eccentric_control_and_descent": 2,
+      "core_bracing_and_spine_neutrality": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "leg_drive_and_floor_spread": 3
+    },
+    "persona": [
+      "The Technician",
+      "The Over-Extender"
+    ],
+    "comment": "overextend lockout",
+    "updated_at": "2026-09-05T20:52:13.551Z"
   },
-  "persona": [
-   "The Technician",
-   "The Over-Extender"
-  ],
-  "comment": "overextend lockout",
-  "updated_at": "2026-09-05T20:52:13.551Z"
- },
- "sumo_deadlift_2.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "lockout_execution": 3,
-   "slack_pull_and_wedge": 2,
-   "leg_drive_and_floor_spread": 2,
-   "hip_opening_and_knee_tracking": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "eccentric_control_and_descent": 2
+  "sumo_deadlift_2.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "lockout_execution": 3,
+      "slack_pull_and_wedge": 2,
+      "leg_drive_and_floor_spread": 2,
+      "hip_opening_and_knee_tracking": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod",
+      "The T-Rex"
+    ],
+    "comment": "la barre est un poil loin, le dos est un poil arrondi",
+    "updated_at": "2026-09-05T20:52:25.945Z"
   },
-  "persona": [
-   "The Fishing Rod",
-   "The T-Rex"
-  ],
-  "comment": "la barre est un poil loin, le dos est un poil arrondi",
-  "updated_at": "2026-09-05T20:52:25.945Z"
- },
- "sumo_deadlift_3.mp4": {
-  "scores": {
-   "eccentric_control_and_descent": 1,
-   "lockout_execution": 2,
-   "bar_path_and_proximity": 1,
-   "core_bracing_and_spine_neutrality": 2,
-   "hip_opening_and_knee_tracking": 2,
-   "leg_drive_and_floor_spread": 1,
-   "slack_pull_and_wedge": 1,
-   "starting_position": 2
+  "sumo_deadlift_3.mp4": {
+    "scores": {
+      "eccentric_control_and_descent": 1,
+      "lockout_execution": 2,
+      "bar_path_and_proximity": 1,
+      "core_bracing_and_spine_neutrality": 2,
+      "hip_opening_and_knee_tracking": 2,
+      "leg_drive_and_floor_spread": 1,
+      "slack_pull_and_wedge": 1,
+      "starting_position": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "dos trop arrondi je crois, les quads sont pas utilisés je crois",
+    "updated_at": "2026-09-05T20:52:31.574Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "dos trop arrondi je crois, les quads sont pas utilisés je crois",
-  "updated_at": "2026-09-05T20:52:31.574Z"
- },
- "sumo_deadlift_4.mp4": {
-  "scores": {
-   "core_bracing_and_spine_neutrality": 2,
-   "leg_drive_and_floor_spread": 2,
-   "hip_opening_and_knee_tracking": 2,
-   "slack_pull_and_wedge": 2,
-   "starting_position": 2,
-   "bar_path_and_proximity": "NA",
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2
+  "sumo_deadlift_4.mp4": {
+    "scores": {
+      "core_bracing_and_spine_neutrality": 2,
+      "leg_drive_and_floor_spread": 2,
+      "hip_opening_and_knee_tracking": 2,
+      "slack_pull_and_wedge": 2,
+      "starting_position": 2,
+      "bar_path_and_proximity": "NA",
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "The Fishing Rod"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:52:40.219Z"
   },
-  "persona": [
-   "The Fishing Rod"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:52:40.219Z"
- },
- "sumo_deadlift_5.mp4": {
-  "scores": {
-   "starting_position": 2,
-   "slack_pull_and_wedge": 3,
-   "lockout_execution": 3,
-   "eccentric_control_and_descent": 2,
-   "bar_path_and_proximity": 2,
-   "core_bracing_and_spine_neutrality": 3,
-   "hip_opening_and_knee_tracking": 2,
-   "leg_drive_and_floor_spread": 2
+  "sumo_deadlift_5.mp4": {
+    "scores": {
+      "starting_position": 2,
+      "slack_pull_and_wedge": 3,
+      "lockout_execution": 3,
+      "eccentric_control_and_descent": 2,
+      "bar_path_and_proximity": 2,
+      "core_bracing_and_spine_neutrality": 3,
+      "hip_opening_and_knee_tracking": 2,
+      "leg_drive_and_floor_spread": 2
+    },
+    "persona": [
+      "The Squatter"
+    ],
+    "comment": "the spine is neutral mais peut être un poil trop squat ou alors les hips shoot up",
+    "updated_at": "2026-09-05T20:52:48.327Z"
   },
-  "persona": [
-   "The Squatter"
-  ],
-  "comment": "the spine is neutral mais peut être un poil trop squat ou alors les hips shoot up",
-  "updated_at": "2026-09-05T20:52:48.327Z"
- },
- "sumo_deadlift_6.mp4": {
-  "scores": {
-   "slack_pull_and_wedge": 3,
-   "starting_position": 2,
-   "leg_drive_and_floor_spread": 3,
-   "hip_opening_and_knee_tracking": 3,
-   "core_bracing_and_spine_neutrality": 3,
-   "eccentric_control_and_descent": 2,
-   "lockout_execution": 2,
-   "bar_path_and_proximity": "NA"
+  "sumo_deadlift_6.mp4": {
+    "scores": {
+      "slack_pull_and_wedge": 3,
+      "starting_position": 2,
+      "leg_drive_and_floor_spread": 3,
+      "hip_opening_and_knee_tracking": 3,
+      "core_bracing_and_spine_neutrality": 3,
+      "eccentric_control_and_descent": 2,
+      "lockout_execution": 2,
+      "bar_path_and_proximity": "NA"
+    },
+    "persona": [
+      "The Technician"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:52:55.658Z"
   },
-  "persona": [
-   "The Technician"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:52:55.658Z"
- },
- "sumo_deadlift_7.mp4": {
-  "scores": {
-   "slack_pull_and_wedge": 3,
-   "eccentric_control_and_descent": 2,
-   "lockout_execution": 2,
-   "bar_path_and_proximity": "NA",
-   "core_bracing_and_spine_neutrality": 2,
-   "hip_opening_and_knee_tracking": 3,
-   "leg_drive_and_floor_spread": 3,
-   "starting_position": 2
+  "sumo_deadlift_7.mp4": {
+    "scores": {
+      "slack_pull_and_wedge": 3,
+      "eccentric_control_and_descent": 2,
+      "lockout_execution": 2,
+      "bar_path_and_proximity": "NA",
+      "core_bracing_and_spine_neutrality": 2,
+      "hip_opening_and_knee_tracking": 3,
+      "leg_drive_and_floor_spread": 3,
+      "starting_position": 2
+    },
+    "persona": [
+      "The Technician",
+      "The Shrugger"
+    ],
+    "comment": "little shrug, dos un poil rond mais très correct",
+    "updated_at": "2026-09-05T20:53:02.201Z"
   },
-  "persona": [
-   "The Technician",
-   "The Shrugger"
-  ],
-  "comment": "little shrug, dos un poil rond mais très correct",
-  "updated_at": "2026-09-05T20:53:02.201Z"
- },
- "sumo_deadlift_8.mp4": {
-  "scores": {
-   "hip_opening_and_knee_tracking": "NA",
-   "leg_drive_and_floor_spread": "NA",
-   "bar_path_and_proximity": "NA",
-   "slack_pull_and_wedge": "NA",
-   "starting_position": "NA",
-   "eccentric_control_and_descent": "NA",
-   "lockout_execution": 2,
-   "core_bracing_and_spine_neutrality": "NA"
+  "sumo_deadlift_8.mp4": {
+    "scores": {
+      "hip_opening_and_knee_tracking": "NA",
+      "leg_drive_and_floor_spread": "NA",
+      "bar_path_and_proximity": "NA",
+      "slack_pull_and_wedge": "NA",
+      "starting_position": "NA",
+      "eccentric_control_and_descent": "NA",
+      "lockout_execution": 2,
+      "core_bracing_and_spine_neutrality": "NA"
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "on voit rien de face, jarrive à rien juger",
+    "updated_at": "2026-09-05T20:53:12.128Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "on voit rien de face, jarrive à rien juger",
-  "updated_at": "2026-09-05T20:53:12.128Z"
- },
- "sumo_deadlift_9.mp4": {
-  "scores": {
-   "slack_pull_and_wedge": 3,
-   "starting_position": 2,
-   "leg_drive_and_floor_spread": 2,
-   "hip_opening_and_knee_tracking": 2,
-   "core_bracing_and_spine_neutrality": 2,
-   "bar_path_and_proximity": 2,
-   "lockout_execution": 2,
-   "eccentric_control_and_descent": 2
+  "sumo_deadlift_9.mp4": {
+    "scores": {
+      "slack_pull_and_wedge": 3,
+      "starting_position": 2,
+      "leg_drive_and_floor_spread": 2,
+      "hip_opening_and_knee_tracking": 2,
+      "core_bracing_and_spine_neutrality": 2,
+      "bar_path_and_proximity": 2,
+      "lockout_execution": 2,
+      "eccentric_control_and_descent": 2
+    },
+    "persona": [
+      "NA"
+    ],
+    "comment": "",
+    "updated_at": "2026-09-05T20:54:12.373Z"
   },
-  "persona": [
-   "NA"
-  ],
-  "comment": "",
-  "updated_at": "2026-09-05T20:54:12.373Z"
- },
- "worst_deadlift.mp4": {
-  "scores": {
-   "starting_position": 1,
-   "slack_pull_and_lat_engagement": 1,
-   "leg_drive_activation": 1,
-   "hip_hinge_mechanics": 1,
-   "core_bracing_and_spine_neutrality": 1,
-   "bar_path_and_proximity": 1,
-   "lockout_execution": 1,
-   "eccentric_control_and_descent": 1
+  "worst_deadlift.mp4": {
+    "scores": {
+      "starting_position": 1,
+      "slack_pull_and_lat_engagement": 1,
+      "leg_drive_activation": 1,
+      "hip_hinge_mechanics": 1,
+      "core_bracing_and_spine_neutrality": 1,
+      "bar_path_and_proximity": 1,
+      "lockout_execution": 1,
+      "eccentric_control_and_descent": 1
+    },
+    "persona": [
+      "The Fishing Rod",
+      "The Kneecapper",
+      "The Hitcher",
+      "The Pendulum",
+      "The Crane",
+      "The Grip & Rip",
+      "The T-Rex",
+      "The Soft-Lock"
+    ],
+    "comment": "pire deadlift de toutes les vidéos",
+    "updated_at": "2026-09-05T20:54:52.122Z"
   },
-  "persona": [
-   "The Fishing Rod",
-   "The Kneecapper",
-   "The Hitcher",
-   "The Pendulum",
-   "The Crane",
-   "The Grip & Rip",
-   "The T-Rex",
-   "The Soft-Lock"
-  ],
-  "comment": "pire deadlift de toutes les vidéos",
-  "updated_at": "2026-09-05T20:54:52.122Z"
- }
+  "athlete_compet.mp4": {
+    "scores": {},
+    "persona": [],
+    "comment": "Points forts\nBonne technique générale.\nBonne maîtrise du deadlift sumo.\nBonne capacité à produire de la force.\nMouvement globalement bien contrôlé.\nDéfauts techniques\nHanches trop basses au départ : il « s’assoit » trop, ce qui fait remonter les hanches avant que la barre ne décolle.\nBarre trop en avant : elle s’éloigne du corps, ce qui augmente l’effort et désavantage mécaniquement l’athlète.\nVerrouillage difficile : cette inefficacité technique contribue probablement à l’échec final.",
+    "updated_at": "2026-09-11T15:21:51.677Z"
+  },
+  "nassim.mp4": {
+    "scores": {},
+    "persona": [],
+    "comment": "Points forts\n\nTrès bonne technique générale.\nHanches très stables au décollage : excellent hip hinge.\nDos neutre et stable pendant tout le mouvement.\nBarre globalement proche du corps.\nTrès bonne efficacité malgré une charge maximale.\n\nDéfauts\n\nChaussures trop épaisses : augmentent inutilement l’amplitude.\nBarre légèrement trop éloignée du corps au passage des genoux.\nTendance à tirer légèrement avec les bras avant le décollage, au lieu de garder les bras complètement longs.\n\nEn résumé : très bon deadlift, avec quelques petits détails d’optimisation.",
+    "updated_at": "2026-09-11T15:22:32.092Z"
+  },
+  "tibo.mp4": {
+    "scores": {},
+    "persona": [],
+    "comment": "Points forts\n\nTechnique très efficace et stable.\nHanches ne remontent pratiquement pas au décollage.\nBarre très proche du corps du début à la fin.\nDos stable et neutre.\nTrès bon gainage/placement.\nBonne consigne appliquée : « pousser le sol ».\n\nDéfauts\n\nAucun défaut technique majeur relevé dans cette analyse.",
+    "updated_at": "2026-09-11T15:22:27.627Z"
+  },
+  "hip_shoot_up.mp4": {
+    "scores": {},
+    "persona": [],
+    "comment": "Demo of hip shooting up because of bad hip vertical positionning at the start.",
+    "updated_at": "2026-09-11T15:23:19.983Z"
+  }
 }

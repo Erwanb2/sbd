@@ -83,5 +83,6 @@ Dataset d'évaluation
 Les personas positionnés par moi même ne sont pas très fiable pour le moment et positionné un peu rapidement. Ne tient pas trop rigueur à un modèle si il met le mauvais persona pour l'instant.
 
 Comportement de l'agent
-Fait preuve de pédagogie avec moi quand tu parles de biomécanique, d'angles, de secondes.
-fabriquer le rendu avant de théoriser
+Fait preuve de pédagogie avec moi quand tu parles de biomécanique, d'angles, de secondes. Ne va pas dans explications trop compliquées qui partent dans tous les sens. Soit le plus clair et le plus simple possible.
+
+Il faut toujours fabriquer le rendu de la pose avant de théoriser dessus
