@@ -27,15 +27,15 @@ indicators.py  ->  schemas.py        le schéma Pydantic des indicateurs jugés 
 
 Ajouter un indicateur = ajouter une entrée dans `INDICATEURS`. Le reste suit.
 
-**24 indicateurs** pour le deadlift depuis la refonte du 2026-09-09, en deux sources :
+**25 indicateurs** pour le deadlift (compte du 2026-09-11 soir : le dos en quatre champs, `brace` sorti), en deux sources :
 
 | `Source` | nombre | sens |
 |---|---|---|
-| `LLM` | 17 | seul un modèle peut le voir |
+| `LLM` | 18 | seul un modèle peut le voir |
 | `A_TESTER` | 7 | mesurable en théorie, non tranché → **posé au modèle en attendant**, avec dans `note_source` ce qu'il faudrait mesurer |
 | ~~`POSE`~~ | ~~17~~ → **0** | **aucun indicateur POSE n'est noté**, voir plus bas |
 
-21 champs par répétition dans le schéma, contre 16 avant la refonte : **+30 % de sortie
+22 champs par répétition dans le schéma, contre 16 avant la refonte : **+35 % de sortie
 par rep**, et personne n'a encore mesuré si les 16 anciens se dégradent sous ce poids.
 
 ## La pose ne note plus rien (2026-09-09)
@@ -72,7 +72,8 @@ Le même jour, la refonte des critères a **remis six questions POSE au modèle*
 **Ce n'est pas un retour en arrière** : aucun ratio n'est rebranché, on repose la question à la
 seule source qui voit la barre et le rachis. Mais **rien ne prouve encore que le modèle y répond
 bien** — c'est le risque principal de la refonte, et il n'a pas été mesuré. Le plus incertain de
-tous est `S09 brace`, nouveau : le gainage est à peine visible sur une vidéo. Il ne reste que s'il
+tous était `S09 brace` — **sorti du schéma le 2026-09-11** (décision humaine sur `pr_160`, où le modèle
+décrivait une ceinture de force sur un lifter en t-shirt) : le gainage est à peine visible sur une vidéo. Il ne restait que s'il
 bat le hasard contre les annotations humaines.
 
 **Pour rétablir un indicateur POSE** : le remettre dans le tuple `INDICATEURS` avec sa `mesure` et
@@ -105,7 +106,7 @@ Un critère a **deux métiers**, et l'ancienne liste n'en faisait qu'un :
 | clé | libellé | poids | indicateurs |
 |---|---|---|---|
 | `start_position` | Start position | 1,5 | hip_height, shoulders_over_bar, bar_over_midfoot, arms_long |
-| `slack_and_brace` | Slack and brace | 1,0 | slack_pull, brace, jerky_start |
+| `slack_and_brace` | Slack and brace | 1,0 | slack_pull, jerky_start (`brace` retiré le 2026-09-11, le libellé et la pédagogie restent) |
 | `leg_drive` | Leg drive off the floor | 1,5 | hip_vs_shoulder_rise |
 | `bar_path` | Bar against the body | 1,5 | past_the_knees, bar_leg_contact |
 | `finish_position` | Finish position | 1,0 | lockout_completion, lean_back, hitch, shrug |

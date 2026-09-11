@@ -182,5 +182,28 @@ mais il n'a jamais ete choisi. **A tester sur un clip de profil ou les hanches p
 vraiment devant** — `erwan_mauvais_slack` porte le commentaire humain « hip shoot up a lot ».
 Pas sur `pr_160`, qui est filme de face et ou la question n'est pas repondable.
 
+## Run A du 2026-09-11 soir : quatre questions en geometrie, une passe, video
+
+Le catalogue a ete reecrit sur les remarques humaines de `pr_160` : `hip_height` compare deux
+distances sur l'image du decollage (le milieu `between_knees_and_shoulders` — la forme A —
+est mort), `hip_vs_shoulder_rise` gagne `shoulders_only` (aucun etat ne decrivait des
+epaules qui montent seules), `arms_long` gagne `slightly_bent` (le cran 2/3), `bar_over_midfoot`
+projette sur le pied et perd `against_the_shins`, `brace` sort du schema, et
+`*_under_load:unchanged` ne vaut plus rien (descriptif).
+
+Une passe, video 24 im/s, HIGH, raisonnement HIGH, prompt de prod neutre — `pr_160_A_video24.json`,
+tableau complet dans `backend/eval/runs/README.md`. Ce qui bouge : `hip_height:too_high`
+avec "torso nearly parallel to the floor", `shoulders_over_bar:far_ahead`, `slack_pull:yanked`
+(premier etat technique a 1/3 jamais choisi) et `jerky_start:jerked`. Ce qui ne bouge pas :
+`hip_vs_shoulder_rise:together` avec "constant torso angle" — **dans la meme reponse que le
+buste horizontal au depart et debout a 5,5 s**. C'est la sixieme facon (deux champs qui se
+contredisent), et c'est la cible exacte d'un prompt de coherence, pas de severite.
+`bar_over_midfoot:over_midfoot` malgre la consigne de vue et un aveu "the plates block a
+direct view of the feet". `lumbar_at_setup` **repasse a `neutral`** : la video sans gros plan
+ne montre pas le rachis, la ou les runs decoupes avaient six crops du buste.
+
+**Deux variables ont change a la fois** (catalogue et support), n=1. Rien n'est attribuable
+avant la passe symetrique : meme catalogue sur les images fixes + gros plans de `run_final.py`.
+
 > Architecture de la notation : `.claude/skills/sbd-grading-changes/`.
 > Sorties brutes et manifeste : `backend/eval/runs/README.md`.
