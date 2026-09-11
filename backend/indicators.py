@@ -449,37 +449,67 @@ S05 = Indicateur(
     id="S05", nom="lumbar_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
     question="Pause the video at the exact frame immediately preceding the first upward "
-             "movement of the lifter's body. Draw an imaginary line connecting the lifter's "
-             "pelvis (sacrum) to the bottom of their rib cage. Analyze the geometric shape "
-             "of this lower back segment.",
-    etats=(Etat("lumbar_straight_or_concave", "The line forms a straight plane or a visible "
-                                              "inward curve (extension/neutral).", 3),
-           Etat("lumbar_convex", "The line forms a strict outward curve (flexion/rounded) "
-                                 "pointing away from the torso.", 1,
+             "movement of the lifter's body. Draw a perfectly straight imaginary line (the "
+             "string) connecting the lifter's tailbone (sacrum) to the bottom of their ribcage. "
+             "Now, look at the physical contour of the lifter's lower back (the bow) relative "
+             "to this straight line.",
+    etats=(Etat("lumbar_neutral_or_concave", "The physical contour of the lower back lies "
+                                             "exactly flat against this imaginary straight "
+                                             "line, or dips inward (towards the stomach) "
+                                             "creating a hollow valley. The line is not "
+                                             "crossed.", 3),
+           Etat("upper_lumbar_convexity", "The physical contour crosses behind the straight "
+                                          "line (away from the stomach) to form an outward "
+                                          "arc, BUT this curve only begins in the upper half "
+                                          "of the segment (near the ribs). The lower section "
+                                          "right above the tailbone remains straight.", 2),
+           Etat("full_lumbar_convexity", "The physical contour crosses behind the straight "
+                                         "line to form an outward arc, AND this curve begins "
+                                         "immediately at the tailbone/waistband. The entire "
+                                         "lower back forms a continuous \"C\" shape, "
+                                         "indicating the pelvis is tucked under.", 1,
                 persona="The Fishing Rod")),
     non_visible="Clothing or angle prevents a clear view of the lower back contour.",
     note_source="LIMITE DURE : aucun repere entre epaules et hanches. Le tronc est un "
-                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici.",
+                "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici. "
+                "La frontiere 2/1 n'est pas l'intensite de la courbe mais son POINT DE "
+                "DEPART : jonction thoraco-lombaire (2) ou des le bassin, retroversion (1).",
 )
 
 S10 = Indicateur(
     id="S10", nom="thoracic_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
     question="Pause the video at the exact frame immediately preceding the first upward "
-             "movement of the lifter's body. Draw an imaginary line connecting the bottom of "
-             "the lifter's rib cage to the base of their neck. Analyze the geometric shape "
-             "of this upper back segment.",
-    # Les DEUX etats valent 3 : un haut du dos arrondi et fige des le depart est une
-    # technique assumee, pas une faute. L'indicateur EXISTE pour que le modele puisse
-    # dire ce qu'il voit du thoracique sans que ce soit sa reponse a la question
-    # lombaire. (La liste humaine du 2026-09-11 soir le mettait a 1 ; remis a 3 le
-    # meme soir, avec un poids de 2 sur `structure` ca sortait en bandeau "stop" un
-    # lifter qui tire volontairement le haut du dos rond.)
-    etats=(Etat("thoracic_straight_or_concave", "The line forms a straight plane or an "
-                                                "inward curve.", 3),
-           Etat("thoracic_convex", "The line forms a strict outward curve (rounded "
-                                   "shoulders/flexion).", 3)),
-    non_visible="Clothing or angle prevents a clear view of the upper back contour.",
+             "movement of the lifter's body. Draw a perfectly straight imaginary line (the "
+             "string) connecting the bottom of the lifter's ribcage to the base of their neck. "
+             "Now, look at the physical contour of the lifter's upper back (the bow) relative "
+             "to this straight line.",
+    # Meme frontiere que S05 : ce n'est pas l'intensite de la courbe qui separe 2 de 1,
+    # c'est son POINT DE DEPART. Une convexite qui ne commence qu'aux omoplates (2)
+    # contre un "C" continu des le bas des cotes (1). Jusqu'au 2026-09-11 les deux
+    # etats valaient 3 (haut du dos rond et fige = technique assumee) ; note a nouveau
+    # depuis, decision humaine du meme jour. Avec un poids de 2 sur `structure`, un
+    # lifter qui tire volontairement le haut du dos rond des le bas des cotes sortira
+    # en bandeau : a surveiller sur les clips de ce style.
+    etats=(Etat("thoracic_neutral_or_concave", "The physical contour of the upper back lies "
+                                               "exactly flat against this imaginary straight "
+                                               "line, or dips inward (creating a valley "
+                                               "between the shoulder blades). The straight "
+                                               "line is not crossed.", 3),
+           Etat("upper_thoracic_convexity", "The physical contour crosses behind the straight "
+                                            "line (away from the chest) to form an outward "
+                                            "arc, BUT this curve only begins in the upper "
+                                            "half of the segment (near the shoulder "
+                                            "blades/base of the neck). The mid-back section "
+                                            "directly above the ribcage remains flat.", 2),
+           Etat("full_thoracic_convexity", "The physical contour crosses behind the straight "
+                                           "line to form an outward arc, AND this curve "
+                                           "begins immediately from the bottom of the "
+                                           "ribcage. The entire mid-to-upper back forms a "
+                                           "continuous \"C\" shape, indicating a complete "
+                                           "loss of structural extension.", 1)),
+    non_visible="The camera angle or loose clothing prevents a clear view of the upper "
+                "back's contour.",
     note_source="Meme limite dure que S05. Separe du lombaire le 2026-09-10 pour que "
                 "reconnaitre l'arrondi ici ne soit plus la reponse a la question lombaire.",
 )
@@ -989,7 +1019,10 @@ CONSEILS = {
 
     # --- axe structure ---------------------------------------------------------------
     # Ces conseils ne servent JAMAIS d'epingle : ils accompagnent le bandeau d'urgence.
-    "lumbar_at_setup:lumbar_convex": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
+    "lumbar_at_setup:upper_lumbar_convexity": "Lift the chest and pull the ribs down before the bar moves so the lower back stays flat all the way up.",
+    "thoracic_at_setup:upper_thoracic_convexity": "Pull the shoulder blades down and lift the chest before the bar moves; the upper back should not round further as you pull.",
+    "thoracic_at_setup:full_thoracic_convexity": "Set the whole upper back before the bar moves: chest up, lats tight; if it rounds from the ribs down, the load is too heavy to hold.",
+    "lumbar_at_setup:full_lumbar_convexity": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
     "lumbar_geometry_delta:lumbar_becomes_convex": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
     "knee_valgus_tracking:knees_touch_line": "Push the knees out over your toes as you drive: they should never reach the line of the inner foot.",
     "knee_valgus_tracking:knees_cross_inside_line": "Screw your feet into the floor and push the knees out over your toes as you drive.",

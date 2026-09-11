@@ -193,7 +193,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -201,7 +201,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or an inward curve.",
+              "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -402,7 +402,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -410,7 +410,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or an inward curve.",
+              "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -611,7 +611,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -619,7 +619,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or an inward curve.",
+              "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -820,7 +820,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -828,7 +828,7 @@ export const sampleResult =
               "indicateur": "S10",
               "phase": "setup",
               "source": "llm",
-              "fait": "The line forms a straight plane or an inward curve.",
+              "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
               "note": 3,
               "visible": true
             },
@@ -1196,7 +1196,7 @@ export const sampleResult =
           "indicateur": "S05",
           "phase": "setup",
           "source": "llm",
-          "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+          "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1210,7 +1210,7 @@ export const sampleResult =
           "indicateur": "S10",
           "phase": "setup",
           "source": "llm",
-          "fait": "The line forms a straight plane or an inward curve.",
+          "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1391,8 +1391,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
           "initiation_sequence": "torso_angle_constant",
@@ -1417,8 +1417,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
           "initiation_sequence": "torso_angle_constant",
@@ -1443,8 +1443,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
           "initiation_sequence": "torso_angle_decreases",
@@ -1469,8 +1469,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "bar_left_floor": "yes",
           "initiation_sequence": "torso_angle_decreases",
@@ -1593,17 +1593,22 @@ export const sampleResult =
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw an imaginary line connecting the lifter's pelvis (sacrum) to the bottom of their rib cage. Analyze the geometric shape of this lower back segment.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw a perfectly straight imaginary line (the string) connecting the lifter's tailbone (sacrum) to the bottom of their ribcage. Now, look at the physical contour of the lifter's lower back (the bow) relative to this straight line.",
         "etats": [
           {
-            "cle": "lumbar_straight_or_concave",
+            "cle": "lumbar_neutral_or_concave",
             "note": 3,
-            "description": "The line forms a straight plane or a visible inward curve (extension/neutral)."
+            "description": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed."
           },
           {
-            "cle": "lumbar_convex",
+            "cle": "upper_lumbar_convexity",
+            "note": 2,
+            "description": "The physical contour crosses behind the straight line (away from the stomach) to form an outward arc, BUT this curve only begins in the upper half of the segment (near the ribs). The lower section right above the tailbone remains straight."
+          },
+          {
+            "cle": "full_lumbar_convexity",
             "note": 1,
-            "description": "The line forms a strict outward curve (flexion/rounded) pointing away from the torso."
+            "description": "The physical contour crosses behind the straight line to form an outward arc, AND this curve begins immediately at the tailbone/waistband. The entire lower back forms a continuous \"C\" shape, indicating the pelvis is tucked under."
           },
           {
             "cle": "not_visible",
@@ -1619,22 +1624,27 @@ export const sampleResult =
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw an imaginary line connecting the bottom of the lifter's rib cage to the base of their neck. Analyze the geometric shape of this upper back segment.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw a perfectly straight imaginary line (the string) connecting the bottom of the lifter's ribcage to the base of their neck. Now, look at the physical contour of the lifter's upper back (the bow) relative to this straight line.",
         "etats": [
           {
-            "cle": "thoracic_straight_or_concave",
+            "cle": "thoracic_neutral_or_concave",
             "note": 3,
-            "description": "The line forms a straight plane or an inward curve."
+            "description": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed."
           },
           {
-            "cle": "thoracic_convex",
-            "note": 3,
-            "description": "The line forms a strict outward curve (rounded shoulders/flexion)."
+            "cle": "upper_thoracic_convexity",
+            "note": 2,
+            "description": "The physical contour crosses behind the straight line (away from the chest) to form an outward arc, BUT this curve only begins in the upper half of the segment (near the shoulder blades/base of the neck). The mid-back section directly above the ribcage remains flat."
+          },
+          {
+            "cle": "full_thoracic_convexity",
+            "note": 1,
+            "description": "The physical contour crosses behind the straight line to form an outward arc, AND this curve begins immediately from the bottom of the ribcage. The entire mid-to-upper back forms a continuous \"C\" shape, indicating a complete loss of structural extension."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Clothing or angle prevents a clear view of the upper back contour."
+            "description": "The camera angle or loose clothing prevents a clear view of the upper back's contour."
           }
         ]
       },
@@ -2111,8 +2121,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
           "hip_height_via_femur": "femur_angled_upward",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "initiation_sequence": "torso_angle_constant",
           "bar_left_floor": "yes",
@@ -2163,19 +2173,19 @@ export const sampleResult =
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "lumbar_straight_or_concave",
-            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+            "etat": "lumbar_neutral_or_concave",
+            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "lumbar_straight_or_concave"
+            "reponse_brute": "lumbar_neutral_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "thoracic_straight_or_concave",
-            "fait": "The line forms a straight plane or an inward curve.",
+            "etat": "thoracic_neutral_or_concave",
+            "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
             "note": 3,
             "observation": "The upper back is flat and set before the bar moves.",
-            "reponse_brute": "thoracic_straight_or_concave"
+            "reponse_brute": "thoracic_neutral_or_concave"
           },
           {
             "nom": "arms_tension_at_setup",
@@ -2295,8 +2305,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
           "hip_height_via_femur": "femur_angled_upward",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "initiation_sequence": "torso_angle_constant",
           "bar_left_floor": "yes",
@@ -2347,19 +2357,19 @@ export const sampleResult =
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "lumbar_straight_or_concave",
-            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+            "etat": "lumbar_neutral_or_concave",
+            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "lumbar_straight_or_concave"
+            "reponse_brute": "lumbar_neutral_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "thoracic_straight_or_concave",
-            "fait": "The line forms a straight plane or an inward curve.",
+            "etat": "thoracic_neutral_or_concave",
+            "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
             "note": 3,
             "observation": "The upper back is flat and set before the bar moves.",
-            "reponse_brute": "thoracic_straight_or_concave"
+            "reponse_brute": "thoracic_neutral_or_concave"
           },
           {
             "nom": "arms_tension_at_setup",
@@ -2479,8 +2489,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
           "hip_height_via_femur": "femur_angled_upward",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "initiation_sequence": "torso_angle_decreases",
           "bar_left_floor": "yes",
@@ -2531,19 +2541,19 @@ export const sampleResult =
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "lumbar_straight_or_concave",
-            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+            "etat": "lumbar_neutral_or_concave",
+            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "lumbar_straight_or_concave"
+            "reponse_brute": "lumbar_neutral_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "thoracic_straight_or_concave",
-            "fait": "The line forms a straight plane or an inward curve.",
+            "etat": "thoracic_neutral_or_concave",
+            "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
             "note": 3,
             "observation": "The upper back is flat and set before the bar moves.",
-            "reponse_brute": "thoracic_straight_or_concave"
+            "reponse_brute": "thoracic_neutral_or_concave"
           },
           {
             "nom": "arms_tension_at_setup",
@@ -2663,8 +2673,8 @@ export const sampleResult =
           "bar_over_midfoot_topology": "bar_over_laces",
           "shoulders_over_bar_gravity": "arm_perfectly_vertical",
           "hip_height_via_femur": "femur_angled_upward",
-          "lumbar_at_setup": "lumbar_straight_or_concave",
-          "thoracic_at_setup": "thoracic_straight_or_concave",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
           "initiation_sequence": "torso_angle_decreases",
           "bar_left_floor": "yes",
@@ -2715,19 +2725,19 @@ export const sampleResult =
           },
           {
             "nom": "lumbar_at_setup",
-            "etat": "lumbar_straight_or_concave",
-            "fait": "The line forms a straight plane or a visible inward curve (extension/neutral).",
+            "etat": "lumbar_neutral_or_concave",
+            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
-            "reponse_brute": "lumbar_straight_or_concave"
+            "reponse_brute": "lumbar_neutral_or_concave"
           },
           {
             "nom": "thoracic_at_setup",
-            "etat": "thoracic_straight_or_concave",
-            "fait": "The line forms a straight plane or an inward curve.",
+            "etat": "thoracic_neutral_or_concave",
+            "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
             "note": 3,
             "observation": "The upper back is flat and set before the bar moves.",
-            "reponse_brute": "thoracic_straight_or_concave"
+            "reponse_brute": "thoracic_neutral_or_concave"
           },
           {
             "nom": "arms_tension_at_setup",
