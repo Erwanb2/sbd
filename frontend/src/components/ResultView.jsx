@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import ResultCard from './ResultCard.jsx';
 import RepHistogram from './RepHistogram.jsx';
 import SkeletonOverlay from './SkeletonOverlay.jsx';
+import PoseZoomFrame from './PoseZoomFrame.jsx';
 import DebugView from './DebugView.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
@@ -21,6 +22,9 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
   const [ expandedCard, setExpandedCard ] = useState(null);
   const [ selectedRep, setSelectedRep ] = useState(null);
   const [ squeletteVisible, setSqueletteVisible ] = useState(true);
+  // Le zoom pose-tracké part désactivé : la bbox lissée reste en défaut sur les clips
+  // à plusieurs personnes proches (cf. poseCrop.js), mieux vaut que ce soit un choix.
+  const [ zoomActif, setZoomActif ] = useState(false);
   // Deux onglets : la page (ce qui cloche, une chose à corriger) et le debug (TOUT ce
   // que le modèle a rendu, champ par champ). Le second ne rallonge pas le premier.
   const [ onglet, setOnglet ] = useState('result');
@@ -131,22 +135,26 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
            d'un bloc, elle remplit une largeur qui était vide. */ }
       <div className="flex flex-col sm:flex-row bg-gray-900 border border-gray-800 rounded-3xl shadow-lg overflow-hidden">
         { videoUrl && (
-          <div className="relative sm:w-1/2 bg-black flex items-center justify-center">
-            { /* Le fragment #t force le rendu de la première image : sans lui, la
-                 carte s'ouvre sur un rectangle noir qui a l'air cassé. */ }
-            <video
-              ref={ videoRef }
-              src={ `${ videoUrl }#t=0.1` }
-              controls
-              loop
-              playsInline
-              preload="metadata"
-              className="w-full max-h-[340px] object-contain bg-black"
-            />
+          <div className="relative sm:w-1/2 bg-black flex items-center justify-center overflow-hidden">
+            { /* Le zoom pose-tracké enveloppe la vidéo ET son overlay : les deux
+                 bougent ensemble, l'overlay reste calé sur le squelette qu'il dessine. */ }
+            <PoseZoomFrame videoRef={ videoRef } squelette={ squelette } enabled={ zoomActif }>
+              { /* Le fragment #t force le rendu de la première image : sans lui, la
+                   carte s'ouvre sur un rectangle noir qui a l'air cassé. */ }
+              <video
+                ref={ videoRef }
+                src={ `${ videoUrl }#t=0.1` }
+                controls
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full max-h-[340px] object-contain bg-black"
+              />
 
-            { /* Le squelette dessiné vient de la même passe MediaPipe que la variante
-                 et les répétitions : jamais recalculé côté navigateur. */ }
-            <SkeletonOverlay videoRef={ videoRef } squelette={ squelette } visible={ squeletteVisible } />
+              { /* Le squelette dessiné vient de la même passe MediaPipe que la variante
+                   et les répétitions : jamais recalculé côté navigateur. */ }
+              <SkeletonOverlay videoRef={ videoRef } squelette={ squelette } visible={ squeletteVisible } />
+            </PoseZoomFrame>
 
             { repSelectionnee && (
               <span className="pointer-events-none absolute top-2 left-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-sm">
@@ -155,14 +163,26 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
             ) }
 
             { squelette?.frames?.length > 0 && (
-              <button
-                type="button"
-                onClick={ () => setSqueletteVisible((v) => !v) }
-                title={ squeletteVisible ? 'Hide pose skeleton' : 'Show pose skeleton' }
-                className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-md bg-black/70 text-xs text-gray-300 backdrop-blur-sm transition-colors hover:text-white"
-              >
-                { squeletteVisible ? '🦴' : '🚫' }
-              </button>
+              <div className="absolute top-2 right-2 flex gap-1">
+                <button
+                  type="button"
+                  onClick={ () => setZoomActif((v) => !v) }
+                  title={ zoomActif ? 'Disable pose-tracked zoom' : 'Enable pose-tracked zoom' }
+                  className={ `flex h-6 w-6 items-center justify-center rounded-md bg-black/70 text-xs backdrop-blur-sm transition-colors hover:text-white ${
+                    zoomActif ? 'text-emerald-400' : 'text-gray-300'
+                  }` }
+                >
+                  🔍
+                </button>
+                <button
+                  type="button"
+                  onClick={ () => setSqueletteVisible((v) => !v) }
+                  title={ squeletteVisible ? 'Hide pose skeleton' : 'Show pose skeleton' }
+                  className="flex h-6 w-6 items-center justify-center rounded-md bg-black/70 text-xs text-gray-300 backdrop-blur-sm transition-colors hover:text-white"
+                >
+                  { squeletteVisible ? '🦴' : '🚫' }
+                </button>
+              </div>
             ) }
 
             <span className="pointer-events-none absolute bottom-2 left-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-gray-300 backdrop-blur-sm">
