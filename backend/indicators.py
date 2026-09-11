@@ -336,15 +336,34 @@ C05 = Indicateur(
 # SETUP — avant que la barre quitte le sol
 # =============================================================================
 
+# Reecrit le 2026-09-11. L'etat du milieu s'appelait `between_knees_and_shoulders` et
+# se decrivait "the hips sit between the knees and the shoulders" : c'est vrai de
+# presque tout depart, y compris de pr_160 ou les hanches sont a hauteur d'epaules et
+# le dos quasi horizontal — le modele l'a pris a 3/3 sur 17 runs. C'est la forme A du
+# recensement (le milieu encadre) : l'etat gratuit etait une bande entre deux extremes,
+# et rien ne l'interdisait au clip fautif.
+#
+# Maintenant la question COMPARE deux distances sur une image nommee, et le milieu
+# exige que les deux soient du meme ordre : sur pr_160, "les deux distances sont du
+# meme ordre" est faux, et c'est ce qui ferme la porte. Les cles `too_high` / `too_low`
+# ne changent pas (CONSEILS et ENCHAINEMENTS les portent) ; seul le milieu est renomme,
+# parce que son ancien nom ETAIT la formule gratuite.
 S01 = Indicateur(
     id="S01", nom="hip_height", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="start_position", vue=Vue.PROFIL,
-    question="How high are the hips at the start, between the knees and the shoulders?",
-    etats=(Etat("too_high", "The hips start very high: the pull begins as a stiff-legged "
-                               "lift with the shoulders far in front.", 2),
-           Etat("between_knees_and_shoulders", "The hips sit between the knees and the shoulders.", 3),
-           Etat("too_low", "The lifter squats the setup: pelvis very low, shins pushed "
-                               "forward, knees over the bar.", 2, persona="The Squatter")),
+    question="Freeze the frame where the plates leave the floor. On that frame, compare "
+             "two vertical distances: hips-to-shoulders and hips-to-knees.",
+    etats=(Etat("too_high", "The hips are at, or nearly at, shoulder height: the "
+                            "hips-to-shoulders distance is far smaller than the "
+                            "hips-to-knees distance. The back is close to horizontal and "
+                            "the knees are nearly straight.", 2),
+           Etat("midway", "The hips sit well below the shoulders AND well above the knees: "
+                          "the two distances are of the same order, the back is clearly "
+                          "inclined upward and the knees are clearly bent.", 3),
+           Etat("too_low", "The hips are close to knee height: the hips-to-knees distance "
+                           "is far smaller than the hips-to-shoulders distance, the shins "
+                           "push forward and the knees sit over the bar.", 2,
+                persona="The Squatter")),
     note_source="Etait POSE (hip_ratio) jusqu'au 2026-09-09, retire avec les 16 autres. "
                 "Revient en LLM le 2026-09-09 : c'est la premiere mecanique enseignable "
                 "du geste, et une hauteur de hanche est justement le genre de chose "
@@ -379,13 +398,24 @@ S03 = Indicateur(
                 "Sumo seulement : en conventionnel un tibia incline est normal.",
 )
 
+# Reecrit le 2026-09-11. `against_the_shins` (3/3) est supprime : sur pr_160 le modele
+# le choisissait avec une description qui ne parlait jamais du pied — "the barbell is
+# positioned directly against the shins, with no visible gap". C'est une reponse a une
+# AUTRE question (le contact tibia, que `bar_leg_contact` pose deja), et elle valait 3.
+# La question devient une projection verticale sur le pied, sur une image nommee, et
+# dit dans quelle vue elle est repondable — meme precedent que `knee_valgus`.
 S04 = Indicateur(
     id="S04", nom="bar_over_midfoot", phase=Phase.SETUP, source=Source.A_TESTER, portee=Portee.REP,
     critere="start_position", vue=Vue.PROFIL,
-    question="Where is the bar over the foot at the start?",
-    etats=(Etat("over_midfoot", "The bar sits over the middle of the foot, close to the shins.", 3),
-           Etat("ahead_of_midfoot", "The bar starts away from the shins, ahead of the mid-foot.", 2),
-           Etat("against_the_shins", "The bar starts jammed against the shins, behind the mid-foot.", 3)),
+    question="On the last frame before the plates leave the floor, drop a vertical line "
+             "from the bar down to the floor. Where does it hit the foot? This is only "
+             "answerable when the foot is seen from the side: from the front or "
+             "three-quarter view, answer 'not_visible'.",
+    etats=(Etat("over_midfoot", "The line hits the foot between the ankle and the base of "
+                                "the toes, roughly over the laces.", 3),
+           Etat("ahead_of_midfoot", "The line hits the toes or the floor in front of the "
+                                    "foot: there is daylight between the bar and the "
+                                    "shins.", 2)),
     note_source="A TESTER : au setup la main tient la barre, donc x_poignet est un proxy "
                 "bien meilleur que pendant la tiree. Mais le poignet n'est pas le centre de "
                 "la barre, et le milieu du pied demande cheville ET orteil visibles. "
@@ -435,12 +465,20 @@ S10 = Indicateur(
 S06 = Indicateur(
     id="S06", nom="arms_long", phase=Phase.SETUP, source=Source.A_TESTER, portee=Portee.REP,
     critere="start_position",
-    question="Do the arms stay straight from the start to lockout, or do the elbows bend "
-             "at any point?",
-    etats=(Etat("straight", "The arms hang straight and stay long, elbows locked out, from "
-                            "the setup to the top.", 3),
-           Etat("bent", "The elbows are visibly flexed at some point, loading the biceps "
-                        "tendon.", 1, persona="The T-Rex")),
+    question="From the floor to lockout, look at the line shoulder -> elbow -> hand on the "
+             "arm closest to the camera. Is it one straight line on every frame, or is "
+             "there an angle at the elbow at some moment?",
+    etats=(Etat("straight", "One straight line from the shoulder to the hand on every "
+                            "frame: the elbow never makes an angle.", 3),
+           # Ajoute le 2026-09-11 : le cran 2/3 manquant. Avec `straight` / `bent` seuls,
+           # signaler une legere flexion obligeait a declarer The T-Rex a 1/3 — le
+           # modele repondait `straight` sur pr_160, ou l'humain voit un coude qui
+           # n'est pas tout a fait tendu.
+           Etat("slightly_bent", "A small but visible angle at the elbow on some frames: "
+                                 "the arm is not one straight line, but the forearm does "
+                                 "not fold up.", 2),
+           Etat("bent", "A clear angle at the elbow: the forearm folds and the biceps pulls "
+                        "the bar.", 1, persona="The T-Rex")),
     note_source="2026-09-09 : fusion de l'ancien S06 (arms_straight, au setup) et de P10 "
                 "(elbow_flexion, pendant la tiree). C'etait la MEME faute physique posee "
                 "deux fois, ce que l'en-tete de CRITERES interdit — et avec la regle du "
@@ -477,7 +515,13 @@ S09 = Indicateur(
                            "the breath is let go before lockout.", 2),
            Etat("none", "No visible brace: the lifter reaches down and pulls on a soft "
                         "midsection.", 1, persona="The Deflator")),
-    note_source="NOUVEAU le 2026-09-09, et le PLUS INCERTAIN du catalogue : le gainage est "
+    note_source="RETIRE DU SCHEMA le 2026-09-11 (absent de INDICATEURS, la definition "
+                "reste pour le rebrancher). Decision humaine sur pr_160 : impossible a "
+                "voir franchement. Le modele y decrivait 'the abdominal wall expanding "
+                "against the lifting belt' sur un lifter en t-shirt, sans ceinture — "
+                "il rapportait l'inobservable. Le critere `slack_and_brace` garde son "
+                "nom et sa pedagogie ; seule la notation du gainage s'arrete.\n"
+                "NOUVEAU le 2026-09-09, et le PLUS INCERTAIN du catalogue : le gainage est "
                 "a peine visible sur une video — on voit la respiration, l'expansion du "
                 "ventre, la pause avant la tiree, jamais la pression intra-abdominale. Il "
                 "ne reste que s'il bat le hasard contre les annotations humaines ; sinon "
@@ -503,19 +547,32 @@ S08 = Indicateur(
 L01 = Indicateur(
     id="L01", nom="hip_vs_shoulder_rise", phase=Phase.DECOLLAGE, source=Source.LLM,
     portee=Portee.REP, critere="leg_drive", vue=Vue.PROFIL,
-    question="Over the first third of the pull, do the hips and the shoulders rise "
-             "together, or do the hips rise faster and leave the shoulders behind?",
-    etats=(Etat("together", "Hips and shoulders rise together: the legs are driving the "
-                            "floor away and the torso angle holds.", 3),
+    question="From the frame where the plates leave the floor to the frame where the bar "
+             "reaches the knees, track the height of the hips and the height of the "
+             "shoulders separately. Which of the two gains height?",
+    etats=(Etat("together", "Both gain height at the same pace: the angle of the back is "
+                            "the same on the two frames.", 3),
            # 3 -> 2 le 2026-09-11. "Un peu en avance" est un DEFAUT LEGER, pas un equivalent
            # du manuel. C'etait le cran 2/3 manquant portant un badge 3/3 : le catalogue ne
            # proposait aucun "un peu mauvais" ici, il fallait declarer la catastrophe
            # (hips_shoot_up, 1/3) ou rien.
-           Etat("hips_slightly_ahead", "The hips rise somewhat ahead of the shoulders, but the "
-                                  "torso does not pitch forward.", 2),
-           Etat("hips_shoot_up", "The hips shoot up while the shoulders barely move: the "
-                                  "lift turns into a stiff-legged pull finished by the back.",
-                1, persona="The Crane")),
+           Etat("hips_slightly_ahead", "The hips gain height a little faster than the "
+                                       "shoulders: the back tilts somewhat more toward the "
+                                       "floor, then holds.", 2),
+           Etat("hips_shoot_up", "The hips rise sharply while the shoulders stay low: the "
+                                 "back ends up nearly horizontal and the legs are straight "
+                                 "before the bar reaches the knees.", 1, persona="The Crane"),
+           # Ajoute le 2026-09-11. Les trois etats ci-dessus decrivent tous des hanches qui
+           # montent AU MOINS autant que les epaules. Un depart hanches hautes donne
+           # l'inverse — le buste bascule autour de la hanche, les genoux ne bougent pas —
+           # et la liste n'avait aucune case pour ca : sur pr_160 le modele repondait
+           # `together` la ou l'humain voit les epaules monter beaucoup plus que les
+           # hanches. Pas de persona : la cause est en amont (hip_height:too_high, dans
+           # ENCHAINEMENTS), et c'est elle que l'epingle doit designer.
+           Etat("shoulders_only", "The shoulders gain height while the hips stay where they "
+                                  "started: the back swings up around the hips like a hinge "
+                                  "and the knee angle hardly changes, because the legs were "
+                                  "already nearly straight at the floor.", 1)),
     note_source="Etait POSE (rise_ratio) jusqu'au 2026-09-09, ou il sortait sa sentinelle "
                 "9,99 sur une repetition dont la fenetre de phase etait POSTERIEURE au "
                 "verrouillage. Revient en LLM le 2026-09-09, et c'est l'indicateur qui "
@@ -626,7 +683,13 @@ P04 = Indicateur(
     portee=Portee.REP, critere="structure",
     question="Look ONLY at the lower back. Compare its shape at the floor, at knee height "
              "and at lockout. Does flexion get ADDED there during the pull?",
-    etats=(Etat("unchanged", "The lower back keeps the same shape from the floor to lockout.", 3),
+    # `unchanged` ne vaut plus 3 depuis le 2026-09-11 : il est DESCRIPTIF (note None).
+    # "Ca ne bouge pas" n'est pas un merite — sur pr_160 la lombaire est flechie au
+    # depart et le reste, et la page affichait "keeps the same shape" avec un badge
+    # vert. Avec la regle du minimum, un 3 ne faisait deja rien gagner au critere ; ce
+    # qui change, c'est qu'il ne peut plus, seul, tenir `structure` a 3/3, et qu'il
+    # s'affiche sans note. Ce que la lombaire vaut au depart est dit par S05.
+    etats=(Etat("unchanged", "The lower back keeps the same shape from the floor to lockout."),
            Etat("flexion_appears", "The lower back rounds further during the pull than it "
                                    "was at the start.", 2),
            Etat("collapses", "The lower back rounds hard and keeps rounding as the bar "
@@ -641,7 +704,8 @@ P10 = Indicateur(
     portee=Portee.REP, critere="structure",
     question="Look ONLY at the upper back. Compare its shape at the floor, at knee height "
              "and at lockout. Does flexion get ADDED there during the pull?",
-    etats=(Etat("unchanged", "The upper back keeps the same shape from the floor to lockout.", 3),
+    # Meme regle que P04 : `unchanged` est descriptif, sans note.
+    etats=(Etat("unchanged", "The upper back keeps the same shape from the floor to lockout."),
            Etat("flexion_appears", "The upper back rounds further during the pull than it "
                                    "was at the start.", 2)),
     note_source="Un thoracique qui S'AGGRAVE sous charge n'est plus la technique assumee de "
@@ -869,11 +933,13 @@ E03 = Indicateur(
 # mesure contre les annotations humaines avant qu'on fasse confiance a ces six-la.
 INDICATEURS: tuple[Indicateur, ...] = (
     C04, C05,
-    S01, S02, S04, S05, S10, S06, S07, S08, S09,
+    S01, S02, S04, S05, S10, S06, S07, S08,
     L01, L03, L04,
     P02, P03, P04, P10, P05, P08, P09,
     K03, K04, K07,
     E02, E03,
+    # --- retire le 2026-09-11, pas assez visible pour etre note : voir S09 -----------
+    # slack_and_brace : S09 brace (ses CONSEILS et ENCHAINEMENTS sont commentes plus bas)
     # --- toujours retires, mesures par la pose et jamais rebranches ------------------
     # contexte  : C01 variant, C02 camera_view, C03 pose_quality
     # setup     : S03 shin_angle
@@ -905,14 +971,17 @@ CONSEILS = {
     "hip_height:too_low": "Raise the hips until your shoulders sit just ahead of the bar: squatting the setup gives the bar nowhere to go.",
     "shoulders_over_bar:behind_bar": "Set the shoulders over or just ahead of the bar before you pull.",
     "shoulders_over_bar:far_ahead": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
+    "arms_long:slightly_bent": "Let the arms hang like ropes: no pulling with the elbows, the legs move the bar.",
     "arms_long:bent": "Keep the arms long from the floor to the top and let the legs do the work.",
 
     # --- mecanique 3 : le slack et le gainage ---------------------------------------
     "slack_pull:partial": "Pull the slack out until you feel the bar load, then push the floor away.",
     "slack_pull:yanked": "Take the slack out of the bar before you pull instead of yanking it.",
     "jerky_start:jerked": "Build tension against the bar, then accelerate: do not snatch it off the floor.",
-    "brace:partial": "Take the same breath every rep and hold it all the way to lockout.",
-    "brace:none": "Take a big breath at the bottom, push it into your belly, and hold it until the bar is down.",
+    # S09 brace est hors schema depuis le 2026-09-11 ; `_verifie()` refuse un conseil vers
+    # un etat inexistant, d'ou le commentaire plutot que la suppression.
+    # "brace:partial": "Take the same breath every rep and hold it all the way to lockout.",
+    # "brace:none": "Take a big breath at the bottom, push it into your belly, and hold it until the bar is down.",
 
     # --- mecanique 4 : le leg drive --------------------------------------------------
     # "Ne laisse pas tes hanches monter" est INAPPLICABLE : la montee des hanches est
@@ -978,8 +1047,9 @@ ENCHAINEMENTS: dict[str, tuple[str, ...]] = {
     "slack_pull:yanked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
     "slack_pull:partial": ("hip_vs_shoulder_rise",),
     "jerky_start:jerked": ("hip_vs_shoulder_rise", "lumbar_under_load"),
-    "brace:none": ("lumbar_under_load",),
-    "brace:partial": ("lumbar_under_load",),
+    # S09 brace hors schema depuis le 2026-09-11, voir INDICATEURS.
+    # "brace:none": ("lumbar_under_load",),
+    # "brace:partial": ("lumbar_under_load",),
     # Une barre loin du corps allonge le bras de levier : le verrouillage se paie.
     "bar_leg_contact:away_from_legs": ("hitch", "lockout_completion", "lean_back"),
     "past_the_knees:loops": ("hitch",),

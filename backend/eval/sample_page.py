@@ -53,11 +53,10 @@ obs = []
 for i, r in enumerate(resumes, 1):
     obs.append({
         "rep_index": i, "bar_over_midfoot": "over_midfoot",
-        "hip_height": "between_knees_and_shoulders", "shoulders_over_bar": "over_bar",
+        "hip_height": "midway", "shoulders_over_bar": "over_bar",
         "lumbar_at_setup": "neutral", "thoracic_at_setup": "rounded",
         "arms_long": "straight",
         "slack_pull": "progressive" if i <= 2 else "partial",
-        "brace": "braced" if i <= 3 else "partial",
         "jerky_start": "smooth", "bar_left_floor": "yes",
         "hip_vs_shoulder_rise": "together" if i <= 2 else "hips_shoot_up",
         "past_the_knees": "clean" if i <= 2 else "loops",

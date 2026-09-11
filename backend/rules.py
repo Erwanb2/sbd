@@ -110,9 +110,13 @@ def note_du_critere(etats: dict, critere: str, variante: str) -> tuple[int | Non
         etat = ind.etat(cle)
         if etat is None:
             continue
+        # `note` a None couvre deux cas que la page doit separer : "pas vu" (l'etat
+        # not_visible, a remonter comme un manque) et un fait DESCRIPTIF — un etat
+        # observe qui ne vaut ni plus ni moins (`lumbar_under_load:unchanged` depuis
+        # le 2026-09-11), a ranger dans le depliant. D'ou `visible`.
         faits.append({"indicateur": ind.id, "phase": ind.phase.value,
                       "source": ind.source.value, "fait": etat.description,
-                      "note": etat.note})
+                      "note": etat.note, "visible": cle != indicators.NON_VISIBLE.cle})
         if etat.note is not None:
             notes.append(etat.note)
     return (min(notes) if notes else None), faits

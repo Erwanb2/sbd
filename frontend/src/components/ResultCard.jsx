@@ -18,7 +18,9 @@ export default function ResultCard({ data, isExpanded, onToggle, demo }) {
   // bien — transforme chaque critère en pavé et double la longueur de la page, alors
   // que la barre verte dit déjà que le reste est bon. Le détail complet reste à un
   // clic, dans le dépliant.
-  const aCorriger = faits.filter((f) => f.note === null || f.note < 3);
+  // Un fait sans note est soit "pas vu" (à remonter), soit descriptif — observé,
+  // mais qui ne vaut ni plus ni moins, comme un dos qui garde sa forme : dépliant.
+  const aCorriger = faits.filter((f) => (f.note === null ? f.visible === false : f.note < 3));
   const enOrdre = aCorriger.length > 0 ? aCorriger : faits.slice(0, 1);
   const reste = faits.filter((f) => !enOrdre.includes(f));
 
