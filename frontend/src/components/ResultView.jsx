@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ResultCard from './ResultCard.jsx';
 import RepHistogram from './RepHistogram.jsx';
+import SkeletonOverlay from './SkeletonOverlay.jsx';
 import { criteriaGuides } from '../data/criteriaGuides.js';
 import { getPersonaAssets } from '../data/personaAssets.js';
+import { formatTemps } from '../utils/helpers.js';
 
 // Rendu d'une analyse : vidéo + note, puis les deux axes — le bandeau `structure`
 // (ce qui a lâché, avec son urgence) et l'épingle (la seule chose à corriger, avec
@@ -17,6 +19,8 @@ import { getPersonaAssets } from '../data/personaAssets.js';
 export default function ResultView({ result, movement, videoUrl, onReset }) {
   const [ expandedCard, setExpandedCard ] = useState(null);
   const [ selectedRep, setSelectedRep ] = useState(null);
+  const [ squeletteVisible, setSqueletteVisible ] = useState(true);
+  const videoRef = useRef(null);
 
   const note = result?.note_sur_20 ?? 0;
   const pourcentage = (note / 20) * 100;
@@ -35,6 +39,28 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
   const epingle = result?.epingle;
   const structure = result?.structure;
   const persona = result?.persona;
+  const squelette = result?.squelette;
+  const repSelectionnee = reps.find((r) => r.index === selectedRep) || null;
+
+  // Cliquer une rep dans l'histogramme saute la vidéo à son début et boucle la
+  // lecture sur sa fenêtre (`debut_s`/`fin_s`, la même détection que les barres) :
+  // pas besoin de chercher la répétition à la main dans le lecteur. Désélectionner
+  // relâche la contrainte, la vidéo garde son `loop` sur le clip entier.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !repSelectionnee || repSelectionnee.debut_s == null) return undefined;
+
+    video.currentTime = repSelectionnee.debut_s;
+    video.play().catch(() => {});
+
+    const surProgression = () => {
+      if (repSelectionnee.fin_s != null && video.currentTime >= repSelectionnee.fin_s) {
+        video.currentTime = repSelectionnee.debut_s;
+      }
+    };
+    video.addEventListener('timeupdate', surProgression);
+    return () => video.removeEventListener('timeupdate', surProgression);
+  }, [ repSelectionnee ]);
 
   const urgenceStyle = {
     stop: 'border-red-500/40 bg-red-500/10 text-red-300',
@@ -68,6 +94,7 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
             { /* Le fragment #t force le rendu de la première image : sans lui, la
                  carte s'ouvre sur un rectangle noir qui a l'air cassé. */ }
             <video
+              ref={ videoRef }
               src={ `${ videoUrl }#t=0.1` }
               controls
               loop
@@ -75,6 +102,28 @@ export default function ResultView({ result, movement, videoUrl, onReset }) {
               preload="metadata"
               className="w-full max-h-[340px] object-contain bg-black"
             />
+
+            { /* Le squelette dessiné vient de la même passe MediaPipe que la variante
+                 et les répétitions : jamais recalculé côté navigateur. */ }
+            <SkeletonOverlay videoRef={ videoRef } squelette={ squelette } visible={ squeletteVisible } />
+
+            { repSelectionnee && (
+              <span className="pointer-events-none absolute top-2 left-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-sm">
+                Rep { repSelectionnee.index } · { formatTemps(repSelectionnee.debut_s) }–{ formatTemps(repSelectionnee.fin_s) }
+              </span>
+            ) }
+
+            { squelette?.frames?.length > 0 && (
+              <button
+                type="button"
+                onClick={ () => setSqueletteVisible((v) => !v) }
+                title={ squeletteVisible ? 'Hide pose skeleton' : 'Show pose skeleton' }
+                className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-md bg-black/70 text-xs text-gray-300 backdrop-blur-sm transition-colors hover:text-white"
+              >
+                { squeletteVisible ? '🦴' : '🚫' }
+              </button>
+            ) }
+
             <span className="pointer-events-none absolute bottom-2 left-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-gray-300 backdrop-blur-sm">
               Video deleted in 24h
             </span>
