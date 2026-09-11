@@ -73,6 +73,10 @@ export default function SkeletonOverlay({ videoRef, squelette, visible }) {
       canvas.height = video.clientHeight * dpr;
       canvas.style.width = `${ video.clientWidth }px`;
       canvas.style.height = `${ video.clientHeight }px`;
+      // Cale sur la position reelle de la video dans son parent positionne, pas sur le
+      // coin du parent : si la video y est centree avec un decalage, le squelette suit.
+      canvas.style.left = `${ video.offsetLeft }px`;
+      canvas.style.top = `${ video.offsetTop }px`;
     };
 
     const dessine = () => {
@@ -129,7 +133,7 @@ export default function SkeletonOverlay({ videoRef, squelette, visible }) {
   return (
     <canvas
       ref={ canvasRef }
-      className={ `pointer-events-none absolute inset-0 ${ visible ? '' : 'hidden' }` }
+      className={ `pointer-events-none absolute left-0 top-0 ${ visible ? '' : 'hidden' }` }
     />
   );
 }

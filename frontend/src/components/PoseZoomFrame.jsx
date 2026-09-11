@@ -8,6 +8,12 @@ import { bboxLissee, transformDeZoom } from '../utils/poseCrop.js';
 // frame par frame, qui tremble dès qu'une pose est ratée.
 //
 // Le parent doit porter `overflow-hidden` : le contenu zoomé déborde de son cadre.
+//
+// Le wrapper reste DANS le flux (pas d'`absolute inset-0`) : c'est lui, via la vidéo,
+// qui donne sa hauteur au conteneur. En absolu, le conteneur prenait la hauteur de la
+// colonne de score (184 px pour 340 de vidéo, mesuré) : la vidéo débordait, rognée en
+// haut et en bas avec ses contrôles, et l'overlay squelette, calé sur le haut du
+// wrapper et non de la vidéo, se retrouvait 78 px trop bas.
 export default function PoseZoomFrame({ videoRef, squelette, enabled, children }) {
   const wrapRef = useRef(null);
   const bbox = useMemo(() => (enabled ? bboxLissee(squelette) : null), [ squelette, enabled ]);
@@ -36,7 +42,7 @@ export default function PoseZoomFrame({ videoRef, squelette, enabled, children }
   return (
     <div
       ref={ wrapRef }
-      className="absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-out"
+      className="relative w-full flex items-center justify-center transition-transform duration-300 ease-out"
       style={ { transformOrigin: '0 0' } }
     >
       { children }
