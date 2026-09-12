@@ -5,7 +5,7 @@ import { formatTemps, getScoreColor } from '../utils/helpers.js';
 // ce que le backend en a fait. La page principale ne montre que ce qui cloche ; ici
 // rien n'est résumé — chaque champ, la question posée, l'observation libre écrite
 // avant de répondre, l'état choisi, sa note, les autres états possibles, les
-// segments écartés, l'épingle, le persona, les tokens et le prompt.
+// segments écartés, l'épingle, le persona, les tokens, le prompt et les pensées du modèle.
 //
 // La forme lue est `result.debug`, produit par `rules._debug` côté backend, plus
 // les blocs déjà présents dans `result` (épingle, structure, persona, tenue du set).
@@ -173,6 +173,17 @@ export default function DebugView({ result }) {
             <details className="border border-gray-800 rounded-xl bg-black/30">
               <summary className="cursor-pointer px-4 py-2 text-xs uppercase tracking-wider text-gray-500 select-none hover:text-gray-300">Prompt</summary>
               <pre className="px-4 pb-4 text-[11px] leading-relaxed text-gray-400 whitespace-pre-wrap">{ appel.prompt }</pre>
+            </details>
+          </div>
+        ) }
+        { appel?.pensees && (
+          <div className="mt-3">
+            <details className="border border-gray-800 rounded-xl bg-black/30">
+              <summary className="cursor-pointer px-4 py-2 text-xs uppercase tracking-wider text-gray-500 select-none hover:text-gray-300">
+                Thinking
+                <span className="normal-case tracking-normal text-gray-600"> · { appel.usage?.thoughts_tokens ?? '?' } tokens, written before the JSON</span>
+              </summary>
+              <pre className="px-4 pb-4 text-[11px] leading-relaxed text-gray-400 whitespace-pre-wrap">{ appel.pensees }</pre>
             </details>
           </div>
         ) }

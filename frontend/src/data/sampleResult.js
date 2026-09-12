@@ -22,10 +22,6 @@ export const sampleResult =
       "etat": "mixed",
       "texte": "One palm forward, one back (mixed grip)."
     },
-    "foot_orientation": {
-      "etat": "forward",
-      "texte": "The toes point roughly forward."
-    },
     "mesures": {
       "view": 0.08,
       "visibility": 0.83
@@ -55,7 +51,7 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+              "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
               "note": 3,
               "visible": true
             },
@@ -193,7 +189,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+              "fait": "The lower back is extremely flat",
               "note": 3,
               "visible": true
             },
@@ -264,7 +260,7 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+              "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
               "note": 3,
               "visible": true
             },
@@ -402,7 +398,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+              "fait": "The lower back is extremely flat",
               "note": 3,
               "visible": true
             },
@@ -473,7 +469,7 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+              "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
               "note": 3,
               "visible": true
             },
@@ -611,7 +607,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+              "fait": "The lower back is extremely flat",
               "note": 3,
               "visible": true
             },
@@ -682,7 +678,7 @@ export const sampleResult =
               "indicateur": "S02",
               "phase": "setup",
               "source": "llm",
-              "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+              "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
               "note": 3,
               "visible": true
             },
@@ -820,7 +816,7 @@ export const sampleResult =
               "indicateur": "S05",
               "phase": "setup",
               "source": "llm",
-              "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+              "fait": "The lower back is extremely flat",
               "note": 3,
               "visible": true
             },
@@ -899,7 +895,7 @@ export const sampleResult =
           "indicateur": "S02",
           "phase": "setup",
           "source": "llm",
-          "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+          "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1173,7 +1169,7 @@ export const sampleResult =
     "structure": {
       "libelle": "Structure under load",
       "note": 2,
-      "poids": 2.0,
+      "poids": 0.5,
       "notes_par_rep": [
         3,
         3,
@@ -1196,7 +1192,7 @@ export const sampleResult =
           "indicateur": "S05",
           "phase": "setup",
           "source": "llm",
-          "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+          "fait": "The lower back is extremely flat",
           "note": 3,
           "visible": true,
           "reps": [
@@ -1374,10 +1370,10 @@ export const sampleResult =
     }
   ],
   "persona": {
-    "nom": "The Fishing Rod",
-    "fait": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load).",
-    "rep": 4,
-    "indicateur": "P04"
+    "nom": "The Crane",
+    "fait": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor.",
+    "rep": 3,
+    "indicateur": "L01"
   },
   "squelette": null,
   "debug": {
@@ -1390,7 +1386,7 @@ export const sampleResult =
           "rep_index": 1,
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
@@ -1416,7 +1412,7 @@ export const sampleResult =
           "rep_index": 2,
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
@@ -1442,7 +1438,7 @@ export const sampleResult =
           "rep_index": 3,
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
@@ -1468,7 +1464,7 @@ export const sampleResult =
           "rep_index": 4,
           "bar_over_midfoot_topology": "bar_over_laces",
           "hip_height_via_femur": "femur_angled_upward",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
           "arms_tension_at_setup": "elbow_locked_prior",
@@ -1531,22 +1527,22 @@ export const sampleResult =
         "source": "llm",
         "vue": "side",
         "portee": "rep",
-        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Focus ONLY on the lifter's arm (from the shoulder joint to the hand holding the bar). Analyze the angle of the arm relative to the floor in 3D space, acting as a plumb line.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Drop a perfectly vertical imaginary plumb line from the lifter's shoulder joint straight down to the floor. Now, look at where this vertical line lands horizontally relative to the barbell.",
         "etats": [
           {
-            "cle": "arm_angled_forward",
-            "note": 1,
-            "description": "The shoulder joint is closer to the lifter's heels than the hand is. The arm creates a diagonal line pointing forward towards the bar."
-          },
-          {
-            "cle": "arm_perfectly_vertical",
-            "note": 3,
-            "description": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand."
-          },
-          {
-            "cle": "arm_angled_backward",
+            "cle": "shoulder_behind_bar",
             "note": 2,
-            "description": "The shoulder joint is closer to the lifter's toes than the hand is. The arm creates a diagonal line pointing backward towards the lifter's body."
+            "description": "The vertical plumb line from the shoulder falls horizontally behind the barbell (closer to the lifter's heels). The arm creates a diagonal line reaching forward to grab the bar."
+          },
+          {
+            "cle": "shoulder_stacked_over_bar",
+            "note": 3,
+            "description": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor)."
+          },
+          {
+            "cle": "shoulder_ahead_of_bar",
+            "note": 3,
+            "description": "The vertical plumb line from the shoulder falls horizontally in front of the barbell (closer to the lifter's toes). The arm creates a diagonal line reaching backward towards the lifter's shins to grab the bar."
           },
           {
             "cle": "not_visible",
@@ -1593,27 +1589,27 @@ export const sampleResult =
         "source": "llm",
         "vue": "toute",
         "portee": "rep",
-        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw a perfectly straight imaginary line (the string) connecting the lifter's tailbone (sacrum) to the bottom of their ribcage. Now, look at the physical contour of the lifter's lower back (the bow) relative to this straight line.",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement. Analyze the physical contour of the lower back",
         "etats": [
           {
             "cle": "lumbar_neutral_or_concave",
             "note": 3,
-            "description": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed."
+            "description": "The lower back is extremely flat"
           },
           {
             "cle": "upper_lumbar_convexity",
             "note": 2,
-            "description": "The physical contour crosses behind the straight line (away from the stomach) to form an outward arc, BUT this curve only begins in the upper half of the segment (near the ribs). The lower section right above the tailbone remains straight."
+            "description": "The lower back forms a curve on in its upper half"
           },
           {
             "cle": "full_lumbar_convexity",
             "note": 1,
-            "description": "The physical contour crosses behind the straight line to form an outward arc, AND this curve begins immediately at the tailbone/waistband. The entire lower back forms a continuous \"C\" shape, indicating the pelvis is tucked under."
+            "description": "The entire lower back forms a \"C\" shape ."
           },
           {
             "cle": "not_visible",
             "note": null,
-            "description": "Clothing or angle prevents a clear view of the lower back contour."
+            "description": "The lower back contour is obscured by clothing or camera angle."
           }
         ]
       },
@@ -1665,7 +1661,7 @@ export const sampleResult =
           {
             "cle": "elbow_angle_changes",
             "note": 1,
-            "description": "The elbow angle is less than 180 degrees (bent) and/or visually straightens exactly AT or AFTER the moment the plates leave the floor (yanking the bar)."
+            "description": "The elbow angle is less than 180 degrees (bent) "
           },
           {
             "cle": "not_visible",
@@ -2082,32 +2078,6 @@ export const sampleResult =
             "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
           }
         ]
-      },
-      "foot_orientation": {
-        "id": "S08",
-        "critere": null,
-        "phase": "setup",
-        "source": "llm",
-        "vue": "toute",
-        "portee": "set",
-        "question": "How are the feet oriented?",
-        "etats": [
-          {
-            "cle": "flared",
-            "note": null,
-            "description": "The toes are flared outwards."
-          },
-          {
-            "cle": "forward",
-            "note": null,
-            "description": "The toes point roughly forward."
-          },
-          {
-            "cle": "not_visible",
-            "note": null,
-            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
-          }
-        ]
       }
     },
     "reps": [
@@ -2119,7 +2089,7 @@ export const sampleResult =
         "statut": "complete",
         "etats": {
           "bar_over_midfoot_topology": "bar_over_laces",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "hip_height_via_femur": "femur_angled_upward",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
@@ -2157,11 +2127,11 @@ export const sampleResult =
           },
           {
             "nom": "shoulders_over_bar_gravity",
-            "etat": "arm_perfectly_vertical",
-            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+            "etat": "shoulder_stacked_over_bar",
+            "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "arm_perfectly_vertical"
+            "reponse_brute": "shoulder_stacked_over_bar"
           },
           {
             "nom": "hip_height_via_femur",
@@ -2174,7 +2144,7 @@ export const sampleResult =
           {
             "nom": "lumbar_at_setup",
             "etat": "lumbar_neutral_or_concave",
-            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+            "fait": "The lower back is extremely flat",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
             "reponse_brute": "lumbar_neutral_or_concave"
@@ -2303,7 +2273,7 @@ export const sampleResult =
         "statut": "complete",
         "etats": {
           "bar_over_midfoot_topology": "bar_over_laces",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "hip_height_via_femur": "femur_angled_upward",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
@@ -2341,11 +2311,11 @@ export const sampleResult =
           },
           {
             "nom": "shoulders_over_bar_gravity",
-            "etat": "arm_perfectly_vertical",
-            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+            "etat": "shoulder_stacked_over_bar",
+            "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "arm_perfectly_vertical"
+            "reponse_brute": "shoulder_stacked_over_bar"
           },
           {
             "nom": "hip_height_via_femur",
@@ -2358,7 +2328,7 @@ export const sampleResult =
           {
             "nom": "lumbar_at_setup",
             "etat": "lumbar_neutral_or_concave",
-            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+            "fait": "The lower back is extremely flat",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
             "reponse_brute": "lumbar_neutral_or_concave"
@@ -2487,7 +2457,7 @@ export const sampleResult =
         "statut": "complete",
         "etats": {
           "bar_over_midfoot_topology": "bar_over_laces",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "hip_height_via_femur": "femur_angled_upward",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
@@ -2525,11 +2495,11 @@ export const sampleResult =
           },
           {
             "nom": "shoulders_over_bar_gravity",
-            "etat": "arm_perfectly_vertical",
-            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+            "etat": "shoulder_stacked_over_bar",
+            "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "arm_perfectly_vertical"
+            "reponse_brute": "shoulder_stacked_over_bar"
           },
           {
             "nom": "hip_height_via_femur",
@@ -2542,7 +2512,7 @@ export const sampleResult =
           {
             "nom": "lumbar_at_setup",
             "etat": "lumbar_neutral_or_concave",
-            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+            "fait": "The lower back is extremely flat",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
             "reponse_brute": "lumbar_neutral_or_concave"
@@ -2671,7 +2641,7 @@ export const sampleResult =
         "statut": "complete",
         "etats": {
           "bar_over_midfoot_topology": "bar_over_laces",
-          "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+          "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
           "hip_height_via_femur": "femur_angled_upward",
           "lumbar_at_setup": "lumbar_neutral_or_concave",
           "thoracic_at_setup": "thoracic_neutral_or_concave",
@@ -2709,11 +2679,11 @@ export const sampleResult =
           },
           {
             "nom": "shoulders_over_bar_gravity",
-            "etat": "arm_perfectly_vertical",
-            "fait": "The arm acts as a perfect vertical plumb line, strictly perpendicular to the floor (90 degrees). The shoulder joint is stacked exactly above the hand.",
+            "etat": "shoulder_stacked_over_bar",
+            "fait": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor).",
             "note": 3,
             "observation": null,
-            "reponse_brute": "arm_perfectly_vertical"
+            "reponse_brute": "shoulder_stacked_over_bar"
           },
           {
             "nom": "hip_height_via_femur",
@@ -2726,7 +2696,7 @@ export const sampleResult =
           {
             "nom": "lumbar_at_setup",
             "etat": "lumbar_neutral_or_concave",
-            "fait": "The physical contour of the lower back lies exactly flat against this imaginary straight line, or dips inward (towards the stomach) creating a hollow valley. The line is not crossed.",
+            "fait": "The lower back is extremely flat",
             "note": 3,
             "observation": "The lower back keeps its inward curve at the setup.",
             "reponse_brute": "lumbar_neutral_or_concave"
@@ -2865,14 +2835,6 @@ export const sampleResult =
         "note": null,
         "observation": null,
         "reponse_brute": "mixed"
-      },
-      {
-        "nom": "foot_orientation",
-        "etat": "forward",
-        "fait": "The toes point roughly forward.",
-        "note": null,
-        "observation": null,
-        "reponse_brute": "forward"
       }
     ]
   },

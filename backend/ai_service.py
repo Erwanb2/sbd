@@ -264,25 +264,20 @@ def _prompt(variante: str, n: int) -> str:
     return f"""You are an elite powerlifting coach watching a {variante.upper()} DEADLIFT.
 
 You are given {n} video segments, in chronological order. Each segment is ONE candidate
-repetition, cut by a pose detector that sees the body but NOT the bar.
+repetition.
 
 Fill `reps` with exactly {n} entries, one per segment, in the same order.
 
-For every entry, your job is to OBSERVE, never to grade. Each field offers a closed list
-of things that can be seen: pick the one that matches this segment. There is no score to
-give and no praise to write.
+Each field offers a closed list of things that can be seen: pick the one that matches this segment.
 
-The one judgement only you can make is `bar_left_floor`. The detector cannot tell a
-repetition from an athlete standing up after putting the bar down, because the body does
-exactly the same thing. Look at the bar and the plates:
+`bar_left_floor` - The segment detector cannot tell a repetition from an athlete standing up.
+Look at the bar and the plates:
   - 'yes'        : the bar left the floor and was lifted.
   - 'no'         : the bar never left the floor, or was already down. Not a repetition.
   - 'incomplete' : the bar left the floor but came back down before lockout.
 Return the entry either way, with every other field filled as best you can.
 
-When something genuinely cannot be seen, use 'not_visible' for that field alone. It means
-you could not SEE it, never that you saw it and disliked it, and it must not spread to
-the fields you could see."""
+When something genuinely cannot be seen, use 'not_visible' for that field alone."""
 
 
 # Les reglages de l'appel d'analyse, tous au plafond, identiques a la run A du
@@ -299,11 +294,26 @@ def _appelle(modele: str, contenus: list, schema, label: str):
             temperature=REGLAGES_ANALYSE["temperature"],
             media_resolution=types.MediaResolution.MEDIA_RESOLUTION_HIGH,
             # Raisonnement au plafond. Le repli flash-lite l'accepte aussi (verifie par
-            # un appel texte le 2026-09-11).
-            thinking_config=types.ThinkingConfig(thinking_level=types.ThinkingLevel.HIGH)),
+            # un appel texte le 2026-09-11). `include_thoughts` ne change ni le
+            # raisonnement ni la facture (les tokens de pensee sont deja comptes en
+            # sortie) : il fait seulement revenir le texte des pensees, pour l'onglet debug.
+            thinking_config=types.ThinkingConfig(thinking_level=types.ThinkingLevel.HIGH,
+                                                 include_thoughts=True)),
     )
     usage = log_usage(model=modele, response=reponse, label=label)
     return reponse, usage
+
+
+def _pensees(reponse) -> str | None:
+    """Le texte des pensees du modele, tel que l'API le renvoie (brut ou resume selon le
+    modele). Genere AVANT le JSON, sans contrainte de forme — mais apres lecture du
+    schema, qui fait partie de l'entree."""
+    try:
+        parts = reponse.candidates[0].content.parts or []
+    except (AttributeError, IndexError, TypeError):
+        return None
+    textes = [p.text for p in parts if getattr(p, "thought", False) and p.text]
+    return "\n\n".join(textes) or None
 
 
 def _usage_public(usage: dict | None) -> dict | None:
@@ -370,6 +380,7 @@ def analyze_movement(file_name: str, mouvement_detecte: str,
             **REGLAGES_ANALYSE, "fps": segments[0].video_metadata.fps,
             "segments": [{"debut_s": c["debut_s"], "fin_s": c["fin_s"]} for c in candidats],
             "prompt": prompt,
+            "pensees": _pensees(reponse),
             "usage": _usage_public(usage),
         }
         if repli:

@@ -54,7 +54,7 @@ for i, r in enumerate(resumes, 1):
     obs.append({
         "rep_index": i, "bar_over_midfoot_topology": "bar_over_laces",
         "hip_height_via_femur": "femur_angled_upward",
-        "shoulders_over_bar_gravity": "arm_perfectly_vertical",
+        "shoulders_over_bar_gravity": "shoulder_stacked_over_bar",
         "lumbar_at_setup": "lumbar_neutral_or_concave",
         "thoracic_at_setup": "thoracic_neutral_or_concave",
         "arms_tension_at_setup": "elbow_locked_prior",

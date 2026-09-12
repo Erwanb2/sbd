@@ -103,15 +103,7 @@ CRITERES = {
     "bar_path":        ("Bar against the body", 1.5),
     "finish_position": ("Finish position", 1.0),
     "reset":           ("Reset between reps", 0.5),
-    # L'axe STRUCTURE n'est pas une mecanique : ce ne sont pas des choses qu'on
-    # execute, ce sont des choses qui LACHENT — le dos, les genoux, la symetrie. Il
-    # garde son poids dans la note (sinon un dos qui s'effondre sort a 18/20 et le
-    # chiffre ment) mais il s'affiche a part, en bandeau, avec sa propre urgence.
-    # Et l'epingle ne pointe JAMAIS vers lui : "utilise moins tes lombaires" n'est
-    # pas une consigne executable, la lombaire qui prend est le prix paye pour des
-    # hanches hautes sans leg drive.
-    # Le danger fixe l'urgence, la cause fixe l'action.
-    "structure":       ("Structure under load", 2.0),
+    "structure":       ("Structure under load", 0.5),
 }
 
 STRUCTURE = "structure"
@@ -396,20 +388,27 @@ S02 = Indicateur(
     id="S02", nom="shoulders_over_bar_gravity", phase=Phase.SETUP, source=Source.LLM,
     portee=Portee.REP, critere="start_position", vue=Vue.PROFIL,
     question="Pause the video at the exact frame immediately preceding the first upward "
-             "movement of the lifter's body. Focus ONLY on the lifter's arm (from the "
-             "shoulder joint to the hand holding the bar). Analyze the angle of the arm "
-             "relative to the floor in 3D space, acting as a plumb line.",
+             "movement of the lifter's body. Drop a perfectly vertical imaginary plumb line "
+             "from the lifter's shoulder joint straight down to the floor. Now, look at "
+             "where this vertical line lands horizontally relative to the barbell.",
     # Le bras est le fil a plomb : epaule derriere la main = epaules derriere la barre.
-    etats=(Etat("arm_angled_forward", "The shoulder joint is closer to the lifter's heels "
-                                      "than the hand is. The arm creates a diagonal line "
-                                      "pointing forward towards the bar.", 1),
-           Etat("arm_perfectly_vertical", "The arm acts as a perfect vertical plumb line, "
-                                          "strictly perpendicular to the floor (90 degrees). "
-                                          "The shoulder joint is stacked exactly above the "
-                                          "hand.", 3),
-           Etat("arm_angled_backward", "The shoulder joint is closer to the lifter's toes "
-                                       "than the hand is. The arm creates a diagonal line "
-                                       "pointing backward towards the lifter's body.", 2)),
+    # Bareme du 2026-09-11 soir (liste humaine) : epaule DERRIERE la barre = 2, epaule
+    # DEVANT ou a l'aplomb = 3. Les epaules un peu devant la barre sont la position
+    # normale d'un depart, pas une faute : seul `shoulder_behind_bar` a un conseil
+    # et une arete d'enchainement.
+    etats=(Etat("shoulder_behind_bar", "The vertical plumb line from the shoulder falls "
+                                       "horizontally behind the barbell (closer to the "
+                                       "lifter's heels). The arm creates a diagonal line "
+                                       "reaching forward to grab the bar.", 2),
+           Etat("shoulder_stacked_over_bar", "The vertical plumb line from the shoulder "
+                                             "strictly intersects the lifter's hand and the "
+                                             "barbell. The arm is perfectly vertical (90 "
+                                             "degrees to the floor).", 3),
+           Etat("shoulder_ahead_of_bar", "The vertical plumb line from the shoulder falls "
+                                         "horizontally in front of the barbell (closer to "
+                                         "the lifter's toes). The arm creates a diagonal "
+                                         "line reaching backward towards the lifter's shins "
+                                         "to grab the bar.", 3)),
     non_visible="The arm is obscured.",
     note_source="Etait POSE (shoulder_bar_offset) jusqu'au 2026-09-09. Revient en LLM : "
                 "la position des epaules PAR RAPPORT A LA BARRE demande de voir la barre, "
@@ -448,28 +447,13 @@ S01 = Indicateur(
 S05 = Indicateur(
     id="S05", nom="lumbar_at_setup", phase=Phase.SETUP, source=Source.LLM, portee=Portee.REP,
     critere="structure",
-    question="Pause the video at the exact frame immediately preceding the first upward "
-             "movement of the lifter's body. Draw a perfectly straight imaginary line (the "
-             "string) connecting the lifter's tailbone (sacrum) to the bottom of their ribcage. "
-             "Now, look at the physical contour of the lifter's lower back (the bow) relative "
-             "to this straight line.",
-    etats=(Etat("lumbar_neutral_or_concave", "The physical contour of the lower back lies "
-                                             "exactly flat against this imaginary straight "
-                                             "line, or dips inward (towards the stomach) "
-                                             "creating a hollow valley. The line is not "
-                                             "crossed.", 3),
-           Etat("upper_lumbar_convexity", "The physical contour crosses behind the straight "
-                                          "line (away from the stomach) to form an outward "
-                                          "arc, BUT this curve only begins in the upper half "
-                                          "of the segment (near the ribs). The lower section "
-                                          "right above the tailbone remains straight.", 2),
-           Etat("full_lumbar_convexity", "The physical contour crosses behind the straight "
-                                         "line to form an outward arc, AND this curve begins "
-                                         "immediately at the tailbone/waistband. The entire "
-                                         "lower back forms a continuous \"C\" shape, "
-                                         "indicating the pelvis is tucked under.", 1,
+    question="Analyze the contour of the lower back when the deadlift mouvement starts",
+    etats=(Etat("lumbar_neutral_or_concave", "The lower back is extremely flat", 3),
+           Etat("upper_lumbar_convexity", "The lower back forms a curve on in its upper half", 2),
+           Etat("full_lumbar_convexity", "The entire lower back forms a "
+                                         "\"C\" shape .", 1,
                 persona="The Fishing Rod")),
-    non_visible="Clothing or angle prevents a clear view of the lower back contour.",
+    non_visible="The lower back contour is obscured by clothing or camera angle.",
     note_source="LIMITE DURE : aucun repere entre epaules et hanches. Le tronc est un "
                 "segment droit pour MediaPipe. Ne jamais fabriquer un proxy ici. "
                 "La frontiere 2/1 n'est pas l'intensite de la courbe mais son POINT DE "
@@ -484,13 +468,6 @@ S10 = Indicateur(
              "string) connecting the bottom of the lifter's ribcage to the base of their neck. "
              "Now, look at the physical contour of the lifter's upper back (the bow) relative "
              "to this straight line.",
-    # Meme frontiere que S05 : ce n'est pas l'intensite de la courbe qui separe 2 de 1,
-    # c'est son POINT DE DEPART. Une convexite qui ne commence qu'aux omoplates (2)
-    # contre un "C" continu des le bas des cotes (1). Jusqu'au 2026-09-11 les deux
-    # etats valaient 3 (haut du dos rond et fige = technique assumee) ; note a nouveau
-    # depuis, decision humaine du meme jour. Avec un poids de 2 sur `structure`, un
-    # lifter qui tire volontairement le haut du dos rond des le bas des cotes sortira
-    # en bandeau : a surveiller sur les clips de ce style.
     etats=(Etat("thoracic_neutral_or_concave", "The physical contour of the upper back lies "
                                                "exactly flat against this imaginary straight "
                                                "line, or dips inward (creating a valley "
@@ -529,26 +506,13 @@ S06 = Indicateur(
                                       "BEFORE the plates leave the floor, and this exact "
                                       "180-degree angle remains static during liftoff.", 3),
            Etat("elbow_angle_changes", "The elbow angle is less than 180 degrees (bent) "
-                                       "and/or visually straightens exactly AT or AFTER the "
-                                       "moment the plates leave the floor (yanking the "
-                                       "bar).", 1, persona="The Grip & Rip")),
+                                       , 1)),
     non_visible="The arms are obscured.",
     note_source="A TESTER : l'angle epaule-coude-poignet est calculable, mais une flexion "
                 "de 10-15 deg est dans le bruit de la projection, et le bras oppose est "
                 "souvent occulte. Le CHANGEMENT d'angle au decollage est plus robuste que "
                 "l'angle absolu — a mesurer sur une passe dense.",
 )
-
-S08 = Indicateur(
-    id="S08", nom="foot_orientation", phase=Phase.SETUP, source=Source.LLM, portee=Portee.SET,
-    question="How are the feet oriented?",
-    etats=(Etat("flared", "The toes are flared outwards."),
-           Etat("forward", "The toes point roughly forward.")),
-    note_source="L'angle 3D entre les deux pieds a ete mesure (AUC 0.82) puis ecarte : "
-                "il subit le meme repliement que la stance en vue de profil. Descriptif "
-                "uniquement, aucun angle optimal universel n'existe.",
-)
-
 
 # -----------------------------------------------------------------------------
 # PHASE 2 — le decollage et la tiree
@@ -561,9 +525,7 @@ L01 = Indicateur(
              "effort (T0) to the exact frame the plates break physical contact with the "
              "floor (T1). Focus ONLY on the angle of the torso relative to the floor. "
              "Compare this angle at T0 and at T1.",
-    # Une seule grandeur (l'angle du buste), deux images nommees. Sur la run A, le
-    # modele repondait "hanches et epaules ensemble" dans la meme reponse que "buste
-    # horizontal au depart" : la question ne lui laisse plus deux grandeurs a concilier.
+
     etats=(Etat("torso_angle_decreases", "The torso angle becomes visibly smaller (more "
                                          "horizontal to the floor) between T0 and T1. The "
                                          "hips rise at a faster rate than the shoulders "
@@ -572,8 +534,6 @@ L01 = Indicateur(
            Etat("torso_angle_constant", "The torso angle remains strictly identical between "
                                         "T0 and T1. The hips and shoulders rise at the exact "
                                         "same rate to lift the bar.", 3),
-           # Pas de persona : la cause est en amont (hip_height_via_femur, dans
-           # ENCHAINEMENTS), et c'est elle que l'epingle doit designer.
            Etat("torso_angle_increases", "The torso angle becomes visibly larger (more "
                                          "vertical to the floor) between T0 and T1. The "
                                          "shoulders rise at a faster rate than the hips "
@@ -953,7 +913,7 @@ E01 = Indicateur(
 
 INDICATEURS: tuple[Indicateur, ...] = (
     C04, C05,
-    S04, S02, S01, S05, S10, S06, S08,
+    S04, S02, S01, S05, S10, S06,
     L01, L04,
     P02, P03, P04, P05, P08,
     K07, K03, K04,
@@ -987,8 +947,7 @@ CONSEILS = {
     # defaut de geste et une limite de corps.
     "hip_height_via_femur:torso_parallel_to_floor": "Drop the hips until your shoulders sit over the bar. If you cannot hold it there, that is mobility, not technique.",
     "hip_height_via_femur:femur_parallel_or_downward": "Raise the hips until your shoulders sit just ahead of the bar: squatting the setup gives the bar nowhere to go.",
-    "shoulders_over_bar_gravity:arm_angled_forward": "Set the shoulders over or just ahead of the bar before you pull.",
-    "shoulders_over_bar_gravity:arm_angled_backward": "Bring the hips down slightly so the shoulders sit closer to over the bar.",
+    "shoulders_over_bar_gravity:shoulder_behind_bar": "Set the shoulders over or just ahead of the bar before you pull.",
 
     # --- mecanique 2 : le slack ---------------------------------------------------
     "arms_tension_at_setup:elbow_angle_changes": "Straighten the arms and pull the slack out until you feel the bar load, then push the floor away: the elbows are locked before anything moves.",
@@ -1019,9 +978,9 @@ CONSEILS = {
 
     # --- axe structure ---------------------------------------------------------------
     # Ces conseils ne servent JAMAIS d'epingle : ils accompagnent le bandeau d'urgence.
-    "lumbar_at_setup:upper_lumbar_convexity": "Lift the chest and pull the ribs down before the bar moves so the lower back stays flat all the way up.",
     "thoracic_at_setup:upper_thoracic_convexity": "Pull the shoulder blades down and lift the chest before the bar moves; the upper back should not round further as you pull.",
     "thoracic_at_setup:full_thoracic_convexity": "Set the whole upper back before the bar moves: chest up, lats tight; if it rounds from the ribs down, the load is too heavy to hold.",
+    "lumbar_at_setup:upper_lumbar_convexity": "Lift the chest and pull the ribs down before the bar moves so the lower back stays flat all the way up.",
     "lumbar_at_setup:full_lumbar_convexity": "Set the lower back flat before the bar moves; drop the load if you cannot hold it.",
     "lumbar_geometry_delta:lumbar_becomes_convex": "Stop the set. Rebuild this at a load where the lower back holds its shape.",
     "knee_valgus_tracking:knees_touch_line": "Push the knees out over your toes as you drive: they should never reach the line of the inner foot.",
@@ -1056,9 +1015,8 @@ ENCHAINEMENTS: dict[str, tuple[str, ...]] = {
     # Une barre devant le pied, c'est de la lumiere entre la barre et les jambes des
     # le premier centimetre.
     "bar_over_midfoot_topology:bar_over_toes_or_floor": ("bar_leg_daylight",),
-    "shoulders_over_bar_gravity:arm_angled_forward": (
+    "shoulders_over_bar_gravity:shoulder_behind_bar": (
         "bar_leg_daylight", "bar_path_at_knees_topology"),
-    "shoulders_over_bar_gravity:arm_angled_backward": ("lumbar_geometry_delta",),
     # Le decollage des hanches fait plonger la poitrine, et la barre part en avant.
     "initiation_sequence:torso_angle_decreases": (
         "bar_leg_daylight", "bar_path_at_knees_topology", "lumbar_geometry_delta",

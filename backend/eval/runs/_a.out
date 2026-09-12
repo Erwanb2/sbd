@@ -1,0 +1,14 @@
+/home/erwan/dev_projects/sbd/backend/eval/runs/tibo_sans_coche_description_porte_couteuse.json : usage {'prompt_tokens': 31761, 'thoughts_tokens': 1464, 'candidates_tokens': 529, 'total_tokens': 33754, 'input_usd': 0.0476, 'output_usd': 0.0179, 'total_usd': 0.0656}
+Based on a detailed biomechanical analysis of the video, a coach would have identified several key technical faults during this deadlift. Here is the breakdown of what occurred from a biomechanical perspective:
+
+### 1. Premature Hip Rise ("Hips Shooting Up")
+* **Observation (approx. 00:01.667 to 00:02.208):** As the lifter initiates the pull from the floor, his knees extend prematurely, causing his hips to rise much faster than his shoulders. 
+* **Biomechanical Detail:** This premature knee extension shifts the torso into a more horizontal position. By flattening the back angle relative to the floor, the horizontal distance (the **moment arm**) between the barbell and the hip joint/lumbar spine increases significantly. This drastically increases the flexor torque (moment) acting on the hips and lower back, forcing the spinal erectors and hip extensors (glutes and hamstrings) to work much harder to overcome the load than if a more upright torso angle had been maintained.
+
+### 2. Spinal Flexion Under Load
+* **Observation (approx. 00:02.208 to 00:03.333):** As the lifter fights through the mid-range of the lift, there is visible flexion (rounding) of the lumbar and thoracic spine.
+* **Biomechanical Detail:** Because the moment arm of the barbell relative to the spine was increased by the premature hip rise, the spinal erectors struggle to maintain isometric contraction. The resulting spinal flexion places the passive tissues (intervertebral discs and ligaments) under high shear stress. Furthermore, it places the erector spinae at a mechanical disadvantage, making the transition to lockout much more difficult.
+
+### 3. Lumbar Hyperextension at Lockout
+* **Observation (approx. 00:03.500 to 00:04.167):** At the top of the lift, the lifter completes the movement by leaning his upper torso excessively backward, hyperextending his lower back.
+* **Biomechanical Detail:** A proper lockout should be achieved by fully extending the hips through active contraction of the gluteus maximus, driving the pelvis forward into a neutral standing position. Instead, this lifter relies on lumbar hyperextension to complete the lift. This shifts the compressive load of the barbell directly onto the posterior elements of the lumbar spine (specifically the facet joints and posterior disc margins), significantly increasing the risk of lower back injury.

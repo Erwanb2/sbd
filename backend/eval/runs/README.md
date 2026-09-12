@@ -48,6 +48,20 @@ Tous sur `pr_160` sauf mention. Les images fixes sont celles de `run_final.py`.
 | `conventionnal_deadlift_12_strict.json` | garde-fou : clip que l'humain juge bon | 20/20 | — |
 | `conventionnal_deadlift_12_3.5.json` | idem, schema decoupe | 20/20 | `neutral` |
 | `erwan_bon_slack_3.5.json` | clip de profil, hanches jugees trop hautes | 20/20 | `neutral` |
+| `pr_160_prod_video24_v2.json` | **temoin du 2026-09-12** : la prod (`eval/run_prod.py`) sur le catalogue reecrit en geometrie (c51c894) | 19/20 | `neutral_or_concave` |
+| `pr_160_prod_video24_thoughts.json` | idem temoin, avec `include_thoughts` : le texte des pensees est dans `debug.appel.pensees`. 18/18 etats identiques a v2 | 19/20 | `neutral_or_concave` |
+| `pr_160_description_libre.json` | **sans schema** : prose biomecanique libre (`eval/description_libre.py`), clip entier, 24 im/s, HIGH/HIGH, pensees conservees | — | « appears neutral, belt obscures » ; thoracique « slight flexion » ; initiation « torso angle constant, no hip shoot » |
+| `pr_160_description_libre_court.json` | idem, prompt de deux phrases sans plan impose (`--prompt court`) : 1 105 tokens de sortie au lieu de 2 745, decollage date a 5,0 s (4,0 s pour le prompt long, 4,44 s pour la pose), Valsalva et flexion de la barre « observes » | — | non mentionne ; « torso angle constant » |
+| `pr_160_description_severe.json` | prose libre, prompt « judge known for being extremely critical, find every fault » (`--prompt severe`). Trouve le hip shoot (« stripper pull », 4,0-4,5 s) et le dos rond ; mais aussi une derive avant de la barre, un hitching, un verrouillage incomplet — verdict « no lift » | — | « pronounced flexion » |
+| `pr_160_description_porte_fermee.json` | prose libre, prompt « assume a coach saw something wrong, describe what he saw » (`--prompt porte_fermee`), sans demande de severite. Trouve le hip shoot, le dos rond, un lockout « soft », hitching au conditionnel | — | « noticeable flexion » |
+| `tibo_description_porte_fermee.json` | **garde-fou** du prompt « porte fermée » sur un clip que l'humain juge sans défaut majeur. Un seul défaut rendu : haussement d'épaules au lockout, 3,0-4,0 s. Sur les images 2,4-4,6 s (12 images) rien de net : trapèzes saillants d'un lifteur en débardeur, distance épaule-oreille stable. Le prompt fabrique un défaut quand il n'y en a pas | — | non mentionné |
+| `pr_160_description_porte_couteuse.json` | porte fermée + sortie explicite « if no real fault, say *No fault found* and explain what you checked » (`--prompt porte_couteuse`). Hip shoot, dos rond, hitching à 6,2 s, « red lights » | — | « noticeable flexion » |
+| `tibo_description_porte_couteuse.json` | idem sur `tibo` entier : « **No fault found** … *confirmed by the green checkmark that appears at the end of the video* ». **`tibo.mp4` porte une coche verte incrustée à partir de 5,2 s** (extrait d'une vidéo pédagogique) : toute passe LLM sur ce fichier est contaminée. `tibo_sans_coche.mp4` = les 5,0 premières secondes, réencodées avec cv2 | — | — |
+| `tibo_sans_coche_description_porte_couteuse.json` | la porte coûteuse sans la coche : « hips shooting up », buste « nearly parallel to the floor » (clip filmé de face), nuque en hyperextension. L'humain : « hanches ne remontent pratiquement pas ». Douze images 1,3-2,5 s : barre et épaules montent ensemble. **Fabriqué** | — | — |
+| `tibo_sans_coche_description_porte_fermee.json` | la porte fermée sans la coche : « stripper pull » à 1,67-2,13 s, même diagnostic fabriqué | — | — |
+| `paires_tibo_sans_coche_pr_160.json` | **comparaison par paires** (`eval/paires.py`) : les deux clips dans le même appel, « in which of these two lifts do the hips rise faster than the shoulders? Answer A or B ». Six appels sur deux lancements (le 4e coupé par le quota gratuit à chaque fois, 250 k tokens/min puis 20 requêtes/jour) : **« B » six fois sur six**, quel que soit le contenu. Quand pr_160 est en A, il décrit tibo avec « hips shoot up rapidly, torso nearly parallel » et pr_160 avec « hips and shoulders rise at the exact same rate » — les deux descriptions permutent avec l'étiquette. Biais de position, pas de perception | — | — |
+| `pr_160_images_cles.json` | idem, mais **6 images cles** annotees (fin du setup, 3 sur la tiree, verrouillage, fin) — `eval/images_annotees.py --cles` | 20/20 | `neutral_or_concave` |
+| `pr_160_images_annotees.json` | idem, mais 180 images fixes annotees (squelette MediaPipe, recadrage, bandeau rep/temps/phase) a la place du Part video (`eval/images_annotees.py`) | 19/20 | `neutral_or_concave` |
 
 ## Les deux passes identiques
 
@@ -91,3 +105,31 @@ de `run_final.py`.
 le tableau ci-dessus n'est donc pas du bruit — mais il reste n=1 pour la question
 "catalogue ou support ?".
 
+
+## Images annotees contre video (2026-09-12)
+
+Une seule variable : le support. Meme pose, meme fenetre 3.41-10.89 s, meme cadence
+24 im/s (180 images), meme prompt a une phrase pres, memes reglages HIGH/HIGH/0. Les
+images portent le squelette MediaPipe, un recadrage stable sur l'athlete et un bandeau
+`rep 1 | 4.44 s | PULL`. Temoin : `pr_160_prod_video24_v2.json`, rejoue le meme jour parce
+que `pr_160_prod_video24.json` date d'avant la reecriture du catalogue.
+
+**16 etats sur 18 identiques, meme note, meme epingle.** Les deux ecarts vont tous deux
+vers `not_visible` (`knee_valgus_tracking`, `rep_transition_velocity`) — le second est
+meme plus juste, il n'y a pas de rep suivante. Rien ne bouge sur ce qu'on cherche a
+faire dire (`lumbar_at_setup`, `initiation_sequence`, `hip_height_via_femur`).
+
+Cout : 194 753 tokens d'entree (0,33 $) contre 47 748 (0,12 $) — chaque image fixe en
+HIGH vaut ~1 080 tokens, contre ~265 pour une image de video. Le douzieme levier mesure
+a 0 gain, a trois fois le prix. Le squelette dessine ne change pas non plus la lecture de
+l'angle de camera : « direct side profile » sur les images, « diagonal view » sur la video.
+
+**Six images cles au lieu de 180** (`pr_160_images_cles.json`, `--cles`) : 15 etats sur 18
+identiques a la video, les trois ecarts vers `not_visible` — dont `descent_hand_contact`,
+parce que la selection (derniere image du setup, trois sur la tiree, premiere du
+verrouillage, derniere du segment) ne contient pas l'instant du lacher a 8,42 s : c'est
+la selection qui l'a perdu, pas le modele, qui le dit lui-meme. Sans `reset`, la note
+monte a 20/20 et il n'y a plus d'epingle. 6 850 tokens d'entree (0,09 $, dont 7 365 tokens
+de reflexion — il reflechit plus sur 6 images que sur 180). Les 15 etats communs sont les
+memes en 6 images, 180 images et video : le support ne fait rien bouger, seule
+l'existence de l'instant dans l'entree compte.

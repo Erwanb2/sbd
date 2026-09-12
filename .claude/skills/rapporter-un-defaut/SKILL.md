@@ -91,6 +91,45 @@ Deux formulations mesurees, deux echecs — la formulation compte enormement :
       par « Nothing stops me from being sure ». `lumbar_at_setup` repasse a `neutral`,
       `asymmetry` d'une abstention correcte a `even`. **Regression.**
 
+**Ce que le thinking revele (2026-09-12, `pr_160_prod_video24_thoughts.json`).** Avec
+`include_thoughts=True`, l'API renvoie un resume des pensees (~4 000 caracteres pour 3 474
+tokens). Il est organise **champ par champ, dans l'ordre du schema, et nomme la cle de
+l'option choisie a chaque champ** — avant que le premier caractere du JSON soit ecrit. Les
+`_observed` sont donc rediges APRES que le verdict a ete pris dans le thinking : l'ordre des
+champs du schema ne protege que contre la reecriture, pas contre l'amorcage. Le thinking
+contient aussi du jugement (« *This is key for injury prevention, so it's good to see* »)
+malgre la consigne « observe, never grade ». Un texte vraiment non amorce exige un appel
+sans `response_schema`, avant l'appel contraint. Les pensees sont visibles dans l'onglet
+debug (`debug.appel.pensees`).
+
+**Prose libre et prompts critiques (2026-09-12, `eval/description_libre.py`, une passe chacun).**
+Quatre prompts sans schema sur `pr_160`, clip entier, 24 im/s, HIGH/HIGH. Neutres (« describe
+in as much biomechanical detail as you can », long ou court) : « *excellent coordination,
+torso angle constant, no hip shoot* ». Critiques (« judge extremely critical, find every
+fault » / « assume a coach saw something wrong, describe what he saw ») : les deux rendent le
+hip shoot a 4,0-4,5 s, l'intervalle exact de la relecture humaine, et le dos rond. La
+perception est donc la ; c'est la posture de reponse qui decide. Le prompt severe en rajoute
+(derive de barre, hitching, « no lift ») ; la « porte fermee » s'arrete plus tot.
+**Garde-fou, et il tombe** : sur `tibo` (juge sans defaut majeur par l'humain), la porte
+fermee rend un haussement d'epaules, puis — clip coupe avant la coche, voir ci-dessous — un
+« stripper pull » a 1,7-2,1 s, le defaut phare de pr_160, avec « torso nearly parallel to the
+floor » sur un clip filme DE FACE. Douze images du decollage : barre et epaules montent
+ensemble. Ajouter une sortie explicite (« if no real fault, say *No fault found* and explain
+what you checked ») ne change rien : il ne la prend que quand la reponse est dans l'image.
+Le prompt trouve toujours quelque chose ; il ne peut pas servir a decider s'il y a un defaut.
+
+**Le jugement relatif ne sauve rien** (`eval/paires.py`, 2026-09-12) : tibo et pr_160 dans
+le meme appel, « lequel a les hanches qui partent avant les epaules, A ou B ». Six appels,
+six fois « B », dans les deux ordres. Les descriptions permutent avec l'etiquette : le meme
+clip est « hips shoot up rapidly » en B et « rise at the exact same rate » en A. Ce n'est pas
+un manque de perception qu'on peut contourner par la forme de la question : la reponse est
+decidee avant de regarder, et la description est ecrite pour la justifier.
+
+**`tibo.mp4` porte une coche verte incrustee a partir de 5,2 s** (extrait pedagogique). Le
+modele l'a lue : « No fault found… confirmed by the green checkmark ». Toute passe LLM sur ce
+fichier est contaminee ; utiliser `tibo_sans_coche.mp4` (5,0 premieres secondes). Verifier
+les overlays des autres clips de `data/` avant de s'en servir comme garde-fou.
+
 **Regle : demander une GEOMETRIE — les formes, les positions, leur evolution — en
 interdisant de nommer une option et de qualifier. Ne jamais demander de certifier une
 verification : il certifiera.**

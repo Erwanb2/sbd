@@ -1,0 +1,7365 @@
+{
+  "variante": "conventional",
+  "contexte": {
+    "equipment": {
+      "etat": "barbell",
+      "texte": "A standard barbell with plates on the floor."
+    },
+    "grip": {
+      "etat": "double_overhand",
+      "texte": "Both palms facing the lifter (double overhand)."
+    },
+    "mesures": {
+      "view": 0.606,
+      "visibility": 0.941
+    }
+  },
+  "reps": [
+    {
+      "index": 1,
+      "debut_s": 3.41,
+      "fin_s": 10.89,
+      "statut": "complete",
+      "criteres": {
+        "start_position": {
+          "libelle": "Start position",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "S04",
+              "phase": "setup",
+              "source": "a_tester",
+              "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "S02",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The vertical plumb line from the shoulder falls horizontally in front of the barbell (closer to the lifter's toes). The arm creates a diagonal line reaching backward towards the lifter's shins to grab the bar.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "S01",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
+              "note": 3,
+              "visible": true
+            }
+          ]
+        },
+        "slack_and_brace": {
+          "libelle": "Slack and brace",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "S06",
+              "phase": "setup",
+              "source": "a_tester",
+              "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
+              "note": 3,
+              "visible": true
+            }
+          ]
+        },
+        "leg_drive": {
+          "libelle": "Leg drive off the floor",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "L01",
+              "phase": "decollage",
+              "source": "llm",
+              "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
+              "note": 3,
+              "visible": true
+            }
+          ]
+        },
+        "bar_path": {
+          "libelle": "Bar against the body",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P02",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "P03",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
+              "note": 3,
+              "visible": true
+            }
+          ]
+        },
+        "finish_position": {
+          "libelle": "Finish position",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "P08",
+              "phase": "tiree",
+              "source": "a_tester",
+              "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K07",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K03",
+              "phase": "lockout",
+              "source": "llm",
+              "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "K04",
+              "phase": "lockout",
+              "source": "a_tester",
+              "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
+              "note": 3,
+              "visible": true
+            }
+          ]
+        },
+        "reset": {
+          "libelle": "Reset between reps",
+          "note": null,
+          "statut": "non_evaluable",
+          "faits": [
+            {
+              "indicateur": "E02",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The hands leave the video frame during the descent.",
+              "note": null,
+              "visible": false
+            },
+            {
+              "indicateur": "E03",
+              "phase": "descente",
+              "source": "llm",
+              "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
+              "note": null,
+              "visible": false
+            }
+          ]
+        },
+        "structure": {
+          "libelle": "Structure under load",
+          "note": 3,
+          "statut": "note",
+          "faits": [
+            {
+              "indicateur": "S05",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The lower back is extremely flat",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "S10",
+              "phase": "setup",
+              "source": "llm",
+              "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
+              "note": 3,
+              "visible": true
+            },
+            {
+              "indicateur": "P04",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
+              "note": null,
+              "visible": true
+            },
+            {
+              "indicateur": "P05",
+              "phase": "tiree",
+              "source": "llm",
+              "fait": "Pure side angle makes this tracking impossible.",
+              "note": null,
+              "visible": false
+            }
+          ]
+        }
+      },
+      "note": 3,
+      "note_precise": 3.0,
+      "sur": 3,
+      "non_evaluables": 1,
+      "temps": {
+        "tiree_s": 2.0,
+        "lockout_s": 0.17,
+        "decollage_s": 3.67
+      },
+      "resume": "The lifter performed a single conventional deadlift with a neutral spine and a clean lockout.",
+      "observations": {
+        "bar_over_midfoot_topology": "At 3.67s, the barbell is positioned vertically above the middle portion of the foot, aligned with the shoelaces, with a small gap between the bar and the shins. The camera angle is slightly diagonal, which makes it slightly harder to be absolutely precise, but the position is clearly visible.",
+        "shoulders_over_bar_gravity": "At 3.67s, the shoulder joint is positioned horizontally in front of the barbell, so a vertical line from the shoulder would fall ahead of the bar. The side-diagonal perspective is clear enough to confirm this position.",
+        "hip_height_via_femur": "At 3.67s, the thigh bone slopes up from the knee to the pelvis, placing the hip joint significantly higher than the knee joint. The side-diagonal view provides a clear profile of the thigh angle.",
+        "lumbar_at_setup": "At 3.67s, the lower back region shows a flat, straight line, indicating a neutral posture without rounding. The clothing is relatively tight, allowing a clear view of the spine shape.",
+        "thoracic_at_setup": "At 3.67s, the upper back is straight and aligned with the rest of the spine, showing no outward curvature or rounding. The t-shirt is slightly loose but the overall spinal alignment is clearly visible.",
+        "arms_tension_at_setup": "At 3.67s and 4.18s, the arms are straight with the elbows fully extended before and during the initiation of the lift. The side view clearly shows the straightness of the arms.",
+        "initiation_sequence": "Between 3.67s and 4.18s, the angle of the back relative to the floor remains constant as the hips and shoulders rise at the same rate. The side-diagonal view allows a clear comparison of hip and shoulder movement.",
+        "bar_left_floor": "The barbell is lifted off the platform starting around 4.18s and is raised to full lockout at 5.54s. The plates are clearly off the ground, leaving no doubt.",
+        "bar_path_at_knees_topology": "Between 4.61s and 5.04s, the barbell travels in a straight vertical path close to the shins and knees, sliding past them without any forward deviation. The side-diagonal view clearly shows the relationship between the bar and the knees.",
+        "bar_leg_daylight": "Throughout the pull from 4.18s to 5.04s, the bar remains in contact with the shins and thighs, showing no visible space or daylight between the bar and the legs. The side-diagonal view clearly shows the contact between the bar and the legs.",
+        "lumbar_geometry_delta": "From the setup at 3.67s through the pull and lockout at 5.54s, the flat geometry of the lower back remains constant without any rounding. The spine shape is clearly visible throughout the movement.",
+        "knee_valgus_tracking": "The camera is positioned at a side-diagonal angle, which prevents a clear view of the knees' lateral movement relative to the feet to determine valgus tracking.",
+        "vertical_velocity_hitch": "The barbell rises continuously from the floor at 4.18s to lockout at 5.54s with uninterrupted upward motion. The continuous upward movement is clearly visible.",
+        "lockout_extension": "At 5.54s, both the hips and knees are fully extended to approximately 180 degrees, with the lifter standing completely upright. The side-diagonal view clearly shows the straightness of the legs and hips.",
+        "sagittal_torso_angle": "At 5.54s, the torso is aligned vertically, perpendicular to the floor, without any backward leaning or hyperextension. The side-diagonal view clearly shows the vertical alignment of the torso.",
+        "shoulder_elevation_delta": "The vertical distance between the shoulders and the ears remains constant throughout the lift, with no shrugging motion observed at lockout. The side-diagonal view clearly shows the shoulder position relative to the neck.",
+        "descent_hand_contact": "The frames do not capture the descent of the barbell, showing only the lockout at 5.54s and the post-lift stance at 10.86s, making the descent hand contact not visible.",
+        "rep_transition_velocity": "Since this is a single repetition and the video ends after the lift, there is no transition to another repetition to observe."
+      }
+    }
+  ],
+  "criteres": {
+    "start_position": {
+      "libelle": "Start position",
+      "note": 3,
+      "poids": 1.5,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "S04",
+          "phase": "setup",
+          "source": "a_tester",
+          "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "S02",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "The vertical plumb line from the shoulder falls horizontally in front of the barbell (closer to the lifter's toes). The arm creates a diagonal line reaching backward towards the lifter's shins to grab the bar.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "S01",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "slack_and_brace": {
+      "libelle": "Slack and brace",
+      "note": 3,
+      "poids": 1.0,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "S06",
+          "phase": "setup",
+          "source": "a_tester",
+          "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "leg_drive": {
+      "libelle": "Leg drive off the floor",
+      "note": 3,
+      "poids": 1.5,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "L01",
+          "phase": "decollage",
+          "source": "llm",
+          "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "bar_path": {
+      "libelle": "Bar against the body",
+      "note": 3,
+      "poids": 1.5,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "P02",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "P03",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "finish_position": {
+      "libelle": "Finish position",
+      "note": 3,
+      "poids": 1.0,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "P08",
+          "phase": "tiree",
+          "source": "a_tester",
+          "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "K07",
+          "phase": "lockout",
+          "source": "llm",
+          "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "K03",
+          "phase": "lockout",
+          "source": "llm",
+          "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "K04",
+          "phase": "lockout",
+          "source": "a_tester",
+          "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "reset": {
+      "libelle": "Reset between reps",
+      "note": null,
+      "poids": 0.5,
+      "notes_par_rep": [
+        null
+      ],
+      "faits": [
+        {
+          "indicateur": "E02",
+          "phase": "descente",
+          "source": "llm",
+          "fait": "The hands leave the video frame during the descent.",
+          "note": null,
+          "visible": false,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "E03",
+          "phase": "descente",
+          "source": "llm",
+          "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
+          "note": null,
+          "visible": false,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "libelle": "Structure under load",
+      "note": 3,
+      "poids": 0.5,
+      "notes_par_rep": [
+        3
+      ],
+      "faits": [
+        {
+          "indicateur": "S05",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "The lower back is extremely flat",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "S10",
+          "phase": "setup",
+          "source": "llm",
+          "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
+          "note": 3,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "P04",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
+          "note": null,
+          "visible": true,
+          "reps": [
+            1
+          ]
+        },
+        {
+          "indicateur": "P05",
+          "phase": "tiree",
+          "source": "llm",
+          "fait": "Pure side angle makes this tracking impossible.",
+          "note": null,
+          "visible": false,
+          "reps": [
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "mecaniques": [
+    "start_position",
+    "slack_and_brace",
+    "leg_drive",
+    "bar_path",
+    "finish_position",
+    "reset"
+  ],
+  "structure": {
+    "etat": "ok",
+    "note": 3,
+    "texte": "Your structure held from the floor to lockout.",
+    "defauts": []
+  },
+  "epingle": null,
+  "note_sur_20": 20,
+  "nb_reps": 1,
+  "segments_ecartes": [],
+  "tenue_du_set": {
+    "etat": "rep_unique",
+    "texte": "A single repetition: there is nothing to compare across the set."
+  },
+  "conseils": [],
+  "persona": {
+    "nom": "The Technician",
+    "fait": "Nothing in this set stood out as a fault worth a nickname.",
+    "rep": null
+  },
+  "squelette": {
+    "points": [
+      "nose",
+      "l_sh",
+      "r_sh",
+      "l_el",
+      "r_el",
+      "l_wr",
+      "r_wr",
+      "l_hip",
+      "r_hip",
+      "l_kn",
+      "r_kn",
+      "l_an",
+      "r_an",
+      "l_heel",
+      "r_heel",
+      "l_toe",
+      "r_toe"
+    ],
+    "frames": [
+      {
+        "t": 0.0,
+        "pts": [
+          [
+            0.659,
+            0.24,
+            1.0
+          ],
+          [
+            0.641,
+            0.26,
+            1.0
+          ],
+          [
+            0.482,
+            0.257,
+            1.0
+          ],
+          [
+            0.613,
+            0.344,
+            0.952
+          ],
+          [
+            0.439,
+            0.346,
+            1.0
+          ],
+          [
+            0.63,
+            0.42,
+            0.979
+          ],
+          [
+            0.443,
+            0.431,
+            1.0
+          ],
+          [
+            0.544,
+            0.398,
+            1.0
+          ],
+          [
+            0.463,
+            0.396,
+            1.0
+          ],
+          [
+            0.543,
+            0.515,
+            0.96
+          ],
+          [
+            0.468,
+            0.526,
+            0.994
+          ],
+          [
+            0.548,
+            0.631,
+            0.97
+          ],
+          [
+            0.449,
+            0.647,
+            0.993
+          ],
+          [
+            0.533,
+            0.651,
+            0.899
+          ],
+          [
+            0.437,
+            0.666,
+            0.896
+          ],
+          [
+            0.61,
+            0.667,
+            0.985
+          ],
+          [
+            0.502,
+            0.684,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 0.17,
+        "pts": [
+          [
+            0.656,
+            0.239,
+            1.0
+          ],
+          [
+            0.64,
+            0.26,
+            1.0
+          ],
+          [
+            0.482,
+            0.257,
+            1.0
+          ],
+          [
+            0.613,
+            0.344,
+            0.947
+          ],
+          [
+            0.441,
+            0.347,
+            1.0
+          ],
+          [
+            0.63,
+            0.419,
+            0.977
+          ],
+          [
+            0.447,
+            0.432,
+            1.0
+          ],
+          [
+            0.548,
+            0.397,
+            1.0
+          ],
+          [
+            0.465,
+            0.397,
+            1.0
+          ],
+          [
+            0.543,
+            0.515,
+            0.95
+          ],
+          [
+            0.468,
+            0.526,
+            0.993
+          ],
+          [
+            0.549,
+            0.631,
+            0.964
+          ],
+          [
+            0.45,
+            0.647,
+            0.992
+          ],
+          [
+            0.533,
+            0.651,
+            0.886
+          ],
+          [
+            0.438,
+            0.665,
+            0.886
+          ],
+          [
+            0.611,
+            0.667,
+            0.982
+          ],
+          [
+            0.502,
+            0.684,
+            0.991
+          ]
+        ]
+      },
+      {
+        "t": 0.33,
+        "pts": [
+          [
+            0.648,
+            0.238,
+            1.0
+          ],
+          [
+            0.639,
+            0.259,
+            1.0
+          ],
+          [
+            0.484,
+            0.257,
+            1.0
+          ],
+          [
+            0.615,
+            0.343,
+            0.937
+          ],
+          [
+            0.443,
+            0.348,
+            1.0
+          ],
+          [
+            0.636,
+            0.418,
+            0.976
+          ],
+          [
+            0.454,
+            0.433,
+            1.0
+          ],
+          [
+            0.556,
+            0.395,
+            1.0
+          ],
+          [
+            0.471,
+            0.397,
+            1.0
+          ],
+          [
+            0.548,
+            0.516,
+            0.925
+          ],
+          [
+            0.475,
+            0.525,
+            0.991
+          ],
+          [
+            0.555,
+            0.632,
+            0.954
+          ],
+          [
+            0.453,
+            0.647,
+            0.991
+          ],
+          [
+            0.535,
+            0.652,
+            0.873
+          ],
+          [
+            0.438,
+            0.665,
+            0.874
+          ],
+          [
+            0.629,
+            0.667,
+            0.978
+          ],
+          [
+            0.509,
+            0.687,
+            0.99
+          ]
+        ]
+      },
+      {
+        "t": 0.5,
+        "pts": [
+          [
+            0.645,
+            0.237,
+            1.0
+          ],
+          [
+            0.638,
+            0.259,
+            1.0
+          ],
+          [
+            0.484,
+            0.254,
+            1.0
+          ],
+          [
+            0.618,
+            0.343,
+            0.93
+          ],
+          [
+            0.444,
+            0.348,
+            1.0
+          ],
+          [
+            0.644,
+            0.416,
+            0.976
+          ],
+          [
+            0.456,
+            0.432,
+            1.0
+          ],
+          [
+            0.563,
+            0.396,
+            1.0
+          ],
+          [
+            0.478,
+            0.398,
+            1.0
+          ],
+          [
+            0.552,
+            0.516,
+            0.911
+          ],
+          [
+            0.48,
+            0.525,
+            0.99
+          ],
+          [
+            0.555,
+            0.633,
+            0.949
+          ],
+          [
+            0.455,
+            0.647,
+            0.99
+          ],
+          [
+            0.533,
+            0.654,
+            0.868
+          ],
+          [
+            0.444,
+            0.668,
+            0.869
+          ],
+          [
+            0.628,
+            0.667,
+            0.977
+          ],
+          [
+            0.516,
+            0.687,
+            0.989
+          ]
+        ]
+      },
+      {
+        "t": 0.67,
+        "pts": [
+          [
+            0.644,
+            0.235,
+            1.0
+          ],
+          [
+            0.639,
+            0.257,
+            1.0
+          ],
+          [
+            0.481,
+            0.253,
+            1.0
+          ],
+          [
+            0.624,
+            0.342,
+            0.927
+          ],
+          [
+            0.444,
+            0.348,
+            1.0
+          ],
+          [
+            0.65,
+            0.416,
+            0.976
+          ],
+          [
+            0.455,
+            0.432,
+            1.0
+          ],
+          [
+            0.563,
+            0.397,
+            1.0
+          ],
+          [
+            0.478,
+            0.398,
+            1.0
+          ],
+          [
+            0.557,
+            0.516,
+            0.902
+          ],
+          [
+            0.48,
+            0.527,
+            0.989
+          ],
+          [
+            0.556,
+            0.636,
+            0.947
+          ],
+          [
+            0.455,
+            0.651,
+            0.989
+          ],
+          [
+            0.537,
+            0.656,
+            0.865
+          ],
+          [
+            0.444,
+            0.671,
+            0.859
+          ],
+          [
+            0.629,
+            0.67,
+            0.975
+          ],
+          [
+            0.514,
+            0.688,
+            0.987
+          ]
+        ]
+      },
+      {
+        "t": 0.84,
+        "pts": [
+          [
+            0.645,
+            0.229,
+            1.0
+          ],
+          [
+            0.639,
+            0.254,
+            1.0
+          ],
+          [
+            0.478,
+            0.25,
+            1.0
+          ],
+          [
+            0.625,
+            0.34,
+            0.928
+          ],
+          [
+            0.439,
+            0.344,
+            1.0
+          ],
+          [
+            0.651,
+            0.415,
+            0.976
+          ],
+          [
+            0.453,
+            0.432,
+            1.0
+          ],
+          [
+            0.565,
+            0.398,
+            1.0
+          ],
+          [
+            0.478,
+            0.399,
+            1.0
+          ],
+          [
+            0.558,
+            0.52,
+            0.901
+          ],
+          [
+            0.48,
+            0.528,
+            0.988
+          ],
+          [
+            0.556,
+            0.64,
+            0.947
+          ],
+          [
+            0.454,
+            0.652,
+            0.987
+          ],
+          [
+            0.537,
+            0.66,
+            0.866
+          ],
+          [
+            0.444,
+            0.672,
+            0.85
+          ],
+          [
+            0.626,
+            0.673,
+            0.975
+          ],
+          [
+            0.508,
+            0.689,
+            0.986
+          ]
+        ]
+      },
+      {
+        "t": 1.0,
+        "pts": [
+          [
+            0.644,
+            0.229,
+            1.0
+          ],
+          [
+            0.637,
+            0.255,
+            1.0
+          ],
+          [
+            0.478,
+            0.25,
+            1.0
+          ],
+          [
+            0.625,
+            0.341,
+            0.926
+          ],
+          [
+            0.436,
+            0.344,
+            1.0
+          ],
+          [
+            0.651,
+            0.416,
+            0.976
+          ],
+          [
+            0.453,
+            0.432,
+            1.0
+          ],
+          [
+            0.565,
+            0.4,
+            1.0
+          ],
+          [
+            0.479,
+            0.4,
+            1.0
+          ],
+          [
+            0.558,
+            0.52,
+            0.892
+          ],
+          [
+            0.48,
+            0.529,
+            0.987
+          ],
+          [
+            0.556,
+            0.641,
+            0.946
+          ],
+          [
+            0.454,
+            0.652,
+            0.987
+          ],
+          [
+            0.538,
+            0.662,
+            0.868
+          ],
+          [
+            0.443,
+            0.672,
+            0.844
+          ],
+          [
+            0.631,
+            0.673,
+            0.974
+          ],
+          [
+            0.512,
+            0.69,
+            0.985
+          ]
+        ]
+      },
+      {
+        "t": 1.17,
+        "pts": [
+          [
+            0.644,
+            0.233,
+            1.0
+          ],
+          [
+            0.634,
+            0.257,
+            1.0
+          ],
+          [
+            0.477,
+            0.254,
+            1.0
+          ],
+          [
+            0.624,
+            0.344,
+            0.92
+          ],
+          [
+            0.436,
+            0.347,
+            1.0
+          ],
+          [
+            0.651,
+            0.418,
+            0.975
+          ],
+          [
+            0.457,
+            0.433,
+            1.0
+          ],
+          [
+            0.566,
+            0.404,
+            1.0
+          ],
+          [
+            0.482,
+            0.405,
+            1.0
+          ],
+          [
+            0.556,
+            0.521,
+            0.884
+          ],
+          [
+            0.48,
+            0.531,
+            0.986
+          ],
+          [
+            0.555,
+            0.64,
+            0.945
+          ],
+          [
+            0.454,
+            0.652,
+            0.986
+          ],
+          [
+            0.538,
+            0.661,
+            0.869
+          ],
+          [
+            0.442,
+            0.672,
+            0.84
+          ],
+          [
+            0.63,
+            0.673,
+            0.973
+          ],
+          [
+            0.514,
+            0.69,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 1.34,
+        "pts": [
+          [
+            0.64,
+            0.237,
+            1.0
+          ],
+          [
+            0.634,
+            0.259,
+            1.0
+          ],
+          [
+            0.475,
+            0.257,
+            1.0
+          ],
+          [
+            0.622,
+            0.346,
+            0.913
+          ],
+          [
+            0.442,
+            0.352,
+            1.0
+          ],
+          [
+            0.652,
+            0.421,
+            0.972
+          ],
+          [
+            0.464,
+            0.435,
+            1.0
+          ],
+          [
+            0.562,
+            0.405,
+            1.0
+          ],
+          [
+            0.477,
+            0.406,
+            1.0
+          ],
+          [
+            0.555,
+            0.521,
+            0.874
+          ],
+          [
+            0.478,
+            0.531,
+            0.985
+          ],
+          [
+            0.553,
+            0.64,
+            0.944
+          ],
+          [
+            0.453,
+            0.652,
+            0.986
+          ],
+          [
+            0.535,
+            0.661,
+            0.869
+          ],
+          [
+            0.44,
+            0.672,
+            0.836
+          ],
+          [
+            0.63,
+            0.674,
+            0.972
+          ],
+          [
+            0.514,
+            0.692,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 1.5,
+        "pts": [
+          [
+            0.659,
+            0.254,
+            1.0
+          ],
+          [
+            0.634,
+            0.278,
+            1.0
+          ],
+          [
+            0.487,
+            0.271,
+            1.0
+          ],
+          [
+            0.622,
+            0.367,
+            0.904
+          ],
+          [
+            0.46,
+            0.37,
+            1.0
+          ],
+          [
+            0.652,
+            0.437,
+            0.971
+          ],
+          [
+            0.483,
+            0.457,
+            1.0
+          ],
+          [
+            0.549,
+            0.412,
+            1.0
+          ],
+          [
+            0.468,
+            0.412,
+            1.0
+          ],
+          [
+            0.556,
+            0.527,
+            0.867
+          ],
+          [
+            0.486,
+            0.534,
+            0.984
+          ],
+          [
+            0.552,
+            0.641,
+            0.943
+          ],
+          [
+            0.453,
+            0.653,
+            0.985
+          ],
+          [
+            0.533,
+            0.662,
+            0.868
+          ],
+          [
+            0.44,
+            0.673,
+            0.832
+          ],
+          [
+            0.624,
+            0.675,
+            0.972
+          ],
+          [
+            0.516,
+            0.692,
+            0.983
+          ]
+        ]
+      },
+      {
+        "t": 1.67,
+        "pts": [
+          [
+            0.678,
+            0.325,
+            1.0
+          ],
+          [
+            0.64,
+            0.326,
+            1.0
+          ],
+          [
+            0.502,
+            0.324,
+            1.0
+          ],
+          [
+            0.617,
+            0.408,
+            0.911
+          ],
+          [
+            0.479,
+            0.422,
+            1.0
+          ],
+          [
+            0.65,
+            0.485,
+            0.972
+          ],
+          [
+            0.484,
+            0.505,
+            1.0
+          ],
+          [
+            0.537,
+            0.435,
+            1.0
+          ],
+          [
+            0.446,
+            0.439,
+            1.0
+          ],
+          [
+            0.579,
+            0.537,
+            0.875
+          ],
+          [
+            0.496,
+            0.542,
+            0.985
+          ],
+          [
+            0.552,
+            0.641,
+            0.945
+          ],
+          [
+            0.455,
+            0.656,
+            0.986
+          ],
+          [
+            0.526,
+            0.661,
+            0.873
+          ],
+          [
+            0.44,
+            0.674,
+            0.839
+          ],
+          [
+            0.626,
+            0.676,
+            0.973
+          ],
+          [
+            0.515,
+            0.698,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 1.84,
+        "pts": [
+          [
+            0.69,
+            0.384,
+            1.0
+          ],
+          [
+            0.646,
+            0.375,
+            1.0
+          ],
+          [
+            0.508,
+            0.38,
+            1.0
+          ],
+          [
+            0.622,
+            0.454,
+            0.919
+          ],
+          [
+            0.491,
+            0.472,
+            1.0
+          ],
+          [
+            0.635,
+            0.532,
+            0.974
+          ],
+          [
+            0.493,
+            0.562,
+            1.0
+          ],
+          [
+            0.522,
+            0.463,
+            1.0
+          ],
+          [
+            0.428,
+            0.464,
+            1.0
+          ],
+          [
+            0.588,
+            0.542,
+            0.878
+          ],
+          [
+            0.504,
+            0.552,
+            0.985
+          ],
+          [
+            0.546,
+            0.641,
+            0.943
+          ],
+          [
+            0.458,
+            0.655,
+            0.986
+          ],
+          [
+            0.518,
+            0.66,
+            0.869
+          ],
+          [
+            0.442,
+            0.672,
+            0.843
+          ],
+          [
+            0.616,
+            0.677,
+            0.972
+          ],
+          [
+            0.514,
+            0.694,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 2.0,
+        "pts": [
+          [
+            0.695,
+            0.439,
+            1.0
+          ],
+          [
+            0.646,
+            0.424,
+            1.0
+          ],
+          [
+            0.515,
+            0.419,
+            1.0
+          ],
+          [
+            0.6,
+            0.516,
+            0.924
+          ],
+          [
+            0.484,
+            0.513,
+            0.999
+          ],
+          [
+            0.595,
+            0.586,
+            0.972
+          ],
+          [
+            0.485,
+            0.591,
+            0.998
+          ],
+          [
+            0.511,
+            0.47,
+            1.0
+          ],
+          [
+            0.413,
+            0.474,
+            1.0
+          ],
+          [
+            0.589,
+            0.542,
+            0.883
+          ],
+          [
+            0.518,
+            0.543,
+            0.984
+          ],
+          [
+            0.544,
+            0.642,
+            0.941
+          ],
+          [
+            0.469,
+            0.655,
+            0.985
+          ],
+          [
+            0.511,
+            0.661,
+            0.875
+          ],
+          [
+            0.448,
+            0.672,
+            0.846
+          ],
+          [
+            0.606,
+            0.675,
+            0.972
+          ],
+          [
+            0.516,
+            0.688,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 2.17,
+        "pts": [
+          [
+            0.695,
+            0.462,
+            1.0
+          ],
+          [
+            0.649,
+            0.442,
+            1.0
+          ],
+          [
+            0.517,
+            0.432,
+            1.0
+          ],
+          [
+            0.6,
+            0.525,
+            0.921
+          ],
+          [
+            0.476,
+            0.529,
+            0.997
+          ],
+          [
+            0.596,
+            0.593,
+            0.95
+          ],
+          [
+            0.473,
+            0.616,
+            0.986
+          ],
+          [
+            0.508,
+            0.479,
+            1.0
+          ],
+          [
+            0.405,
+            0.478,
+            1.0
+          ],
+          [
+            0.591,
+            0.533,
+            0.883
+          ],
+          [
+            0.504,
+            0.533,
+            0.982
+          ],
+          [
+            0.548,
+            0.639,
+            0.938
+          ],
+          [
+            0.473,
+            0.656,
+            0.982
+          ],
+          [
+            0.515,
+            0.658,
+            0.879
+          ],
+          [
+            0.448,
+            0.672,
+            0.846
+          ],
+          [
+            0.612,
+            0.67,
+            0.971
+          ],
+          [
+            0.518,
+            0.688,
+            0.982
+          ]
+        ]
+      },
+      {
+        "t": 2.34,
+        "pts": [
+          [
+            0.693,
+            0.459,
+            1.0
+          ],
+          [
+            0.64,
+            0.434,
+            1.0
+          ],
+          [
+            0.523,
+            0.427,
+            1.0
+          ],
+          [
+            0.602,
+            0.519,
+            0.926
+          ],
+          [
+            0.478,
+            0.52,
+            0.997
+          ],
+          [
+            0.608,
+            0.586,
+            0.952
+          ],
+          [
+            0.474,
+            0.6,
+            0.987
+          ],
+          [
+            0.481,
+            0.475,
+            1.0
+          ],
+          [
+            0.393,
+            0.477,
+            1.0
+          ],
+          [
+            0.591,
+            0.531,
+            0.891
+          ],
+          [
+            0.504,
+            0.534,
+            0.983
+          ],
+          [
+            0.548,
+            0.636,
+            0.942
+          ],
+          [
+            0.467,
+            0.651,
+            0.984
+          ],
+          [
+            0.491,
+            0.655,
+            0.889
+          ],
+          [
+            0.444,
+            0.668,
+            0.859
+          ],
+          [
+            0.604,
+            0.669,
+            0.973
+          ],
+          [
+            0.513,
+            0.685,
+            0.983
+          ]
+        ]
+      },
+      {
+        "t": 2.51,
+        "pts": [
+          [
+            0.704,
+            0.458,
+            1.0
+          ],
+          [
+            0.645,
+            0.438,
+            1.0
+          ],
+          [
+            0.537,
+            0.432,
+            1.0
+          ],
+          [
+            0.606,
+            0.518,
+            0.927
+          ],
+          [
+            0.489,
+            0.523,
+            0.997
+          ],
+          [
+            0.618,
+            0.588,
+            0.953
+          ],
+          [
+            0.471,
+            0.602,
+            0.988
+          ],
+          [
+            0.481,
+            0.471,
+            1.0
+          ],
+          [
+            0.394,
+            0.469,
+            1.0
+          ],
+          [
+            0.589,
+            0.534,
+            0.874
+          ],
+          [
+            0.509,
+            0.536,
+            0.984
+          ],
+          [
+            0.545,
+            0.636,
+            0.938
+          ],
+          [
+            0.464,
+            0.651,
+            0.984
+          ],
+          [
+            0.514,
+            0.653,
+            0.89
+          ],
+          [
+            0.441,
+            0.664,
+            0.87
+          ],
+          [
+            0.591,
+            0.669,
+            0.971
+          ],
+          [
+            0.514,
+            0.685,
+            0.984
+          ]
+        ]
+      },
+      {
+        "t": 2.67,
+        "pts": [
+          [
+            0.716,
+            0.453,
+            1.0
+          ],
+          [
+            0.652,
+            0.448,
+            1.0
+          ],
+          [
+            0.549,
+            0.44,
+            1.0
+          ],
+          [
+            0.606,
+            0.522,
+            0.926
+          ],
+          [
+            0.495,
+            0.528,
+            0.997
+          ],
+          [
+            0.617,
+            0.588,
+            0.95
+          ],
+          [
+            0.474,
+            0.607,
+            0.987
+          ],
+          [
+            0.475,
+            0.474,
+            1.0
+          ],
+          [
+            0.394,
+            0.471,
+            1.0
+          ],
+          [
+            0.598,
+            0.53,
+            0.867
+          ],
+          [
+            0.511,
+            0.537,
+            0.985
+          ],
+          [
+            0.551,
+            0.633,
+            0.936
+          ],
+          [
+            0.465,
+            0.651,
+            0.986
+          ],
+          [
+            0.521,
+            0.647,
+            0.893
+          ],
+          [
+            0.437,
+            0.663,
+            0.882
+          ],
+          [
+            0.608,
+            0.662,
+            0.97
+          ],
+          [
+            0.512,
+            0.685,
+            0.986
+          ]
+        ]
+      },
+      {
+        "t": 2.84,
+        "pts": [
+          [
+            0.721,
+            0.45,
+            1.0
+          ],
+          [
+            0.66,
+            0.449,
+            1.0
+          ],
+          [
+            0.555,
+            0.443,
+            1.0
+          ],
+          [
+            0.621,
+            0.522,
+            0.919
+          ],
+          [
+            0.495,
+            0.527,
+            0.996
+          ],
+          [
+            0.617,
+            0.587,
+            0.942
+          ],
+          [
+            0.477,
+            0.607,
+            0.985
+          ],
+          [
+            0.475,
+            0.474,
+            1.0
+          ],
+          [
+            0.396,
+            0.471,
+            1.0
+          ],
+          [
+            0.598,
+            0.537,
+            0.842
+          ],
+          [
+            0.511,
+            0.542,
+            0.985
+          ],
+          [
+            0.546,
+            0.635,
+            0.925
+          ],
+          [
+            0.464,
+            0.651,
+            0.986
+          ],
+          [
+            0.504,
+            0.65,
+            0.888
+          ],
+          [
+            0.437,
+            0.664,
+            0.891
+          ],
+          [
+            0.596,
+            0.663,
+            0.962
+          ],
+          [
+            0.507,
+            0.685,
+            0.986
+          ]
+        ]
+      },
+      {
+        "t": 3.01,
+        "pts": [
+          [
+            0.73,
+            0.451,
+            1.0
+          ],
+          [
+            0.66,
+            0.452,
+            1.0
+          ],
+          [
+            0.57,
+            0.442,
+            1.0
+          ],
+          [
+            0.621,
+            0.524,
+            0.9
+          ],
+          [
+            0.495,
+            0.527,
+            0.992
+          ],
+          [
+            0.618,
+            0.587,
+            0.92
+          ],
+          [
+            0.482,
+            0.606,
+            0.978
+          ],
+          [
+            0.475,
+            0.474,
+            1.0
+          ],
+          [
+            0.398,
+            0.47,
+            1.0
+          ],
+          [
+            0.602,
+            0.534,
+            0.808
+          ],
+          [
+            0.511,
+            0.544,
+            0.984
+          ],
+          [
+            0.545,
+            0.638,
+            0.902
+          ],
+          [
+            0.464,
+            0.649,
+            0.986
+          ],
+          [
+            0.505,
+            0.65,
+            0.872
+          ],
+          [
+            0.438,
+            0.663,
+            0.898
+          ],
+          [
+            0.594,
+            0.661,
+            0.943
+          ],
+          [
+            0.506,
+            0.683,
+            0.986
+          ]
+        ]
+      },
+      {
+        "t": 3.17,
+        "pts": [
+          [
+            0.737,
+            0.443,
+            1.0
+          ],
+          [
+            0.661,
+            0.452,
+            1.0
+          ],
+          [
+            0.57,
+            0.437,
+            1.0
+          ],
+          [
+            0.618,
+            0.522,
+            0.891
+          ],
+          [
+            0.495,
+            0.515,
+            0.99
+          ],
+          [
+            0.62,
+            0.585,
+            0.908
+          ],
+          [
+            0.486,
+            0.597,
+            0.971
+          ],
+          [
+            0.479,
+            0.464,
+            1.0
+          ],
+          [
+            0.406,
+            0.458,
+            1.0
+          ],
+          [
+            0.603,
+            0.526,
+            0.813
+          ],
+          [
+            0.497,
+            0.544,
+            0.985
+          ],
+          [
+            0.545,
+            0.635,
+            0.903
+          ],
+          [
+            0.464,
+            0.648,
+            0.987
+          ],
+          [
+            0.511,
+            0.648,
+            0.876
+          ],
+          [
+            0.439,
+            0.662,
+            0.907
+          ],
+          [
+            0.569,
+            0.647,
+            0.943
+          ],
+          [
+            0.504,
+            0.678,
+            0.987
+          ]
+        ]
+      },
+      {
+        "t": 3.34,
+        "pts": [
+          [
+            0.74,
+            0.442,
+            1.0
+          ],
+          [
+            0.662,
+            0.45,
+            1.0
+          ],
+          [
+            0.579,
+            0.432,
+            1.0
+          ],
+          [
+            0.618,
+            0.517,
+            0.894
+          ],
+          [
+            0.504,
+            0.514,
+            0.99
+          ],
+          [
+            0.622,
+            0.583,
+            0.907
+          ],
+          [
+            0.498,
+            0.595,
+            0.972
+          ],
+          [
+            0.487,
+            0.453,
+            1.0
+          ],
+          [
+            0.414,
+            0.446,
+            1.0
+          ],
+          [
+            0.603,
+            0.521,
+            0.818
+          ],
+          [
+            0.494,
+            0.543,
+            0.987
+          ],
+          [
+            0.552,
+            0.629,
+            0.908
+          ],
+          [
+            0.462,
+            0.65,
+            0.989
+          ],
+          [
+            0.527,
+            0.646,
+            0.883
+          ],
+          [
+            0.437,
+            0.672,
+            0.916
+          ],
+          [
+            0.582,
+            0.639,
+            0.945
+          ],
+          [
+            0.507,
+            0.68,
+            0.988
+          ]
+        ]
+      },
+      {
+        "t": 3.51,
+        "pts": [
+          [
+            0.742,
+            0.446,
+            1.0
+          ],
+          [
+            0.663,
+            0.444,
+            1.0
+          ],
+          [
+            0.579,
+            0.432,
+            1.0
+          ],
+          [
+            0.617,
+            0.512,
+            0.9
+          ],
+          [
+            0.506,
+            0.516,
+            0.99
+          ],
+          [
+            0.62,
+            0.58,
+            0.913
+          ],
+          [
+            0.479,
+            0.594,
+            0.974
+          ],
+          [
+            0.488,
+            0.448,
+            1.0
+          ],
+          [
+            0.415,
+            0.444,
+            1.0
+          ],
+          [
+            0.583,
+            0.518,
+            0.826
+          ],
+          [
+            0.498,
+            0.543,
+            0.988
+          ],
+          [
+            0.552,
+            0.629,
+            0.914
+          ],
+          [
+            0.461,
+            0.65,
+            0.99
+          ],
+          [
+            0.52,
+            0.646,
+            0.891
+          ],
+          [
+            0.434,
+            0.671,
+            0.924
+          ],
+          [
+            0.582,
+            0.639,
+            0.949
+          ],
+          [
+            0.504,
+            0.669,
+            0.99
+          ]
+        ]
+      },
+      {
+        "t": 3.67,
+        "pts": [
+          [
+            0.741,
+            0.439,
+            1.0
+          ],
+          [
+            0.663,
+            0.439,
+            1.0
+          ],
+          [
+            0.576,
+            0.428,
+            1.0
+          ],
+          [
+            0.614,
+            0.508,
+            0.907
+          ],
+          [
+            0.498,
+            0.502,
+            0.991
+          ],
+          [
+            0.622,
+            0.577,
+            0.92
+          ],
+          [
+            0.476,
+            0.588,
+            0.976
+          ],
+          [
+            0.487,
+            0.442,
+            1.0
+          ],
+          [
+            0.412,
+            0.439,
+            1.0
+          ],
+          [
+            0.561,
+            0.516,
+            0.833
+          ],
+          [
+            0.49,
+            0.538,
+            0.989
+          ],
+          [
+            0.549,
+            0.628,
+            0.92
+          ],
+          [
+            0.458,
+            0.647,
+            0.991
+          ],
+          [
+            0.519,
+            0.644,
+            0.898
+          ],
+          [
+            0.43,
+            0.669,
+            0.932
+          ],
+          [
+            0.576,
+            0.639,
+            0.952
+          ],
+          [
+            0.501,
+            0.665,
+            0.991
+          ]
+        ]
+      },
+      {
+        "t": 3.84,
+        "pts": [
+          [
+            0.734,
+            0.421,
+            1.0
+          ],
+          [
+            0.66,
+            0.433,
+            1.0
+          ],
+          [
+            0.566,
+            0.414,
+            1.0
+          ],
+          [
+            0.606,
+            0.494,
+            0.912
+          ],
+          [
+            0.498,
+            0.476,
+            0.991
+          ],
+          [
+            0.615,
+            0.566,
+            0.926
+          ],
+          [
+            0.476,
+            0.534,
+            0.976
+          ],
+          [
+            0.488,
+            0.437,
+            1.0
+          ],
+          [
+            0.412,
+            0.431,
+            1.0
+          ],
+          [
+            0.556,
+            0.527,
+            0.841
+          ],
+          [
+            0.471,
+            0.534,
+            0.99
+          ],
+          [
+            0.549,
+            0.629,
+            0.926
+          ],
+          [
+            0.452,
+            0.644,
+            0.992
+          ],
+          [
+            0.523,
+            0.649,
+            0.906
+          ],
+          [
+            0.424,
+            0.666,
+            0.939
+          ],
+          [
+            0.603,
+            0.665,
+            0.956
+          ],
+          [
+            0.487,
+            0.661,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 4.01,
+        "pts": [
+          [
+            0.732,
+            0.401,
+            1.0
+          ],
+          [
+            0.657,
+            0.42,
+            1.0
+          ],
+          [
+            0.563,
+            0.398,
+            1.0
+          ],
+          [
+            0.602,
+            0.483,
+            0.919
+          ],
+          [
+            0.501,
+            0.479,
+            0.99
+          ],
+          [
+            0.61,
+            0.555,
+            0.932
+          ],
+          [
+            0.474,
+            0.541,
+            0.976
+          ],
+          [
+            0.488,
+            0.431,
+            1.0
+          ],
+          [
+            0.412,
+            0.421,
+            1.0
+          ],
+          [
+            0.546,
+            0.535,
+            0.837
+          ],
+          [
+            0.456,
+            0.536,
+            0.991
+          ],
+          [
+            0.541,
+            0.641,
+            0.929
+          ],
+          [
+            0.442,
+            0.659,
+            0.992
+          ],
+          [
+            0.521,
+            0.656,
+            0.908
+          ],
+          [
+            0.422,
+            0.679,
+            0.945
+          ],
+          [
+            0.598,
+            0.668,
+            0.957
+          ],
+          [
+            0.501,
+            0.681,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 4.18,
+        "pts": [
+          [
+            0.725,
+            0.373,
+            1.0
+          ],
+          [
+            0.655,
+            0.404,
+            1.0
+          ],
+          [
+            0.549,
+            0.388,
+            1.0
+          ],
+          [
+            0.603,
+            0.468,
+            0.922
+          ],
+          [
+            0.499,
+            0.474,
+            0.988
+          ],
+          [
+            0.607,
+            0.541,
+            0.937
+          ],
+          [
+            0.49,
+            0.537,
+            0.975
+          ],
+          [
+            0.478,
+            0.425,
+            1.0
+          ],
+          [
+            0.406,
+            0.421,
+            1.0
+          ],
+          [
+            0.547,
+            0.533,
+            0.792
+          ],
+          [
+            0.451,
+            0.546,
+            0.992
+          ],
+          [
+            0.541,
+            0.64,
+            0.924
+          ],
+          [
+            0.442,
+            0.664,
+            0.993
+          ],
+          [
+            0.527,
+            0.656,
+            0.904
+          ],
+          [
+            0.424,
+            0.684,
+            0.95
+          ],
+          [
+            0.605,
+            0.668,
+            0.954
+          ],
+          [
+            0.501,
+            0.691,
+            0.993
+          ]
+        ]
+      },
+      {
+        "t": 4.34,
+        "pts": [
+          [
+            0.716,
+            0.35,
+            1.0
+          ],
+          [
+            0.647,
+            0.393,
+            1.0
+          ],
+          [
+            0.536,
+            0.375,
+            1.0
+          ],
+          [
+            0.603,
+            0.46,
+            0.919
+          ],
+          [
+            0.482,
+            0.466,
+            0.984
+          ],
+          [
+            0.602,
+            0.53,
+            0.932
+          ],
+          [
+            0.487,
+            0.538,
+            0.971
+          ],
+          [
+            0.473,
+            0.419,
+            1.0
+          ],
+          [
+            0.402,
+            0.418,
+            1.0
+          ],
+          [
+            0.538,
+            0.529,
+            0.735
+          ],
+          [
+            0.45,
+            0.546,
+            0.991
+          ],
+          [
+            0.54,
+            0.642,
+            0.882
+          ],
+          [
+            0.446,
+            0.664,
+            0.993
+          ],
+          [
+            0.515,
+            0.658,
+            0.866
+          ],
+          [
+            0.43,
+            0.685,
+            0.952
+          ],
+          [
+            0.604,
+            0.668,
+            0.924
+          ],
+          [
+            0.492,
+            0.677,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 4.51,
+        "pts": [
+          [
+            0.704,
+            0.328,
+            1.0
+          ],
+          [
+            0.642,
+            0.38,
+            1.0
+          ],
+          [
+            0.526,
+            0.363,
+            1.0
+          ],
+          [
+            0.603,
+            0.452,
+            0.922
+          ],
+          [
+            0.478,
+            0.45,
+            0.983
+          ],
+          [
+            0.6,
+            0.523,
+            0.936
+          ],
+          [
+            0.447,
+            0.518,
+            0.97
+          ],
+          [
+            0.468,
+            0.418,
+            1.0
+          ],
+          [
+            0.398,
+            0.415,
+            1.0
+          ],
+          [
+            0.539,
+            0.529,
+            0.7
+          ],
+          [
+            0.451,
+            0.546,
+            0.991
+          ],
+          [
+            0.537,
+            0.643,
+            0.872
+          ],
+          [
+            0.447,
+            0.664,
+            0.993
+          ],
+          [
+            0.515,
+            0.661,
+            0.852
+          ],
+          [
+            0.431,
+            0.686,
+            0.956
+          ],
+          [
+            0.608,
+            0.669,
+            0.918
+          ],
+          [
+            0.506,
+            0.689,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 4.68,
+        "pts": [
+          [
+            0.687,
+            0.303,
+            1.0
+          ],
+          [
+            0.639,
+            0.365,
+            1.0
+          ],
+          [
+            0.509,
+            0.349,
+            1.0
+          ],
+          [
+            0.602,
+            0.44,
+            0.925
+          ],
+          [
+            0.473,
+            0.436,
+            0.983
+          ],
+          [
+            0.602,
+            0.514,
+            0.939
+          ],
+          [
+            0.448,
+            0.509,
+            0.971
+          ],
+          [
+            0.466,
+            0.417,
+            1.0
+          ],
+          [
+            0.392,
+            0.413,
+            1.0
+          ],
+          [
+            0.536,
+            0.529,
+            0.68
+          ],
+          [
+            0.455,
+            0.544,
+            0.991
+          ],
+          [
+            0.538,
+            0.643,
+            0.869
+          ],
+          [
+            0.447,
+            0.666,
+            0.994
+          ],
+          [
+            0.52,
+            0.663,
+            0.843
+          ],
+          [
+            0.433,
+            0.686,
+            0.958
+          ],
+          [
+            0.608,
+            0.677,
+            0.918
+          ],
+          [
+            0.523,
+            0.689,
+            0.993
+          ]
+        ]
+      },
+      {
+        "t": 4.84,
+        "pts": [
+          [
+            0.655,
+            0.283,
+            1.0
+          ],
+          [
+            0.637,
+            0.345,
+            1.0
+          ],
+          [
+            0.494,
+            0.335,
+            1.0
+          ],
+          [
+            0.594,
+            0.424,
+            0.93
+          ],
+          [
+            0.451,
+            0.421,
+            0.984
+          ],
+          [
+            0.6,
+            0.5,
+            0.944
+          ],
+          [
+            0.434,
+            0.506,
+            0.972
+          ],
+          [
+            0.466,
+            0.412,
+            1.0
+          ],
+          [
+            0.387,
+            0.409,
+            1.0
+          ],
+          [
+            0.54,
+            0.527,
+            0.677
+          ],
+          [
+            0.458,
+            0.54,
+            0.991
+          ],
+          [
+            0.546,
+            0.649,
+            0.87
+          ],
+          [
+            0.45,
+            0.67,
+            0.994
+          ],
+          [
+            0.52,
+            0.671,
+            0.839
+          ],
+          [
+            0.437,
+            0.689,
+            0.961
+          ],
+          [
+            0.611,
+            0.678,
+            0.922
+          ],
+          [
+            0.522,
+            0.695,
+            0.993
+          ]
+        ]
+      },
+      {
+        "t": 5.01,
+        "pts": [
+          [
+            0.611,
+            0.268,
+            1.0
+          ],
+          [
+            0.614,
+            0.33,
+            1.0
+          ],
+          [
+            0.468,
+            0.324,
+            1.0
+          ],
+          [
+            0.579,
+            0.406,
+            0.935
+          ],
+          [
+            0.438,
+            0.415,
+            0.985
+          ],
+          [
+            0.596,
+            0.486,
+            0.949
+          ],
+          [
+            0.436,
+            0.504,
+            0.975
+          ],
+          [
+            0.466,
+            0.412,
+            1.0
+          ],
+          [
+            0.384,
+            0.409,
+            1.0
+          ],
+          [
+            0.553,
+            0.524,
+            0.695
+          ],
+          [
+            0.466,
+            0.535,
+            0.991
+          ],
+          [
+            0.546,
+            0.654,
+            0.877
+          ],
+          [
+            0.45,
+            0.671,
+            0.994
+          ],
+          [
+            0.524,
+            0.674,
+            0.843
+          ],
+          [
+            0.436,
+            0.691,
+            0.963
+          ],
+          [
+            0.617,
+            0.686,
+            0.927
+          ],
+          [
+            0.521,
+            0.702,
+            0.993
+          ]
+        ]
+      },
+      {
+        "t": 5.18,
+        "pts": [
+          [
+            0.57,
+            0.246,
+            1.0
+          ],
+          [
+            0.587,
+            0.32,
+            1.0
+          ],
+          [
+            0.449,
+            0.309,
+            1.0
+          ],
+          [
+            0.569,
+            0.398,
+            0.937
+          ],
+          [
+            0.426,
+            0.402,
+            0.986
+          ],
+          [
+            0.596,
+            0.481,
+            0.95
+          ],
+          [
+            0.439,
+            0.501,
+            0.977
+          ],
+          [
+            0.471,
+            0.413,
+            1.0
+          ],
+          [
+            0.386,
+            0.41,
+            1.0
+          ],
+          [
+            0.559,
+            0.53,
+            0.708
+          ],
+          [
+            0.471,
+            0.545,
+            0.991
+          ],
+          [
+            0.549,
+            0.656,
+            0.88
+          ],
+          [
+            0.452,
+            0.675,
+            0.995
+          ],
+          [
+            0.525,
+            0.678,
+            0.837
+          ],
+          [
+            0.436,
+            0.695,
+            0.965
+          ],
+          [
+            0.615,
+            0.686,
+            0.93
+          ],
+          [
+            0.52,
+            0.709,
+            0.994
+          ]
+        ]
+      },
+      {
+        "t": 5.34,
+        "pts": [
+          [
+            0.546,
+            0.234,
+            1.0
+          ],
+          [
+            0.579,
+            0.314,
+            1.0
+          ],
+          [
+            0.432,
+            0.303,
+            1.0
+          ],
+          [
+            0.566,
+            0.393,
+            0.938
+          ],
+          [
+            0.423,
+            0.398,
+            0.987
+          ],
+          [
+            0.596,
+            0.466,
+            0.952
+          ],
+          [
+            0.444,
+            0.486,
+            0.978
+          ],
+          [
+            0.483,
+            0.418,
+            1.0
+          ],
+          [
+            0.391,
+            0.42,
+            1.0
+          ],
+          [
+            0.565,
+            0.533,
+            0.686
+          ],
+          [
+            0.471,
+            0.555,
+            0.991
+          ],
+          [
+            0.553,
+            0.657,
+            0.863
+          ],
+          [
+            0.452,
+            0.676,
+            0.993
+          ],
+          [
+            0.532,
+            0.68,
+            0.801
+          ],
+          [
+            0.441,
+            0.696,
+            0.955
+          ],
+          [
+            0.631,
+            0.687,
+            0.923
+          ],
+          [
+            0.522,
+            0.709,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 5.51,
+        "pts": [
+          [
+            0.547,
+            0.231,
+            1.0
+          ],
+          [
+            0.573,
+            0.309,
+            1.0
+          ],
+          [
+            0.429,
+            0.296,
+            1.0
+          ],
+          [
+            0.565,
+            0.391,
+            0.936
+          ],
+          [
+            0.422,
+            0.391,
+            0.988
+          ],
+          [
+            0.598,
+            0.463,
+            0.954
+          ],
+          [
+            0.444,
+            0.479,
+            0.98
+          ],
+          [
+            0.498,
+            0.425,
+            1.0
+          ],
+          [
+            0.415,
+            0.425,
+            1.0
+          ],
+          [
+            0.565,
+            0.539,
+            0.674
+          ],
+          [
+            0.469,
+            0.558,
+            0.99
+          ],
+          [
+            0.554,
+            0.658,
+            0.855
+          ],
+          [
+            0.453,
+            0.677,
+            0.993
+          ],
+          [
+            0.533,
+            0.679,
+            0.78
+          ],
+          [
+            0.436,
+            0.696,
+            0.95
+          ],
+          [
+            0.63,
+            0.691,
+            0.922
+          ],
+          [
+            0.522,
+            0.713,
+            0.992
+          ]
+        ]
+      },
+      {
+        "t": 5.68,
+        "pts": [
+          [
+            0.541,
+            0.229,
+            1.0
+          ],
+          [
+            0.566,
+            0.303,
+            1.0
+          ],
+          [
+            0.421,
+            0.293,
+            1.0
+          ],
+          [
+            0.566,
+            0.384,
+            0.903
+          ],
+          [
+            0.422,
+            0.383,
+            0.989
+          ],
+          [
+            0.598,
+            0.455,
+            0.945
+          ],
+          [
+            0.444,
+            0.469,
+            0.982
+          ],
+          [
+            0.521,
+            0.435,
+            1.0
+          ],
+          [
+            0.446,
+            0.44,
+            1.0
+          ],
+          [
+            0.562,
+            0.549,
+            0.624
+          ],
+          [
+            0.469,
+            0.562,
+            0.978
+          ],
+          [
+            0.552,
+            0.659,
+            0.811
+          ],
+          [
+            0.452,
+            0.677,
+            0.986
+          ],
+          [
+            0.533,
+            0.679,
+            0.729
+          ],
+          [
+            0.436,
+            0.695,
+            0.911
+          ],
+          [
+            0.621,
+            0.691,
+            0.899
+          ],
+          [
+            0.523,
+            0.712,
+            0.986
+          ]
+        ]
+      },
+      {
+        "t": 5.85,
+        "pts": [
+          [
+            0.534,
+            0.228,
+            1.0
+          ],
+          [
+            0.559,
+            0.296,
+            1.0
+          ],
+          [
+            0.408,
+            0.291,
+            1.0
+          ],
+          [
+            0.567,
+            0.378,
+            0.857
+          ],
+          [
+            0.42,
+            0.38,
+            0.99
+          ],
+          [
+            0.603,
+            0.451,
+            0.928
+          ],
+          [
+            0.443,
+            0.462,
+            0.984
+          ],
+          [
+            0.534,
+            0.435,
+            1.0
+          ],
+          [
+            0.454,
+            0.44,
+            1.0
+          ],
+          [
+            0.557,
+            0.548,
+            0.573
+          ],
+          [
+            0.468,
+            0.562,
+            0.953
+          ],
+          [
+            0.55,
+            0.658,
+            0.757
+          ],
+          [
+            0.45,
+            0.676,
+            0.97
+          ],
+          [
+            0.533,
+            0.677,
+            0.674
+          ],
+          [
+            0.436,
+            0.695,
+            0.853
+          ],
+          [
+            0.617,
+            0.689,
+            0.865
+          ],
+          [
+            0.522,
+            0.712,
+            0.972
+          ]
+        ]
+      },
+      {
+        "t": 6.01,
+        "pts": [
+          [
+            0.534,
+            0.227,
+            1.0
+          ],
+          [
+            0.556,
+            0.29,
+            1.0
+          ],
+          [
+            0.409,
+            0.286,
+            1.0
+          ],
+          [
+            0.572,
+            0.373,
+            0.819
+          ],
+          [
+            0.417,
+            0.374,
+            0.991
+          ],
+          [
+            0.608,
+            0.449,
+            0.915
+          ],
+          [
+            0.443,
+            0.454,
+            0.985
+          ],
+          [
+            0.545,
+            0.437,
+            1.0
+          ],
+          [
+            0.464,
+            0.44,
+            1.0
+          ],
+          [
+            0.552,
+            0.548,
+            0.536
+          ],
+          [
+            0.465,
+            0.562,
+            0.941
+          ],
+          [
+            0.548,
+            0.658,
+            0.723
+          ],
+          [
+            0.447,
+            0.676,
+            0.963
+          ],
+          [
+            0.53,
+            0.677,
+            0.64
+          ],
+          [
+            0.436,
+            0.694,
+            0.815
+          ],
+          [
+            0.616,
+            0.689,
+            0.846
+          ],
+          [
+            0.518,
+            0.709,
+            0.965
+          ]
+        ]
+      },
+      {
+        "t": 6.18,
+        "pts": [
+          [
+            0.529,
+            0.227,
+            1.0
+          ],
+          [
+            0.555,
+            0.291,
+            1.0
+          ],
+          [
+            0.409,
+            0.286,
+            1.0
+          ],
+          [
+            0.574,
+            0.373,
+            0.777
+          ],
+          [
+            0.418,
+            0.374,
+            0.991
+          ],
+          [
+            0.608,
+            0.447,
+            0.896
+          ],
+          [
+            0.443,
+            0.455,
+            0.986
+          ],
+          [
+            0.546,
+            0.438,
+            1.0
+          ],
+          [
+            0.465,
+            0.439,
+            1.0
+          ],
+          [
+            0.564,
+            0.549,
+            0.493
+          ],
+          [
+            0.469,
+            0.562,
+            0.915
+          ],
+          [
+            0.548,
+            0.659,
+            0.674
+          ],
+          [
+            0.449,
+            0.677,
+            0.945
+          ],
+          [
+            0.528,
+            0.678,
+            0.594
+          ],
+          [
+            0.44,
+            0.695,
+            0.765
+          ],
+          [
+            0.615,
+            0.689,
+            0.81
+          ],
+          [
+            0.517,
+            0.71,
+            0.951
+          ]
+        ]
+      },
+      {
+        "t": 6.35,
+        "pts": [
+          [
+            0.529,
+            0.232,
+            1.0
+          ],
+          [
+            0.555,
+            0.295,
+            1.0
+          ],
+          [
+            0.411,
+            0.292,
+            1.0
+          ],
+          [
+            0.574,
+            0.378,
+            0.755
+          ],
+          [
+            0.42,
+            0.382,
+            0.992
+          ],
+          [
+            0.609,
+            0.449,
+            0.89
+          ],
+          [
+            0.451,
+            0.463,
+            0.988
+          ],
+          [
+            0.546,
+            0.446,
+            1.0
+          ],
+          [
+            0.467,
+            0.446,
+            1.0
+          ],
+          [
+            0.593,
+            0.556,
+            0.473
+          ],
+          [
+            0.488,
+            0.569,
+            0.908
+          ],
+          [
+            0.55,
+            0.661,
+            0.649
+          ],
+          [
+            0.449,
+            0.679,
+            0.94
+          ],
+          [
+            0.528,
+            0.679,
+            0.573
+          ],
+          [
+            0.438,
+            0.698,
+            0.741
+          ],
+          [
+            0.619,
+            0.692,
+            0.799
+          ],
+          [
+            0.517,
+            0.714,
+            0.947
+          ]
+        ]
+      },
+      {
+        "t": 6.51,
+        "pts": [
+          [
+            0.517,
+            0.237,
+            1.0
+          ],
+          [
+            0.547,
+            0.297,
+            1.0
+          ],
+          [
+            0.407,
+            0.294,
+            1.0
+          ],
+          [
+            0.574,
+            0.38,
+            0.718
+          ],
+          [
+            0.423,
+            0.383,
+            0.993
+          ],
+          [
+            0.613,
+            0.449,
+            0.88
+          ],
+          [
+            0.454,
+            0.463,
+            0.989
+          ],
+          [
+            0.551,
+            0.447,
+            1.0
+          ],
+          [
+            0.471,
+            0.448,
+            1.0
+          ],
+          [
+            0.588,
+            0.557,
+            0.437
+          ],
+          [
+            0.487,
+            0.569,
+            0.89
+          ],
+          [
+            0.552,
+            0.662,
+            0.606
+          ],
+          [
+            0.45,
+            0.681,
+            0.927
+          ],
+          [
+            0.529,
+            0.68,
+            0.537
+          ],
+          [
+            0.438,
+            0.699,
+            0.703
+          ],
+          [
+            0.62,
+            0.692,
+            0.768
+          ],
+          [
+            0.518,
+            0.715,
+            0.937
+          ]
+        ]
+      },
+      {
+        "t": 6.68,
+        "pts": [
+          [
+            0.532,
+            0.222,
+            1.0
+          ],
+          [
+            0.553,
+            0.288,
+            1.0
+          ],
+          [
+            0.417,
+            0.284,
+            1.0
+          ],
+          [
+            0.583,
+            0.369,
+            0.7
+          ],
+          [
+            0.423,
+            0.375,
+            0.993
+          ],
+          [
+            0.619,
+            0.441,
+            0.879
+          ],
+          [
+            0.459,
+            0.454,
+            0.99
+          ],
+          [
+            0.558,
+            0.437,
+            1.0
+          ],
+          [
+            0.478,
+            0.438,
+            1.0
+          ],
+          [
+            0.562,
+            0.552,
+            0.434
+          ],
+          [
+            0.472,
+            0.564,
+            0.893
+          ],
+          [
+            0.551,
+            0.662,
+            0.617
+          ],
+          [
+            0.45,
+            0.681,
+            0.93
+          ],
+          [
+            0.526,
+            0.681,
+            0.543
+          ],
+          [
+            0.438,
+            0.698,
+            0.698
+          ],
+          [
+            0.621,
+            0.693,
+            0.779
+          ],
+          [
+            0.517,
+            0.715,
+            0.939
+          ]
+        ]
+      },
+      {
+        "t": 6.85,
+        "pts": [
+          [
+            0.542,
+            0.222,
+            1.0
+          ],
+          [
+            0.571,
+            0.286,
+            1.0
+          ],
+          [
+            0.426,
+            0.284,
+            1.0
+          ],
+          [
+            0.59,
+            0.369,
+            0.664
+          ],
+          [
+            0.428,
+            0.375,
+            0.993
+          ],
+          [
+            0.619,
+            0.442,
+            0.856
+          ],
+          [
+            0.459,
+            0.455,
+            0.99
+          ],
+          [
+            0.56,
+            0.437,
+            1.0
+          ],
+          [
+            0.481,
+            0.436,
+            1.0
+          ],
+          [
+            0.553,
+            0.551,
+            0.406
+          ],
+          [
+            0.469,
+            0.562,
+            0.881
+          ],
+          [
+            0.551,
+            0.662,
+            0.596
+          ],
+          [
+            0.449,
+            0.681,
+            0.923
+          ],
+          [
+            0.526,
+            0.683,
+            0.521
+          ],
+          [
+            0.438,
+            0.698,
+            0.668
+          ],
+          [
+            0.621,
+            0.694,
+            0.767
+          ],
+          [
+            0.515,
+            0.716,
+            0.933
+          ]
+        ]
+      },
+      {
+        "t": 7.01,
+        "pts": [
+          [
+            0.555,
+            0.222,
+            1.0
+          ],
+          [
+            0.579,
+            0.285,
+            1.0
+          ],
+          [
+            0.432,
+            0.284,
+            1.0
+          ],
+          [
+            0.594,
+            0.368,
+            0.646
+          ],
+          [
+            0.432,
+            0.375,
+            0.994
+          ],
+          [
+            0.617,
+            0.441,
+            0.845
+          ],
+          [
+            0.457,
+            0.457,
+            0.991
+          ],
+          [
+            0.559,
+            0.433,
+            1.0
+          ],
+          [
+            0.48,
+            0.433,
+            1.0
+          ],
+          [
+            0.544,
+            0.548,
+            0.386
+          ],
+          [
+            0.462,
+            0.56,
+            0.872
+          ],
+          [
+            0.55,
+            0.662,
+            0.579
+          ],
+          [
+            0.45,
+            0.679,
+            0.918
+          ],
+          [
+            0.529,
+            0.682,
+            0.496
+          ],
+          [
+            0.44,
+            0.698,
+            0.64
+          ],
+          [
+            0.621,
+            0.694,
+            0.755
+          ],
+          [
+            0.516,
+            0.716,
+            0.928
+          ]
+        ]
+      },
+      {
+        "t": 7.18,
+        "pts": [
+          [
+            0.548,
+            0.222,
+            1.0
+          ],
+          [
+            0.577,
+            0.285,
+            1.0
+          ],
+          [
+            0.427,
+            0.284,
+            1.0
+          ],
+          [
+            0.591,
+            0.368,
+            0.642
+          ],
+          [
+            0.428,
+            0.375,
+            0.994
+          ],
+          [
+            0.614,
+            0.441,
+            0.841
+          ],
+          [
+            0.457,
+            0.456,
+            0.991
+          ],
+          [
+            0.552,
+            0.433,
+            1.0
+          ],
+          [
+            0.475,
+            0.433,
+            1.0
+          ],
+          [
+            0.543,
+            0.549,
+            0.369
+          ],
+          [
+            0.457,
+            0.561,
+            0.868
+          ],
+          [
+            0.55,
+            0.663,
+            0.559
+          ],
+          [
+            0.45,
+            0.679,
+            0.914
+          ],
+          [
+            0.53,
+            0.682,
+            0.471
+          ],
+          [
+            0.441,
+            0.698,
+            0.617
+          ],
+          [
+            0.617,
+            0.694,
+            0.741
+          ],
+          [
+            0.516,
+            0.716,
+            0.923
+          ]
+        ]
+      },
+      {
+        "t": 7.35,
+        "pts": [
+          [
+            0.526,
+            0.224,
+            1.0
+          ],
+          [
+            0.552,
+            0.286,
+            1.0
+          ],
+          [
+            0.411,
+            0.285,
+            1.0
+          ],
+          [
+            0.577,
+            0.368,
+            0.63
+          ],
+          [
+            0.42,
+            0.376,
+            0.994
+          ],
+          [
+            0.611,
+            0.441,
+            0.831
+          ],
+          [
+            0.455,
+            0.455,
+            0.992
+          ],
+          [
+            0.544,
+            0.433,
+            1.0
+          ],
+          [
+            0.47,
+            0.434,
+            1.0
+          ],
+          [
+            0.542,
+            0.549,
+            0.363
+          ],
+          [
+            0.456,
+            0.561,
+            0.871
+          ],
+          [
+            0.55,
+            0.663,
+            0.552
+          ],
+          [
+            0.45,
+            0.681,
+            0.915
+          ],
+          [
+            0.53,
+            0.682,
+            0.461
+          ],
+          [
+            0.439,
+            0.7,
+            0.609
+          ],
+          [
+            0.617,
+            0.694,
+            0.736
+          ],
+          [
+            0.515,
+            0.716,
+            0.922
+          ]
+        ]
+      },
+      {
+        "t": 7.52,
+        "pts": [
+          [
+            0.523,
+            0.225,
+            1.0
+          ],
+          [
+            0.55,
+            0.288,
+            1.0
+          ],
+          [
+            0.411,
+            0.285,
+            1.0
+          ],
+          [
+            0.575,
+            0.37,
+            0.609
+          ],
+          [
+            0.42,
+            0.376,
+            0.994
+          ],
+          [
+            0.61,
+            0.445,
+            0.816
+          ],
+          [
+            0.451,
+            0.457,
+            0.992
+          ],
+          [
+            0.544,
+            0.435,
+            1.0
+          ],
+          [
+            0.469,
+            0.437,
+            1.0
+          ],
+          [
+            0.542,
+            0.549,
+            0.353
+          ],
+          [
+            0.456,
+            0.563,
+            0.871
+          ],
+          [
+            0.549,
+            0.663,
+            0.547
+          ],
+          [
+            0.449,
+            0.681,
+            0.915
+          ],
+          [
+            0.53,
+            0.682,
+            0.452
+          ],
+          [
+            0.439,
+            0.701,
+            0.598
+          ],
+          [
+            0.617,
+            0.694,
+            0.734
+          ],
+          [
+            0.514,
+            0.717,
+            0.922
+          ]
+        ]
+      },
+      {
+        "t": 7.68,
+        "pts": [
+          [
+            0.514,
+            0.225,
+            1.0
+          ],
+          [
+            0.55,
+            0.288,
+            1.0
+          ],
+          [
+            0.411,
+            0.286,
+            1.0
+          ],
+          [
+            0.575,
+            0.37,
+            0.6
+          ],
+          [
+            0.42,
+            0.376,
+            0.994
+          ],
+          [
+            0.608,
+            0.445,
+            0.812
+          ],
+          [
+            0.449,
+            0.459,
+            0.992
+          ],
+          [
+            0.544,
+            0.437,
+            1.0
+          ],
+          [
+            0.469,
+            0.439,
+            1.0
+          ],
+          [
+            0.542,
+            0.549,
+            0.353
+          ],
+          [
+            0.455,
+            0.564,
+            0.875
+          ],
+          [
+            0.547,
+            0.663,
+            0.552
+          ],
+          [
+            0.449,
+            0.681,
+            0.917
+          ],
+          [
+            0.529,
+            0.683,
+            0.455
+          ],
+          [
+            0.439,
+            0.701,
+            0.597
+          ],
+          [
+            0.615,
+            0.695,
+            0.738
+          ],
+          [
+            0.511,
+            0.718,
+            0.923
+          ]
+        ]
+      },
+      {
+        "t": 7.85,
+        "pts": [
+          [
+            0.505,
+            0.223,
+            1.0
+          ],
+          [
+            0.552,
+            0.287,
+            1.0
+          ],
+          [
+            0.411,
+            0.286,
+            1.0
+          ],
+          [
+            0.575,
+            0.37,
+            0.599
+          ],
+          [
+            0.422,
+            0.376,
+            0.994
+          ],
+          [
+            0.606,
+            0.444,
+            0.813
+          ],
+          [
+            0.449,
+            0.459,
+            0.993
+          ],
+          [
+            0.549,
+            0.437,
+            1.0
+          ],
+          [
+            0.472,
+            0.439,
+            1.0
+          ],
+          [
+            0.541,
+            0.55,
+            0.355
+          ],
+          [
+            0.455,
+            0.564,
+            0.88
+          ],
+          [
+            0.544,
+            0.663,
+            0.56
+          ],
+          [
+            0.448,
+            0.681,
+            0.92
+          ],
+          [
+            0.526,
+            0.683,
+            0.459
+          ],
+          [
+            0.438,
+            0.7,
+            0.598
+          ],
+          [
+            0.614,
+            0.695,
+            0.743
+          ],
+          [
+            0.511,
+            0.718,
+            0.925
+          ]
+        ]
+      },
+      {
+        "t": 8.02,
+        "pts": [
+          [
+            0.512,
+            0.228,
+            1.0
+          ],
+          [
+            0.552,
+            0.287,
+            1.0
+          ],
+          [
+            0.412,
+            0.286,
+            1.0
+          ],
+          [
+            0.575,
+            0.371,
+            0.568
+          ],
+          [
+            0.422,
+            0.377,
+            0.994
+          ],
+          [
+            0.606,
+            0.445,
+            0.786
+          ],
+          [
+            0.45,
+            0.46,
+            0.993
+          ],
+          [
+            0.548,
+            0.436,
+            1.0
+          ],
+          [
+            0.472,
+            0.437,
+            1.0
+          ],
+          [
+            0.541,
+            0.547,
+            0.334
+          ],
+          [
+            0.455,
+            0.563,
+            0.873
+          ],
+          [
+            0.544,
+            0.663,
+            0.539
+          ],
+          [
+            0.446,
+            0.683,
+            0.915
+          ],
+          [
+            0.526,
+            0.683,
+            0.444
+          ],
+          [
+            0.436,
+            0.702,
+            0.584
+          ],
+          [
+            0.615,
+            0.695,
+            0.73
+          ],
+          [
+            0.513,
+            0.718,
+            0.921
+          ]
+        ]
+      },
+      {
+        "t": 8.18,
+        "pts": [
+          [
+            0.537,
+            0.228,
+            1.0
+          ],
+          [
+            0.568,
+            0.288,
+            1.0
+          ],
+          [
+            0.428,
+            0.287,
+            1.0
+          ],
+          [
+            0.577,
+            0.372,
+            0.549
+          ],
+          [
+            0.425,
+            0.378,
+            0.994
+          ],
+          [
+            0.606,
+            0.444,
+            0.78
+          ],
+          [
+            0.452,
+            0.461,
+            0.993
+          ],
+          [
+            0.55,
+            0.443,
+            1.0
+          ],
+          [
+            0.473,
+            0.443,
+            1.0
+          ],
+          [
+            0.57,
+            0.552,
+            0.316
+          ],
+          [
+            0.476,
+            0.567,
+            0.867
+          ],
+          [
+            0.546,
+            0.663,
+            0.517
+          ],
+          [
+            0.448,
+            0.683,
+            0.912
+          ],
+          [
+            0.526,
+            0.682,
+            0.427
+          ],
+          [
+            0.437,
+            0.703,
+            0.573
+          ],
+          [
+            0.615,
+            0.693,
+            0.718
+          ],
+          [
+            0.513,
+            0.718,
+            0.919
+          ]
+        ]
+      },
+      {
+        "t": 8.35,
+        "pts": [
+          [
+            0.561,
+            0.224,
+            1.0
+          ],
+          [
+            0.593,
+            0.288,
+            1.0
+          ],
+          [
+            0.437,
+            0.283,
+            1.0
+          ],
+          [
+            0.59,
+            0.372,
+            0.559
+          ],
+          [
+            0.438,
+            0.376,
+            0.995
+          ],
+          [
+            0.622,
+            0.446,
+            0.79
+          ],
+          [
+            0.472,
+            0.463,
+            0.994
+          ],
+          [
+            0.542,
+            0.441,
+            1.0
+          ],
+          [
+            0.458,
+            0.44,
+            1.0
+          ],
+          [
+            0.548,
+            0.553,
+            0.299
+          ],
+          [
+            0.469,
+            0.565,
+            0.859
+          ],
+          [
+            0.545,
+            0.666,
+            0.497
+          ],
+          [
+            0.448,
+            0.683,
+            0.905
+          ],
+          [
+            0.524,
+            0.686,
+            0.407
+          ],
+          [
+            0.438,
+            0.702,
+            0.557
+          ],
+          [
+            0.614,
+            0.694,
+            0.706
+          ],
+          [
+            0.516,
+            0.716,
+            0.916
+          ]
+        ]
+      },
+      {
+        "t": 8.52,
+        "pts": [
+          [
+            0.557,
+            0.226,
+            1.0
+          ],
+          [
+            0.584,
+            0.285,
+            1.0
+          ],
+          [
+            0.436,
+            0.278,
+            1.0
+          ],
+          [
+            0.608,
+            0.353,
+            0.591
+          ],
+          [
+            0.398,
+            0.354,
+            0.995
+          ],
+          [
+            0.713,
+            0.397,
+            0.809
+          ],
+          [
+            0.368,
+            0.415,
+            0.994
+          ],
+          [
+            0.547,
+            0.44,
+            1.0
+          ],
+          [
+            0.46,
+            0.439,
+            1.0
+          ],
+          [
+            0.54,
+            0.559,
+            0.305
+          ],
+          [
+            0.451,
+            0.565,
+            0.862
+          ],
+          [
+            0.511,
+            0.664,
+            0.493
+          ],
+          [
+            0.42,
+            0.675,
+            0.904
+          ],
+          [
+            0.488,
+            0.681,
+            0.406
+          ],
+          [
+            0.404,
+            0.692,
+            0.55
+          ],
+          [
+            0.582,
+            0.694,
+            0.709
+          ],
+          [
+            0.476,
+            0.714,
+            0.915
+          ]
+        ]
+      },
+      {
+        "t": 8.68,
+        "pts": [
+          [
+            0.559,
+            0.22,
+            1.0
+          ],
+          [
+            0.58,
+            0.274,
+            1.0
+          ],
+          [
+            0.437,
+            0.268,
+            1.0
+          ],
+          [
+            0.593,
+            0.342,
+            0.594
+          ],
+          [
+            0.333,
+            0.334,
+            0.995
+          ],
+          [
+            0.692,
+            0.372,
+            0.822
+          ],
+          [
+            0.213,
+            0.38,
+            0.995
+          ],
+          [
+            0.555,
+            0.422,
+            1.0
+          ],
+          [
+            0.475,
+            0.421,
+            1.0
+          ],
+          [
+            0.54,
+            0.546,
+            0.334
+          ],
+          [
+            0.452,
+            0.555,
+            0.873
+          ],
+          [
+            0.511,
+            0.663,
+            0.52
+          ],
+          [
+            0.41,
+            0.675,
+            0.911
+          ],
+          [
+            0.486,
+            0.68,
+            0.44
+          ],
+          [
+            0.389,
+            0.693,
+            0.573
+          ],
+          [
+            0.583,
+            0.694,
+            0.73
+          ],
+          [
+            0.475,
+            0.714,
+            0.921
+          ]
+        ]
+      },
+      {
+        "t": 8.85,
+        "pts": [
+          [
+            0.562,
+            0.223,
+            1.0
+          ],
+          [
+            0.58,
+            0.275,
+            1.0
+          ],
+          [
+            0.437,
+            0.269,
+            1.0
+          ],
+          [
+            0.578,
+            0.344,
+            0.623
+          ],
+          [
+            0.341,
+            0.34,
+            0.996
+          ],
+          [
+            0.64,
+            0.382,
+            0.839
+          ],
+          [
+            0.24,
+            0.393,
+            0.995
+          ],
+          [
+            0.549,
+            0.418,
+            1.0
+          ],
+          [
+            0.475,
+            0.418,
+            1.0
+          ],
+          [
+            0.533,
+            0.546,
+            0.378
+          ],
+          [
+            0.452,
+            0.55,
+            0.885
+          ],
+          [
+            0.507,
+            0.662,
+            0.556
+          ],
+          [
+            0.408,
+            0.674,
+            0.918
+          ],
+          [
+            0.485,
+            0.68,
+            0.48
+          ],
+          [
+            0.391,
+            0.693,
+            0.599
+          ],
+          [
+            0.577,
+            0.693,
+            0.752
+          ],
+          [
+            0.468,
+            0.711,
+            0.928
+          ]
+        ]
+      },
+      {
+        "t": 9.02,
+        "pts": [
+          [
+            0.562,
+            0.229,
+            1.0
+          ],
+          [
+            0.572,
+            0.278,
+            1.0
+          ],
+          [
+            0.431,
+            0.274,
+            1.0
+          ],
+          [
+            0.579,
+            0.359,
+            0.652
+          ],
+          [
+            0.365,
+            0.362,
+            0.996
+          ],
+          [
+            0.647,
+            0.414,
+            0.854
+          ],
+          [
+            0.354,
+            0.443,
+            0.995
+          ],
+          [
+            0.54,
+            0.421,
+            1.0
+          ],
+          [
+            0.462,
+            0.425,
+            1.0
+          ],
+          [
+            0.51,
+            0.549,
+            0.406
+          ],
+          [
+            0.444,
+            0.556,
+            0.894
+          ],
+          [
+            0.493,
+            0.665,
+            0.574
+          ],
+          [
+            0.399,
+            0.68,
+            0.923
+          ],
+          [
+            0.468,
+            0.685,
+            0.499
+          ],
+          [
+            0.381,
+            0.697,
+            0.614
+          ],
+          [
+            0.564,
+            0.693,
+            0.766
+          ],
+          [
+            0.458,
+            0.71,
+            0.932
+          ]
+        ]
+      },
+      {
+        "t": 9.19,
+        "pts": [
+          [
+            0.545,
+            0.229,
+            1.0
+          ],
+          [
+            0.557,
+            0.281,
+            1.0
+          ],
+          [
+            0.411,
+            0.274,
+            1.0
+          ],
+          [
+            0.591,
+            0.356,
+            0.669
+          ],
+          [
+            0.359,
+            0.361,
+            0.996
+          ],
+          [
+            0.678,
+            0.404,
+            0.866
+          ],
+          [
+            0.423,
+            0.44,
+            0.996
+          ],
+          [
+            0.518,
+            0.43,
+            1.0
+          ],
+          [
+            0.437,
+            0.433,
+            1.0
+          ],
+          [
+            0.491,
+            0.553,
+            0.422
+          ],
+          [
+            0.428,
+            0.56,
+            0.903
+          ],
+          [
+            0.484,
+            0.662,
+            0.595
+          ],
+          [
+            0.375,
+            0.682,
+            0.929
+          ],
+          [
+            0.461,
+            0.681,
+            0.524
+          ],
+          [
+            0.365,
+            0.698,
+            0.634
+          ],
+          [
+            0.555,
+            0.691,
+            0.776
+          ],
+          [
+            0.433,
+            0.717,
+            0.936
+          ]
+        ]
+      },
+      {
+        "t": 9.35,
+        "pts": [
+          [
+            0.524,
+            0.231,
+            1.0
+          ],
+          [
+            0.537,
+            0.282,
+            1.0
+          ],
+          [
+            0.386,
+            0.274,
+            1.0
+          ],
+          [
+            0.577,
+            0.356,
+            0.685
+          ],
+          [
+            0.338,
+            0.36,
+            0.997
+          ],
+          [
+            0.671,
+            0.403,
+            0.878
+          ],
+          [
+            0.42,
+            0.422,
+            0.996
+          ],
+          [
+            0.496,
+            0.429,
+            1.0
+          ],
+          [
+            0.413,
+            0.433,
+            1.0
+          ],
+          [
+            0.472,
+            0.553,
+            0.414
+          ],
+          [
+            0.401,
+            0.562,
+            0.909
+          ],
+          [
+            0.458,
+            0.662,
+            0.583
+          ],
+          [
+            0.353,
+            0.686,
+            0.93
+          ],
+          [
+            0.436,
+            0.682,
+            0.523
+          ],
+          [
+            0.334,
+            0.703,
+            0.635
+          ],
+          [
+            0.527,
+            0.691,
+            0.764
+          ],
+          [
+            0.402,
+            0.717,
+            0.935
+          ]
+        ]
+      },
+      {
+        "t": 9.52,
+        "pts": [
+          [
+            0.511,
+            0.233,
+            1.0
+          ],
+          [
+            0.515,
+            0.284,
+            1.0
+          ],
+          [
+            0.369,
+            0.275,
+            1.0
+          ],
+          [
+            0.531,
+            0.363,
+            0.701
+          ],
+          [
+            0.314,
+            0.361,
+            0.997
+          ],
+          [
+            0.593,
+            0.428,
+            0.887
+          ],
+          [
+            0.358,
+            0.438,
+            0.996
+          ],
+          [
+            0.47,
+            0.429,
+            1.0
+          ],
+          [
+            0.393,
+            0.433,
+            1.0
+          ],
+          [
+            0.454,
+            0.552,
+            0.422
+          ],
+          [
+            0.383,
+            0.565,
+            0.913
+          ],
+          [
+            0.438,
+            0.662,
+            0.58
+          ],
+          [
+            0.34,
+            0.687,
+            0.931
+          ],
+          [
+            0.416,
+            0.683,
+            0.524
+          ],
+          [
+            0.326,
+            0.704,
+            0.635
+          ],
+          [
+            0.509,
+            0.687,
+            0.763
+          ],
+          [
+            0.374,
+            0.717,
+            0.935
+          ]
+        ]
+      },
+      {
+        "t": 9.69,
+        "pts": [
+          [
+            0.507,
+            0.235,
+            1.0
+          ],
+          [
+            0.504,
+            0.285,
+            1.0
+          ],
+          [
+            0.358,
+            0.277,
+            1.0
+          ],
+          [
+            0.481,
+            0.369,
+            0.634
+          ],
+          [
+            0.294,
+            0.362,
+            0.997
+          ],
+          [
+            0.485,
+            0.439,
+            0.801
+          ],
+          [
+            0.288,
+            0.444,
+            0.996
+          ],
+          [
+            0.463,
+            0.431,
+            1.0
+          ],
+          [
+            0.384,
+            0.433,
+            1.0
+          ],
+          [
+            0.441,
+            0.554,
+            0.4
+          ],
+          [
+            0.369,
+            0.565,
+            0.897
+          ],
+          [
+            0.426,
+            0.667,
+            0.553
+          ],
+          [
+            0.322,
+            0.688,
+            0.916
+          ],
+          [
+            0.402,
+            0.691,
+            0.499
+          ],
+          [
+            0.306,
+            0.707,
+            0.606
+          ],
+          [
+            0.484,
+            0.687,
+            0.736
+          ],
+          [
+            0.361,
+            0.715,
+            0.918
+          ]
+        ]
+      },
+      {
+        "t": 9.85,
+        "pts": [
+          [
+            0.503,
+            0.237,
+            1.0
+          ],
+          [
+            0.492,
+            0.286,
+            1.0
+          ],
+          [
+            0.349,
+            0.275,
+            1.0
+          ],
+          [
+            0.455,
+            0.366,
+            0.576
+          ],
+          [
+            0.265,
+            0.355,
+            0.997
+          ],
+          [
+            0.461,
+            0.425,
+            0.724
+          ],
+          [
+            0.308,
+            0.426,
+            0.996
+          ],
+          [
+            0.449,
+            0.434,
+            1.0
+          ],
+          [
+            0.37,
+            0.435,
+            1.0
+          ],
+          [
+            0.43,
+            0.557,
+            0.408
+          ],
+          [
+            0.351,
+            0.568,
+            0.9
+          ],
+          [
+            0.411,
+            0.674,
+            0.563
+          ],
+          [
+            0.306,
+            0.688,
+            0.917
+          ],
+          [
+            0.387,
+            0.697,
+            0.51
+          ],
+          [
+            0.293,
+            0.709,
+            0.606
+          ],
+          [
+            0.476,
+            0.696,
+            0.74
+          ],
+          [
+            0.358,
+            0.718,
+            0.917
+          ]
+        ]
+      },
+      {
+        "t": 10.02,
+        "pts": [
+          [
+            0.499,
+            0.242,
+            1.0
+          ],
+          [
+            0.488,
+            0.286,
+            1.0
+          ],
+          [
+            0.343,
+            0.276,
+            1.0
+          ],
+          [
+            0.461,
+            0.366,
+            0.59
+          ],
+          [
+            0.264,
+            0.365,
+            0.997
+          ],
+          [
+            0.568,
+            0.356,
+            0.75
+          ],
+          [
+            0.388,
+            0.34,
+            0.996
+          ],
+          [
+            0.45,
+            0.438,
+            1.0
+          ],
+          [
+            0.373,
+            0.44,
+            1.0
+          ],
+          [
+            0.428,
+            0.562,
+            0.415
+          ],
+          [
+            0.353,
+            0.572,
+            0.905
+          ],
+          [
+            0.413,
+            0.678,
+            0.565
+          ],
+          [
+            0.305,
+            0.69,
+            0.916
+          ],
+          [
+            0.391,
+            0.699,
+            0.515
+          ],
+          [
+            0.292,
+            0.71,
+            0.602
+          ],
+          [
+            0.479,
+            0.703,
+            0.737
+          ],
+          [
+            0.352,
+            0.719,
+            0.913
+          ]
+        ]
+      },
+      {
+        "t": 10.19,
+        "pts": [
+          [
+            0.498,
+            0.243,
+            1.0
+          ],
+          [
+            0.513,
+            0.288,
+            1.0
+          ],
+          [
+            0.351,
+            0.275,
+            1.0
+          ],
+          [
+            0.588,
+            0.359,
+            0.606
+          ],
+          [
+            0.336,
+            0.362,
+            0.995
+          ],
+          [
+            0.572,
+            0.287,
+            0.772
+          ],
+          [
+            0.412,
+            0.284,
+            0.997
+          ],
+          [
+            0.475,
+            0.44,
+            1.0
+          ],
+          [
+            0.389,
+            0.44,
+            1.0
+          ],
+          [
+            0.446,
+            0.565,
+            0.384
+          ],
+          [
+            0.367,
+            0.574,
+            0.879
+          ],
+          [
+            0.43,
+            0.683,
+            0.525
+          ],
+          [
+            0.317,
+            0.696,
+            0.879
+          ],
+          [
+            0.407,
+            0.703,
+            0.484
+          ],
+          [
+            0.292,
+            0.719,
+            0.565
+          ],
+          [
+            0.487,
+            0.711,
+            0.691
+          ],
+          [
+            0.369,
+            0.729,
+            0.872
+          ]
+        ]
+      },
+      {
+        "t": 10.35,
+        "pts": [
+          [
+            0.514,
+            0.249,
+            1.0
+          ],
+          [
+            0.52,
+            0.291,
+            1.0
+          ],
+          [
+            0.358,
+            0.276,
+            1.0
+          ],
+          [
+            0.623,
+            0.349,
+            0.607
+          ],
+          [
+            0.372,
+            0.347,
+            0.995
+          ],
+          [
+            0.571,
+            0.279,
+            0.783
+          ],
+          [
+            0.432,
+            0.266,
+            0.997
+          ],
+          [
+            0.486,
+            0.446,
+            1.0
+          ],
+          [
+            0.399,
+            0.447,
+            1.0
+          ],
+          [
+            0.457,
+            0.574,
+            0.363
+          ],
+          [
+            0.376,
+            0.586,
+            0.863
+          ],
+          [
+            0.444,
+            0.695,
+            0.502
+          ],
+          [
+            0.326,
+            0.708,
+            0.862
+          ],
+          [
+            0.418,
+            0.719,
+            0.472
+          ],
+          [
+            0.306,
+            0.728,
+            0.546
+          ],
+          [
+            0.508,
+            0.728,
+            0.667
+          ],
+          [
+            0.368,
+            0.747,
+            0.852
+          ]
+        ]
+      },
+      {
+        "t": 10.52,
+        "pts": [
+          [
+            0.528,
+            0.25,
+            1.0
+          ],
+          [
+            0.531,
+            0.301,
+            1.0
+          ],
+          [
+            0.365,
+            0.281,
+            1.0
+          ],
+          [
+            0.635,
+            0.351,
+            0.618
+          ],
+          [
+            0.388,
+            0.348,
+            0.993
+          ],
+          [
+            0.589,
+            0.28,
+            0.796
+          ],
+          [
+            0.443,
+            0.264,
+            0.997
+          ],
+          [
+            0.494,
+            0.456,
+            1.0
+          ],
+          [
+            0.405,
+            0.455,
+            1.0
+          ],
+          [
+            0.465,
+            0.589,
+            0.352
+          ],
+          [
+            0.38,
+            0.6,
+            0.851
+          ],
+          [
+            0.453,
+            0.713,
+            0.488
+          ],
+          [
+            0.333,
+            0.726,
+            0.847
+          ],
+          [
+            0.424,
+            0.737,
+            0.462
+          ],
+          [
+            0.318,
+            0.744,
+            0.526
+          ],
+          [
+            0.508,
+            0.749,
+            0.648
+          ],
+          [
+            0.378,
+            0.769,
+            0.831
+          ]
+        ]
+      },
+      {
+        "t": 10.69,
+        "pts": [
+          [
+            0.572,
+            0.259,
+            1.0
+          ],
+          [
+            0.54,
+            0.305,
+            1.0
+          ],
+          [
+            0.373,
+            0.285,
+            1.0
+          ],
+          [
+            0.631,
+            0.371,
+            0.62
+          ],
+          [
+            0.408,
+            0.373,
+            0.992
+          ],
+          [
+            0.637,
+            0.298,
+            0.807
+          ],
+          [
+            0.501,
+            0.283,
+            0.996
+          ],
+          [
+            0.501,
+            0.467,
+            1.0
+          ],
+          [
+            0.412,
+            0.467,
+            1.0
+          ],
+          [
+            0.472,
+            0.604,
+            0.34
+          ],
+          [
+            0.386,
+            0.615,
+            0.843
+          ],
+          [
+            0.46,
+            0.73,
+            0.469
+          ],
+          [
+            0.337,
+            0.744,
+            0.828
+          ],
+          [
+            0.431,
+            0.752,
+            0.447
+          ],
+          [
+            0.323,
+            0.766,
+            0.503
+          ],
+          [
+            0.521,
+            0.767,
+            0.624
+          ],
+          [
+            0.383,
+            0.788,
+            0.807
+          ]
+        ]
+      },
+      {
+        "t": 10.86,
+        "pts": [
+          [
+            0.565,
+            0.257,
+            0.999
+          ],
+          [
+            0.544,
+            0.305,
+            1.0
+          ],
+          [
+            0.38,
+            0.29,
+            1.0
+          ],
+          [
+            0.569,
+            0.389,
+            0.6
+          ],
+          [
+            0.392,
+            0.391,
+            0.992
+          ],
+          [
+            0.669,
+            0.39,
+            0.796
+          ],
+          [
+            0.551,
+            0.39,
+            0.995
+          ],
+          [
+            0.509,
+            0.471,
+            1.0
+          ],
+          [
+            0.417,
+            0.471,
+            1.0
+          ],
+          [
+            0.479,
+            0.61,
+            0.337
+          ],
+          [
+            0.392,
+            0.622,
+            0.842
+          ],
+          [
+            0.466,
+            0.742,
+            0.461
+          ],
+          [
+            0.343,
+            0.753,
+            0.818
+          ],
+          [
+            0.437,
+            0.764,
+            0.441
+          ],
+          [
+            0.33,
+            0.774,
+            0.485
+          ],
+          [
+            0.528,
+            0.779,
+            0.605
+          ],
+          [
+            0.383,
+            0.8,
+            0.786
+          ]
+        ]
+      }
+    ]
+  },
+  "debug": {
+    "observations_brutes": {
+      "reps": [
+        {
+          "rep_index": 1,
+          "bar_over_midfoot_topology_observed": "At 3.67s, the barbell is positioned vertically above the middle portion of the foot, aligned with the shoelaces, with a small gap between the bar and the shins. The camera angle is slightly diagonal, which makes it slightly harder to be absolutely precise, but the position is clearly visible.",
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity_observed": "At 3.67s, the shoulder joint is positioned horizontally in front of the barbell, so a vertical line from the shoulder would fall ahead of the bar. The side-diagonal perspective is clear enough to confirm this position.",
+          "shoulders_over_bar_gravity": "shoulder_ahead_of_bar",
+          "hip_height_via_femur_observed": "At 3.67s, the thigh bone slopes up from the knee to the pelvis, placing the hip joint significantly higher than the knee joint. The side-diagonal view provides a clear profile of the thigh angle.",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup_observed": "At 3.67s, the lower back region shows a flat, straight line, indicating a neutral posture without rounding. The clothing is relatively tight, allowing a clear view of the spine shape.",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup_observed": "At 3.67s, the upper back is straight and aligned with the rest of the spine, showing no outward curvature or rounding. The t-shirt is slightly loose but the overall spinal alignment is clearly visible.",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
+          "arms_tension_at_setup_observed": "At 3.67s and 4.18s, the arms are straight with the elbows fully extended before and during the initiation of the lift. The side view clearly shows the straightness of the arms.",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence_observed": "Between 3.67s and 4.18s, the angle of the back relative to the floor remains constant as the hips and shoulders rise at the same rate. The side-diagonal view allows a clear comparison of hip and shoulder movement.",
+          "initiation_sequence": "torso_angle_constant",
+          "bar_left_floor_observed": "The barbell is lifted off the platform starting around 4.18s and is raised to full lockout at 5.54s. The plates are clearly off the ground, leaving no doubt.",
+          "bar_left_floor": "yes",
+          "bar_path_at_knees_topology_observed": "Between 4.61s and 5.04s, the barbell travels in a straight vertical path close to the shins and knees, sliding past them without any forward deviation. The side-diagonal view clearly shows the relationship between the bar and the knees.",
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight_observed": "Throughout the pull from 4.18s to 5.04s, the bar remains in contact with the shins and thighs, showing no visible space or daylight between the bar and the legs. The side-diagonal view clearly shows the contact between the bar and the legs.",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta_observed": "From the setup at 3.67s through the pull and lockout at 5.54s, the flat geometry of the lower back remains constant without any rounding. The spine shape is clearly visible throughout the movement.",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking_observed": "The camera is positioned at a side-diagonal angle, which prevents a clear view of the knees' lateral movement relative to the feet to determine valgus tracking.",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch_observed": "The barbell rises continuously from the floor at 4.18s to lockout at 5.54s with uninterrupted upward motion. The continuous upward movement is clearly visible.",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension_observed": "At 5.54s, both the hips and knees are fully extended to approximately 180 degrees, with the lifter standing completely upright. The side-diagonal view clearly shows the straightness of the legs and hips.",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle_observed": "At 5.54s, the torso is aligned vertically, perpendicular to the floor, without any backward leaning or hyperextension. The side-diagonal view clearly shows the vertical alignment of the torso.",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta_observed": "The vertical distance between the shoulders and the ears remains constant throughout the lift, with no shrugging motion observed at lockout. The side-diagonal view clearly shows the shoulder position relative to the neck.",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact_observed": "The frames do not capture the descent of the barbell, showing only the lockout at 5.54s and the post-lift stance at 10.86s, making the descent hand contact not visible.",
+          "descent_hand_contact": "not_visible",
+          "rep_transition_velocity_observed": "Since this is a single repetition and the video ends after the lift, there is no transition to another repetition to observe.",
+          "rep_transition_velocity": "not_visible",
+          "summary": "The lifter performed a single conventional deadlift with a neutral spine and a clean lockout."
+        }
+      ],
+      "equipment": "barbell",
+      "grip": "double_overhand"
+    },
+    "catalogue": {
+      "bar_over_midfoot_topology": {
+        "id": "S04",
+        "critere": "start_position",
+        "phase": "setup",
+        "source": "a_tester",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Look vertically down from the barbell to the lifter's shoe. Which specific part of the shoe is physically located directly underneath the barbell sleeve/shaft?",
+        "etats": [
+          {
+            "cle": "bar_over_ankle_or_shin",
+            "note": 1,
+            "description": "The barbell is positioned over the ankle joint or is pressed hard against the shin, fully exposing the laces and toes in front of it."
+          },
+          {
+            "cle": "bar_over_laces",
+            "note": 3,
+            "description": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot)."
+          },
+          {
+            "cle": "bar_over_toes_or_floor",
+            "note": 2,
+            "description": "The barbell is positioned over the toe box of the shoe, or completely in front of the shoe over the empty floor."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The plates completely block the view of the shoe."
+          }
+        ]
+      },
+      "shoulders_over_bar_gravity": {
+        "id": "S02",
+        "critere": "start_position",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Drop a perfectly vertical imaginary plumb line from the lifter's shoulder joint straight down to the floor. Now, look at where this vertical line lands horizontally relative to the barbell.",
+        "etats": [
+          {
+            "cle": "shoulder_behind_bar",
+            "note": 2,
+            "description": "The vertical plumb line from the shoulder falls horizontally behind the barbell (closer to the lifter's heels). The arm creates a diagonal line reaching forward to grab the bar."
+          },
+          {
+            "cle": "shoulder_stacked_over_bar",
+            "note": 3,
+            "description": "The vertical plumb line from the shoulder strictly intersects the lifter's hand and the barbell. The arm is perfectly vertical (90 degrees to the floor)."
+          },
+          {
+            "cle": "shoulder_ahead_of_bar",
+            "note": 3,
+            "description": "The vertical plumb line from the shoulder falls horizontally in front of the barbell (closer to the lifter's toes). The arm creates a diagonal line reaching backward towards the lifter's shins to grab the bar."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The arm is obscured."
+          }
+        ]
+      },
+      "hip_height_via_femur": {
+        "id": "S01",
+        "critere": "start_position",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Focus strictly on the lifter's femur (the thigh bone connecting the knee to the hip). Analyze the physical inclination of the femur relative to the floor.",
+        "etats": [
+          {
+            "cle": "femur_angled_upward",
+            "note": 3,
+            "description": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line."
+          },
+          {
+            "cle": "femur_parallel_or_downward",
+            "note": 1,
+            "description": "The femur is exactly parallel to the floor, or the hip joint sits strictly lower than the knee joint (downward angle)."
+          },
+          {
+            "cle": "torso_parallel_to_floor",
+            "note": 2,
+            "description": "The hip joint is positioned so high that the torso is parallel to the floor, and the femurs are nearly vertical (knees locked or almost locked)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The thighs are obscured."
+          }
+        ]
+      },
+      "lumbar_at_setup": {
+        "id": "S05",
+        "critere": "structure",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Analyze the contour of the lower back when the deadlift mouvement starts",
+        "etats": [
+          {
+            "cle": "lumbar_neutral_or_concave",
+            "note": 3,
+            "description": "The lower back is extremely flat"
+          },
+          {
+            "cle": "upper_lumbar_convexity",
+            "note": 2,
+            "description": "The lower back forms a curve on in its upper half"
+          },
+          {
+            "cle": "full_lumbar_convexity",
+            "note": 1,
+            "description": "The entire lower back forms a \"C\" shape ."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The lower back contour is obscured by clothing or camera angle."
+          }
+        ]
+      },
+      "thoracic_at_setup": {
+        "id": "S10",
+        "critere": "structure",
+        "phase": "setup",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame immediately preceding the first upward movement of the lifter's body. Draw a perfectly straight imaginary line (the string) connecting the bottom of the lifter's ribcage to the base of their neck. Now, look at the physical contour of the lifter's upper back (the bow) relative to this straight line.",
+        "etats": [
+          {
+            "cle": "thoracic_neutral_or_concave",
+            "note": 3,
+            "description": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed."
+          },
+          {
+            "cle": "upper_thoracic_convexity",
+            "note": 2,
+            "description": "The physical contour crosses behind the straight line (away from the chest) to form an outward arc, BUT this curve only begins in the upper half of the segment (near the shoulder blades/base of the neck). The mid-back section directly above the ribcage remains flat."
+          },
+          {
+            "cle": "full_thoracic_convexity",
+            "note": 1,
+            "description": "The physical contour crosses behind the straight line to form an outward arc, AND this curve begins immediately from the bottom of the ribcage. The entire mid-to-upper back forms a continuous \"C\" shape, indicating a complete loss of structural extension."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The camera angle or loose clothing prevents a clear view of the upper back's contour."
+          }
+        ]
+      },
+      "arms_tension_at_setup": {
+        "id": "S06",
+        "critere": "slack_and_brace",
+        "phase": "setup",
+        "source": "a_tester",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Analyze the sequence leading up to the exact frame the plates leave the floor. Look strictly at the angle formed by the shoulder, elbow, and wrist joints. Does this geometric angle change exactly as the weight leaves the floor?",
+        "etats": [
+          {
+            "cle": "elbow_locked_prior",
+            "note": 3,
+            "description": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff."
+          },
+          {
+            "cle": "elbow_angle_changes",
+            "note": 1,
+            "description": "The elbow angle is less than 180 degrees (bent) "
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The arms are obscured."
+          }
+        ]
+      },
+      "initiation_sequence": {
+        "id": "L01",
+        "critere": "leg_drive",
+        "phase": "decollage",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Analyze the sequence from the exact frame the lifter initiates physical effort (T0) to the exact frame the plates break physical contact with the floor (T1). Focus ONLY on the angle of the torso relative to the floor. Compare this angle at T0 and at T1.",
+        "etats": [
+          {
+            "cle": "torso_angle_decreases",
+            "note": 1,
+            "description": "The torso angle becomes visibly smaller (more horizontal to the floor) between T0 and T1. The hips rise at a faster rate than the shoulders before the bar leaves the floor."
+          },
+          {
+            "cle": "torso_angle_constant",
+            "note": 3,
+            "description": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar."
+          },
+          {
+            "cle": "torso_angle_increases",
+            "note": 2,
+            "description": "The torso angle becomes visibly larger (more vertical to the floor) between T0 and T1. The shoulders rise at a faster rate than the hips before the bar leaves the floor."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Lighting or framerate prevents a clear comparison."
+          }
+        ]
+      },
+      "bar_left_floor": {
+        "id": "L04",
+        "critere": null,
+        "phase": "decollage",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Did the bar actually leave the floor in this segment?",
+        "etats": [
+          {
+            "cle": "yes",
+            "note": null,
+            "description": "The bar left the floor and was lifted: this is a real repetition."
+          },
+          {
+            "cle": "no",
+            "note": null,
+            "description": "The bar stayed on the floor, or was already down and the athlete simply stood back up: this is NOT a repetition."
+          },
+          {
+            "cle": "incomplete",
+            "note": null,
+            "description": "The bar left the floor but came back down before lockout: a real attempt that was not completed."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+          }
+        ]
+      },
+      "bar_path_at_knees_topology": {
+        "id": "P02",
+        "critere": "bar_path",
+        "phase": "tiree",
+        "source": "a_tester",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Play the video from liftoff until the barbell passes the lifter's knees. Look strictly at the physical distance between the barbell shaft and the kneecaps. Does the barbell physically loop forward to navigate around the knees?",
+        "etats": [
+          {
+            "cle": "bar_slides_past_knees",
+            "note": 3,
+            "description": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation."
+          },
+          {
+            "cle": "bar_deviates_forward",
+            "note": 1,
+            "description": "A visual horizontal gap opens up between the trajectory of the bar and the shins/knees because the bar moves forward (away from the lifter) to avoid hitting the kneecaps."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The knees or the bar are obscured."
+          }
+        ]
+      },
+      "bar_leg_daylight": {
+        "id": "P03",
+        "critere": "bar_path",
+        "phase": "tiree",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Analyze the video from the moment the plates leave the floor until the barbell reaches the hips. Look strictly at the physical space (daylight) between the barbell and the lifter's legs, and project a vertical line from the barbell to the floor.",
+        "etats": [
+          {
+            "cle": "zero_daylight",
+            "note": 3,
+            "description": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact."
+          },
+          {
+            "cle": "daylight_over_shoe",
+            "note": 2,
+            "description": "Daylight appears between the bar and the legs, BUT a vertical line dropped from the barbell still lands inside the footprint of the lifter's shoe."
+          },
+          {
+            "cle": "daylight_beyond_shoe",
+            "note": 1,
+            "description": "Daylight appears between the bar and the legs, AND a vertical line dropped from the barbell lands strictly in front of the lifter's shoe (on the empty floor)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Plates or angle obscure the gap."
+          }
+        ]
+      },
+      "lumbar_geometry_delta": {
+        "id": "P04",
+        "critere": "structure",
+        "phase": "tiree",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Compare the exact frame just before liftoff (T0) to the exact frame where the barbell reaches the kneecaps (T1). Look strictly at the lumbar spine segment (pelvis to bottom ribs). Does the geometric shape of this segment change between T0 and T1?",
+        "etats": [
+          {
+            "cle": "lumbar_geometry_constant",
+            "note": null,
+            "description": "The exact shape of the lumbar segment at T0 remains strictly identical at T1."
+          },
+          {
+            "cle": "lumbar_becomes_convex",
+            "note": 1,
+            "description": "The lumbar segment adds flexion between T0 and T1, creating a new or more pronounced outward curve (rounding under load)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The lower back is obscured."
+          }
+        ]
+      },
+      "knee_valgus_tracking": {
+        "id": "P05",
+        "critere": "structure",
+        "phase": "tiree",
+        "source": "llm",
+        "vue": "front",
+        "portee": "rep",
+        "question": "Watch the pull from a front or 3/4 angle. Draw a strict vertical line upward from the inner edge of the lifter's shoe (the side closest to the other foot). Track the center of the kneecaps (patellas) during the ascent relative to this line.",
+        "etats": [
+          {
+            "cle": "knees_outside_line",
+            "note": 3,
+            "description": "The center of both kneecaps remains strictly outside (wider than) the vertical line from the inner edge of the shoe."
+          },
+          {
+            "cle": "knees_touch_line",
+            "note": 2,
+            "description": "The center of one or both kneecaps moves inward and touches the vertical line, but does not cross it."
+          },
+          {
+            "cle": "knees_cross_inside_line",
+            "note": 1,
+            "description": "The center of one or both kneecaps physically crosses inside (narrower than) the vertical line from the inner edge of the shoe."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Pure side angle makes this tracking impossible."
+          }
+        ]
+      },
+      "vertical_velocity_hitch": {
+        "id": "P08",
+        "critere": "finish_position",
+        "phase": "tiree",
+        "source": "a_tester",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Track the upward movement of the barbell on the Y-axis from the floor to the hips. Does the vertical upward velocity ever drop to zero or become negative before the lockout?",
+        "etats": [
+          {
+            "cle": "continuous_positive_velocity",
+            "note": 3,
+            "description": "The barbell's Y-axis height strictly increases on every single frame until lockout."
+          },
+          {
+            "cle": "velocity_hits_zero_or_negative",
+            "note": 1,
+            "description": "The barbell's Y-axis height stops increasing (pauses) or decreases (drops slightly) while resting on the lifter's thighs (hitching)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Framerate prevents tracking the bar's continuous height."
+          }
+        ]
+      },
+      "lockout_extension": {
+        "id": "K07",
+        "critere": "finish_position",
+        "phase": "lockout",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame of maximum upward completion (the lockout). Look strictly at the angle of the knee joint and the hip joint.",
+        "etats": [
+          {
+            "cle": "full_180_extension",
+            "note": 3,
+            "description": "Both the knee joint and the hip joint form a strict 180-degree straight line."
+          },
+          {
+            "cle": "hip_angle_under_180",
+            "note": 2,
+            "description": "The knee joint is at 180 degrees, but the hip joint angle remains visibly less than 180 degrees (torso leaning forward)."
+          },
+          {
+            "cle": "knee_angle_under_180",
+            "note": 1,
+            "description": "The knee joint angle remains visibly less than 180 degrees (knees bent)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The joints are obscured."
+          }
+        ]
+      },
+      "sagittal_torso_angle": {
+        "id": "K03",
+        "critere": "finish_position",
+        "phase": "lockout",
+        "source": "llm",
+        "vue": "side",
+        "portee": "rep",
+        "question": "Pause the video at the exact frame of maximum upward completion (the lockout). Analyze the angle of the lifter's torso relative to the floor in 3D space.",
+        "etats": [
+          {
+            "cle": "torso_perpendicular",
+            "note": 3,
+            "description": "The torso is perfectly perpendicular to the floor (90 degrees)."
+          },
+          {
+            "cle": "torso_obtuse_angle",
+            "note": 1,
+            "description": "The torso forms an obtuse angle relative to the floor in front of the lifter. The lifter is leaning backward away from the barbell (lumbar hyperextension)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The torso is obscured."
+          }
+        ]
+      },
+      "shoulder_elevation_delta": {
+        "id": "K04",
+        "critere": "finish_position",
+        "phase": "lockout",
+        "source": "a_tester",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Compare the vertical physical distance between the lifter's shoulder joint and their ear lobe at two moments: when the barbell is at the knees (T1), and at the final lockout (T2).",
+        "etats": [
+          {
+            "cle": "distance_remains_constant",
+            "note": 3,
+            "description": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2."
+          },
+          {
+            "cle": "distance_decreases",
+            "note": 1,
+            "description": "The vertical distance between the shoulder and the ear visibly decreases at T2 (the shoulders move closer to the ears/shrugging)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The neck/shoulder area is obscured."
+          }
+        ]
+      },
+      "descent_hand_contact": {
+        "id": "E02",
+        "critere": "reset",
+        "phase": "descente",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Analyze the sequence from the final lockout until the plates physically touch the floor again. Look strictly at the lifter's hands.",
+        "etats": [
+          {
+            "cle": "hands_maintain_contact",
+            "note": 3,
+            "description": "The lifter's fingers remain wrapped around or in physical contact with the barbell until the exact frame the plates hit the floor."
+          },
+          {
+            "cle": "hands_break_contact",
+            "note": 1,
+            "description": "Visual space appears between the lifter's hands and the barbell BEFORE the plates touch the floor (the bar is dropped)."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The hands leave the video frame during the descent."
+          }
+        ]
+      },
+      "rep_transition_velocity": {
+        "id": "E03",
+        "critere": "reset",
+        "phase": "descente",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "rep",
+        "question": "Observe the exact moment the barbell touches the floor between two repetitions. Track the barbell's movement on the Y-axis. How long does the Y-axis velocity remain exactly at zero?",
+        "etats": [
+          {
+            "cle": "zero_velocity_maintained",
+            "note": 3,
+            "description": "The barbell's Y-axis velocity reaches zero and remains exactly at zero for at least 0.5 seconds before the next pull begins (dead stop)."
+          },
+          {
+            "cle": "immediate_positive_velocity",
+            "note": 3,
+            "description": "The barbell touches the floor and its Y-axis velocity becomes positive again instantly (under 0.5 seconds), but the plates do not physically bounce off the floor (touch and go)."
+          },
+          {
+            "cle": "impact_rebound",
+            "note": 1,
+            "description": "The plates strike the floor and visibly rebound, causing the bar to bounce upward using momentum."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "The video ends, this is the final repetition, or the floor contact is cut off."
+          }
+        ]
+      },
+      "equipment": {
+        "id": "C04",
+        "critere": null,
+        "phase": "contexte",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "set",
+        "question": "What is being lifted, and with what equipment?",
+        "etats": [
+          {
+            "cle": "barbell",
+            "note": null,
+            "description": "A standard barbell with plates on the floor."
+          },
+          {
+            "cle": "trap_bar",
+            "note": null,
+            "description": "A trap bar / hex bar: the lifter stands inside the frame."
+          },
+          {
+            "cle": "other",
+            "note": null,
+            "description": "Something else: dumbbells, Smith machine, blocks, deficit, or a variant that is not a standard floor deadlift."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+          }
+        ]
+      },
+      "grip": {
+        "id": "C05",
+        "critere": null,
+        "phase": "contexte",
+        "source": "llm",
+        "vue": "toute",
+        "portee": "set",
+        "question": "How does the lifter grip the bar?",
+        "etats": [
+          {
+            "cle": "double_overhand",
+            "note": null,
+            "description": "Both palms facing the lifter (double overhand)."
+          },
+          {
+            "cle": "mixed",
+            "note": null,
+            "description": "One palm forward, one back (mixed grip)."
+          },
+          {
+            "cle": "hook",
+            "note": null,
+            "description": "Hook grip: the thumb is trapped under the fingers."
+          },
+          {
+            "cle": "straps",
+            "note": null,
+            "description": "Lifting straps are used."
+          },
+          {
+            "cle": "not_visible",
+            "note": null,
+            "description": "Not assessable on this rep: the camera angle, framing, lighting or video quality makes it impossible to see. Never use this for something you saw and disliked."
+          }
+        ]
+      }
+    },
+    "reps": [
+      {
+        "index": 1,
+        "candidat": 1,
+        "debut_s": 3.41,
+        "fin_s": 10.89,
+        "statut": "complete",
+        "etats": {
+          "bar_over_midfoot_topology": "bar_over_laces",
+          "shoulders_over_bar_gravity": "shoulder_ahead_of_bar",
+          "hip_height_via_femur": "femur_angled_upward",
+          "lumbar_at_setup": "lumbar_neutral_or_concave",
+          "thoracic_at_setup": "thoracic_neutral_or_concave",
+          "arms_tension_at_setup": "elbow_locked_prior",
+          "initiation_sequence": "torso_angle_constant",
+          "bar_left_floor": "yes",
+          "bar_path_at_knees_topology": "bar_slides_past_knees",
+          "bar_leg_daylight": "zero_daylight",
+          "lumbar_geometry_delta": "lumbar_geometry_constant",
+          "knee_valgus_tracking": "not_visible",
+          "vertical_velocity_hitch": "continuous_positive_velocity",
+          "lockout_extension": "full_180_extension",
+          "sagittal_torso_angle": "torso_perpendicular",
+          "shoulder_elevation_delta": "distance_remains_constant",
+          "descent_hand_contact": "not_visible",
+          "rep_transition_velocity": "not_visible"
+        },
+        "notes": {
+          "start_position": 3,
+          "slack_and_brace": 3,
+          "leg_drive": 3,
+          "bar_path": 3,
+          "finish_position": 3,
+          "reset": null,
+          "structure": 3
+        },
+        "indicateurs": [
+          {
+            "nom": "bar_over_midfoot_topology",
+            "etat": "bar_over_laces",
+            "fait": "The barbell is positioned directly over the tongue/laces of the shoe (the midfoot).",
+            "note": 3,
+            "observation": "At 3.67s, the barbell is positioned vertically above the middle portion of the foot, aligned with the shoelaces, with a small gap between the bar and the shins. The camera angle is slightly diagonal, which makes it slightly harder to be absolutely precise, but the position is clearly visible.",
+            "reponse_brute": "bar_over_laces"
+          },
+          {
+            "nom": "shoulders_over_bar_gravity",
+            "etat": "shoulder_ahead_of_bar",
+            "fait": "The vertical plumb line from the shoulder falls horizontally in front of the barbell (closer to the lifter's toes). The arm creates a diagonal line reaching backward towards the lifter's shins to grab the bar.",
+            "note": 3,
+            "observation": "At 3.67s, the shoulder joint is positioned horizontally in front of the barbell, so a vertical line from the shoulder would fall ahead of the bar. The side-diagonal perspective is clear enough to confirm this position.",
+            "reponse_brute": "shoulder_ahead_of_bar"
+          },
+          {
+            "nom": "hip_height_via_femur",
+            "etat": "femur_angled_upward",
+            "fait": "The femur creates a clear upward diagonal line from the knee to the hip, AND the torso also creates a diagonal line.",
+            "note": 3,
+            "observation": "At 3.67s, the thigh bone slopes up from the knee to the pelvis, placing the hip joint significantly higher than the knee joint. The side-diagonal view provides a clear profile of the thigh angle.",
+            "reponse_brute": "femur_angled_upward"
+          },
+          {
+            "nom": "lumbar_at_setup",
+            "etat": "lumbar_neutral_or_concave",
+            "fait": "The lower back is extremely flat",
+            "note": 3,
+            "observation": "At 3.67s, the lower back region shows a flat, straight line, indicating a neutral posture without rounding. The clothing is relatively tight, allowing a clear view of the spine shape.",
+            "reponse_brute": "lumbar_neutral_or_concave"
+          },
+          {
+            "nom": "thoracic_at_setup",
+            "etat": "thoracic_neutral_or_concave",
+            "fait": "The physical contour of the upper back lies exactly flat against this imaginary straight line, or dips inward (creating a valley between the shoulder blades). The straight line is not crossed.",
+            "note": 3,
+            "observation": "At 3.67s, the upper back is straight and aligned with the rest of the spine, showing no outward curvature or rounding. The t-shirt is slightly loose but the overall spinal alignment is clearly visible.",
+            "reponse_brute": "thoracic_neutral_or_concave"
+          },
+          {
+            "nom": "arms_tension_at_setup",
+            "etat": "elbow_locked_prior",
+            "fait": "The arm forms a strict 180-degree straight line BEFORE the plates leave the floor, and this exact 180-degree angle remains static during liftoff.",
+            "note": 3,
+            "observation": "At 3.67s and 4.18s, the arms are straight with the elbows fully extended before and during the initiation of the lift. The side view clearly shows the straightness of the arms.",
+            "reponse_brute": "elbow_locked_prior"
+          },
+          {
+            "nom": "initiation_sequence",
+            "etat": "torso_angle_constant",
+            "fait": "The torso angle remains strictly identical between T0 and T1. The hips and shoulders rise at the exact same rate to lift the bar.",
+            "note": 3,
+            "observation": "Between 3.67s and 4.18s, the angle of the back relative to the floor remains constant as the hips and shoulders rise at the same rate. The side-diagonal view allows a clear comparison of hip and shoulder movement.",
+            "reponse_brute": "torso_angle_constant"
+          },
+          {
+            "nom": "bar_left_floor",
+            "etat": "yes",
+            "fait": "The bar left the floor and was lifted: this is a real repetition.",
+            "note": null,
+            "observation": "The barbell is lifted off the platform starting around 4.18s and is raised to full lockout at 5.54s. The plates are clearly off the ground, leaving no doubt.",
+            "reponse_brute": "yes"
+          },
+          {
+            "nom": "bar_path_at_knees_topology",
+            "etat": "bar_slides_past_knees",
+            "fait": "The barbell maintains its trajectory without creating any forward visual gap. It clears the knees smoothly without horizontal forward deviation.",
+            "note": 3,
+            "observation": "Between 4.61s and 5.04s, the barbell travels in a straight vertical path close to the shins and knees, sliding past them without any forward deviation. The side-diagonal view clearly shows the relationship between the bar and the knees.",
+            "reponse_brute": "bar_slides_past_knees"
+          },
+          {
+            "nom": "bar_leg_daylight",
+            "etat": "zero_daylight",
+            "fait": "There is absolutely zero visual daylight between the barbell and the lifter's legs at any point. They maintain physical contact.",
+            "note": 3,
+            "observation": "Throughout the pull from 4.18s to 5.04s, the bar remains in contact with the shins and thighs, showing no visible space or daylight between the bar and the legs. The side-diagonal view clearly shows the contact between the bar and the legs.",
+            "reponse_brute": "zero_daylight"
+          },
+          {
+            "nom": "lumbar_geometry_delta",
+            "etat": "lumbar_geometry_constant",
+            "fait": "The exact shape of the lumbar segment at T0 remains strictly identical at T1.",
+            "note": null,
+            "observation": "From the setup at 3.67s through the pull and lockout at 5.54s, the flat geometry of the lower back remains constant without any rounding. The spine shape is clearly visible throughout the movement.",
+            "reponse_brute": "lumbar_geometry_constant"
+          },
+          {
+            "nom": "knee_valgus_tracking",
+            "etat": "not_visible",
+            "fait": "Pure side angle makes this tracking impossible.",
+            "note": null,
+            "observation": "The camera is positioned at a side-diagonal angle, which prevents a clear view of the knees' lateral movement relative to the feet to determine valgus tracking.",
+            "reponse_brute": "not_visible"
+          },
+          {
+            "nom": "vertical_velocity_hitch",
+            "etat": "continuous_positive_velocity",
+            "fait": "The barbell's Y-axis height strictly increases on every single frame until lockout.",
+            "note": 3,
+            "observation": "The barbell rises continuously from the floor at 4.18s to lockout at 5.54s with uninterrupted upward motion. The continuous upward movement is clearly visible.",
+            "reponse_brute": "continuous_positive_velocity"
+          },
+          {
+            "nom": "lockout_extension",
+            "etat": "full_180_extension",
+            "fait": "Both the knee joint and the hip joint form a strict 180-degree straight line.",
+            "note": 3,
+            "observation": "At 5.54s, both the hips and knees are fully extended to approximately 180 degrees, with the lifter standing completely upright. The side-diagonal view clearly shows the straightness of the legs and hips.",
+            "reponse_brute": "full_180_extension"
+          },
+          {
+            "nom": "sagittal_torso_angle",
+            "etat": "torso_perpendicular",
+            "fait": "The torso is perfectly perpendicular to the floor (90 degrees).",
+            "note": 3,
+            "observation": "At 5.54s, the torso is aligned vertically, perpendicular to the floor, without any backward leaning or hyperextension. The side-diagonal view clearly shows the vertical alignment of the torso.",
+            "reponse_brute": "torso_perpendicular"
+          },
+          {
+            "nom": "shoulder_elevation_delta",
+            "etat": "distance_remains_constant",
+            "fait": "The vertical distance between the shoulder and the ear is strictly identical at T1 and T2.",
+            "note": 3,
+            "observation": "The vertical distance between the shoulders and the ears remains constant throughout the lift, with no shrugging motion observed at lockout. The side-diagonal view clearly shows the shoulder position relative to the neck.",
+            "reponse_brute": "distance_remains_constant"
+          },
+          {
+            "nom": "descent_hand_contact",
+            "etat": "not_visible",
+            "fait": "The hands leave the video frame during the descent.",
+            "note": null,
+            "observation": "The frames do not capture the descent of the barbell, showing only the lockout at 5.54s and the post-lift stance at 10.86s, making the descent hand contact not visible.",
+            "reponse_brute": "not_visible"
+          },
+          {
+            "nom": "rep_transition_velocity",
+            "etat": "not_visible",
+            "fait": "The video ends, this is the final repetition, or the floor contact is cut off.",
+            "note": null,
+            "observation": "Since this is a single repetition and the video ends after the lift, there is no transition to another repetition to observe.",
+            "reponse_brute": "not_visible"
+          }
+        ],
+        "summary": "The lifter performed a single conventional deadlift with a neutral spine and a clean lockout.",
+        "hors_catalogue": {}
+      }
+    ],
+    "ecartes": [],
+    "contexte": [
+      {
+        "nom": "equipment",
+        "etat": "barbell",
+        "fait": "A standard barbell with plates on the floor.",
+        "note": null,
+        "observation": null,
+        "reponse_brute": "barbell"
+      },
+      {
+        "nom": "grip",
+        "etat": "double_overhand",
+        "fait": "Both palms facing the lifter (double overhand).",
+        "note": null,
+        "observation": null,
+        "reponse_brute": "double_overhand"
+      }
+    ],
+    "appel": {
+      "modele": "gemini-3.5-flash",
+      "repli": false,
+      "media_resolution": "HIGH",
+      "thinking_level": "HIGH",
+      "temperature": 0.0,
+      "support": "6 images cles annotees (squelette + recadrage + bandeau rep/temps/phase)",
+      "fps": null,
+      "nb_images": 6,
+      "segments": [
+        {
+          "debut_s": 3.41,
+          "fin_s": 10.89
+        }
+      ],
+      "prompt": "You are an elite powerlifting coach watching a CONVENTIONAL DEADLIFT.\n\nYou are given 1 sequences of frames, in chronological order. Each sequence is ONE\ncandidate repetition, cut by a pose detector that sees the body but NOT the bar. The\nframes are a handful of key instants chosen by the detector (end of setup, three\npoints of the pull, lockout, end); each carries the detector's skeleton overlay\nand a banner with the repetition number, the timestamp and the detector's phase guess.\n\nFill `reps` with exactly 1 entries, one per sequence, in the same order.\n\nFor every entry, your job is to OBSERVE, never to grade. Each field offers a closed list\nof things that can be seen: pick the one that matches this sequence. There is no score to\ngive and no praise to write.\n\nThe one judgement only you can make is `bar_left_floor`. The detector cannot tell a\nrepetition from an athlete standing up after putting the bar down, because the body does\nexactly the same thing. Look at the bar and the plates:\n  - 'yes'        : the bar left the floor and was lifted.\n  - 'no'         : the bar never left the floor, or was already down. Not a repetition.\n  - 'incomplete' : the bar left the floor but came back down before lockout.\nReturn the entry either way, with every other field filled as best you can.\n\nWhen something genuinely cannot be seen, use 'not_visible' for that field alone. It means\nyou could not SEE it, never that you saw it and disliked it, and it must not spread to\nthe fields you could see.",
+      "usage": {
+        "prompt_tokens": 6850,
+        "thoughts_tokens": 7365,
+        "candidates_tokens": 1440,
+        "total_tokens": 15655,
+        "input_usd": 0.0103,
+        "output_usd": 0.0792,
+        "total_usd": 0.0895
+      },
+      "duree_appel_s": 31.2
+    }
+  },
+  "modele": "gemini-3.5-flash"
+}

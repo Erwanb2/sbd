@@ -1,0 +1,61 @@
+{
+  "modele": "gemini-3.5-flash",
+  "prompt": "You are a powerlifting specialist and a biomechanics researcher. You are given two\ndeadlift videos, labelled A and B.\n\nIn which of these two lifts do the hips rise faster than the shoulders at liftoff?\nStart your answer with exactly one line: \"Answer: A\" or \"Answer: B\". Then describe the\ndifference you see between the two lifts.",
+  "fps": 24.0,
+  "appels": [
+    {
+      "passe": 1,
+      "A": "tibo_sans_coche.mp4",
+      "B": "pr_160.mp4",
+      "verdict": "B",
+      "designe": "pr_160.mp4",
+      "texte": "Answer: B\n\nIn Video B, as the lifter initiates the pull (around 00:05.00), their hips shoot up rapidly before the shoulders and chest rise. This causes the torso to become more horizontal at liftoff, which shifts a significant portion of the load onto the lower back and indicates a loss of leg drive and tightness.\n\nIn contrast, the lifter in Video A maintains a very stable torso angle during liftoff (around 00:01.70). Their hips and shoulders rise at the same rate, keeping the spine in a strong position and allowing for an efficient transfer of force from the legs to the barbell.",
+      "pensees": "**Analysis of Deadlift Video Liftoff Mechanics**\n\nOkay, so the question is to identify the deadlift video where the hips rise faster than the shoulders at the initial liftoff. Right, let's break this down systematically.\n\nFirst, I need to look at Video A. I see the liftoff beginning around 00:01.625. Now, watch those hip and shoulder movements. Specifically, at 00:01.708, the bar breaks contact with the floor. The key here is that as the bar moves, the hips and shoulders rise *together*. The torso angle appears to remain pretty constant during this initial phase. I even re-watched this a few times to confirm. The setup is clean, around 00:01.208, the pull starts at 00:01.625, and then liftoff. In A, there's no visible deviation in torso angle as the bar leaves the ground, good.\n\nNow, let's move on to Video B. The liftoff here starts around 00:05.000. Immediately, I'm watching for that hip-shoulder relationship. I see the lifter begins the pull. At 00:05.042 - 00:05.083, that's when it becomes evident. The hips *shoot* up significantly before the shoulders or the bar show much vertical movement. Essentially, at 00:05.042, the hips begin to rise, and by 00:05.083, the hips have risen quite a bit, while the shoulders and the bar remain relatively static. This is the telltale sign. This is the \"hips shooting up\" or the \"stripper deadlift\" problem, where the hips lose the optimal torso angle, which puts more load on the lower back. I went back and re-examined this sequence. The setup is there at 00:04.000 - 00:04.500, the pull initiating at 00:05.000, and it's clear as day that the hips rise way faster than the shoulders during the initial phase.\n\nTo be absolutely sure, I went back to Video A. Setup: 00:01.208. Pull start: 00:01.625. Bar moves at 00:01.708. The hips and shoulders rise together. The torso angle is remarkably stable.\n\nTherefore, the conclusion is clear. In Video B, the hips rise *faster* than the shoulders at the point of liftoff. This is an immediate red flag that needs to be addressed. Video A is the model, and Video B, not so much.\n\n\n",
+      "usage": {
+        "prompt_tokens": 100939,
+        "thoughts_tokens": 710,
+        "candidates_tokens": 136,
+        "total_tokens": 101785,
+        "input_usd": 0.1514,
+        "output_usd": 0.0076,
+        "total_usd": 0.159
+      }
+    },
+    {
+      "passe": 1,
+      "A": "pr_160.mp4",
+      "B": "tibo_sans_coche.mp4",
+      "verdict": "B",
+      "designe": "tibo_sans_coche.mp4",
+      "texte": "Answer: B\n\nIn Video B, as the lifter initiates the pull (around 00:01.50), his hips shoot up rapidly before the barbell leaves the floor. This causes his torso to become nearly parallel to the ground, shifting a disproportionate amount of the load onto his lower back. \n\nIn contrast, Video A shows a much more biomechanically sound liftoff (starting around 00:05.00). The lifter's hips and shoulders rise at the exact same rate, allowing him to maintain a constant torso angle and keep the bar close to his body as it leaves the floor.",
+      "pensees": "**My Analysis of the Deadlift Videos**\n\nOkay, so the question is, in which video do the hips rise faster than the shoulders at the liftoff? Time to break this down methodically.\n\nFirst, I examined Video A. I noted the liftoff begins around the 4-second mark. Observing the lift, the lifter gets set, pulls the slack, and starts the lift at the 5-second mark. The bar leaves the floor, and, importantly, the hips and shoulders rise *together* at a consistent rate. The torso angle remains pretty constant until the bar clears the knees. This is a clean lift mechanically – no hip shoot.\n\nThen I moved to Video B. The liftoff here seems to start around the 1.5-second mark. Right away, around the 1.6-second mark, I see it. The lifter’s hips *shoot* up significantly before the shoulders or the bar show much movement. Between 1.5 and 2.5 seconds, the hips rise dramatically, creating a much more horizontal torso angle – a classic \"stripper deadlift\" or hip shoot. To confirm, I re-watched closely, noting that the initial hip position is much lower. By the 2-second mark, the hips have risen substantially, but the bar has barely moved, and the shoulders haven’t risen as much, making the back nearly parallel to the floor. Yup, clear as day – Video B shows the hips rising much faster than the shoulders at the liftoff. This will undoubtedly impact the overall efficiency of the lift.\n\nBased on this analysis, I've got my answer.\n\n\n",
+      "usage": {
+        "prompt_tokens": 100939,
+        "thoughts_tokens": 563,
+        "candidates_tokens": 131,
+        "total_tokens": 101633,
+        "input_usd": 0.1514,
+        "output_usd": 0.0062,
+        "total_usd": 0.1577
+      }
+    },
+    {
+      "passe": 2,
+      "A": "tibo_sans_coche.mp4",
+      "B": "pr_160.mp4",
+      "verdict": "B",
+      "designe": "pr_160.mp4",
+      "texte": "Answer: B\n\nIn **Video B**, as the lifter initiates the pull (around the 5.0-second mark), their hips shoot up rapidly before the barbell significantly leaves the floor. This causes the torso angle to become much more horizontal, meaning the hips rise faster than the shoulders. This is a common biomechanical error that shifts a disproportionate amount of the load onto the lower back.\n\nIn **Video A**, the lifter demonstrates proper biomechanics. At liftoff (around the 1.7-second mark), the hips and shoulders rise at the exact same rate, allowing the lifter to maintain a constant torso angle and keep the chest up until the bar passes the knees.",
+      "pensees": "**Analyzing the Deadlift Videos: A Biomechanical Breakdown**\n\nOkay, so the question is clear: which video shows the hips rising faster than the shoulders at the start of the deadlift? My expert eye tells me it's a classic analysis problem, and I'm ready to dive in.\n\nFirst, I examined Video A. I noted the liftoff point, looking for any separation between hip and shoulder movement. At the start of the lift, around 00:01.625 - 00:01.708, the bar leaves the floor and, at closer inspection (00:01.667 and 00:01.750) it's crystal clear: the hips and shoulders rise together. The torso angle stays relatively constant – a good sign of proper technique. There's no \"hip shooting\" here, a very clean lift with good positioning.\n\nNow, let's switch gears and check Video B. Liftoff is around 00:05.000. Right away (between 00:05.042 - 00:05.083), it's evident: the hips *explode* upwards, and the bar barely budges. The torso angle dramatically changes, becoming much more horizontal. This is textbook \"hips shooting up\" – the exact error we're looking for. The lifter is forced into a \"good morning\" style position to eventually get the weight up. This is a classic indication that the hips are rising faster than the shoulders at liftoff. Double checking, I confirm the same at 00:05.000-00:05.083.\n\nThe analysis is complete. Video A shows a synchronized lift, whereas Video B shows an obvious error in which the hips rise faster than the shoulders. The answer is B.\n\n\n",
+      "usage": {
+        "prompt_tokens": 100939,
+        "thoughts_tokens": 737,
+        "candidates_tokens": 142,
+        "total_tokens": 101818,
+        "input_usd": 0.1514,
+        "output_usd": 0.0079,
+        "total_usd": 0.1593
+      }
+    }
+  ]
+}
